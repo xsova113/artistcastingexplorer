@@ -11,6 +11,7 @@ import Logo from "./Logo";
 import { Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 interface MobileHeaderProps {
   routes: {
@@ -21,9 +22,10 @@ interface MobileHeaderProps {
 
 const MobileHeader = ({ routes }: MobileHeaderProps) => {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger className="lg:hidden">
         <Menu />
       </SheetTrigger>
@@ -40,7 +42,9 @@ const MobileHeader = ({ routes }: MobileHeaderProps) => {
                 pathname === route.pathname && "bg-slate-100 rounded-md"
               )}
             >
-              <Link href={route.pathname}>{route.name}</Link>
+              <Link href={route.pathname} onClick={() => setIsOpen(false)}>
+                {route.name}
+              </Link>
             </div>
           ))}
         </nav>

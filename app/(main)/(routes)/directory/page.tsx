@@ -1,12 +1,12 @@
 import HeroSection from "@/components/HeroSection";
 import DirectoryCard from "./components/DirectoryCard";
 import SeenOn from "./components/SeenOn";
-import TalentCard from "./components/TalentCard";
 import TalentSection from "./components/TalentSection";
+import SubscribePremium from "./components/SubscribePremium";
 
 const DirectoryPage = () => {
   return (
-    <div className="mb-24">
+    <div className="mb-24 flex flex-col">
       <HeroSection
         image={
           "https://castingjapanese.ca/wp-content/uploads/2023/09/home-new-bg-free-img.jpg"
@@ -15,7 +15,7 @@ const DirectoryPage = () => {
         description="Your Ultimate Resource for Hiring Success!"
       />
       <SeenOn />
-      <div className="flex flex-col mb-24 md:flex-row gap-x-4 gap-y-4 justify-center items-center max-w-screen-xl mx-8">
+      <div className="flex flex-col self-center mb-24 md:flex-row gap-x-4 gap-y-4 max-w-screen-xl mx-8">
         <DirectoryCard
           image={
             "https://castingjapanese.ca/wp-content/uploads/2023/09/women-fashion-free-img.jpg"
@@ -45,6 +45,7 @@ const DirectoryPage = () => {
         />
       </div>
       <TalentSection />
+      <SubscribePremium />
     </div>
   );
 };

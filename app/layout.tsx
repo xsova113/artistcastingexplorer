@@ -4,12 +4,13 @@ import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import RParallaxProvider from "@/lib/providers/RParallaxProvider";
+import RParallaxProvider from "@/providers/RParallaxProvider";
 import { Toaster } from "@/components/ui/toaster";
+import StoreProvider from "@/providers/StoreProvider";
 
 const font = Raleway({
   subsets: ["latin"],
-  weight: ["100", "400", "600", "700", "900"],
+  weight: ["100", "400", "500", "600", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -38,12 +39,14 @@ export default function RootLayout({
           />
         </head>
         <body className={font.className}>
-          <RParallaxProvider>
-            <Header />
-            {children}
-            <Footer />
-            <Toaster />
-          </RParallaxProvider>
+          <StoreProvider>
+            <RParallaxProvider>
+              <Header />
+              {children}
+              <Footer />
+              <Toaster />
+            </RParallaxProvider>
+          </StoreProvider>
         </body>
       </html>
     </ClerkProvider>

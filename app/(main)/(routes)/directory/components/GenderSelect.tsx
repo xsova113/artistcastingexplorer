@@ -26,7 +26,7 @@ export function GenderSelect({ form }: GenderSelectProps) {
       control={form.control}
       name="gender"
       render={({ field }) => (
-        <FormItem className="p-2 bg-secondary-foreground/10 rounded-md w-52">
+        <FormItem className="p-2 bg-secondary rounded-md w-52">
           <FormLabel className="font-semibold">Gender</FormLabel>
           <Select onValueChange={field.onChange}>
             <FormControl>

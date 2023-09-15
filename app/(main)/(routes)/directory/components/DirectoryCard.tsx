@@ -20,7 +20,7 @@ const DirectoryCard = ({ description, image, title }: DirectoryCardProps) => {
   return (
     <Card
       className={
-        "hover:p-2 transition-all drop-shadow-lg w-[350px] h-[400px] relative bg-transparent border-none flex flex-col justify-end"
+        "hover:p-2 transition-all drop-shadow-lg w-full h-[400px] relative bg-transparent border-none flex flex-col justify-end"
       }
     >
       <div className="absolute w-full h-[400px] -z-10">

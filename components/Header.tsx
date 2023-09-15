@@ -6,6 +6,7 @@ import MobileHeader from "./MobileHeader";
 import Logo from "./Logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { UserButton } from "@clerk/nextjs";
 
 const routes = [
   { name: "home", pathname: "/" },
@@ -26,7 +27,8 @@ const Header = () => {
         <nav className="gap-8 lg:flex hidden">
           {routes.map((route) => (
             <Link
-              className={cn("capitalize hover:bg-secondary rounded-md transition p-2",
+              className={cn(
+                "capitalize hover:bg-secondary rounded-md transition p-2",
                 pathname === route.pathname && "bg-secondary rounded-md"
               )}
               key={route.name}
@@ -36,6 +38,7 @@ const Header = () => {
             </Link>
           ))}
         </nav>
+        <UserButton afterSignOutUrl="/" />
         <MobileHeader routes={routes} />
       </FlexBetween>
     </header>

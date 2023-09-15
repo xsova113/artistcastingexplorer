@@ -20,12 +20,12 @@ const NewsletterSection = () => {
               Subscribe to our newsletter to hear the latest news
             </p>
           </Stack>
-
           <form action={mailchimpUrl} method="post" target="_blank">
             <Stack className="flex gap-6">
               <div className="flex flex-col md:flex-row gap-y-4 gap-x-4">
                 <Input
                   type="text"
+                  name="FNAME"
                   placeholder="First Name"
                   className="w-full md:w-fit"
                   defaultValue=""
@@ -34,6 +34,7 @@ const NewsletterSection = () => {
                 <Input
                   type="email"
                   placeholder="email"
+                  name="EMAIL"
                   required
                   defaultValue=""
                   className="w-full md:w-fit"
