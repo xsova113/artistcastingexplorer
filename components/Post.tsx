@@ -8,25 +8,42 @@ import SocialDropdown from "./SocialDropdown";
 import YProgressBar from "./YProgressBar";
 import ProfileAvatar from "./ProfileAvatar";
 import Image from "next/image";
-import { useGetPostsQuery } from "@/redux/postsApi/post";
-import { useGetUsersQuery } from "@/redux/postsApi/user";
+import axios from "axios";
+import { useQuery } from "react-query";
+import { WPUser } from "@/types/wpUser";
+import { Post } from "@/types/post";
 
 interface NewPostProps {
   postId: string;
 }
 
 const Post = ({ postId }: NewPostProps) => {
+  const fetchPost = async () => {
+    const response = await axios.get(
+      `https://castingjapanese.ca/wp-json/wp/v2/posts/${postId}`
+    );
+
+    return response.data;
+  };
+
   const {
     data: post,
     error: postError,
     isLoading: isPostLoading,
-  } = useGetPostsQuery(postId);
+  } = useQuery<Post, Error>("post", fetchPost);
+
+  const fetchAuthor = async () => {
+    const response = await axios.get(
+      `https://castingjapanese.ca/wp-json/wp/v2/users/${post?.author}`
+    );
+    return response.data;
+  };
 
   const {
     data: author,
     error: userError,
     isLoading: isUserLoading,
-  } = useGetUsersQuery(post?.author);
+  } = useQuery<WPUser, Error>("author", fetchAuthor);
 
   return (
     <section className="py-20 items-center">

@@ -1,7 +1,7 @@
 "use client";
 
 import useMediaQuery from "@/hooks/useMediaQuery";
-import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Slider from "react-slick";
 import PostCard from "./PostCard";
 import { useEffect, useState } from "react";

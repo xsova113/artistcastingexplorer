@@ -5,11 +5,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useGetUsersQuery } from "@/redux/postsApi/user";
+import axios from "axios";
 import dayjs from "dayjs";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useQuery } from "react-query";
 
 interface PostCardProps {
   title: string;
@@ -28,8 +29,17 @@ const PostCard = ({
   featuredImage,
   authorId,
 }: PostCardProps) => {
-  const { data: author } = useGetUsersQuery(authorId);
   const router = useRouter();
+
+  const fetchAuthor = async () => {
+    const response = await axios.get(
+      `https://castingjapanese.ca/wp-json/wp/v2/users/${authorId}`
+    );
+
+    return response.data;
+  };
+
+  const { data: author } = useQuery("author", fetchAuthor);
 
   return (
     <Card className="mx-4 mb-4 h-[560px]">
