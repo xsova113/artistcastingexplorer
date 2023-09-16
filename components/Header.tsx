@@ -6,7 +6,8 @@ import MobileHeader from "./MobileHeader";
 import Logo from "./Logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { UserButton } from "@clerk/nextjs";
+import UserMenu from "./UserMenu";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 const routes = [
   { name: "home", pathname: "/" },
@@ -38,7 +39,7 @@ const Header = () => {
             </Link>
           ))}
         </nav>
-        <UserButton afterSignOutUrl="/" />
+        <UserMenu isLargeScreen />
         <MobileHeader routes={routes} />
       </FlexBetween>
     </header>

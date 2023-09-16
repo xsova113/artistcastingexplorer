@@ -4,7 +4,7 @@ import { auth, currentUser } from "@clerk/nextjs";
 import { absoluteUrl } from "@/lib/utils";
 import prisma from "@/lib/client";
 
-const settingsUrl = absoluteUrl("/");
+const settingsUrl = absoluteUrl("/settings");
 
 export async function GET() {
   try {

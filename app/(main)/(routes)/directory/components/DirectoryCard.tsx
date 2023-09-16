@@ -28,12 +28,12 @@ const DirectoryCard = ({ description, image, title }: DirectoryCardProps) => {
           src={image}
           alt={"image"}
           fill
-          className="object-cover opacity-70"
+          className="object-cover opacity-80"
         />
       </div>
       <CardHeader className="text-white gap-y-4">
         <CardTitle className="">{title}</CardTitle>
-        <CardDescription className="text-white/90">
+        <CardDescription className="text-white">
           {description}
         </CardDescription>
       </CardHeader>
@@ -48,7 +48,7 @@ const DirectoryCard = ({ description, image, title }: DirectoryCardProps) => {
           Discover
         </Link>
       </CardFooter>
-      <div className="bg-black absolute w-full inset-0 -z-20" />
+      <div className="bg-primary absolute w-full inset-0 -z-20" />
     </Card>
   );
 };

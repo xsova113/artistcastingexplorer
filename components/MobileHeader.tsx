@@ -12,6 +12,7 @@ import { Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import UserMenu from "./UserMenu";
 
 interface MobileHeaderProps {
   routes: {
@@ -38,7 +39,7 @@ const MobileHeader = ({ routes }: MobileHeaderProps) => {
             <div
               key={route.name}
               className={cn(
-                "capitalize hover:bg-slate-100 transition rounded-md p-2",
+                "capitalize hover:bg-secondary transition rounded-md p-2",
                 pathname === route.pathname && "bg-slate-100 rounded-md"
               )}
             >
@@ -47,6 +48,7 @@ const MobileHeader = ({ routes }: MobileHeaderProps) => {
               </Link>
             </div>
           ))}
+          <UserMenu className="p-2 hover:bg-secondary rounded-md transition" />
         </nav>
       </SheetContent>
     </Sheet>

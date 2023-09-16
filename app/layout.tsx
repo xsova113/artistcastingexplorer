@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import RParallaxProvider from "@/providers/RParallaxProvider";
 import { Toaster } from "@/components/ui/toaster";
 import StoreProvider from "@/providers/StoreProvider";
+import SignInAlertModal from "@/components/modals/SignInAlertModal";
 
 const font = Raleway({
   subsets: ["latin"],
@@ -24,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider appearance={{ variables: { colorPrimary: "#f97316" } }}>
       <html lang="en">
         <head>
           <link
@@ -41,6 +42,7 @@ export default function RootLayout({
         <body className={font.className}>
           <StoreProvider>
             <RParallaxProvider>
+              <SignInAlertModal />
               <Header />
               {children}
               <Footer />
