@@ -33,8 +33,10 @@ const Post = ({ postId }: NewPostProps) => {
   } = useQuery<Post, Error>("post", fetchPost);
 
   const fetchAuthor = async () => {
+    if (!post) return;
+
     const response = await axios.get(
-      `https://castingjapanese.ca/wp-json/wp/v2/users/${post?.author}`
+      `https://castingjapanese.ca/wp-json/wp/v2/users/${post.author}`
     );
     return response.data;
   };
