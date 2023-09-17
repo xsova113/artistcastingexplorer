@@ -7,7 +7,6 @@ import Logo from "./Logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import UserMenu from "./UserMenu";
-import useMediaQuery from "@/hooks/useMediaQuery";
 
 const routes = [
   { name: "home", pathname: "/" },
@@ -23,7 +22,7 @@ const Header = () => {
 
   return (
     <header className="shadow">
-      <FlexBetween className="px-10 py-4">
+      <FlexBetween className="px-4 md:px-10 py-4">
         <Logo />
         <nav className="gap-8 lg:flex hidden">
           {routes.map((route) => (
