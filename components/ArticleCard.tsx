@@ -10,7 +10,13 @@ interface ArticleCardProps {
   path: "news" | "interviews";
 }
 
-const ArticleCard = ({ title, author, image, postId, path }: ArticleCardProps) => {
+const ArticleCard = ({
+  title,
+  author,
+  image,
+  postId,
+  path,
+}: ArticleCardProps) => {
   return (
     <Link href={`/${path}/${postId}`}>
       <Card className="border-none shadow-none drop-shadow">
@@ -20,6 +26,7 @@ const ArticleCard = ({ title, author, image, postId, path }: ArticleCardProps) =
             alt={"featured image"}
             fill
             className="object-cover rounded-t-lg"
+            loading="lazy"
           />
         </div>
         <CardHeader>

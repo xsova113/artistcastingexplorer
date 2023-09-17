@@ -51,6 +51,7 @@ const PostCard = ({
               alt={"Featured Image"}
               fill
               className="object-cover rounded"
+              loading="lazy"
             />
           )}
         </div>

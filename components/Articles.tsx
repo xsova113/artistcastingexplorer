@@ -46,7 +46,9 @@ const Articles = ({ filteredPosts, isLoading, title, path }: ArticlesProps) => {
       )}
 
       <div className="flex flex-wrap justify-center gap-4 pb-12">
-        {!subset && <div>No articles found...</div>}
+        {(!filteredPosts || filteredPosts.length === 0) && (
+          <div>No articles found...</div>
+        )}
         {subset?.map((post) => (
           <ArticleCard
             key={post.id}
@@ -58,7 +60,7 @@ const Articles = ({ filteredPosts, isLoading, title, path }: ArticlesProps) => {
           />
         ))}
       </div>
-      {subset ? (
+      {!filteredPosts || !subset || subset.length === 0 ? null : (
         <ReactPaginate
           nextLabel={<ArrowRight />}
           previousLabel={<ArrowLeft />}
@@ -68,7 +70,7 @@ const Articles = ({ filteredPosts, isLoading, title, path }: ArticlesProps) => {
           containerClassName={"flex items-center justify-center gap-24"}
           activeClassName="bg-secondary py-1 px-2 rounded"
         />
-      ) : null}
+      )}
     </div>
   );
 };

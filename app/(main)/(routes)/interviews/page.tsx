@@ -71,7 +71,6 @@ const InterviewPage = () => {
     fetchPosts();
   }, []);
 
-
   // TODO: Change the arguement type to Title type
   const handleClick = useCallback(
     (title: Slug) => {
@@ -92,7 +91,7 @@ const InterviewPage = () => {
       />
       <div className="flex flex-col md:flex-row py-20 justify-center max-w-screen-lg mx-auto">
         <Articles
-        path="interviews"
+          path="interviews"
           filteredPosts={filteredPosts}
           isLoading={isLoading}
           title={"Recent Interviews"}
