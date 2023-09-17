@@ -6,7 +6,7 @@ import SubscribePremium from "./components/SubscribePremium";
 
 const DirectoryPage = () => {
   return (
-    <div className="mb-24 flex flex-col">
+    <div className="flex flex-col">
       <HeroSection
         image={
           "https://castingjapanese.ca/wp-content/uploads/2023/09/home-new-bg-free-img.jpg"

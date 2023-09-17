@@ -11,39 +11,39 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
-const mockData = {
-  name: "George",
-  title: "Actor",
-  location: "Vancouver, BC",
-  Age: 28,
-  image: "/hero.jpg",
-};
+interface TalentCardProps {
+  name: string;
+  title: string;
+  location: string;
+  age: number;
+  image: string;
+}
 
-const TalentCard = () => {
+const TalentCard = ({ age, image, location, name, title }: TalentCardProps) => {
   return (
-    <Card className="drop-shadow w-[280px]">
-      <div className="relative w-full h-[200px]">
+    <Card className="drop-shadow w-[250px]">
+      <div className="relative w-full h-[150px]">
         <Image
-          src={mockData.image}
+          src={image}
           alt={"image"}
           fill
           className="object-cover rounded-t-lg"
         />
       </div>
 
-      <CardHeader>
-        <CardTitle>{mockData.name}</CardTitle>
-        <CardDescription>{mockData.title}</CardDescription>
+      <CardHeader className="p-2">
+        <CardTitle className="text-lg">{name}</CardTitle>
+        <CardDescription>{title}</CardDescription>
       </CardHeader>
-      <CardContent>
-        <p>{mockData.location}</p>
-        <p>Age: {mockData.Age}</p>
+      <CardContent className="p-2 text-sm">
+        <p>{location}</p>
+        <p>Age: {age}</p>
       </CardContent>
-      <CardFooter className="gap-x-2">
-        <Button className="w-24">Contact</Button>
+      <CardFooter className="gap-x-2 p-2">
+        <Button size={"sm"}>Contact</Button>
         <Link
           href={`/directory/talentId`}
-          className={cn(buttonVariants({ variant: "outline" }), "w-24")}
+          className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
         >
           Detail
         </Link>

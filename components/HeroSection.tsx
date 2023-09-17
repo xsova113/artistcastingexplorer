@@ -15,7 +15,7 @@ const HeroSection = ({ image, title, description }: HeroSectionProps) => {
     <ParallaxBanner className="w-full h-[500px]">
       <ParallaxBannerLayer
         image={image}
-        scale={[0.7, 1.3]}
+        scale={[0.8, 1.2]}
         className="opacity-80"
       />
       <ParallaxBannerLayer className="flex items-center bg-cover w-full">

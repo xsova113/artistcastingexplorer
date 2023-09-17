@@ -6,16 +6,11 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Parallax } from "react-scroll-parallax";
 
 const SubscribePremium = () => {
-  const isAboveMediumScreen = useMediaQuery("(min-width: 640px)");
   return (
     <section className="relative">
-      <Parallax
-        speed={isAboveMediumScreen ? -15 : -6}
-        className="relative w-full h-[470px] -z-10"
-      >
+      <div className="relative w-full h-[470px] -z-10">
         <Image
           src={
             "https://castingjapanese.ca/wp-content/uploads/2023/09/banner-03.jpg"
@@ -25,7 +20,7 @@ const SubscribePremium = () => {
           className="object-cover opacity-80"
         />
         <div className="bg-slate-800 w-full h-full" />
-      </Parallax>
+      </div>
       <div className="absolute top-1/3 flex flex-col text-center items-center w-full gap-8">
         <motion.h1
           initial="hidden"
