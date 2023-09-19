@@ -5,9 +5,9 @@ import { Camera, ChefHat, Heart, Speaker } from "lucide-react";
 
 const ServiceSection = () => {
   return (
-    <Stack className="lg:max-w-screen-lg mx-auto mt-24 gap-16 flex flex-col items-center">
-      <h1 className="font-semibold lg:text-4xl text-3xl">Our Services</h1>
-      <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1">
+    <Stack className="mx-auto mt-24 flex flex-col items-center gap-16 lg:max-w-screen-lg">
+      <h1 className="text-3xl font-semibold lg:text-4xl">Our Services</h1>
+      <div className="grid grid-cols-1 max-md:gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
         <ServiceCard
           Icon={ChefHat}
           description="Sit veniam Lorem ea sit ad enim sit aliquip aute do ad."

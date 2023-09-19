@@ -5,7 +5,7 @@ import DiscoverCard from "./DiscoverCard";
 
 const DiscoverSection = () => {
   return (
-    <Stack className="gap-8 items-center my-32">
+    <Stack className="gap-8 items-center my-28">
       <h1 className="lg:text-4xl text-3xl font-semibold">
         Discover Talents Now
       </h1>

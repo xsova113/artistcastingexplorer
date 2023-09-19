@@ -1,8 +1,11 @@
 import HeroSection from "@/components/HeroSection";
 import FreePlanCard from "./components/FreePlanCard";
 import PremiumCard from "./components/PremiumCard";
+import { checkSubscription } from "@/lib/subscription";
 
-const SubscribePage = () => {
+const SubscribePage = async () => {
+  const isPremium = await checkSubscription();
+  
   return (
     <section>
       <HeroSection
@@ -18,7 +21,7 @@ const SubscribePage = () => {
         </p>
         <div className="flex flex-col gap-4 lg:flex-row gap-y-8">
           <FreePlanCard />
-          <PremiumCard />
+          <PremiumCard isPremium={isPremium} />
         </div>
       </div>
     </section>

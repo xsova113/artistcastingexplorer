@@ -1,8 +1,11 @@
 import { cn } from "@/lib/utils";
 import {
+  RedirectToUserProfile,
   SignInButton,
   SignOutButton,
   SignUpButton,
+  UserButton,
+  UserProfile,
   useAuth,
   useUser,
 } from "@clerk/nextjs";
@@ -34,22 +37,22 @@ const UserMenu = ({ isLargeScreen, className }: UserMenuProps) => {
           "w-fit",
           className,
           isLargeScreen &&
-            "lg:flex hidden items-center gap-2 border p-1 px-2 rounded-full "
+            "hidden items-center gap-2 rounded-full border p-1 px-3 lg:flex ",
         )}
       >
         {isLargeScreen ? (
           <>
-            <Menu />
+            <Menu size={20} />
             <ProfileAvatar
               image={user ? user?.imageUrl[0] : "/user_placeholder.jpg"}
-              className="h-8 w-8"
+              className="h-7 w-7"
             />
           </>
         ) : (
           "My Account"
         )}
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="lg:mr-10 ml-10">
+      <DropdownMenuContent className="ml-10 lg:mr-10">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {isSignedIn ? (

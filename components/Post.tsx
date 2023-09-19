@@ -12,6 +12,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { WPUser } from "@/types/wpUser";
 import { Post } from "@/types/post";
+import { cn } from "@/lib/utils";
 
 interface NewPostProps {
   postId: string;
@@ -20,7 +21,7 @@ interface NewPostProps {
 const Post = ({ postId }: NewPostProps) => {
   const fetchPost = async () => {
     const response = await axios.get(
-      `https://castingjapanese.ca/wp-json/wp/v2/posts/${postId}`
+      `https://castingjapanese.ca/wp-json/wp/v2/posts/${postId}`,
     );
 
     return response.data;
@@ -36,7 +37,7 @@ const Post = ({ postId }: NewPostProps) => {
     if (!post) return;
 
     const response = await axios.get(
-      `https://castingjapanese.ca/wp-json/wp/v2/users/${post.author}`
+      `https://castingjapanese.ca/wp-json/wp/v2/users/${post.author}`,
     );
     return response.data;
   };
@@ -48,18 +49,18 @@ const Post = ({ postId }: NewPostProps) => {
   } = useQuery<WPUser, Error>("author", fetchAuthor);
 
   return (
-    <section className="py-20 items-center">
+    <section className="items-center py-20">
       <YProgressBar />
       {postError || userError ? (
         <span>Oh no, there was an error</span>
       ) : isPostLoading || isUserLoading || !post ? (
-        <div className="w-full flex justify-center gap-4 text-2xl items-center">
+        <div className="flex w-full items-center justify-center gap-4 text-2xl">
           Loading...
           <Loader2 className="animate-spin" size={50} />
         </div>
       ) : (
         <Stack>
-          <h1 className="md:text-6xl text-4xl self-start font-medium mb-4 md:mb-12">
+          <h1 className="mb-4 self-start text-4xl font-medium md:mb-12 md:text-6xl">
             {post?.title.rendered}
           </h1>
           <FlexBetween className="mb-8">
@@ -68,28 +69,34 @@ const Post = ({ postId }: NewPostProps) => {
             </span>
             <SocialDropdown />
           </FlexBetween>
-          <div className="flex items-start gap-2 mb-10">
+          <div className="mb-10 flex items-start gap-2">
             <ProfileAvatar
               image={post ? post.uagb_featured_image_src.thumbnail[0] : ""}
             />
             <div className="flex flex-col">
               <h3>{post.uagb_author_info.display_name}</h3>
-              <p className="text-muted-foreground text-xs md:w-1/2">
+              <p className="text-xs text-muted-foreground md:w-1/2">
                 {author?.description}
               </p>
             </div>
           </div>
-          <Stack className="w-11/12 mx-auto gap-8 mb-10">
-            <div className="relative w-full h-[450px]">
+          {/* <Stack className="mx-auto mb-10 w-11/12 gap-8">
+            <div
+              className={cn(
+                "relative h-[450px] w-full",
+                !post.uagb_featured_image_src.thumbnail && "hidden",
+              )}
+            >
               <Image
-                src={post.uagb_featured_image_src.full[0]}
+                src={post.uagb_featured_image_src.full[1]}
                 alt={"featured image"}
                 fill
-                className="object-cover rounded"
+                className="rounded object-cover"
               />
             </div>
             <p>{post.uagb_excerpt}</p>
-          </Stack>
+          </Stack> */}
+          <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
         </Stack>
       )}
     </section>

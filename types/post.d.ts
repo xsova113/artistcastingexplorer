@@ -3,6 +3,7 @@ export type Post = {
   title: { rendered: string };
   categories: [number];
   author: number;
+  content: { rendered: string };
   date: string;
   uagb_excerpt: string;
   uagb_author_info: { display_name: string };

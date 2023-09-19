@@ -35,11 +35,11 @@ const Articles = ({ filteredPosts, isLoading, title, path }: ArticlesProps) => {
   }, [filteredPosts?.length]);
 
   return (
-    <div className="px-10 flex flex-col md:ml-auto">
+    <div className="flex flex-col px-10 md:ml-auto">
       <h1 className="mx-auto mb-10 text-3xl font-semibold">{title}</h1>
 
       {isLoading && (
-        <div className="w-full flex justify-center items-center text-2xl gap-4 pb-8">
+        <div className="flex w-full items-center justify-center gap-4 pb-8 text-2xl">
           Loading...
           <Loader2 className="animate-spin" size={50} />
         </div>

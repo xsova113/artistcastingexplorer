@@ -17,15 +17,13 @@ const FreePlanCard = () => {
   return (
     <Card className="mb-4 h-[400px] flex-1">
       <CardHeader className="text-center">
-        <CardTitle className="cursor-pointer text-3xl md:text-4xl font-bold">
-          $0
-        </CardTitle>
+        <CardTitle className="text-3xl font-bold md:text-4xl">$0</CardTitle>
         <CardDescription>
           Subscribe to newsletter and get our latest news
         </CardDescription>
       </CardHeader>
-      <Separator className="bg-primary h-1 mb-8 w-1/3 mx-auto" />
-      <div className="cursor-pointer h-[250px] flex flex-col">
+      <Separator className="mx-auto mb-8 h-1 w-1/3 bg-primary" />
+      <div className="flex h-[250px] cursor-pointer flex-col">
         <CardContent>
           <p>
             Get the latest news and interviews about our talents and the keep up
@@ -35,7 +33,7 @@ const FreePlanCard = () => {
         <CardFooter className="mt-auto">
           <form action={mailchimpUrl} method="post" target="_blank">
             <Stack className="flex gap-6">
-              <div className="flex flex-col md:flex-row gap-y-4 gap-x-4">
+              <div className="flex flex-col gap-x-4 gap-y-4 md:flex-row">
                 <Input
                   type="text"
                   name="FNAME"
@@ -57,7 +55,9 @@ const FreePlanCard = () => {
               <Button
                 type="submit"
                 name="subscribe"
-                className={"font-bold uppercase w-fit rounded-full mx-auto px-8"}
+                className={
+                  "mx-auto w-fit rounded-full px-8 font-bold uppercase"
+                }
               >
                 Subscribe
               </Button>

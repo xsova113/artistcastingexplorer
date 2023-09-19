@@ -10,7 +10,7 @@ import { mockData } from "@/lib/data";
 
 const TalentSection = () => {
   const [data, setData] = useState(mockData);
-  const itemsPerPage = 9;
+  const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const pageCount = Math.ceil(data.length / itemsPerPage);
@@ -35,7 +35,7 @@ const TalentSection = () => {
       <h1 className="text-3xl lg:text-4xl font-semibold">Talents</h1>
       <div className="border-b-2 w-1/12 border-primary mt-8 mb-12" />
       <div className="w-full px-8 md:px-10">
-        <div className="flex flex-wrap justify-center gap-6 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center gap-6 mb-10">
           {subset.map((item, index) => (
             <TalentCard
               key={index}
@@ -54,7 +54,9 @@ const TalentSection = () => {
           pageCount={pageCount}
           pageRangeDisplayed={5}
           onPageChange={handlePageChange}
-          containerClassName={"flex items-center justify-center gap-24"}
+          containerClassName={
+            "flex items-center justify-center md:gap-24 gap-8"
+          }
           activeClassName="bg-secondary py-1 px-2 rounded"
         />
       </div>

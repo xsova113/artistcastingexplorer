@@ -17,7 +17,7 @@ import axios from "axios";
 import { Star } from "lucide-react";
 import { useState } from "react";
 
-const PremiumCard = () => {
+const PremiumCard = ({ isPremium }: { isPremium: boolean }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { isSignedIn } = useUser();
   const onOpen = useSignInAlertStore((state) => state.onOpen);
@@ -44,15 +44,15 @@ const PremiumCard = () => {
   return (
     <Card className="mb-4 h-[400px] flex-1 bg-primary">
       <CardHeader className="text-center">
-        <CardTitle className="text-white cursor-pointer text-3xl md:text-4xl font-bold">
+        <CardTitle className="text-3xl font-bold text-white md:text-4xl">
           $20 /<span className="text-lg">mo</span>
         </CardTitle>
         <CardDescription className="text-slate-200">
           Subscribe to premium plan for additional features
         </CardDescription>
       </CardHeader>
-      <Separator className="bg-secondary h-1 mb-8 w-1/3 mx-auto" />
-      <div className="flex flex-col h-[250px]">
+      <Separator className="mx-auto mb-8 h-1 w-1/3 bg-secondary" />
+      <div className="flex h-[250px] flex-col">
         <CardContent className="text-white">
           <ol className="space-y-4">
             <li className="flex items-center gap-2">
@@ -67,12 +67,12 @@ const PremiumCard = () => {
         </CardContent>
         <CardFooter className="mt-auto">
           <Button
-            className="uppercase rounded-full font-semibold mx-auto px-8"
+            className="mx-auto rounded-full px-8 font-semibold uppercase"
             onClick={isSignedIn ? onSubscribe : onOpen}
             disabled={isLoading}
             variant={"outline"}
           >
-            Subscribe
+            {isPremium ? "Manage Subscription" : "Subscribe"}
           </Button>
         </CardFooter>
       </div>

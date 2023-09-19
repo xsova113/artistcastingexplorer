@@ -7,6 +7,9 @@ import Logo from "./Logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import UserMenu from "./UserMenu";
+import { UserButton, useAuth } from "@clerk/nextjs";
+import { buttonVariants } from "./ui/button";
+import { User } from "lucide-react";
 
 const routes = [
   { name: "home", pathname: "/" },
@@ -19,17 +22,18 @@ const routes = [
 
 const Header = () => {
   const pathname = usePathname();
+  const { isSignedIn } = useAuth();
 
   return (
     <header className="shadow">
-      <FlexBetween className="px-4 md:px-10 py-4">
+      <FlexBetween className="px-4 py-4">
         <Logo />
-        <nav className="gap-8 lg:flex hidden">
+        <nav className="hidden gap-4 lg:flex">
           {routes.map((route) => (
             <Link
               className={cn(
-                "capitalize hover:bg-secondary rounded-md transition p-2",
-                pathname === route.pathname && "bg-secondary rounded-md"
+                "rounded-md p-2 capitalize transition hover:bg-secondary",
+                pathname === route.pathname && "rounded-md bg-secondary",
               )}
               key={route.name}
               href={route.pathname}
@@ -38,8 +42,29 @@ const Header = () => {
             </Link>
           ))}
         </nav>
-        <UserMenu isLargeScreen />
-        <MobileHeader routes={routes} />
+        {/* <UserMenu isLargeScreen /> */}
+
+        <div className="flex items-center gap-2">
+          <Link
+            href={"/profile"}
+            className={cn(
+              buttonVariants({
+                variant: "outline",
+                className: "hidden font-semibold lg:flex",
+              }),
+            )}
+          >
+            Become Talent
+          </Link>
+          {isSignedIn ? (
+            <UserButton afterSignOutUrl="/sign-in" />
+          ) : (
+            <Link href={"/sign-in"} className={"rounded-full bg-primary p-2"}>
+              <User size={20} className="text-white" />
+            </Link>
+          )}
+          <MobileHeader routes={routes} />
+        </div>
       </FlexBetween>
     </header>
   );
