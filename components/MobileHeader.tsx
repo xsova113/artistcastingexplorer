@@ -11,10 +11,11 @@ import Logo from "./Logo";
 import { Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserMenu from "./UserMenu";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useAuth } from "@clerk/nextjs";
 import { buttonVariants } from "./ui/button";
+import useSignInAlertStore from "@/store/SignInAlertStore";
 
 interface MobileHeaderProps {
   routes: {
@@ -26,6 +27,7 @@ interface MobileHeaderProps {
 const MobileHeader = ({ routes }: MobileHeaderProps) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const { isSignedIn } = useAuth();
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -52,7 +54,7 @@ const MobileHeader = ({ routes }: MobileHeaderProps) => {
           ))}
           {/* <UserMenu className="p-2 hover:bg-secondary rounded-md transition" /> */}
           <Link
-            href={"/profile"}
+            href={isSignedIn ? "/talent-form" : "/sign-in"}
             className={cn(
               buttonVariants({
                 variant: "outline",

@@ -9,9 +9,11 @@ import { GenderSelect } from "./GenderSelect";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
 import { FormEvent } from "react";
+import { AgeSelect } from "./AgeSelect";
 
 const formSchema = z.object({
-  gender: z.string({ required_error: "Please select a gender" }),
+  gender: z.string().optional(),
+  ageRange: z.number().array().optional(),
 });
 
 const FilterForm = () => {
@@ -21,12 +23,15 @@ const FilterForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       gender: "",
+      ageRange: [],
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     const query = {
       gender: values.gender,
+      ageMin: values.ageRange ? values.ageRange[0] : 25,
+      ageMax: values.ageRange ? values.ageRange[1] : 45,
     };
 
     const url = qs.stringifyUrl(
@@ -34,7 +39,7 @@ const FilterForm = () => {
         url: window.location.pathname,
         query,
       },
-      { skipEmptyString: true, skipNull: true }
+      { skipEmptyString: true, skipNull: true },
     );
 
     router.push(url, { scroll: false });
@@ -51,8 +56,9 @@ const FilterForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-wrap gap-4">
           <GenderSelect form={form} />
+          <AgeSelect form={form} />
         </div>
-        <div className="flex justify-end gap-4 items-center mt-4">
+        <div className="mt-4 flex items-center justify-end gap-4">
           <Button onClick={(e) => clearForm(e)} variant={"secondary"}>
             Clear
           </Button>

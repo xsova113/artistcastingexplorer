@@ -1,5 +1,5 @@
 import { toast } from "@/components/ui/use-toast";
-import { clerkClient, currentUser, useAuth, useUser } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs";
 
 type Params = {
   firstName?: string;

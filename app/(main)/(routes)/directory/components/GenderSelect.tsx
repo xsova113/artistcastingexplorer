@@ -17,7 +17,7 @@ import {
 import { UseFormReturn } from "react-hook-form";
 
 interface GenderSelectProps {
-  form: UseFormReturn<{ gender: string }>;
+  form: UseFormReturn<{ gender?: string }>;
 }
 
 export function GenderSelect({ form }: GenderSelectProps) {
@@ -26,7 +26,7 @@ export function GenderSelect({ form }: GenderSelectProps) {
       control={form.control}
       name="gender"
       render={({ field }) => (
-        <FormItem className="p-2 bg-secondary rounded-md w-52">
+        <FormItem className="w-52 rounded-md bg-secondary p-2">
           <FormLabel className="font-semibold">Gender</FormLabel>
           <Select onValueChange={field.onChange}>
             <FormControl>

@@ -10,6 +10,7 @@ import UserMenu from "./UserMenu";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { buttonVariants } from "./ui/button";
 import { User } from "lucide-react";
+import useSignInAlertStore from "@/store/SignInAlertStore";
 
 const routes = [
   { name: "home", pathname: "/" },
@@ -23,6 +24,7 @@ const routes = [
 const Header = () => {
   const pathname = usePathname();
   const { isSignedIn } = useAuth();
+  const { onOpen } = useSignInAlertStore();
 
   return (
     <header className="shadow">
@@ -46,13 +48,14 @@ const Header = () => {
 
         <div className="flex items-center gap-2">
           <Link
-            href={"/profile"}
+            href={!isSignedIn ? "/sign-in" : "/talent-form"}
             className={cn(
               buttonVariants({
                 variant: "outline",
                 className: "hidden font-semibold lg:flex",
               }),
             )}
+            onClick={() => !isSignedIn && onOpen()}
           >
             Become Talent
           </Link>

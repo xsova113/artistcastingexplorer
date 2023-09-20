@@ -45,10 +45,18 @@ const PremiumCard = ({ isPremium }: { isPremium: boolean }) => {
     <Card className="mb-4 h-[400px] flex-1 bg-primary">
       <CardHeader className="text-center">
         <CardTitle className="text-3xl font-bold text-white md:text-4xl">
-          $20 /<span className="text-lg">mo</span>
+          {isPremium ? (
+            "Subscribed"
+          ) : (
+            <div>
+              $20 /<span className="text-lg">mo</span>
+            </div>
+          )}
         </CardTitle>
         <CardDescription className="text-slate-200">
-          Subscribe to premium plan for additional features
+          {isPremium
+            ? "Manage your subscription plan"
+            : "Subscribe to premium plan for additional features"}
         </CardDescription>
       </CardHeader>
       <Separator className="mx-auto mb-8 h-1 w-1/3 bg-secondary" />

@@ -23,7 +23,7 @@ const SignInAlertModal = () => {
         <AlertDialogHeader>
           <AlertDialogTitle>You are not logged in</AlertDialogTitle>
           <AlertDialogDescription>
-            Please log in to continue to premium subscription.
+            Please log in first to continue.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

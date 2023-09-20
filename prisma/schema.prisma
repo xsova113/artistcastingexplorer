@@ -10,8 +10,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model TalentBio {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+model TalentProfile {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @unique
+  firstName  String
+  middleName String?
+  lastName   String
+  stageName  String?
+  email      String   @unique
+  dob        DateTime
+  height     String
+  bio        String
+  bodyType   String?
+  agency     String?
+  images     Image[]
+  location   Location @relation(fields: [locationId], references: [id])
+  locationId String   @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Location {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  city          City
+  province      Province?
+  TalentProfile TalentProfile[]
+}
+
+enum City {
+  VANCOUVER
+  TORONTO
+}
+
+enum Province {
+  ALBERTA
+  MANITOBA
+  NEWB_RUNSWICK
+  NEWFOUNDLAND_AND_LABRADOR
+  NOVA_SCOTIA
+  PRINCE_EDWARD_ISLAND
+  QUEBEC
+  SASKATCHEWAN
+}
+
+model Image {
+  id  String @id @default(auto()) @map("_id") @db.ObjectId
+  url String
+
+  talentProfile   TalentProfile? @relation(fields: [talentProfileId], references: [id])
+  talentProfileId String?        @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model UserSubscription {
