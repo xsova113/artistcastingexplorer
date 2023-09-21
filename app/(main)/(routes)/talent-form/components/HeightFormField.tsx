@@ -23,7 +23,7 @@ const HeightFormField = ({ form }: HeightFormFieldProps) => {
         <FormItem>
           <FormLabel>Height</FormLabel>
           <FormControl>
-            <Input {...field} placeholder="170" />
+            <Input {...field} placeholder="170" disabled={form.formState.isSubmitting} />
           </FormControl>
           <FormMessage />
         </FormItem>

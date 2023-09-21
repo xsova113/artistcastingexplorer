@@ -23,7 +23,7 @@ const AgencyFormField = ({ form }: AgencyFormFieldProps) => {
         <FormItem>
           <FormLabel>Agency</FormLabel>
           <FormControl>
-            <Input {...field} placeholder="Agency" />
+            <Input {...field} placeholder="Agency" disabled={form.formState.isSubmitting} />
           </FormControl>
           <FormMessage />
         </FormItem>

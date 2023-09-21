@@ -25,6 +25,7 @@ const ImagesFormField = ({ form }: ImagesFormFieldProps) => {
           <FormLabel>Portfolio</FormLabel>
           <FormControl>
             <FileUpload
+              disabled={form.formState.isSubmitting}
               value={field.value.map((image) => image.url)}
               onChange={(url) => field.onChange([...field.value, { url }])}
               onRemove={(url) =>

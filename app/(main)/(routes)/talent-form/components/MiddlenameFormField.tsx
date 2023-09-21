@@ -23,7 +23,7 @@ const MiddlenameFormField = ({ form }: MiddlenameFormFieldProps) => {
         <FormItem>
           <FormLabel>Middlename</FormLabel>
           <FormControl>
-            <Input {...field} placeholder="Middlename" />
+            <Input {...field} placeholder="Middlename" disabled={form.formState.isSubmitting} />
           </FormControl>
           <FormMessage />
         </FormItem>

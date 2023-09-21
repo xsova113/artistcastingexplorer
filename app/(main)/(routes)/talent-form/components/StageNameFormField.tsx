@@ -10,20 +10,24 @@ import { talentFormSchema } from "@/lib/talentFormSchema";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 
-interface EmailFormFieldProps {
+interface StageNameFormFieldProps {
   form: UseFormReturn<z.infer<typeof talentFormSchema>>;
 }
 
-const EmailFormField = ({ form }: EmailFormFieldProps) => {
+const StageNameFormField = ({ form }: StageNameFormFieldProps) => {
   return (
     <FormField
       control={form.control}
-      name="email"
+      name="stageName"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Email Address</FormLabel>
+          <FormLabel>Stage Name (optional)</FormLabel>
           <FormControl>
-            <Input disabled={form.formState.isSubmitting} {...field} placeholder="Email address" />
+            <Input
+              {...field}
+              placeholder="Stage name"
+              disabled={form.formState.isSubmitting}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -32,4 +36,4 @@ const EmailFormField = ({ form }: EmailFormFieldProps) => {
   );
 };
 
-export default EmailFormField;
+export default StageNameFormField;

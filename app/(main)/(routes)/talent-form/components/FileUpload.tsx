@@ -5,6 +5,7 @@ import { ImagePlus, Trash } from "lucide-react";
 import Image from "next/image";
 import { CldUploadWidget } from "next-cloudinary";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface ImageUploadProps {
   disabled?: boolean;
@@ -49,17 +50,20 @@ const ImageUpload = ({
                 <Trash className="h-4 w-4" />
               </Button>
             </div>
-            <Image
-              src={url}
-              alt={"Image"}
-              fill
-              className="object-contain"
-              priority
-            />
+            {url.split(".").pop() === ("jpg" || "jpeg" || "png") ? (
+              <Image
+                src={url}
+                alt={"Image"}
+                fill
+                className="object-cover"
+                priority
+              />
+            ) : (
+              <video controls src={url} />
+            )}
           </div>
         ))}
       </div>
-
       <CldUploadWidget onUpload={onUpload} uploadPreset="pnr4eaw9">
         {({ open }) => (
           <Button
@@ -67,7 +71,7 @@ const ImageUpload = ({
             disabled={disabled}
             variant={"secondary"}
             onClick={() => open()}
-            className="mt-3"
+            className={cn(value.length > 0 && "mt-3")}
           >
             <ImagePlus className="mr-2 h-4 w-4" />
             Upload an Image

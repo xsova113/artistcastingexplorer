@@ -39,6 +39,7 @@ const DobFormField = ({ form }: DobFormFieldProps) => {
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
+                  disabled={form.formState.isSubmitting}
                   variant={"outline"}
                   className={cn(
                     "w-[240px] pl-3 text-left font-normal",

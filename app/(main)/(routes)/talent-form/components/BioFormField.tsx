@@ -29,6 +29,8 @@ const BioFormField = ({ form }: BioFormFieldProps) => {
               className="rounded-lg border"
               minLength={150}
               cols={80}
+              rows={8}
+              disabled={form.formState.isSubmitting}
             />
           </FormControl>
           <FormMessage />

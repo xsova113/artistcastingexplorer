@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { GenderType } from "@prisma/client";
 import { UseFormReturn } from "react-hook-form";
 
 interface GenderSelectProps {
@@ -35,11 +36,11 @@ export function GenderSelect({ form }: GenderSelectProps) {
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              <SelectItem value="male">Male</SelectItem>
-              <SelectItem value="female">Female</SelectItem>
-              <SelectItem value="nonBinary">Non-Binary</SelectItem>
-              <SelectItem value="transMale">Trans Male</SelectItem>
-              <SelectItem value="transFemale">Trans Female</SelectItem>
+              {Object.keys(GenderType).map((item) => (
+                <SelectItem key={item} value={item} className="capitalize">
+                  {item.toLowerCase().replaceAll("_", " ")}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <FormMessage />

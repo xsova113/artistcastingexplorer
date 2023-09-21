@@ -1,13 +1,11 @@
 import Stack from "@/components/Stack";
-import checkTalent from "@/lib/checkTalent";
-import { auth, currentUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 import TalentForm from "./components/TalentForm";
 import { redirect } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 
-const TalentFormPage = async () => {
+const TalentFormPage = () => {
   const { userId } = auth();
-  const isTalent = await checkTalent();
 
   if (!userId) redirect("/sign-in");
 

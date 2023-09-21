@@ -25,13 +25,13 @@ const CityFormField = ({ form }: CityFormFieldProps) => {
   return (
     <FormField
       control={form.control}
-      name="location"
+      name="city"
       render={({ field }) => (
         <FormItem>
           <FormLabel className="font-semibold">City</FormLabel>
-          <Select onValueChange={field.onChange}>
+          <Select onValueChange={field.onChange} disabled={form.formState.isSubmitting}>
             <FormControl>
-              <SelectTrigger>
+              <SelectTrigger disabled={form.formState.isSubmitting}>
                 <SelectValue placeholder="Select a city" />
               </SelectTrigger>
             </FormControl>

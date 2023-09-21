@@ -6,11 +6,14 @@ import MobileHeader from "./MobileHeader";
 import Logo from "./Logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import UserMenu from "./UserMenu";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { buttonVariants } from "./ui/button";
 import { User } from "lucide-react";
 import useSignInAlertStore from "@/store/SignInAlertStore";
+import checkTalent from "@/lib/checkTalent";
+import { useEffect, useState } from "react";
+import { getTalentProfile } from "@/actions/getTalentProfile";
+import { TalentProfile } from "@prisma/client";
 
 const routes = [
   { name: "home", pathname: "/" },
@@ -25,6 +28,16 @@ const Header = () => {
   const pathname = usePathname();
   const { isSignedIn } = useAuth();
   const { onOpen } = useSignInAlertStore();
+  const [talent, setTalent] = useState<TalentProfile>();
+
+  const checkIsTalent = async () => {
+    const talent = await checkTalent();
+    setTalent(talent);
+  };
+
+  useEffect(() => {
+    checkIsTalent();
+  }, []);
 
   return (
     <header className="shadow">
@@ -47,18 +60,33 @@ const Header = () => {
         {/* <UserMenu isLargeScreen /> */}
 
         <div className="flex items-center gap-2">
-          <Link
-            href={!isSignedIn ? "/sign-in" : "/talent-form"}
-            className={cn(
-              buttonVariants({
-                variant: "outline",
-                className: "hidden font-semibold lg:flex",
-              }),
-            )}
-            onClick={() => !isSignedIn && onOpen()}
-          >
-            Become Talent
-          </Link>
+          {!talent ? (
+            <Link
+              href={!isSignedIn ? "/sign-in" : "/talent-form"}
+              className={cn(
+                buttonVariants({
+                  variant: "outline",
+                  className: "hidden font-semibold lg:flex",
+                }),
+              )}
+              onClick={() => !isSignedIn && onOpen()}
+            >
+              Become Talent
+            </Link>
+          ) : (
+            <Link
+              href={`/profile/${talent.id}`}
+              className={cn(
+                buttonVariants({
+                  variant: "outline",
+                  className: "hidden font-semibold lg:flex",
+                }),
+              )}
+            >
+              Talent Profile
+            </Link>
+          )}
+
           {isSignedIn ? (
             <UserButton afterSignOutUrl="/sign-in" />
           ) : (
@@ -66,7 +94,7 @@ const Header = () => {
               <User size={20} className="text-white" />
             </Link>
           )}
-          <MobileHeader routes={routes} />
+          <MobileHeader routes={routes} talent={talent} />
         </div>
       </FlexBetween>
     </header>

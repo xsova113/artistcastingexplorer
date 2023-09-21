@@ -1,34 +1,14 @@
 "use client";
 
-import TextareaAutosize from "react-textarea-autosize";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { useUser } from "@clerk/nextjs";
-import prisma from "@/lib/client";
 import { talentFormSchema } from "@/lib/talentFormSchema";
 import DobFormField from "./DobFormField";
-import { City, Province } from "@prisma/client";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import FileUpload from "./FileUpload";
 import MiddlenameFormField from "./MiddlenameFormField";
 import FirstNameFormField from "./FirstNameFormField copy";
 import LastNameFormField from "./LastNameFormField";
@@ -39,11 +19,16 @@ import CityFormField from "./CityFormField";
 import ProvinceFormField from "./ProvinceFormField";
 import BioFormField from "./BioFormField";
 import ImagesFormField from "./ImagesFormField";
-import { Separator } from "@/components/ui/separator";
 import Stack from "@/components/Stack";
+import { createTalent } from "@/actions/createTalent";
+import StageNameFormField from "./StageNameFormField";
+import { useRouter } from "next/navigation";
+import RoleFormField from "./RoleFormField";
+import GenderFormField from "./GenderFormField";
 
 const TalentForm = () => {
   const { user } = useUser();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof talentFormSchema>>({
     resolver: zodResolver(talentFormSchema),
@@ -57,37 +42,31 @@ const TalentForm = () => {
       email: "",
       height: "",
       images: [],
-      location: { city: City.VANCOUVER },
       middleName: "",
       stageName: "",
     },
   });
 
+  const isSubmitting = form.formState.isSubmitting;
+
   async function onSubmit(values: z.infer<typeof talentFormSchema>) {
-    if (!user?.id) {
-      return toast({
-        title: "User not found",
-        description: "Please login first to continue",
+    try {
+      const talent = await createTalent(values, user?.id);
+
+      if (!talent)
+        toast({
+          title: "Success",
+          description: "Talent form submitted successfully!",
+          variant: "success",
+        });
+
+      router.push(`/profile/${talent?.id}`);
+    } catch (error: any) {
+      toast({
+        title: "Error Submitting",
+        description: error.message,
         variant: "destructive",
       });
-    }
-
-    try {
-      await prisma.talentProfile.create({
-        data: {
-          ...values,
-          userId: user.id,
-          images: { createMany: { data: values.images } },
-          location: {
-            create: {
-              city: values.location.city,
-              province: values.location.province,
-            },
-          },
-        },
-      });
-    } catch (error: any) {
-      toast({ title: "Something went wrong", description: error.message });
     }
   }
 
@@ -97,14 +76,18 @@ const TalentForm = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="mt-12 space-y-12">
         <Stack>
-          <h3 className="mb-4 text-xl underline underline-offset-8">
+          <h3 className="mb-8 text-xl underline underline-offset-8">
             Basic Information
           </h3>
           <div className="flex flex-wrap gap-8">
+            <AgencyFormField form={form} />
             <FirstNameFormField form={form} />
             <MiddlenameFormField form={form} />
             <LastNameFormField form={form} />
+            <GenderFormField form={form} />
             <DobFormField form={form} />
+            <RoleFormField form={form} />
+            <StageNameFormField form={form} />
             <EmailFormField form={form} />
             <HeightFormField form={form} />
             <CityFormField form={form} />
@@ -113,17 +96,18 @@ const TalentForm = () => {
         </Stack>
 
         <Stack>
-          <h3 className="mb-4 text-xl underline underline-offset-8">
+          <h3 className="mb-8 text-xl underline underline-offset-8">
             Advanced Information
           </h3>
           <div className="flex flex-wrap gap-8">
             <ImagesFormField form={form} />
-            <AgencyFormField form={form} />
             <BioFormField form={form} />
           </div>
         </Stack>
 
-        <Button type="submit">Submit</Button>
+        <Button disabled={isSubmitting} type="submit">
+          Submit
+        </Button>
       </form>
     </Form>
   );

@@ -2,17 +2,23 @@ import prisma from "@/lib/client";
 
 export const getTalentProfile = async (id: string) => {
   try {
-    if (!id) return console.log("Talent ID is missing.");
+    if (!id) {
+      console.log("Talent ID is missing.");
+    } else {
+      const talentProfile = await prisma.talentProfile.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          images: true,
+          location: true,
+          performerType: true,
+          gender: true,
+        },
+      });
 
-    const talentProfile = await prisma.talentProfile.findUnique({
-      where: {
-        id,
-      },
-    });
-
-    if (!talentProfile) return console.log("Can not find talent profile.");
-
-    return talentProfile;
+      return talentProfile;
+    }
   } catch (error) {
     console.log("Error getting talent profile: " + error);
   }

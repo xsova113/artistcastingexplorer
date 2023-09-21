@@ -11,31 +11,74 @@ datasource db {
 }
 
 model TalentProfile {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId     String   @unique
-  firstName  String
-  middleName String?
-  lastName   String
-  stageName  String?
-  email      String   @unique
-  dob        DateTime
-  height     String
-  bio        String
-  bodyType   String?
-  agency     String?
-  images     Image[]
-  location   Location @relation(fields: [locationId], references: [id])
-  locationId String   @db.ObjectId
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String        @unique
+  firstName       String
+  middleName      String?
+  lastName        String
+  stageName       String?
+  email           String        @unique
+  dob             DateTime
+  performerType   PerformerType @relation(fields: [performerTypeId], references: [id])
+  performerTypeId String        @db.ObjectId
+  height          String
+  gender          Gender        @relation(fields: [genderId], references: [id])
+  genderId        String        @db.ObjectId
+  bio             String
+  bodyType        String?
+  agency          String?
+  images          Image[]
+  location        Location      @relation(fields: [locationId], references: [id])
+  locationId      String        @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  savedTalent   SavedTalent? @relation(fields: [savedTalentId], references: [id])
+  savedTalentId String?      @db.ObjectId
+}
+
+model Gender {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  gender         GenderType
+  talentProfiles TalentProfile[]
+}
+
+enum GenderType {
+  MALE
+  FEMALE
+  NON_BINARY
+  TRANS_MALE
+  TRANS_FEMALE
+}
+
+model PerformerType {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  role           Role
+  talentProfiles TalentProfile[]
 }
 
 model Location {
-  id            String          @id @default(auto()) @map("_id") @db.ObjectId
-  city          City
-  province      Province?
-  TalentProfile TalentProfile[]
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  city           City
+  province       Province?
+  talentProfiles TalentProfile[]
+}
+
+enum Role {
+  ACTOR
+  ACTRESS
+  COMEDIAN
+  CREATIVE_CREW
+  DANCER
+  IDOL
+  MASTER_OF_CEREMONIES
+  modelMUSICIAN
+  SINGER
+  STAGE_PERFORMER
+  STUNT_PERFORMER
+  VOICEOVER_ARTIST
+  OTHER
 }
 
 enum City {
@@ -72,4 +115,15 @@ model UserSubscription {
   stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
   stripePriceId          String?   @map(name: "stripe_price_id")
   stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+}
+
+model SavedTalent {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String          @unique
+  talentProfiles TalentProfile[]
+}
+
+model SavedFilter {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @unique
 }

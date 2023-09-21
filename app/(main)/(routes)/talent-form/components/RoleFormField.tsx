@@ -13,34 +13,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { talentFormSchema } from "@/lib/talentFormSchema";
-import { Province } from "@prisma/client";
+import { Role } from "@prisma/client";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 
-interface ProvinceFormFieldProps {
+interface CityFormFieldProps {
   form: UseFormReturn<z.infer<typeof talentFormSchema>>;
 }
-const ProvinceFormField = ({ form }: ProvinceFormFieldProps) => {
+
+const RoleFormField = ({ form }: CityFormFieldProps) => {
   return (
     <FormField
       control={form.control}
-      name="province"
+      name="performerType"
       render={({ field }) => (
         <FormItem>
-          <FormLabel className="font-semibold">Other Province</FormLabel>
+          <FormLabel className="font-semibold">Role</FormLabel>
           <Select
             onValueChange={field.onChange}
             disabled={form.formState.isSubmitting}
           >
             <FormControl>
               <SelectTrigger disabled={form.formState.isSubmitting}>
-                <SelectValue placeholder="Select a province" />
+                <SelectValue placeholder="Select a role" />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {Object.keys(Province).map((item) => (
-                <SelectItem value={item} key={item} className="capitalize">
-                  {item.replaceAll("_", " ").toLowerCase()}
+              {Object.keys(Role).map((item) => (
+                <SelectItem key={item} value={item} className="capitalize">
+                  {item.toLowerCase().replaceAll("_", " ")}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -52,4 +53,4 @@ const ProvinceFormField = ({ form }: ProvinceFormFieldProps) => {
   );
 };
 
-export default ProvinceFormField;
+export default RoleFormField;

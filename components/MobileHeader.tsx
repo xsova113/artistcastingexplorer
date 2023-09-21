@@ -16,15 +16,17 @@ import UserMenu from "./UserMenu";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { buttonVariants } from "./ui/button";
 import useSignInAlertStore from "@/store/SignInAlertStore";
+import { TalentProfile } from "@prisma/client";
 
 interface MobileHeaderProps {
   routes: {
     name: string;
     pathname: string;
   }[];
+  talent?: TalentProfile;
 }
 
-const MobileHeader = ({ routes }: MobileHeaderProps) => {
+const MobileHeader = ({ routes, talent }: MobileHeaderProps) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const { isSignedIn } = useAuth();
@@ -52,18 +54,34 @@ const MobileHeader = ({ routes }: MobileHeaderProps) => {
               </Link>
             </div>
           ))}
-          {/* <UserMenu className="p-2 hover:bg-secondary rounded-md transition" /> */}
-          <Link
-            href={isSignedIn ? "/talent-form" : "/sign-in"}
-            className={cn(
-              buttonVariants({
-                variant: "outline",
-                className: "flex font-semibold lg:hidden",
-              }),
-            )}
-          >
-            Become Talent
-          </Link>
+
+          {!talent ? (
+            <Link
+              href={isSignedIn ? "/talent-form" : "/sign-in"}
+              className={cn(
+                buttonVariants({
+                  variant: "outline",
+                  className: "flex font-semibold lg:hidden",
+                }),
+              )}
+              onClick={() => setIsOpen(false)}
+            >
+              Become Talent
+            </Link>
+          ) : (
+            <Link
+              href={`/profile/${talent.id}`}
+              className={cn(
+                buttonVariants({
+                  variant: "outline",
+                  className: "flex font-semibold lg:hidden",
+                }),
+              )}
+              onClick={() => setIsOpen(false)}
+            >
+              Talent Profile
+            </Link>
+          )}
         </nav>
       </SheetContent>
     </Sheet>
