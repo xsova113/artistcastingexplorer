@@ -45,7 +45,7 @@ const ProfileHeader = async ({ talentUser, talent }: ProfileHeaderProps) => {
           <h2 className="flex gap-3 capitalize">
             {talent.performerType.role.toLowerCase().replaceAll("_", " ")}
             <span className="font-medium">|</span>
-            {talent.location.city.toLocaleLowerCase()}
+            {talent.location.city?.toLocaleLowerCase()}
           </h2>
           <h3 className="flex gap-3 capitalize ">
             {talent.gender.gender.toLocaleLowerCase()}

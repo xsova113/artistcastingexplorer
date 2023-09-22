@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 interface TalentCardProps {
   name: string;
   title: string;
-  location: City | Province;
+  location: City | Province | null;
   age: number;
   image: string;
   email: string;
@@ -60,7 +60,7 @@ const TalentCard = ({
           </CardDescription>
         </CardHeader>
         <CardContent className="px-2 py-1 max-sm:text-xs">
-          <p className="capitalize">{location.toLocaleLowerCase()}</p>
+          <p className="capitalize">{location?.toLocaleLowerCase()}</p>
           <p>
             Age: {age - 5} - {age + 5}
           </p>
