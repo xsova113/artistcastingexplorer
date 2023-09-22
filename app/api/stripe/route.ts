@@ -4,7 +4,7 @@ import { auth, currentUser } from "@clerk/nextjs";
 import { absoluteUrl } from "@/lib/utils";
 import prisma from "@/lib/client";
 
-// export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic'
 const settingsUrl = absoluteUrl("/subscribe");
 
 export async function GET() {
