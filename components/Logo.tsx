@@ -4,9 +4,10 @@ import Link from "next/link";
 const Logo = () => {
   return (
     <Link href={"/"} className="relative h-12 w-40">
-      <img
+      <Image
         src={"/logo-no-background.png"}
         alt={"logo"}
+        fill
         className="object-contain"
       />
     </Link>

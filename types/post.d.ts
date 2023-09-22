@@ -1,6 +1,7 @@
 export type Post = {
   id: number;
   title: { rendered: string };
+  status: string;
   categories: [number];
   author: number;
   content: { rendered: string };

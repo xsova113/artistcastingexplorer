@@ -88,9 +88,7 @@ const FilterReview = () => {
             placeholder="Filter By Email"
           />
         </div>
-      </Stack>
-
-      <Button
+        <Button
         className="w-fit self-end"
         variant={"secondary"}
         onClick={() => {
@@ -100,6 +98,7 @@ const FilterReview = () => {
       >
         Clear Search
       </Button>
+      </Stack>
     </div>
   );
 };

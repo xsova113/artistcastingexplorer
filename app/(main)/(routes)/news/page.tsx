@@ -26,7 +26,7 @@ const NewsPage = () => {
     try {
       setIsLoading(true);
       const response = await axios.get(
-        "https://castingjapanese.ca/wp-json/wp/v2/posts"
+        "https://castingjapanese.ca/wp-json/wp/v2/posts",
       );
 
       setPosts(response.data);
@@ -41,7 +41,7 @@ const NewsPage = () => {
     try {
       setIsLoading(true);
       const response = await axios.get(
-        "https://castingjapanese.ca/wp-json/wp/v2/categories"
+        "https://castingjapanese.ca/wp-json/wp/v2/categories",
       );
 
       setCategories(response.data);
@@ -53,18 +53,18 @@ const NewsPage = () => {
   };
 
   const newsCategory = categories.find(
-    (category) => category.slug === "uncategorized"
+    (category) => category.slug === "uncategorized",
   );
 
   useMemo(() => {
     const filteredPosts = posts.filter(
-      (post) => post.categories[0] === newsCategory?.id
+      (post) => post.categories[0] === newsCategory?.id,
     );
     setFilteredPosts(filteredPosts);
   }, [newsCategory?.id, posts]);
 
   useMemo(() => {
-    const groupedItems = posts?.reduce((results: any, post): Post => {
+    const groupedItems = posts.reduce((results: any, post): Post => {
       (results[
         (new Date(post.date).getMonth() + 1).toString() +
           new Date(post.date).getFullYear().toString()
@@ -87,7 +87,7 @@ const NewsPage = () => {
   if (!groupedByDateItems) return;
 
   const groupedArray: { [key: string]: Post[] }[] = Object.keys(
-    groupedByDateItems
+    groupedByDateItems,
   ).map((date) => {
     return {
       [date]: groupedByDateItems[date],
@@ -96,13 +96,13 @@ const NewsPage = () => {
 
   const filteredGroupedItems = (num: number) =>
     groupedArray.filter(
-      (item) => Object.keys(item)[0] === monthYearString(num)
+      (item) => Object.keys(item)[0] === monthYearString(num),
     );
 
   const filteredGroupedArray = (num: number): number => {
     const arrayLength =
       filteredGroupedItems(num).map(
-        (item) => item[monthYearString(num)].length
+        (item) => item[monthYearString(num)].length,
       )[0] || 0;
 
     return arrayLength;
@@ -122,26 +122,26 @@ const NewsPage = () => {
         title={"News"}
         description="Check out our latest articles and interviews"
       />
-      <div className="flex flex-col md:flex-row py-20 justify-center max-w-screen-lg mx-auto">
+      <div className="mx-auto flex max-w-screen-lg flex-col justify-center py-20 md:flex-row">
         <Articles
           filteredPosts={filteredPosts}
           isLoading={isLoading}
           title={"Recent News"}
           path={"news"}
         />
-        <div className="flex flex-col pt-16 md:pr-10 max-md:items-center md:ml-auto">
-          <h2 className="font-semibold text-lg underline underline-offset-4">
+        <div className="flex flex-col pt-16 max-md:items-center md:ml-auto md:pr-10">
+          <h2 className="text-lg font-semibold underline underline-offset-4">
             Archives
           </h2>
-          <article className="flex flex-col mt-6 md:items-start items-center gap-x-4">
-            <h4 className="font-semibold mb-2">{currentYear}</h4>
-            <div className="flex md:flex-col gap-x-4 items-start">
+          <article className="mt-6 flex flex-col items-center gap-x-4 md:items-start">
+            <h4 className="mb-2 font-semibold">{currentYear}</h4>
+            <div className="flex items-start gap-x-4 md:flex-col">
               <Button
                 onClick={() =>
                   handleClick(filteredGroupedItems(1), monthYearString(1))
                 }
                 variant={"link"}
-                className="font-semibold p-0 text-muted-foreground"
+                className="p-0 font-semibold text-muted-foreground"
               >
                 {dayjs((currentMonth + 1).toString()).format("MMMM")} (
                 {filteredGroupedArray(1)})
@@ -151,7 +151,7 @@ const NewsPage = () => {
                   handleClick(filteredGroupedItems(0), monthYearString(0))
                 }
                 variant={"link"}
-                className="font-semibold p-0 text-muted-foreground"
+                className="p-0 font-semibold text-muted-foreground"
               >
                 {dayjs(currentMonth.toString()).format("MMMM")} (
                 {filteredGroupedArray(0)})
@@ -161,7 +161,7 @@ const NewsPage = () => {
                   handleClick(filteredGroupedItems(-1), monthYearString(-1))
                 }
                 variant={"link"}
-                className="font-semibold p-0 text-muted-foreground"
+                className="p-0 font-semibold text-muted-foreground"
               >
                 {dayjs((currentMonth - 1).toString()).format("MMMM")} (
                 {filteredGroupedArray(-1)})
@@ -171,7 +171,7 @@ const NewsPage = () => {
                   handleClick(filteredGroupedItems(-2), monthYearString(-2))
                 }
                 variant={"link"}
-                className="font-semibold p-0 text-muted-foreground"
+                className="p-0 font-semibold text-muted-foreground"
               >
                 {dayjs((currentMonth - 2).toString()).format("MMMM")} (
                 {filteredGroupedArray(-2)})
