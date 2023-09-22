@@ -1,3 +1,4 @@
+import { TalentProfileType } from "@/types/talentProfileType";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -19,3 +20,33 @@ export function getAge(dateString: string) {
   }
   return age;
 }
+
+export const fetchFilteredTalents = (
+  talents: TalentProfileType[],
+  searchParams: { lastName: string; status: string; email: string },
+) => {
+  const filteredTalents =
+    !searchParams.email && !searchParams.lastName && !searchParams.status
+      ? talents
+      : talents?.filter(
+          (talent) =>
+            (!searchParams.status
+              ? true
+              : talent.isApproved ===
+                (searchParams.status === "approved"
+                  ? true
+                  : searchParams.status === "rejected"
+                  ? false
+                  : searchParams.status === "pending" && null)) &&
+            (searchParams.lastName?.toLowerCase()
+              ? talent.lastName.toLowerCase() ===
+                searchParams.lastName.toLowerCase()
+              : true) &&
+            (!searchParams.email
+              ? true
+              : talent.email.toLowerCase() ===
+                searchParams.email.toLowerCase().replace("%40", "@")),
+        );
+
+  return filteredTalents;
+};

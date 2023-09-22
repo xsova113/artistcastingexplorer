@@ -23,7 +23,7 @@ interface ProfileHeaderProps {
 const ProfileHeader = async ({ talentUser, talent }: ProfileHeaderProps) => {
   return (
     <div className="flex items-center gap-4">
-      <div className="relative flex h-[150px] w-[150px]">
+      <div className="relative flex h-[125px] w-[125px]">
         {!talentUser.imageUrl ? (
           <span className="self-center text-center text-muted-foreground">
             Upload a profile image in &quot;Manage Account&quot;
@@ -37,11 +37,11 @@ const ProfileHeader = async ({ talentUser, talent }: ProfileHeaderProps) => {
           />
         )}
       </div>
-      <Stack className="gap-4 md:gap-8">
+      <Stack className="gap-4">
         <h1 className="text-2xl font-semibold">
           {talent.firstName} {talent.lastName}
         </h1>
-        <Stack className="md:gap-2">
+        <Stack className="text-muted-foreground md:gap-2">
           <h2 className="flex gap-3 capitalize">
             {talent.performerType.role.toLowerCase().replaceAll("_", " ")}
             <span className="font-medium">|</span>

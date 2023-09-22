@@ -4,7 +4,7 @@ import FlexBetween from "./FlexBetween";
 import Link from "next/link";
 import MobileHeader from "./MobileHeader";
 import Logo from "./Logo";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { buttonVariants } from "./ui/button";
@@ -12,8 +12,7 @@ import { User } from "lucide-react";
 import useSignInAlertStore from "@/store/SignInAlertStore";
 import checkTalent from "@/lib/checkTalent";
 import { useEffect, useState } from "react";
-import { getTalentProfile } from "@/actions/getTalentProfile";
-import { TalentProfile } from "@prisma/client";
+import { TalentProfile } from "@prisma/client"
 
 const routes = [
   { name: "home", pathname: "/" },
@@ -37,7 +36,7 @@ const Header = () => {
 
   useEffect(() => {
     checkIsTalent();
-  }, []);
+  }, [isSignedIn]);
 
   return (
     <header className="shadow">
@@ -57,7 +56,6 @@ const Header = () => {
             </Link>
           ))}
         </nav>
-        {/* <UserMenu isLargeScreen /> */}
 
         <div className="flex items-center gap-2">
           {!talent ? (
@@ -74,17 +72,19 @@ const Header = () => {
               Become Talent
             </Link>
           ) : (
-            <Link
-              href={`/profile/${talent.id}`}
-              className={cn(
-                buttonVariants({
-                  variant: "outline",
-                  className: "hidden font-semibold lg:flex",
-                }),
-              )}
-            >
-              Talent Profile
-            </Link>
+            isSignedIn && (
+              <Link
+                href={`/profile/${talent.id}`}
+                className={cn(
+                  buttonVariants({
+                    variant: "outline",
+                    className: "hidden font-semibold lg:flex",
+                  }),
+                )}
+              >
+                Talent Profile
+              </Link>
+            )
           )}
 
           {isSignedIn ? (

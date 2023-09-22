@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
-import { clerkClient, currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import UpdateProfileForm from "./components/UpdateProfileForm";
 

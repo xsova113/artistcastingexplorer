@@ -8,6 +8,7 @@ import RParallaxProvider from "@/providers/RParallaxProvider";
 import { Toaster } from "@/components/ui/toaster";
 import SignInAlertModal from "@/components/modals/SignInAlertModal";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import ReviewModal from "@/components/modals/ReviewModal";
 
 const font = Raleway({
   subsets: ["latin"],
@@ -43,6 +44,7 @@ export default function RootLayout({
           <ReactQueryProvider>
             <RParallaxProvider>
               <SignInAlertModal />
+              <ReviewModal />
               <Header />
               {children}
               <Footer />

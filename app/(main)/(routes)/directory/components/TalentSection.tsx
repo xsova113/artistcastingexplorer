@@ -6,22 +6,39 @@ import FilterAccordian from "./FilterAccordian";
 import { SetStateAction, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { mockData } from "@/lib/data";
+import {
+  City,
+  Gender,
+  Location,
+  PerformerType,
+  Province,
+  TalentProfile,
+  Image,
+} from "@prisma/client";
+import { getAge } from "@/lib/utils";
 
-const TalentSection = () => {
-  const [data, setData] = useState(mockData);
+interface TalentSectionProps {
+  talents: (TalentProfile & {
+    images: Image[];
+    location: Location;
+    performerType: PerformerType;
+    gender: Gender;
+  })[];
+}
+
+const TalentSection = ({ talents }: TalentSectionProps) => {
   const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const pageCount = Math.ceil(data.length / itemsPerPage);
+  const pageCount = Math.ceil(talents.length / itemsPerPage);
 
   useEffect(() => {
-    setTotalPages(Math.ceil(data.length / itemsPerPage));
-  }, [data.length]);
+    setTotalPages(Math.ceil(talents.length / itemsPerPage));
+  }, [talents.length]);
 
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const subset = data.slice(startIndex, endIndex);
+  const subset = talents.slice(startIndex, endIndex);
 
   const handlePageChange = (selectedPage: {
     selected: SetStateAction<number>;
@@ -30,20 +47,27 @@ const TalentSection = () => {
   };
 
   return (
-    <Stack className="items-center bg-white w-full pb-24 mx-auto max-w-screen-lg">
+    <Stack className="mx-auto w-full max-w-screen-lg items-center bg-white pb-24">
       <FilterAccordian />
-      <h1 className="text-3xl lg:text-4xl font-semibold">Talents</h1>
-      <div className="border-b-2 w-1/12 border-primary mt-8 mb-12" />
+      <h1 className="text-3xl font-semibold lg:text-4xl">Talents</h1>
+      <div className="mb-12 mt-8 w-1/12 border-b-2 border-primary" />
       <div className="w-full px-8 md:px-10">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center gap-6 mb-10">
-          {subset.map((item, index) => (
+        <div className="mb-10 grid grid-cols-2 justify-center gap-6 md:grid-cols-3 lg:grid-cols-4">
+          {subset.map((item) => (
             <TalentCard
-              key={index}
-              name={item.name}
-              title={item.title}
-              location={item.location}
-              age={item.age}
-              image={item.image}
+              key={item.id}
+              id={item.id}
+              email={item.email}
+              name={item.firstName}
+              title={item.performerType.role}
+              location={item.location.city || item.location.province}
+              age={getAge(item.dob.toString())}
+              image={
+                item.images.filter(
+                  (image) =>
+                    image.url.split(".").pop() === ("jpg" || "png" || "jpeg"),
+                )[0].url
+              }
             />
           ))}
         </div>

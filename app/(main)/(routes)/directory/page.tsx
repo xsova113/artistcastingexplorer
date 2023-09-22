@@ -3,8 +3,11 @@ import DirectoryCard from "./components/DirectoryCard";
 import SeenOn from "./components/SeenOn";
 import TalentSection from "./components/TalentSection";
 import SubscribePremium from "./components/SubscribePremium";
+import { getTalents } from "@/actions/getTalents";
 
-const DirectoryPage = () => {
+const DirectoryPage = async () => {
+  const talents = await getTalents();
+
   return (
     <div className="flex flex-col">
       <HeroSection
@@ -15,7 +18,7 @@ const DirectoryPage = () => {
         description="Your Ultimate Resource for Hiring Success!"
       />
       <SeenOn />
-      <div className="flex flex-col self-center mb-24 md:flex-row gap-x-4 gap-y-4 max-w-screen-xl mx-8">
+      <div className="mx-8 mb-24 flex max-w-screen-xl flex-col gap-x-4 gap-y-4 self-center md:flex-row">
         <DirectoryCard
           image={
             "https://castingjapanese.ca/wp-content/uploads/2023/09/women-fashion-free-img.jpg"
@@ -44,7 +47,12 @@ const DirectoryPage = () => {
           }
         />
       </div>
-      <TalentSection />
+      {talents?.length === 0 || !talents ? (
+        <span className="my-10 text-center text-lg">No talents found...</span>
+      ) : (
+        <TalentSection talents={talents} />
+      )}
+
       <SubscribePremium />
     </div>
   );

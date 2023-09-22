@@ -13,6 +13,7 @@ datasource db {
 model TalentProfile {
   id              String        @id @default(auto()) @map("_id") @db.ObjectId
   userId          String        @unique
+  isApproved      Boolean?
   firstName       String
   middleName      String?
   lastName        String
@@ -60,7 +61,7 @@ model PerformerType {
 
 model Location {
   id             String          @id @default(auto()) @map("_id") @db.ObjectId
-  city           City
+  city           City?
   province       Province?
   talentProfiles TalentProfile[]
 }
