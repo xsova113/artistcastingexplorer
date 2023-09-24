@@ -25,42 +25,74 @@ import StageNameFormField from "./StageNameFormField";
 import { useRouter } from "next/navigation";
 import RoleFormField from "./RoleFormField";
 import GenderFormField from "./GenderFormField";
+import { TalentProfileType } from "@/types/talentProfileType";
+import SkillFormField from "./SkillFormField";
+import { updateTalent } from "@/actions/updateTalent";
 
-const TalentForm = () => {
+interface TalentFormProps {
+  talent?: TalentProfileType;
+}
+
+const TalentForm = ({ talent: initialData }: TalentFormProps) => {
   const { user } = useUser();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof talentFormSchema>>({
     resolver: zodResolver(talentFormSchema),
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      agency: "",
-      dob: new Date(),
-      bio: "",
-      bodyType: "",
-      email: "",
-      height: "",
-      images: [],
-      middleName: "",
-      stageName: "",
-    },
+    defaultValues: initialData
+      ? {
+          ...initialData,
+          images: initialData.images,
+          skills: initialData.skills,
+          gender: initialData.gender.gender,
+          city: initialData.location.city || undefined,
+          performerType: initialData.performerType.role,
+          middleName: initialData.middleName || undefined,
+          stageName: initialData.stageName || undefined,
+          bodyType: initialData.bodyType || undefined,
+          agency: initialData.agency || undefined,
+        }
+      : {
+          firstName: "",
+          lastName: "",
+          agency: "",
+          dob: new Date(),
+          bio: "",
+          bodyType: "",
+          email: "",
+          height: "",
+          skills: [],
+          images: [],
+          middleName: "",
+          stageName: "",
+        },
   });
 
   const isSubmitting = form.formState.isSubmitting;
 
+  const toastMessage = initialData
+    ? "Billboard updated."
+    : "Billboard created.";
+  const action = initialData ? "Save changes" : "Create";
+
   async function onSubmit(values: z.infer<typeof talentFormSchema>) {
     try {
-      const talent = await createTalent(values, user?.id);
+      if (initialData) {
+        await updateTalent(values, user?.id);
+      } else {
+        const newTalent = await createTalent(values, user?.id);
 
-      if (!talent)
-        toast({
-          title: "Success",
-          description: "Talent form submitted successfully!",
-          variant: "success",
-        });
+        if (!newTalent) return;
+      }
 
-      router.push(`/profile/${talent?.id}`);
+      toast({
+        title: "Success",
+        description: toastMessage,
+        variant: "success",
+      });
+      
+      router.push(`/profile/${initialData?.id}`);
+      router.refresh();
     } catch (error: any) {
       toast({
         title: "Error Submitting",
@@ -99,14 +131,17 @@ const TalentForm = () => {
           <h3 className="mb-8 text-xl underline underline-offset-8">
             Advanced Information
           </h3>
-          <div className="flex flex-wrap gap-8">
-            <ImagesFormField form={form} />
-            <BioFormField form={form} />
-          </div>
+          <Stack className="gap-8">
+            <Stack className="gap-8">
+              <ImagesFormField form={form} />
+              <BioFormField form={form} />
+            </Stack>
+            <SkillFormField form={form} />
+          </Stack>
         </Stack>
 
         <Button disabled={isSubmitting} type="submit">
-          Submit
+          {action}
         </Button>
       </form>
     </Form>

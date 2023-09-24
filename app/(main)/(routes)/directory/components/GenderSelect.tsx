@@ -32,7 +32,10 @@ export function GenderSelect({ form }: GenderSelectProps) {
           <Select onValueChange={field.onChange}>
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Select a gender" />
+                <SelectValue
+                  placeholder="Select a gender"
+                  defaultValue={field.value}
+                />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

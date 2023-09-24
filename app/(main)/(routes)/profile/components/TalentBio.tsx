@@ -1,9 +1,9 @@
 import Stack from "@/components/Stack";
 import { Separator } from "@/components/ui/separator";
-import { TalentProfile } from "@prisma/client";
+import { TalentProfileType } from "@/types/talentProfileType";
 
 interface TalentBio {
-  talent: TalentProfile;
+  talent: TalentProfileType;
 }
 
 const TalentBio = ({ talent }: TalentBio) => {
@@ -13,7 +13,18 @@ const TalentBio = ({ talent }: TalentBio) => {
       <p className="text-muted-foreground">{talent.bio}</p>
       <Separator className="my-5" />
       <h1 className="mb-4 text-2xl font-semibold">Skills</h1>
-      <p className="text-muted-foreground">TODO: Add skills</p>
+      <div className="flex flex-wrap gap-3 text-muted-foreground">
+        {talent.skills.map((skill) => (
+          <div
+            key={skill.id}
+            className="cursor-default rounded bg-secondary p-2 shadow transition hover:-translate-y-1 hover:scale-110"
+          >
+            <span className="capitalize">
+              {skill.skill?.replaceAll("_", " ")}
+            </span>
+          </div>
+        ))}
+      </div>
       <Separator className="my-5" />
       <h1 className="mb-4 text-2xl font-semibold">Credits</h1>
       <p className="text-muted-foreground">TODO: Add Credits</p>

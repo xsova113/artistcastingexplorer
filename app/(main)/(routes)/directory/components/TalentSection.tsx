@@ -7,11 +7,9 @@ import { SetStateAction, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import {
-  City,
   Gender,
   Location,
   PerformerType,
-  Province,
   TalentProfile,
   Image,
 } from "@prisma/client";

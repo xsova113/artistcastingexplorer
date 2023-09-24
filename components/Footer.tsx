@@ -9,7 +9,7 @@ const currentYear = new Date().getFullYear();
 
 const Footer = () => {
   return (
-    <Stack className="items-center border-t">
+    <Stack className="items-center shadow bg-slate-50">
       <FlexBetween className="pt-10 px-10 max-md:flex-col space-y-10 max-md:text-center md:items-start">
         <Stack className="md:w-1/5 gap-6 max-md:items-center">
           <Logo />

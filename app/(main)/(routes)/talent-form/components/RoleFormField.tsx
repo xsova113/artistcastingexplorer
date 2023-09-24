@@ -35,7 +35,10 @@ const RoleFormField = ({ form }: CityFormFieldProps) => {
           >
             <FormControl>
               <SelectTrigger disabled={form.formState.isSubmitting}>
-                <SelectValue placeholder="Select a role" />
+                <SelectValue
+                  placeholder="Select a role"
+                  defaultValue={field.value}
+                />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

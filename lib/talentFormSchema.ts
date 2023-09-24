@@ -13,6 +13,7 @@ export const talentFormSchema = z.object({
   gender: z.nativeEnum(GenderType),
   bodyType: z.string().optional(),
   email: z.string().email(),
+  skills: z.object({ skill: z.string().nullable() }).array(),
   dob: z.date({
     required_error: "A date of birth is required.",
   }),

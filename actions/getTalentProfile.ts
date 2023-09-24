@@ -14,6 +14,7 @@ export const getTalentProfile = async (id: string) => {
           location: true,
           performerType: true,
           gender: true,
+          skills: true,
         },
       });
 

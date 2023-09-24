@@ -7,6 +7,9 @@ import { getTalents } from "@/actions/getTalents";
 
 const DirectoryPage = async () => {
   const talents = await getTalents();
+  const approvedTalents = talents?.filter(
+    (talent) => talent.isApproved === true,
+  );
 
   return (
     <div className="flex flex-col">
@@ -47,10 +50,10 @@ const DirectoryPage = async () => {
           }
         />
       </div>
-      {talents?.length === 0 || !talents ? (
+      {approvedTalents?.length === 0 || !approvedTalents ? (
         <span className="my-10 text-center text-lg">No talents found...</span>
       ) : (
-        <TalentSection talents={talents} />
+        <TalentSection talents={approvedTalents} />
       )}
 
       <SubscribePremium />

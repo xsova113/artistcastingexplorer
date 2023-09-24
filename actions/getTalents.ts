@@ -1,4 +1,5 @@
 import prisma from "@/lib/client";
+import { TalentProfileType } from "@/types/talentProfileType";
 import {
   TalentProfile,
   Gender,
@@ -8,13 +9,7 @@ import {
 } from "@prisma/client";
 
 export const getTalents = async (): Promise<
-  | (TalentProfile & {
-      images: Image[];
-      location: Location;
-      performerType: PerformerType;
-      gender: Gender;
-    })[]
-  | undefined
+  TalentProfileType[] | undefined
 > => {
   try {
     const talents = await prisma.talentProfile.findMany({
@@ -23,6 +18,7 @@ export const getTalents = async (): Promise<
         gender: true,
         location: true,
         performerType: true,
+        skills: true,
       },
     });
 

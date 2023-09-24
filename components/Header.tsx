@@ -39,7 +39,7 @@ const Header = () => {
   }, [isSignedIn]);
 
   return (
-    <header className="shadow">
+    <header className="shadow bg-slate-50">
       <FlexBetween className="px-4 py-4">
         <Logo />
         <nav className="hidden gap-4 lg:flex">

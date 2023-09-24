@@ -75,7 +75,7 @@ const PremiumCard = ({ isPremium }: { isPremium: boolean }) => {
         </CardContent>
         <CardFooter className="mt-auto">
           <Button
-            className="mx-auto rounded-full px-8 font-semibold uppercase"
+            className="mx-auto w-full px-8 font-semibold uppercase"
             onClick={isSignedIn ? onSubscribe : onOpen}
             disabled={isLoading}
             variant={"outline"}

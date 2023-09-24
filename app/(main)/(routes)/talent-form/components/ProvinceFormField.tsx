@@ -34,7 +34,10 @@ const ProvinceFormField = ({ form }: ProvinceFormFieldProps) => {
           >
             <FormControl>
               <SelectTrigger disabled={form.formState.isSubmitting}>
-                <SelectValue placeholder="Select a province" />
+                <SelectValue
+                  placeholder="Select a province"
+                  defaultValue={field.value}
+                />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

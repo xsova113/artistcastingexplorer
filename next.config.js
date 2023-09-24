@@ -6,6 +6,7 @@ const nextConfig = {
       "castingjapanese.ca",
       "img.clerk.com",
       "res.cloudinary.com",
+      "embed.filekitcdn.com",
     ],
   },
 

@@ -4,7 +4,7 @@ import prisma from "@/lib/client";
 import { TalentFormValues } from "@/lib/talentFormSchema";
 import { TalentProfile } from "@prisma/client";
 
-export const createTalent = async (
+export const updateTalent = async (
   values: TalentFormValues,
   userId?: string,
 ): Promise<TalentProfile | undefined> => {
@@ -12,34 +12,51 @@ export const createTalent = async (
     console.log("User ID is missing");
   } else {
     try {
-      const talent = await prisma.talentProfile.create({
+      const talent = await prisma.talentProfile.update({
+        where: {
+          userId,
+        },
         data: {
           userId: userId,
           bio: values.bio,
           dob: values.dob,
-          performerType: { create: { role: values.performerType } },
+          performerType: { update: { role: values.performerType } },
           email: values.email,
           firstName: values.firstName,
           height: values.height,
-          gender: { create: { gender: values.gender } },
+          gender: { update: { gender: values.gender } },
           lastName: values.lastName,
           agency: values.agency,
           bodyType: values.bodyType,
-          skills: { createMany: { data: values.skills } },
           middleName: values.middleName,
           stageName: values.stageName,
-          images: { createMany: { data: values.images } },
+          skills: { deleteMany: {} },
           location: {
-            create: {
+            update: {
               city: values.city,
             },
+          },
+          images: { deleteMany: {} },
+        },
+      });
+
+      await prisma.talentProfile.update({
+        where: {
+          id: talent.id,
+        },
+        data: {
+          images: {
+            createMany: { data: values.images },
+          },
+          skills: {
+            createMany: { data: values.skills },
           },
         },
       });
 
       return talent;
     } catch (error: any) {
-      console.log("Error submitting: ", error);
+      console.log("Error updating: ", error);
     }
   }
 };

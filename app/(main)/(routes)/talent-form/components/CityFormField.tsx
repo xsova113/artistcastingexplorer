@@ -29,10 +29,16 @@ const CityFormField = ({ form }: CityFormFieldProps) => {
       render={({ field }) => (
         <FormItem>
           <FormLabel className="font-semibold">City</FormLabel>
-          <Select onValueChange={field.onChange} disabled={form.formState.isSubmitting}>
+          <Select
+            onValueChange={field.onChange}
+            disabled={form.formState.isSubmitting}
+          >
             <FormControl>
               <SelectTrigger disabled={form.formState.isSubmitting}>
-                <SelectValue placeholder="Select a city" />
+                <SelectValue
+                  placeholder="Select a city"
+                  defaultValue={field.value}
+                />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

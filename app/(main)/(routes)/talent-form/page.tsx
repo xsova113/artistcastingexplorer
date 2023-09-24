@@ -1,20 +1,32 @@
 import Stack from "@/components/Stack";
-import { auth } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
 import TalentForm from "./components/TalentForm";
 import { redirect } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
+import prisma from "@/lib/client";
 
-const TalentFormPage = () => {
-  const { userId } = auth();
+const TalentFormPage = async () => {
+  const user = await currentUser();
 
-  if (!userId) redirect("/sign-in");
+  if (!user?.id) redirect("/sign-in");
+
+  const talent = await prisma.talentProfile.findUnique({
+    where: { userId: user.id },
+    include: {
+      images: true,
+      location: true,
+      gender: true,
+      performerType: true,
+      skills: true,
+    },
+  });
 
   return (
     <section className="mx-auto max-w-screen-xl">
       <Stack className="px-6 py-20 md:px-20">
         <h1 className="text-4xl font-semibold">Talent Form</h1>
         <Separator className="mt-2" />
-        <TalentForm />
+        <TalentForm talent={talent || undefined} />
       </Stack>
     </section>
   );

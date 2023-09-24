@@ -35,7 +35,10 @@ const GenderFormField = ({ form }: GenderFormFieldProps) => {
           >
             <FormControl>
               <SelectTrigger disabled={form.formState.isSubmitting}>
-                <SelectValue placeholder="Select a gender" />
+                <SelectValue
+                  defaultValue={field.value}
+                  placeholder="Select a gender"
+                />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

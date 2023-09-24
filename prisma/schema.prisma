@@ -28,6 +28,7 @@ model TalentProfile {
   bio             String
   bodyType        String?
   agency          String?
+  skills          Skill[]
   images          Image[]
   location        Location      @relation(fields: [locationId], references: [id])
   locationId      String        @db.ObjectId
@@ -51,6 +52,13 @@ enum GenderType {
   NON_BINARY
   TRANS_MALE
   TRANS_FEMALE
+}
+
+model Skill {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  skill           String?
+  TalentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
+  talentProfileId String        @db.ObjectId
 }
 
 model PerformerType {
@@ -85,6 +93,7 @@ enum Role {
 enum City {
   VANCOUVER
   TORONTO
+  OTHER
 }
 
 enum Province {
@@ -102,8 +111,8 @@ model Image {
   id  String @id @default(auto()) @map("_id") @db.ObjectId
   url String
 
-  talentProfile   TalentProfile? @relation(fields: [talentProfileId], references: [id])
-  talentProfileId String?        @db.ObjectId
+  talentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
+  talentProfileId String        @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
