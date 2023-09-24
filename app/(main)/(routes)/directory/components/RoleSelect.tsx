@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { filterFormSchema } from "@/lib/filterFormSchema";
-import { GenderType } from "@prisma/client";
+import { Role } from "@prisma/client";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 
@@ -23,25 +23,25 @@ interface GenderSelectProps {
   form: UseFormReturn<z.infer<typeof filterFormSchema>>;
 }
 
-export function GenderSelect({ form }: GenderSelectProps) {
+export function RoleSelect({ form }: GenderSelectProps) {
   return (
     <FormField
       control={form.control}
-      name="gender"
+      name="role"
       render={({ field }) => (
-        <FormItem className="w-full rounded-md bg-secondary p-2 md:w-52">
-          <FormLabel className="font-semibold">Gender</FormLabel>
+        <FormItem className="md:w-52 w-full rounded-md bg-secondary p-2">
+          <FormLabel className="font-semibold">Role Type</FormLabel>
           <Select onValueChange={field.onChange}>
             <FormControl>
               <SelectTrigger>
                 <SelectValue
-                  placeholder="Select a gender"
+                  placeholder="Select a role"
                   defaultValue={field.value}
                 />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {Object.keys(GenderType).map((item) => (
+              {Object.keys(Role).map((item) => (
                 <SelectItem key={item} value={item} className="capitalize">
                   {item.toLowerCase().replaceAll("_", " ")}
                 </SelectItem>

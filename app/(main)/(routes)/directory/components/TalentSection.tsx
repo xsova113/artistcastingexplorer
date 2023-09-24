@@ -2,7 +2,6 @@
 
 import Stack from "@/components/Stack";
 import TalentCard from "./TalentCard";
-import FilterAccordian from "./FilterAccordian";
 import { SetStateAction, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -46,7 +45,6 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
 
   return (
     <Stack className="mx-auto w-full max-w-screen-lg items-center bg-white pb-24">
-      <FilterAccordian />
       <h1 className="text-3xl font-semibold lg:text-4xl">Talents</h1>
       <div className="mb-12 mt-8 w-1/12 border-b-2 border-primary" />
       <div className="w-full px-8 md:px-10">

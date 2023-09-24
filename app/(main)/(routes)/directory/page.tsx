@@ -4,12 +4,67 @@ import SeenOn from "./components/SeenOn";
 import TalentSection from "./components/TalentSection";
 import SubscribePremium from "./components/SubscribePremium";
 import { getTalents } from "@/actions/getTalents";
+import FilterAccordian from "./components/FilterAccordian";
+import { Role } from "@prisma/client";
+import { getAge } from "@/lib/utils";
 
-const DirectoryPage = async () => {
+interface DirectoryPageProps {
+  searchParams: {
+    name: string;
+    gender: string;
+    ageMin: number;
+    ageMax: number;
+    city: string;
+    province: string;
+    role: Role;
+    heightMin: number;
+    heightMax: number;
+  };
+}
+
+const DirectoryPage = async ({ searchParams }: DirectoryPageProps) => {
   const talents = await getTalents();
   const approvedTalents = talents?.filter(
     (talent) => talent.isApproved === true,
   );
+
+  const filteredTalents = !searchParams
+    ? approvedTalents
+    : approvedTalents?.filter(
+        (talent) =>
+          (!searchParams.name
+            ? true
+            : talent.lastName
+                .toLowerCase()
+                .replaceAll(" ", "")
+                .includes(
+                  searchParams.name.toLowerCase().replaceAll("%20", ""),
+                ) ||
+              talent.firstName
+                .toLowerCase()
+                .replaceAll(" ", "")
+                .includes(
+                  searchParams.name.toLowerCase().replaceAll("%20", ""),
+                )) &&
+          (!searchParams.ageMax || !searchParams.ageMin
+            ? true
+            : getAge(talent.dob.toString()) < searchParams.ageMax &&
+              getAge(talent.dob.toString()) > searchParams.ageMin) &&
+          (!searchParams.heightMax || !searchParams.heightMin
+            ? true
+            : Number(talent.height) < searchParams.heightMax &&
+              Number(talent.height) > searchParams.heightMin) &&
+          (!searchParams.city
+            ? true
+            : talent.location.city?.toLowerCase() ===
+              searchParams.city.toLowerCase()) &&
+          (!searchParams.role
+            ? true
+            : talent.performerType.role === searchParams.role) &&
+          (!searchParams.gender
+            ? true
+            : talent.gender.gender === searchParams.gender),
+      );
 
   return (
     <div className="flex flex-col">
@@ -50,10 +105,11 @@ const DirectoryPage = async () => {
           }
         />
       </div>
-      {approvedTalents?.length === 0 || !approvedTalents ? (
-        <span className="my-10 text-center text-lg">No talents found...</span>
+      <FilterAccordian />
+      {filteredTalents?.length === 0 || !filteredTalents ? (
+        <span className="my-20 text-center text-lg">No talents found...</span>
       ) : (
-        <TalentSection talents={approvedTalents} />
+        <TalentSection talents={filteredTalents} />
       )}
 
       <SubscribePremium />

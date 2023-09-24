@@ -10,28 +10,36 @@ import { useRouter } from "next/navigation";
 import qs from "query-string";
 import { FormEvent } from "react";
 import { AgeSelect } from "./AgeSelect";
-
-const formSchema = z.object({
-  gender: z.string().optional(),
-  ageRange: z.number().array().optional(),
-});
+import { filterFormSchema } from "@/lib/filterFormSchema";
+import { LocationSelect } from "./LocationSelect";
+import NameSelect from "./NameSelect";
+import { RoleSelect } from "./RoleSelect";
+import { HeightSelect } from "./HeightSelect";
 
 const FilterForm = () => {
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof filterFormSchema>>({
+    resolver: zodResolver(filterFormSchema),
     defaultValues: {
       gender: "",
       ageRange: [],
+      heightRange: [],
+      name: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: z.infer<typeof filterFormSchema>) => {
     const query = {
       gender: values.gender,
       ageMin: values.ageRange ? values.ageRange[0] : 25,
       ageMax: values.ageRange ? values.ageRange[1] : 45,
+      heightMin: values.heightRange ? values.heightRange[0] : 150,
+      heightMax: values.heightRange ? values.heightRange[1] : 200,
+      city: values.city,
+      province: values.province,
+      name: values.name,
+      role: values.role,
     };
 
     const url = qs.stringifyUrl(
@@ -49,16 +57,21 @@ const FilterForm = () => {
     e.preventDefault();
     form.reset();
     window.history.replaceState(null, "", "/directory");
+    window.location.reload();
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-4 p-1">
           <GenderSelect form={form} />
           <AgeSelect form={form} />
+          <LocationSelect form={form} />
+          <NameSelect form={form} />
+          <RoleSelect form={form} />
+          <HeightSelect form={form} />
         </div>
-        <div className="mt-4 flex items-center justify-end gap-4">
+        <div className="mt-4 flex items-center justify-end gap-4 p-1">
           <Button onClick={(e) => clearForm(e)} variant={"secondary"}>
             Clear
           </Button>

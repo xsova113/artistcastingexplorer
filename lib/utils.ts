@@ -26,7 +26,7 @@ export const fetchFilteredTalents = (
   searchParams: { lastName: string; status: string; email: string },
 ) => {
   const filteredTalents =
-    !searchParams.email && !searchParams.lastName && !searchParams.status
+    !searchParams
       ? talents
       : talents?.filter(
           (talent) =>
