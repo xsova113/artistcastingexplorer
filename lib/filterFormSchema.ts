@@ -9,4 +9,5 @@ export const filterFormSchema = z.object({
   province: z.nativeEnum(Province).optional(),
   name: z.string().optional(),
   role: z.nativeEnum(Role).optional(),
+  keyword: z.string().optional(),
 });

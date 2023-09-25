@@ -7,11 +7,12 @@ import { fetchFilteredTalents } from "@/lib/utils";
 import TalentReviewSection from "./components/TalentReviewSection";
 
 interface ProfileReviewPageProps {
-  searchParams: { lastName: string; status: string; email: string };
+  searchParams: { name: string; status: string; email: string };
 }
 
 const admin = process.env.ADMIN_EMAIL;
 const admin2 = process.env.ADMIN_EMAIL2;
+const admin3 = process.env.ADMIN_EMAIL3;
 
 const ProfileReviewPage = async ({ searchParams }: ProfileReviewPageProps) => {
   const user = await currentUser();
@@ -21,7 +22,8 @@ const ProfileReviewPage = async ({ searchParams }: ProfileReviewPageProps) => {
 
   if (
     user.emailAddresses[0].emailAddress !== admin &&
-    user.emailAddresses[0].emailAddress !== admin2
+    user.emailAddresses[0].emailAddress !== admin2 &&
+    user.emailAddresses[0].emailAddress !== admin3
   )
     redirect("/");
 

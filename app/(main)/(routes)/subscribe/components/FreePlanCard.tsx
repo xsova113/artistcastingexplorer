@@ -8,13 +8,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
 
 const FreePlanCard = () => {
   const converkitUrl = process.env.NEXT_PUBLIC_CONVERTKIT_URL as string;
 
   return (
-    <Card className="mb-4 h-[400px] flex-1">
+    <Card className="mb-4 h-[400px] flex-1 max-md:pb-8">
       <CardHeader className="text-center">
         <CardTitle className="text-3xl font-bold md:text-4xl">$0</CardTitle>
         <CardDescription>
@@ -33,7 +32,7 @@ const FreePlanCard = () => {
         <form
           action={converkitUrl}
           target="_blank"
-          className="seva-form formkit-form mt-auto lg:mt-5"
+          className="seva-form formkit-form lg:mt-5 mt-auto"
           method="post"
           data-sv-form={5634602}
           data-uid="6f7a488e80"
@@ -84,7 +83,6 @@ const FreePlanCard = () => {
                   }}
                 />
               </div>
-
               <Button
                 data-element="submit"
                 className="formkit-submit formkit-submit mx-auto self-center rounded-full uppercase"

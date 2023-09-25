@@ -12,7 +12,7 @@ import {
   TalentProfile,
   Image,
 } from "@prisma/client";
-import { getAge } from "@/lib/utils";
+import { cn, getAge } from "@/lib/utils";
 
 interface TalentSectionProps {
   talents: (TalentProfile & {
@@ -45,10 +45,12 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
 
   return (
     <Stack className="mx-auto w-full max-w-screen-lg items-center bg-white pb-24">
-      <h1 className="text-3xl font-semibold lg:text-4xl">Talents</h1>
-      <div className="mb-12 mt-8 w-1/12 border-b-2 border-primary" />
       <div className="w-full px-8 md:px-10">
-        <div className="mb-10 grid grid-cols-2 justify-center gap-6 md:grid-cols-3 lg:grid-cols-4">
+        <div
+          className={cn(
+            "mb-10 grid grid-cols-2 justify-center gap-6 md:grid-cols-3 lg:grid-cols-4",
+          )}
+        >
           {subset.map((item) => (
             <TalentCard
               key={item.id}

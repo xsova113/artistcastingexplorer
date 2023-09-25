@@ -21,7 +21,7 @@ const FilterReview = () => {
     (status: Status | undefined) => {
       const query = {
         status,
-        lastName: nameInput,
+        name: nameInput,
         email: emailInput,
       };
 
@@ -89,15 +89,15 @@ const FilterReview = () => {
           />
         </div>
         <Button
-        className="w-fit self-end"
-        variant={"secondary"}
-        onClick={() => {
-          window.history.replaceState(null, "", "/profileReview");
-          window.location.reload();
-        }}
-      >
-        Clear Search
-      </Button>
+          className="w-fit self-end"
+          variant={"secondary"}
+          onClick={() => {
+            window.history.replaceState(null, "", "/profileReview");
+            window.location.reload();
+          }}
+        >
+          Clear Search
+        </Button>
       </Stack>
     </div>
   );

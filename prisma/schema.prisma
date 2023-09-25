@@ -97,6 +97,8 @@ enum City {
 }
 
 enum Province {
+  BRITISH_COLUMBIA
+  ONTARIO
   ALBERTA
   MANITOBA
   NEWB_RUNSWICK

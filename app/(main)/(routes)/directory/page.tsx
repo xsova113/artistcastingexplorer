@@ -7,6 +7,9 @@ import { getTalents } from "@/actions/getTalents";
 import FilterAccordian from "./components/FilterAccordian";
 import { Role } from "@prisma/client";
 import { getAge } from "@/lib/utils";
+import DIrectoryCards from "./components/DIrectoryCards";
+import Stack from "@/components/Stack";
+import SortForm from "./components/SortForm";
 
 interface DirectoryPageProps {
   searchParams: {
@@ -19,6 +22,7 @@ interface DirectoryPageProps {
     role: Role;
     heightMin: number;
     heightMax: number;
+    keyword: string;
   };
 }
 
@@ -63,7 +67,24 @@ const DirectoryPage = async ({ searchParams }: DirectoryPageProps) => {
             : talent.performerType.role === searchParams.role) &&
           (!searchParams.gender
             ? true
-            : talent.gender.gender === searchParams.gender),
+            : talent.gender.gender === searchParams.gender) &&
+          (!searchParams.keyword
+            ? true
+            : talent.skills
+                .map((skill) => skill.skill?.toLowerCase())
+                .includes(searchParams.keyword.toLowerCase()) ||
+              talent.location.city
+                ?.toLowerCase()
+                .includes(searchParams.keyword.toLowerCase()) ||
+              talent.firstName
+                .toLowerCase()
+                .includes(searchParams.keyword.toLowerCase()) ||
+              talent.performerType.role
+                .toLowerCase()
+                .includes(searchParams.keyword.toLowerCase()) ||
+              talent.lastName
+                .toLowerCase()
+                .includes(searchParams.keyword.toLowerCase())),
       );
 
   return (
@@ -76,36 +97,13 @@ const DirectoryPage = async ({ searchParams }: DirectoryPageProps) => {
         description="Your Ultimate Resource for Hiring Success!"
       />
       <SeenOn />
-      <div className="mx-8 mb-24 flex max-w-screen-xl flex-col gap-x-4 gap-y-4 self-center md:flex-row">
-        <DirectoryCard
-          image={
-            "https://castingjapanese.ca/wp-content/uploads/2023/09/women-fashion-free-img.jpg"
-          }
-          title={"Top Actors"}
-          description={
-            "Consectetur ipsum ullamco esse reprehenderit cupidatat cillum laborum do occaecat aute cillum."
-          }
-        />
-        <DirectoryCard
-          image={
-            "https://castingjapanese.ca/wp-content/uploads/2023/09/men-fashion-free-img.jpg"
-          }
-          title={"Hire Models"}
-          description={
-            "Consectetur non cupidatat reprehenderit velit ex labore labore aute."
-          }
-        />
-        <DirectoryCard
-          image={
-            "https://castingjapanese.ca/wp-content/uploads/2023/09/carnival-lights-holiday-4092632.jpg"
-          }
-          title={"Dicover Entertainers"}
-          description={
-            "Fugiat veniam adipisicing laboris id qui velit labore et velit voluptate sit anim duis."
-          }
-        />
-      </div>
+      <DIrectoryCards />
+      <Stack className="mx-auto">
+        <h1 className="text-3xl font-semibold lg:text-4xl">Talents</h1>
+        <div className="mx-auto mb-12 mt-8 w-full border-b-2 border-primary" />
+      </Stack>
       <FilterAccordian />
+      <SortForm />
       {filteredTalents?.length === 0 || !filteredTalents ? (
         <span className="my-20 text-center text-lg">No talents found...</span>
       ) : (

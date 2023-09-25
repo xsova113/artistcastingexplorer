@@ -15,6 +15,7 @@ import { LocationSelect } from "./LocationSelect";
 import NameSelect from "./NameSelect";
 import { RoleSelect } from "./RoleSelect";
 import { HeightSelect } from "./HeightSelect";
+import SearchKeyword from "./SearchKeyword";
 
 const FilterForm = () => {
   const router = useRouter();
@@ -26,6 +27,7 @@ const FilterForm = () => {
       ageRange: [],
       heightRange: [],
       name: "",
+      keyword: "",
     },
   });
 
@@ -40,6 +42,7 @@ const FilterForm = () => {
       province: values.province,
       name: values.name,
       role: values.role,
+      keyword: values.keyword,
     };
 
     const url = qs.stringifyUrl(
@@ -70,6 +73,7 @@ const FilterForm = () => {
           <NameSelect form={form} />
           <RoleSelect form={form} />
           <HeightSelect form={form} />
+          <SearchKeyword form={form} />
         </div>
         <div className="mt-4 flex items-center justify-end gap-4 p-1">
           <Button onClick={(e) => clearForm(e)} variant={"secondary"}>

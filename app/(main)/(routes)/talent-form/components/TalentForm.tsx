@@ -71,8 +71,8 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
   const isSubmitting = form.formState.isSubmitting;
 
   const toastMessage = initialData
-    ? "Billboard updated."
-    : "Billboard created.";
+    ? "Profile updated."
+    : "Profile created.";
   const action = initialData ? "Save changes" : "Create";
 
   async function onSubmit(values: z.infer<typeof talentFormSchema>) {

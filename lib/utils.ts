@@ -23,30 +23,42 @@ export function getAge(dateString: string) {
 
 export const fetchFilteredTalents = (
   talents: TalentProfileType[],
-  searchParams: { lastName: string; status: string; email: string },
+  searchParams: { name: string; status: string; email: string },
 ) => {
-  const filteredTalents =
-    !searchParams
-      ? talents
-      : talents?.filter(
-          (talent) =>
-            (!searchParams.status
-              ? true
-              : talent.isApproved ===
-                (searchParams.status === "approved"
-                  ? true
-                  : searchParams.status === "rejected"
-                  ? false
-                  : searchParams.status === "pending" && null)) &&
-            (searchParams.lastName?.toLowerCase()
-              ? talent.lastName.toLowerCase() ===
-                searchParams.lastName.toLowerCase()
-              : true) &&
-            (!searchParams.email
-              ? true
-              : talent.email.toLowerCase() ===
-                searchParams.email.toLowerCase().replace("%40", "@")),
-        );
+  const filteredTalents = !searchParams
+    ? talents
+    : talents?.filter(
+        (talent) =>
+          (!searchParams.status
+            ? true
+            : talent.isApproved ===
+              (searchParams.status === "approved"
+                ? true
+                : searchParams.status === "rejected"
+                ? false
+                : searchParams.status === "pending" && null)) &&
+          (!searchParams.name
+            ? true
+            : talent.lastName
+                .toLowerCase()
+                .replaceAll(" ", "")
+                .includes(
+                  searchParams.name.toLowerCase().replaceAll("%20", ""),
+                ) ||
+              talent.firstName
+                .toLowerCase()
+                .replaceAll(" ", "")
+                .includes(
+                  searchParams.name.toLowerCase().replaceAll("%20", ""),
+                )) &&
+          (!searchParams.email
+            ? true
+            : talent.email
+                .toLowerCase()
+                .includes(
+                  searchParams.email.toLowerCase().replace("%40", "@"),
+                )),
+      );
 
   return filteredTalents;
 };

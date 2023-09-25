@@ -28,8 +28,7 @@ const BioFormField = ({ form }: BioFormFieldProps) => {
               placeholder="Tell us about yourself, what motivates you, and what you have accomplished..."
               className="rounded-lg border"
               minLength={150}
-              cols={80}
-              rows={8}
+              rows={6}
               disabled={form.formState.isSubmitting}
             />
           </FormControl>

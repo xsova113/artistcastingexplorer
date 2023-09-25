@@ -50,6 +50,9 @@ const TalentDetailSheet = ({
       <SheetContent className="min-w-[340px] overflow-x-scroll p-0 md:min-w-[800px] lg:min-w-[1000px]">
         <Stack className="px-6 py-20 md:px-20">
           <ProfileHeader talentUser={talentUser} talent={talent} />
+          <span className="mt-4 text-sm">
+            {talentUser.emailAddresses[0].emailAddress}
+          </span>
           <Separator className="mt-8" />
           <div className="mt-10 flex flex-col-reverse gap-x-14 gap-y-10 md:flex-row lg:mt-20">
             <TalentMedias medias={talent.images.map((image) => image.url)} />

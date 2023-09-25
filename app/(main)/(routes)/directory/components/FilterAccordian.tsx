@@ -18,7 +18,7 @@ const FilterAccordian = () => {
     <Accordion
       type="single"
       collapsible
-      className="mx-auto mb-10 w-11/12 rounded-lg bg-primary-foreground px-6 drop-shadow transition-all"
+      className="mx-auto w-11/12 rounded-lg bg-primary-foreground px-6 drop-shadow transition-all"
     >
       <AccordionItem value="item-1" className="border-none">
         <AccordionTrigger

@@ -11,7 +11,7 @@ const YProgressBar = () => {
 
   return (
     <motion.div
-      className="fixed inset-0 h-2 bg-primary origin-left z-10"
+      className="fixed inset-0 z-10 h-2 origin-left bg-primary"
       style={{ scaleX }}
     />
   );
