@@ -26,6 +26,7 @@ model TalentProfile {
   gender          Gender        @relation(fields: [genderId], references: [id])
   genderId        String        @db.ObjectId
   bio             String
+  ageRange        String
   bodyType        String?
   agency          String?
   skills          Skill[]
