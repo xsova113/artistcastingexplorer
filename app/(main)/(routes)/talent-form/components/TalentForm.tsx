@@ -8,26 +8,28 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { useUser } from "@clerk/nextjs";
 import { talentFormSchema } from "@/lib/talentFormSchema";
-import DobFormField from "./DobFormField";
-import MiddlenameFormField from "./MiddlenameFormField";
-import FirstNameFormField from "./FirstNameFormField copy";
-import LastNameFormField from "./LastNameFormField";
-import EmailFormField from "./EmailFormField";
-import HeightFormField from "./HeightFormField";
-import AgencyFormField from "./AgencyFormField";
-import CityFormField from "./CityFormField";
-import ProvinceFormField from "./ProvinceFormField";
-import BioFormField from "./BioFormField";
-import ImagesFormField from "./ImagesFormField";
 import Stack from "@/components/Stack";
 import { createTalent } from "@/actions/createTalent";
-import StageNameFormField from "./StageNameFormField";
 import { useRouter } from "next/navigation";
-import RoleFormField from "./RoleFormField";
-import GenderFormField from "./GenderFormField";
 import { TalentProfileType } from "@/types/talentProfileType";
-import SkillFormField from "./SkillFormField";
 import { updateTalent } from "@/actions/updateTalent";
+import {
+  MiddlenameFormField,
+  AgencyFormField,
+  BioFormField,
+  CityFormField,
+  DobFormField,
+  EmailFormField,
+  FirstNameFormField,
+  GenderFormField,
+  HeightFormField,
+  ImagesFormField,
+  LastNameFormField,
+  ProvinceFormField,
+  RoleFormField,
+  SkillFormField,
+  StageNameFormField,
+} from ".";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
@@ -70,9 +72,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
 
   const isSubmitting = form.formState.isSubmitting;
 
-  const toastMessage = initialData
-    ? "Profile updated."
-    : "Profile created.";
+  const toastMessage = initialData ? "Profile updated." : "Profile created.";
   const action = initialData ? "Save changes" : "Create";
 
   async function onSubmit(values: z.infer<typeof talentFormSchema>) {
@@ -90,7 +90,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
         description: toastMessage,
         variant: "success",
       });
-      
+
       router.push(`/profile/${initialData?.id}`);
       router.refresh();
     } catch (error: any) {
