@@ -20,7 +20,7 @@ import { useSortStore } from "@/hooks/useSortStore";
 
 const FilterForm = () => {
   const router = useRouter();
-  const value = useSortStore((state) => state.value);
+  const orderBy = useSortStore((state) => state.orderBy);
 
   const form = useForm<z.infer<typeof filterFormSchema>>({
     resolver: zodResolver(filterFormSchema),
@@ -45,7 +45,7 @@ const FilterForm = () => {
       name: values.name,
       role: values.role,
       keyword: values.keyword,
-      order_by: value,
+      order_by: orderBy,
     };
 
     const url = qs.stringifyUrl(
