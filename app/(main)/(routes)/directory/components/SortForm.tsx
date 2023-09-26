@@ -9,39 +9,33 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRouter } from "next/navigation";
+import { useSortStore } from "@/hooks/useSortStore";
+
+export type OrderBy = "recently_updated" | "name-a" | "name-z";
 
 const SortForm = () => {
-  const searchParams = new URLSearchParams(window.location.search);
-  const router = useRouter();
+  const { setOrderBy } = useSortStore();
 
-  const onSelect = (value: string) => {
-    if (value) {
-      searchParams.set("order_by", value);
-    } else {
-      searchParams.delete("order_by");
-    }
-
-    const newPathname = `${window.location.pathname}?${searchParams}`;
-
-    router.push(newPathname, { scroll: false });
+  const onSelect = (value: OrderBy) => {
+    setOrderBy(value);
   };
 
   return (
-    <Select onValueChange={(value) => onSelect(value)}>
-      <SelectTrigger className="w-[180px] my-2 md:mx-10 mx-4">
-        <SelectValue placeholder="Select a fruit" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Sort By</SelectLabel>
-          <SelectItem value="relevance">Relevance</SelectItem>
-          <SelectItem value="recently_updated">Recently Updated</SelectItem>
-          <SelectItem value="name-a">Name: A - Z</SelectItem>
-          <SelectItem value="name-z">Name: Z - A</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <div className="mx-auto my-2 mb-6 w-11/12">
+      <Select onValueChange={(value: OrderBy) => onSelect(value)}>
+        <SelectTrigger className="h-8 w-[180px] p-2">
+          <SelectValue placeholder="Order By" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Sort By</SelectLabel>
+            <SelectItem value="recently_updated">Recently Updated</SelectItem>
+            <SelectItem value="name-a">Name: A - Z</SelectItem>
+            <SelectItem value="name-z">Name: Z - A</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   );
 };
 

@@ -16,9 +16,11 @@ import NameSelect from "./NameSelect";
 import { RoleSelect } from "./RoleSelect";
 import { HeightSelect } from "./HeightSelect";
 import SearchKeyword from "./SearchKeyword";
+import { useSortStore } from "@/hooks/useSortStore";
 
 const FilterForm = () => {
   const router = useRouter();
+  const value = useSortStore((state) => state.value);
 
   const form = useForm<z.infer<typeof filterFormSchema>>({
     resolver: zodResolver(filterFormSchema),
@@ -43,6 +45,7 @@ const FilterForm = () => {
       name: values.name,
       role: values.role,
       keyword: values.keyword,
+      order_by: value,
     };
 
     const url = qs.stringifyUrl(

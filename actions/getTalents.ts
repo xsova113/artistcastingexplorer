@@ -1,18 +1,13 @@
+"use server";
+
 import prisma from "@/lib/client";
 import { TalentProfileType } from "@/types/talentProfileType";
-import {
-  TalentProfile,
-  Gender,
-  Image,
-  PerformerType,
-  Location,
-} from "@prisma/client";
 
 export const getTalents = async (): Promise<
   TalentProfileType[] | undefined
 > => {
   try {
-    const talents = await prisma.talentProfile.findMany({
+    const recentlyUpdatedTalents = await prisma.talentProfile.findMany({
       include: {
         images: true,
         gender: true,
@@ -20,13 +15,10 @@ export const getTalents = async (): Promise<
         performerType: true,
         skills: true,
       },
+      orderBy: { createdAt: "desc" },
     });
 
-    if (talents.length === 0) {
-      console.log("Can not find any talents.");
-    } else {
-      return talents;
-    }
+    return recentlyUpdatedTalents;
   } catch (error) {
     console.log("Error fetching talents data: " + error);
   }
