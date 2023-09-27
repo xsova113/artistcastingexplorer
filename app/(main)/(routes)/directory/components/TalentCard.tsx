@@ -73,7 +73,7 @@ const TalentCard = ({
 
     setFavouritedTalent(response);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onSave]);
+  }, [loading]);
 
   useEffect(() => {
     setIsMounted(true);
