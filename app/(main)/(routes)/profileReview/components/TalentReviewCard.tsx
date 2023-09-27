@@ -74,8 +74,8 @@ const TalentReviewCard = ({ talent }: TalentReviewCard) => {
             talent.location.province?.toString()}
         </p>
         <p>
-          Age: {getAge(talent.dob.toString()) - 5} -{" "}
-          {getAge(talent.dob.toString()) + 5}
+          Age: {talent.ageMin} -{" "}
+          {talent.ageMax}
         </p>
       </CardContent>
 

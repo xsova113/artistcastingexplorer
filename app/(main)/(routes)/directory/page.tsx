@@ -69,10 +69,8 @@ const DirectoryPage = () => {
                   )) &&
             (!searchParams.get("ageMax") || !searchParams.get("ageMin")
               ? true
-              : getAge(talent.dob.toString()) <
-                  Number(searchParams.get("ageMax")) &&
-                getAge(talent.dob.toString()) >
-                  Number(searchParams.get("ageMin"))) &&
+              : talent.ageMin <= Number(searchParams.get("ageMax")) &&
+                talent.ageMin >= Number(searchParams.get("ageMin"))) &&
             (!searchParams.get("heightMax") || !searchParams.get("heightMin")
               ? true
               : Number(talent.height) < Number(searchParams.get("heightMax")) &&

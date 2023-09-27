@@ -13,14 +13,10 @@ import {
   Image,
 } from "@prisma/client";
 import { cn, getAge } from "@/lib/utils";
+import { TalentProfileType } from "@/types/talentProfileType";
 
 interface TalentSectionProps {
-  talents: (TalentProfile & {
-    images: Image[];
-    location: Location;
-    performerType: PerformerType;
-    gender: Gender;
-  })[];
+  talents: TalentProfileType[]
 }
 
 const TalentSection = ({ talents }: TalentSectionProps) => {
@@ -59,7 +55,9 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
               name={item.firstName}
               title={item.performerType.role}
               location={item.location.city || item.location.province}
-              age={getAge(item.dob.toString())}
+              ageMin={item.ageMin}
+              ageMax={item.ageMax}
+              data={item}
               image={
                 item.images.filter(
                   (image) =>

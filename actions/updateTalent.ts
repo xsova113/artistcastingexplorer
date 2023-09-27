@@ -30,6 +30,8 @@ export const updateTalent = async (
           bodyType: values.bodyType,
           middleName: values.middleName,
           stageName: values.stageName,
+          ageMax: values.ageMax,
+          ageMin: values.ageMin,
           skills: { deleteMany: {} },
           location: {
             update: {

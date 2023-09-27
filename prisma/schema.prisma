@@ -26,7 +26,8 @@ model TalentProfile {
   gender          Gender        @relation(fields: [genderId], references: [id])
   genderId        String        @db.ObjectId
   bio             String
-  ageRange        String
+  ageMax          Int           @default(40)
+  ageMin          Int           @default(25)
   bodyType        String?
   agency          String?
   skills          Skill[]
@@ -36,9 +37,6 @@ model TalentProfile {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  savedTalent   SavedTalent? @relation(fields: [savedTalentId], references: [id])
-  savedTalentId String?      @db.ObjectId
 }
 
 model Gender {
@@ -131,9 +129,16 @@ model UserSubscription {
 }
 
 model SavedTalent {
-  id             String          @id @default(auto()) @map("_id") @db.ObjectId
-  userId         String          @unique
-  talentProfiles TalentProfile[]
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  talentProfileId   String?
+  userSavedTalent   UserSavedTalent? @relation(fields: [userSavedTalentId], references: [id])
+  userSavedTalentId String?          @db.ObjectId
+}
+
+model UserSavedTalent {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String        @unique
+  savedTalents SavedTalent[]
 }
 
 model SavedFilter {

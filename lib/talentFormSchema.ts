@@ -17,6 +17,8 @@ export const talentFormSchema = z.object({
   dob: z.date({
     required_error: "A date of birth is required.",
   }),
+  ageMax: z.number(),
+  ageMin: z.number(),
   height: z.string(),
   bio: z
     .string()

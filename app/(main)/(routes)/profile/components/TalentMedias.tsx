@@ -27,11 +27,11 @@ const TalentMedias = ({ medias }: TalentMediasProps) => {
           className="object-cover"
         />
       </div>
-      <div className="grid grid-cols-4">
+      <div className="grid grid-cols-3 gap-4 lg:grid-cols-4">
         {medias.map((media) => (
           <div
             key={media}
-            className="relative mt-4 h-20 w-20 overflow-hidden rounded-md"
+            className="relative mt-4 h-20 w-20 cursor-pointer overflow-hidden rounded-md"
             onClick={() => {
               setMedia(media);
               onOpen();

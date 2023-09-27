@@ -29,6 +29,7 @@ import {
   RoleFormField,
   SkillFormField,
   StageNameFormField,
+  AgeRangeFormField,
 } from ".";
 
 interface TalentFormProps {
@@ -62,6 +63,8 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           bio: "",
           bodyType: "",
           email: "",
+          ageMax: 40,
+          ageMin: 25,
           height: "",
           skills: [],
           images: [],
@@ -124,6 +127,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             <HeightFormField form={form} />
             <CityFormField form={form} />
             <ProvinceFormField form={form} />
+            <AgeRangeFormField form={form} />
           </div>
         </Stack>
 

@@ -37,7 +37,7 @@ export function AgeSelect({ form }: GenderSelectProps) {
                 <RangeSlider
                   id="range-slider"
                   defaultValue={[25, 45]}
-                  min={18}
+                  min={12}
                   max={100}
                   onInput={field.onChange}
                   className="mx-2"

@@ -68,6 +68,8 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
               |
             </span>
             {talent.stageName ? talent.stageName : null}
+            <span className={cn("font-medium")}>|</span>
+            {talent.ageMin} - {talent.ageMax}
           </h3>
         </Stack>
         <Button

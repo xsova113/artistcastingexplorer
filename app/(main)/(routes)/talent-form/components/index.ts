@@ -1,4 +1,4 @@
-import AgeRangeFormField from "./DobFormField";
+import DobFormField from "./DobFormField";
 import MiddlenameFormField from "./MiddlenameFormField";
 import FirstNameFormField from "./FirstNameFormField copy";
 import LastNameFormField from "./LastNameFormField";
@@ -13,9 +13,10 @@ import StageNameFormField from "./StageNameFormField";
 import RoleFormField from "./RoleFormField";
 import GenderFormField from "./GenderFormField";
 import SkillFormField from "./SkillFormField";
+import AgeRangeFormField from "./AgeRangeFormField";
 
 export {
-  AgeRangeFormField as DobFormField,
+  DobFormField,
   MiddlenameFormField,
   FirstNameFormField,
   LastNameFormField,
@@ -30,4 +31,5 @@ export {
   RoleFormField,
   GenderFormField,
   SkillFormField,
+  AgeRangeFormField
 };
