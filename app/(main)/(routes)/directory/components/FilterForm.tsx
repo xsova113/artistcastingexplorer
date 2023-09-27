@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { GenderSelect } from "./GenderSelect";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
-import { FormEvent } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { AgeSelect } from "./AgeSelect";
 import { filterFormSchema } from "@/lib/filterFormSchema";
 import { LocationSelect } from "./LocationSelect";
@@ -17,10 +17,19 @@ import { RoleSelect } from "./RoleSelect";
 import { HeightSelect } from "./HeightSelect";
 import SearchKeyword from "./SearchKeyword";
 import { useSortStore } from "@/hooks/useSortStore";
+import { checkSubscription } from "@/lib/subscription";
+import { toast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 const FilterForm = () => {
   const router = useRouter();
   const orderBy = useSortStore((state) => state.orderBy);
+  const [isPremium, setIsPremium] = useState(false);
+
+  const checkIsPremium = async () => {
+    const response = await checkSubscription();
+    setIsPremium(response);
+  };
 
   const form = useForm<z.infer<typeof filterFormSchema>>({
     resolver: zodResolver(filterFormSchema),
@@ -34,6 +43,18 @@ const FilterForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof filterFormSchema>) => {
+    if (isPremium === false) {
+      return toast({
+        title: "Premium feature",
+        description: "Subscribe to premium plan for this feature.",
+        action: (
+          <ToastAction altText={"Go to subscription page"} onClick={() => router.push('/subscribe')}>
+            Subscribe Now
+          </ToastAction>
+        ),
+      });
+    }
+
     const query = {
       gender: values.gender,
       ageMin: values.ageRange ? values.ageRange[0] : 25,
@@ -65,6 +86,10 @@ const FilterForm = () => {
     window.history.replaceState(null, "", "/directory");
     window.location.reload();
   };
+
+  useEffect(() => {
+    checkIsPremium();
+  }, []);
 
   return (
     <Form {...form}>

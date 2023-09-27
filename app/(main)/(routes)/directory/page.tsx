@@ -6,7 +6,6 @@ import TalentSection from "./components/TalentSection";
 import SubscribePremium from "./components/SubscribePremium";
 import { getTalents } from "@/actions/getTalents";
 import FilterAccordian from "./components/FilterAccordian";
-import { getAge } from "@/lib/utils";
 import DIrectoryCards from "./components/DIrectoryCards";
 import Stack from "@/components/Stack";
 import SortForm from "./components/SortForm";
