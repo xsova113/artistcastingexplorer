@@ -26,9 +26,11 @@ const createSavedTalents = async (talentProfileId: string[]) => {
           userId: user.id,
           savedTalents: {
             createMany: {
-              data: talentProfileId.map((talentId) => ({
-                talentProfileId: talentId,
-              })),
+              data: talentProfileId
+                .filter((id) => id !== undefined)
+                .map((talentId) => ({
+                  talentProfileId: talentId,
+                })),
             },
           },
         },
