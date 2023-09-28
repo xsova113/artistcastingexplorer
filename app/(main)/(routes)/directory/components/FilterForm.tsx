@@ -48,7 +48,10 @@ const FilterForm = () => {
         title: "Premium feature",
         description: "Subscribe to premium plan for this feature.",
         action: (
-          <ToastAction altText={"Go to subscription page"} onClick={() => router.push('/subscribe')}>
+          <ToastAction
+            altText={"Go to subscription page"}
+            onClick={() => router.push("/subscribe")}
+          >
             Subscribe Now
           </ToastAction>
         ),

@@ -1,7 +1,7 @@
 "use client";
 
 import { fetchSavedTalents } from "@/actions/fetchSavedTalents";
-import saveTalent from "@/actions/saveTalent";
+import saveMultiTalents from "@/actions/saveMultiTalents";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
@@ -18,6 +19,7 @@ import { City, Province, SavedTalent, UserSavedTalent } from "@prisma/client";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 interface TalentCardProps {
@@ -27,9 +29,13 @@ interface TalentCardProps {
   ageMin: number;
   ageMax: number;
   image: string;
-  email: string;
   id: string;
   data: TalentProfileType;
+  userId?: string | null;
+  isSaving: boolean;
+  setIsSaving: (loading: boolean) => void;
+  setSelectedTalentId: (value: any) => void;
+  selectedTalentId?: string[];
 }
 
 export type UserSavedTalentType = UserSavedTalent & {
@@ -45,22 +51,34 @@ const TalentCard = ({
   title,
   id,
   data,
+  isSaving,
+  userId,
+  setSelectedTalentId,
+  selectedTalentId,
 }: TalentCardProps) => {
-  const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [favouritedTalent, setFavouritedTalent] =
     useState<UserSavedTalentType>();
-  // const [selectedTalentId, setSelectedTalentId] = useState<string>();
+  const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
 
   const onSave = async () => {
     try {
       setLoading(true);
-      // setSelectedTalentId((prev) => [...prev, data.id]);
-      await saveTalent(data.id);
+
+      if (!userId) {
+        return toast({
+          title: "Action failed",
+          description: "Please login to save a talent.",
+        });
+      }
+
+      await saveMultiTalents([data.id]);
     } catch (error: any) {
       toast({
         title: "Error favouriting talents",
         description: error.message,
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -76,21 +94,43 @@ const TalentCard = ({
   }, [loading]);
 
   useEffect(() => {
-    setIsMounted(true);
     getSavedTalents();
   }, [getSavedTalents]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   if (!isMounted) return null;
 
   return (
     <Card className="w-[165px] drop-shadow transition-all sm:w-[230px]">
-      <Link href={`/profile/${id}`}>
+      <div
+        className="w-full"
+        onClick={() => {
+          router.push(`/profile/${id}`);
+        }}
+      >
         <div className="relative h-[130px] w-full sm:h-[150px]">
           <Image
             src={image}
             alt={"image"}
             fill
             className="rounded-t-lg object-cover"
+          />
+          <Checkbox
+            className="absolute right-0 m-2 bg-white"
+            checked={selectedTalentId?.includes(data.id)}
+            onCheckedChange={(checked) => {
+              return checked
+                ? setSelectedTalentId((prev: string[]) => [...prev, data.id, ,])
+                : setSelectedTalentId(
+                    selectedTalentId?.filter((value) => value !== data.id),
+                  );
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           />
         </div>
 
@@ -106,9 +146,13 @@ const TalentCard = ({
             Age: {ageMin} - {ageMax}
           </p>
         </CardContent>
-      </Link>
+      </div>
       <CardFooter className="flex flex-col items-start bg-secondary p-2">
-        <button className="px-2 pb-2" onClick={onSave} disabled={loading}>
+        <button
+          className="px-2 pb-2"
+          onClick={onSave}
+          disabled={loading || isSaving}
+        >
           <Heart
             size={20}
             className={cn(

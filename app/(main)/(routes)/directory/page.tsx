@@ -20,7 +20,6 @@ const DirectoryPage = () => {
   const [talents, setTalents] = useState<TalentProfileType[]>();
   const [loading, setLoading] = useState(false);
   const { orderBy } = useSortStore();
-
   const fetchTalents = useCallback(async () => {
     try {
       setLoading(true);
@@ -132,7 +131,7 @@ const DirectoryPage = () => {
       <SortForm />
       {loading ? (
         <span className="my-20 flex items-center justify-center gap-2 text-center text-lg">
-          Loading... <BeatLoader loading={loading} size={10} />
+          Loading <BeatLoader loading={loading} size={10} />
         </span>
       ) : filteredTalents?.length === 0 || !filteredTalents ? (
         <span className="my-20 gap-2 text-center text-lg">

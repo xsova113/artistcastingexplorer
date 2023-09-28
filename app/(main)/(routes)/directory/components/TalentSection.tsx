@@ -5,21 +5,21 @@ import TalentCard from "./TalentCard";
 import { SetStateAction, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import {
-  Gender,
-  Location,
-  PerformerType,
-  TalentProfile,
-  Image,
-} from "@prisma/client";
-import { cn, getAge } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@clerk/nextjs";
+import { toast } from "@/components/ui/use-toast";
+import saveMultiTalents from "@/actions/saveMultiTalents";
 
 interface TalentSectionProps {
-  talents: TalentProfileType[]
+  talents: TalentProfileType[];
 }
 
 const TalentSection = ({ talents }: TalentSectionProps) => {
+  const { userId } = useAuth();
+  const [isSaving, setIsSaving] = useState(false);
+  const [selectedTalentId, setSelectedTalentId] = useState<string[]>([]);
   const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -39,9 +39,46 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
     setCurrentPage(selectedPage.selected);
   };
 
+  const onSaveMutiTalents = async () => {
+    try {
+      setIsSaving(true);
+
+      if (!userId) {
+        return toast({
+          title: "Action failed",
+          description: "Please login to save a talent.",
+        });
+      }
+
+      await saveMultiTalents(selectedTalentId);
+      toast({
+        title: "Action saved",
+        description: "Talents saved successfully",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error favouriting talents",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
     <Stack className="mx-auto w-full max-w-screen-lg items-center bg-white pb-24">
       <div className="w-full px-8 md:px-10">
+        <Button
+          className="mx-auto mb-2 w-fit text-xs"
+          onClick={onSaveMutiTalents}
+          disabled={isSaving}
+          size={"sm"}
+          variant={"outline"}
+        >
+          Bulk Submit
+        </Button>
+        {selectedTalentId.map((talentId) => talentId)}
         <div
           className={cn(
             "mb-10 grid grid-cols-2 justify-center gap-6 md:grid-cols-3 lg:grid-cols-4",
@@ -51,19 +88,23 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
             <TalentCard
               key={item.id}
               id={item.id}
-              email={item.email}
               name={item.firstName}
               title={item.performerType.role}
               location={item.location.city || item.location.province}
               ageMin={item.ageMin}
               ageMax={item.ageMax}
               data={item}
+              selectedTalentId={selectedTalentId}
               image={
                 item.images.filter(
                   (image) =>
                     image.url.split(".").pop() === ("jpg" || "png" || "jpeg"),
                 )[0].url
               }
+              isSaving={isSaving}
+              setIsSaving={setIsSaving}
+              setSelectedTalentId={setSelectedTalentId}
+              userId={userId}
             />
           ))}
         </div>
