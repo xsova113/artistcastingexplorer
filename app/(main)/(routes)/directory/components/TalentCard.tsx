@@ -1,7 +1,7 @@
 "use client";
 
 import { fetchSavedTalents } from "@/actions/fetchSavedTalents";
-import saveMultiTalents from "@/actions/saveMultiTalents";
+import createSavedTalents from "@/actions/createSavedtalents";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -21,6 +21,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { updateSavedTalents } from "@/actions/updateSavedTalents";
+import { removeSavedTalents } from "@/actions/removeSavedTalents";
 
 interface TalentCardProps {
   name: string;
@@ -36,6 +38,8 @@ interface TalentCardProps {
   setIsSaving: (loading: boolean) => void;
   setSelectedTalentId: (value: any) => void;
   selectedTalentId?: string[];
+  UserSavedTalent?: UserSavedTalentType;
+  fetchUserSavedTalent: () => void;
 }
 
 export type UserSavedTalentType = UserSavedTalent & {
@@ -55,6 +59,8 @@ const TalentCard = ({
   userId,
   setSelectedTalentId,
   selectedTalentId,
+  UserSavedTalent,
+  fetchUserSavedTalent,
 }: TalentCardProps) => {
   const [loading, setLoading] = useState(false);
   const [favouritedTalent, setFavouritedTalent] =
@@ -73,7 +79,20 @@ const TalentCard = ({
         });
       }
 
-      await saveMultiTalents([data.id]);
+      // If UserSavedTalent doesn't exist, create it
+      if (!UserSavedTalent) {
+        await createSavedTalents([data.id]);
+      } else if (
+        !UserSavedTalent?.savedTalents
+          .map((talent) => talent.talentProfileId)
+          .includes(data.id)
+      ) {
+        // If UserSavedTalents exist but savedTalents ID not found, update it
+        await updateSavedTalents([data.id]);
+      } else {
+        // If UserSavedTalent's savedTalent ID exists already, delete it
+        await removeSavedTalents([data.id]);
+      }
     } catch (error: any) {
       toast({
         title: "Error favouriting talents",
@@ -95,7 +114,9 @@ const TalentCard = ({
 
   useEffect(() => {
     getSavedTalents();
-  }, [getSavedTalents]);
+    fetchUserSavedTalent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getSavedTalents, isSaving]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -106,7 +127,7 @@ const TalentCard = ({
   return (
     <Card className="w-[165px] drop-shadow transition-all sm:w-[230px]">
       <div
-        className="w-full"
+        className="w-full cursor-pointer"
         onClick={() => {
           router.push(`/profile/${id}`);
         }}

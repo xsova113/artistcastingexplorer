@@ -1,7 +1,7 @@
 "use client";
 
 import Stack from "@/components/Stack";
-import TalentCard from "./TalentCard";
+import TalentCard, { UserSavedTalentType } from "./TalentCard";
 import { SetStateAction, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -10,7 +10,10 @@ import { TalentProfileType } from "@/types/talentProfileType";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@clerk/nextjs";
 import { toast } from "@/components/ui/use-toast";
-import saveMultiTalents from "@/actions/saveMultiTalents";
+import createSavedTalents from "@/actions/createSavedtalents";
+import { findUserSavedTalent } from "@/actions/findUserSavedTalent";
+import { updateSavedTalents } from "@/actions/updateSavedTalents";
+import { removeSavedTalents } from "@/actions/removeSavedTalents";
 
 interface TalentSectionProps {
   talents: TalentProfileType[];
@@ -24,6 +27,7 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const pageCount = Math.ceil(talents.length / itemsPerPage);
+  const [UserSavedTalent, setUserSavedTalent] = useState<UserSavedTalentType>();
 
   useEffect(() => {
     setTotalPages(Math.ceil(talents.length / itemsPerPage));
@@ -39,7 +43,13 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
     setCurrentPage(selectedPage.selected);
   };
 
-  const onSaveMutiTalents = async () => {
+  const fetchUserSavedTalent = async () => {
+    const response = await findUserSavedTalent();
+    if (!response) return console.log("No UserSavedTalent found");
+    setUserSavedTalent(response);
+  };
+
+  const onBulkSave = async () => {
     try {
       setIsSaving(true);
 
@@ -50,7 +60,25 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
         });
       }
 
-      await saveMultiTalents(selectedTalentId);
+      if (!UserSavedTalent) {
+        toast({
+          title: "Action saved",
+          description: "Talents saved successfully",
+        });
+        return await createSavedTalents(selectedTalentId);
+      }
+
+      // If UserSavedTalents exist but savedTalents ID not found, update it
+
+      const unSavedTalentIds = selectedTalentId.filter(
+        (id) =>
+          !UserSavedTalent.savedTalents
+            .map((talent) => talent.talentProfileId)
+            .includes(id),
+      );
+
+      await updateSavedTalents(unSavedTalentIds);
+
       toast({
         title: "Action saved",
         description: "Talents saved successfully",
@@ -66,19 +94,60 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
     }
   };
 
+  const onBulkRemove = async () => {
+    try {
+      setIsSaving(true);
+
+      if (!userId) {
+        return toast({
+          title: "Action failed",
+          description: "Please login to save a talent.",
+        });
+      }
+
+      await removeSavedTalents(selectedTalentId);
+
+      toast({
+        title: "Action saved",
+        description: "Talents saved successfully",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error favouriting talents",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserSavedTalent();
+  }, [isSaving]);
+
   return (
     <Stack className="mx-auto w-full max-w-screen-lg items-center bg-white pb-24">
       <div className="w-full px-8 md:px-10">
         <Button
-          className="mx-auto mb-2 w-fit text-xs"
-          onClick={onSaveMutiTalents}
+          className="m-2 mx-auto w-fit text-xs"
+          onClick={onBulkSave}
           disabled={isSaving}
           size={"sm"}
           variant={"outline"}
         >
-          Bulk Submit
+          Bulk Save
         </Button>
-        {selectedTalentId.map((talentId) => talentId)}
+
+        <Button
+          className="m-2 mx-auto mb-2 w-fit text-xs"
+          onClick={onBulkRemove}
+          disabled={isSaving}
+          size={"sm"}
+          variant={"outline"}
+        >
+          Bulk Remove
+        </Button>
         <div
           className={cn(
             "mb-10 grid grid-cols-2 justify-center gap-6 md:grid-cols-3 lg:grid-cols-4",
@@ -105,6 +174,8 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
               setIsSaving={setIsSaving}
               setSelectedTalentId={setSelectedTalentId}
               userId={userId}
+              UserSavedTalent={UserSavedTalent}
+              fetchUserSavedTalent={fetchUserSavedTalent}
             />
           ))}
         </div>
