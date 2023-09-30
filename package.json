@@ -41,6 +41,7 @@
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
+    "disqus-react": "^1.1.5",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
     "framer-motion": "^10.16.4",

@@ -12,6 +12,7 @@ import { useQuery } from "react-query";
 import { WPUser } from "@/types/wpUser";
 import { Post } from "@/types/post";
 import { useCallback, useEffect, useState } from "react";
+import DisqusComments from "./DisqusComments";
 
 interface NewPostProps {
   postId: string;
@@ -59,27 +60,38 @@ const Post = ({ postId }: NewPostProps) => {
           <Loader2 className="animate-spin" size={50} />
         </div>
       ) : (
-        <Stack>
-          <h1 className="mb-4 self-start text-4xl font-medium md:mb-12 md:text-6xl">
-            {post?.title.rendered}
-          </h1>
-          <FlexBetween className="mb-8">
-            <span className="text-muted-foreground">
-              {dayjs(post?.date).format("MMM DD, YYYY")}
-            </span>
-            <SocialDropdown />
-          </FlexBetween>
-          <div className="mb-10 flex items-start gap-2">
-            <ProfileAvatar image={author ? author.avatar_urls[96] : ""} />
-            <div className="flex flex-col">
-              <h3>{author?.name}</h3>
-              <p className="text-xs text-muted-foreground md:w-1/2">
-                {author?.description}
-              </p>
+        <section>
+          <Stack>
+            <h1 className="mb-4 self-start text-4xl font-medium md:mb-12 md:text-6xl">
+              {post?.title.rendered}
+            </h1>
+            <FlexBetween className="mb-8">
+              <span className="text-muted-foreground">
+                {dayjs(post?.date).format("MMM DD, YYYY")}
+              </span>
+              <SocialDropdown />
+            </FlexBetween>
+            <div className="mb-10 flex items-start gap-2">
+              <ProfileAvatar image={author ? author.avatar_urls[96] : ""} />
+              <div className="flex flex-col">
+                <h3>{author?.name}</h3>
+                <p className="text-xs text-muted-foreground md:w-1/2">
+                  {author?.description}
+                </p>
+              </div>
             </div>
-          </div>
-          <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
-        </Stack>
+          </Stack>
+
+          <article
+            dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+            className="mb-24"
+          />
+          {/* <iframe
+            src={post.link}
+            className="min-h-screen w-full"
+          /> */}
+          <DisqusComments post={post} />
+        </section>
       )}
     </section>
   );

@@ -11,12 +11,19 @@ import { Link2, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ToolTIp from "@/components/ToolTIp";
+import { TalentProfile } from "@prisma/client";
 
 interface ManageSavedFilterProps {
   savedFilter: UserSavedFilterType | void | null;
+  isPremium: boolean;
+  talent: TalentProfile | undefined;
 }
 
-const ManageSavedFilter = ({ savedFilter }: ManageSavedFilterProps) => {
+const ManageSavedFilter = ({
+  savedFilter,
+  isPremium,
+  talent,
+}: ManageSavedFilterProps) => {
   const { userId } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -63,49 +70,52 @@ const ManageSavedFilter = ({ savedFilter }: ManageSavedFilterProps) => {
       <Stack className="gap-2">
         <h1 className="text-xl font-medium">Saved Filters</h1>
         <span className="text-muted-foreground">
-          Total filters saved: {savedFilter?.savedFilters.length || 0}
+          Total filters saved:{" "}
+          {isPremium || talent ? savedFilter?.savedFilters.length || 0 : 0}
         </span>
       </Stack>
 
-      <div className="flex flex-wrap gap-4">
-        {savedFilter?.savedFilters.map((filter) => (
-          <div
-            key={filter.id}
-            className={cn(
-              "flex items-center gap-2",
-              buttonVariants({ variant: "outline", className: "py-7" }),
-            )}
-          >
-            <span className="font-medium">{filter.name}</span>
-
-            <ToolTIp
-              description={"Redirect to Directory page with filtered items"}
+      {(isPremium || talent) && (
+        <div className="flex flex-wrap gap-4">
+          {savedFilter?.savedFilters.map((filter) => (
+            <div
+              key={filter.id}
+              className={cn(
+                "flex items-center gap-2",
+                buttonVariants({ variant: "outline", className: "py-7" }),
+              )}
             >
-              <Button
-                variant={"outline"}
-                onClick={() => router.push(filter.queryPathname)}
-                disabled={loading}
-                size={"sm"}
-              >
-                <Link2 size={15} className="text-green-500" />
-              </Button>
-            </ToolTIp>
+              <span className="font-medium">{filter.name}</span>
 
-            <ToolTIp description="Remove this saved filter">
-              <Button
-                variant={"outline"}
-                onClick={() => {
-                  onRemove(filter.id);
-                }}
-                disabled={loading}
-                size={"sm"}
+              <ToolTIp
+                description={"Redirect to Directory page with filtered items"}
               >
-                <Trash size={15} className="text-red-500" />
-              </Button>
-            </ToolTIp>
-          </div>
-        ))}
-      </div>
+                <Button
+                  variant={"outline"}
+                  onClick={() => router.push(filter.queryPathname)}
+                  disabled={loading}
+                  size={"sm"}
+                >
+                  <Link2 size={15} className="text-green-500" />
+                </Button>
+              </ToolTIp>
+
+              <ToolTIp description="Remove this saved filter">
+                <Button
+                  variant={"outline"}
+                  onClick={() => {
+                    onRemove(filter.id);
+                  }}
+                  disabled={loading}
+                  size={"sm"}
+                >
+                  <Trash size={15} className="text-red-500" />
+                </Button>
+              </ToolTIp>
+            </div>
+          ))}
+        </div>
+      )}
     </Stack>
   );
 };
