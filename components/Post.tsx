@@ -11,15 +11,14 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { WPUser } from "@/types/wpUser";
 import { Post } from "@/types/post";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface NewPostProps {
   postId: string;
 }
 
 const Post = ({ postId }: NewPostProps) => {
-  const router = useRouter();
+  const [author, setAuthor] = useState<WPUser>();
 
   const fetchPost = async () => {
     const response = await axios.get(
@@ -41,15 +40,9 @@ const Post = ({ postId }: NewPostProps) => {
     const response = await axios.get(
       `https://castingjapanese.ca/wp-json/wp/v2/users/${post.author}`,
     );
-
+    setAuthor(response.data);
     return response.data;
   }, [post]);
-
-  const {
-    data: author,
-    error: userError,
-    isLoading: isUserLoading,
-  } = useQuery<WPUser, Error>("author", fetchAuthor);
 
   useEffect(() => {
     fetchAuthor();
@@ -58,9 +51,9 @@ const Post = ({ postId }: NewPostProps) => {
   return (
     <section className="items-center py-20">
       <YProgressBar />
-      {postError || userError ? (
+      {postError ? (
         <span>Oh no, there was an error</span>
-      ) : isPostLoading || isUserLoading || !post ? (
+      ) : isPostLoading || !post ? (
         <div className="flex w-full items-center justify-center gap-4 text-2xl">
           Loading...
           <Loader2 className="animate-spin" size={50} />
