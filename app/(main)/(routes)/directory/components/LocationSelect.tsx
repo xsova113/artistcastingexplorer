@@ -30,7 +30,7 @@ export function LocationSelect({ form }: GenderSelectProps) {
         control={form.control}
         name="city"
         render={({ field }) => (
-          <FormItem className="md:w-52 w-full rounded-md bg-secondary p-2">
+          <FormItem className="md:w-64 w-full rounded-md bg-secondary p-2">
             <FormLabel className="font-semibold">City</FormLabel>
             <Select onValueChange={field.onChange}>
               <FormControl>
@@ -55,7 +55,7 @@ export function LocationSelect({ form }: GenderSelectProps) {
         control={form.control}
         name="province"
         render={({ field }) => (
-          <FormItem className="md:w-52 w-full rounded-md bg-secondary p-2">
+          <FormItem className="md:w-64 w-full rounded-md bg-secondary p-2">
             <FormLabel className="font-semibold">Province</FormLabel>
             <Select onValueChange={field.onChange}>
               <FormControl>

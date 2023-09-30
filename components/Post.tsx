@@ -7,18 +7,20 @@ import { Loader2 } from "lucide-react";
 import SocialDropdown from "./SocialDropdown";
 import YProgressBar from "./YProgressBar";
 import ProfileAvatar from "./ProfileAvatar";
-import Image from "next/image";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { WPUser } from "@/types/wpUser";
 import { Post } from "@/types/post";
-import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect } from "react";
 
 interface NewPostProps {
   postId: string;
 }
 
 const Post = ({ postId }: NewPostProps) => {
+  const router = useRouter();
+
   const fetchPost = async () => {
     const response = await axios.get(
       `https://castingjapanese.ca/wp-json/wp/v2/posts/${postId}`,
@@ -33,20 +35,25 @@ const Post = ({ postId }: NewPostProps) => {
     isLoading: isPostLoading,
   } = useQuery<Post, Error>("post", fetchPost);
 
-  const fetchAuthor = async () => {
+  const fetchAuthor = useCallback(async () => {
     if (!post) return;
 
     const response = await axios.get(
       `https://castingjapanese.ca/wp-json/wp/v2/users/${post.author}`,
     );
+
     return response.data;
-  };
+  }, [post]);
 
   const {
     data: author,
     error: userError,
     isLoading: isUserLoading,
   } = useQuery<WPUser, Error>("author", fetchAuthor);
+
+  useEffect(() => {
+    fetchAuthor();
+  }, [fetchAuthor]);
 
   return (
     <section className="items-center py-20">
@@ -70,32 +77,14 @@ const Post = ({ postId }: NewPostProps) => {
             <SocialDropdown />
           </FlexBetween>
           <div className="mb-10 flex items-start gap-2">
-            <ProfileAvatar
-              image={post ? post.uagb_featured_image_src.thumbnail[0] : ""}
-            />
+            <ProfileAvatar image={author ? author.avatar_urls[96] : ""} />
             <div className="flex flex-col">
-              <h3>{post.uagb_author_info.display_name}</h3>
+              <h3>{author?.name}</h3>
               <p className="text-xs text-muted-foreground md:w-1/2">
                 {author?.description}
               </p>
             </div>
           </div>
-          {/* <Stack className="mx-auto mb-10 w-11/12 gap-8">
-            <div
-              className={cn(
-                "relative h-[450px] w-full",
-                !post.uagb_featured_image_src.thumbnail && "hidden",
-              )}
-            >
-              <Image
-                src={post.uagb_featured_image_src.full[1]}
-                alt={"featured image"}
-                fill
-                className="rounded object-cover"
-              />
-            </div>
-            <p>{post.uagb_excerpt}</p>
-          </Stack> */}
           <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
         </Stack>
       )}

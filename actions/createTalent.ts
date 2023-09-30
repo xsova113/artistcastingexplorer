@@ -24,6 +24,8 @@ export const createTalent = async (
           gender: { create: { gender: values.gender } },
           lastName: values.lastName,
           agency: values.agency,
+          ageMax: values.ageMax,
+          ageMin: values.ageMin,
           bodyType: values.bodyType,
           skills: { createMany: { data: values.skills } },
           middleName: values.middleName,
@@ -32,6 +34,7 @@ export const createTalent = async (
           location: {
             create: {
               city: values.city,
+              province: values.province,
             },
           },
         },

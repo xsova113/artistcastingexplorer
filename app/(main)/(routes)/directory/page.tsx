@@ -8,7 +8,6 @@ import { getTalents } from "@/actions/getTalents";
 import FilterAccordian from "./components/FilterAccordian";
 import DIrectoryCards from "./components/DIrectoryCards";
 import Stack from "@/components/Stack";
-import SortForm from "./components/SortForm";
 import { useSortStore } from "@/hooks/useSortStore";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -78,6 +77,11 @@ const DirectoryPage = () => {
               ? true
               : talent.location.city?.toLowerCase() ===
                 searchParams.get("city")!.toLowerCase()) &&
+            (!searchParams.get("province")
+              ? true
+              : talent.location.province?.includes(
+                  searchParams.get("province")!,
+                )) &&
             (!searchParams.get("role")
               ? true
               : talent.performerType.role === searchParams.get("role")) &&
@@ -128,7 +132,6 @@ const DirectoryPage = () => {
         <div className="mx-auto mb-12 mt-8 w-full border-b-2 border-primary" />
       </Stack>
       <FilterAccordian />
-      <SortForm />
       {loading ? (
         <span className="my-20 flex items-center justify-center gap-2 text-center text-lg">
           Loading <BeatLoader loading={loading} size={10} />

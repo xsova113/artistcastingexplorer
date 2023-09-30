@@ -27,7 +27,7 @@ const ProvinceFormField = ({ form }: ProvinceFormFieldProps) => {
       name="province"
       render={({ field }) => (
         <FormItem>
-          <FormLabel className="font-semibold">Other Province</FormLabel>
+          <FormLabel className="font-semibold">Province</FormLabel>
           <Select
             onValueChange={field.onChange}
             disabled={form.formState.isSubmitting}

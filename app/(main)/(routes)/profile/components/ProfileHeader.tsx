@@ -56,11 +56,12 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
               : "Pending Review"}
           </Badge>
         </h1>
-        <Stack className="text-muted-foreground md:gap-2">
+        <Stack className="text-muted-foreground md:gap-2 text-sm">
           <h2 className="flex gap-3 capitalize">
             {talent.performerType.role.toLowerCase().replaceAll("_", " ")}
             <span className="font-medium">|</span>
-            {talent.location.city?.toLocaleLowerCase()}
+            {talent.location.city?.toLocaleLowerCase()},{" "}
+            {talent.location.province?.toLocaleLowerCase().replaceAll("_", " ")}
           </h2>
           <h3 className="flex gap-3 capitalize ">
             {talent.gender.gender.toLocaleLowerCase()}

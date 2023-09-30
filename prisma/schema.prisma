@@ -81,7 +81,8 @@ enum Role {
   DANCER
   IDOL
   MASTER_OF_CEREMONIES
-  modelMUSICIAN
+  MODEL
+  MUSICIAN
   SINGER
   STAGE_PERFORMER
   STUNT_PERFORMER
@@ -142,6 +143,15 @@ model UserSavedTalent {
 }
 
 model SavedFilter {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @unique
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  queryPathname     String
+  UserSavedFilter   UserSavedFilter? @relation(fields: [userSavedFilterId], references: [id])
+  userSavedFilterId String?          @db.ObjectId
+}
+
+model UserSavedFilter {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String        @unique
+  savedFilters SavedFilter[]
 }

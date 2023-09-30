@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 
 // TODO: Add categories / subcategories as Title type
 
-type Title = "actor" | "model" | "singer" | "musician";
+type Title = "actors" | "model" | "singer" | "musician" | "interview";
 
 const InterviewPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -52,16 +52,17 @@ const InterviewPage = () => {
 
   // Get specific category
   const interviewCategory = useCallback(
-    (categoryType: Slug = "uncategorized") =>
+    (categoryType: Title = "interview") =>
       categories.find((category) => category.slug === categoryType),
     [categories],
   );
 
   // Filter the post to display based on the specific category chosen
   useMemo(() => {
-    const filteredPosts = posts.filter(
-      (post) => post.categories[0] === interviewCategory("interview")?.id,
+    const filteredPosts = posts.filter((post) =>
+      post.categories.includes(interviewCategory("interview")!.id),
     );
+
     setFilteredPosts(filteredPosts);
   }, [interviewCategory, posts]);
 
@@ -72,7 +73,7 @@ const InterviewPage = () => {
 
   // TODO: Change the arguement type to Title type
   const handleClick = useCallback(
-    (title: Slug) => {
+    (title: Title) => {
       const filteredPosts = posts.filter(
         (post) => post.categories[0] === interviewCategory(title)?.id,
       );
@@ -102,32 +103,32 @@ const InterviewPage = () => {
           <article className="mt-6 flex flex-col items-center gap-x-4 md:items-start">
             <div className="flex items-start gap-x-4 md:flex-col">
               <Button
-                onClick={() => handleClick("interview")}
+                onClick={() => handleClick("actors")}
                 variant={"link"}
                 className="p-0 font-semibold text-muted-foreground"
               >
-                Actor ({interviewCategory("interview")?.count})
+                Actor ({interviewCategory("actors")?.count})
               </Button>
               <Button
-                onClick={() => handleClick("news")}
+                onClick={() => handleClick("model")}
                 variant={"link"}
                 className="p-0 font-semibold text-muted-foreground"
               >
-                Model ({interviewCategory("news")?.count})
+                Model ({interviewCategory("model")?.count})
               </Button>
               <Button
-                onClick={() => handleClick("uncategorized")}
+                onClick={() => handleClick("singer")}
                 variant={"link"}
                 className="p-0 font-semibold text-muted-foreground"
               >
-                Singer ({interviewCategory("uncategorized")?.count})
+                Singer ({interviewCategory("singer")?.count})
               </Button>
               <Button
-                onClick={() => handleClick("interview")}
+                onClick={() => handleClick("musician")}
                 variant={"link"}
                 className="p-0 font-semibold text-muted-foreground"
               >
-                Musician ({interviewCategory("interview")?.count})
+                Musician ({interviewCategory("musician")?.count})
               </Button>
             </div>
           </article>

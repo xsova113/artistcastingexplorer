@@ -31,6 +31,7 @@ const AgeRangeFormField = ({ form }: AgeRangeFormFieldProps) => {
                   type="number"
                   {...field}
                   onChange={(e) => field.onChange(Number(e.target.value))}
+                  defaultValue={25}
                   value={field.value}
                   disabled={form.formState.isSubmitting}
                   className="max-w-[65px] rounded-none border-0 border-b focus-visible:ring-0"
@@ -51,6 +52,7 @@ const AgeRangeFormField = ({ form }: AgeRangeFormFieldProps) => {
                 <Input
                   type="number"
                   {...field}
+                  defaultValue={40}
                   onChange={(e) => field.onChange(Number(e.target.value))}
                   value={field.value}
                   disabled={form.formState.isSubmitting}

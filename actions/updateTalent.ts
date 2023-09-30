@@ -36,6 +36,7 @@ export const updateTalent = async (
           location: {
             update: {
               city: values.city,
+              province: values.province,
             },
           },
           images: { deleteMany: {} },

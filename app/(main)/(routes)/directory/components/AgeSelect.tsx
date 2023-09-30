@@ -25,7 +25,7 @@ export function AgeSelect({ form }: GenderSelectProps) {
       control={form.control}
       name="ageRange"
       render={({ field }) => (
-        <FormItem className="md:w-52 w-full rounded-md bg-secondary p-2">
+        <FormItem className="md:w-64 w-full rounded-md bg-secondary p-2">
           <FormLabel className="font-semibold">Age Range</FormLabel>
 
           <div className="flex py-1">
