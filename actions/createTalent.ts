@@ -31,6 +31,7 @@ export const createTalent = async (
           middleName: values.middleName,
           stageName: values.stageName,
           images: { createMany: { data: values.images } },
+          language: values.language,
           location: {
             create: {
               city: values.city,

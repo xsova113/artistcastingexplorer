@@ -30,6 +30,7 @@ model TalentProfile {
   ageMin          Int           @default(25)
   bodyType        String?
   agency          String?
+  language        Language?
   skills          Skill[]
   images          Image[]
   location        Location      @relation(fields: [locationId], references: [id])
@@ -94,6 +95,7 @@ enum City {
   VANCOUVER
   TORONTO
   OTHER
+  NATIONWIDE
 }
 
 enum Province {
@@ -107,6 +109,13 @@ enum Province {
   PRINCE_EDWARD_ISLAND
   QUEBEC
   SASKATCHEWAN
+}
+
+enum Language {
+  ENGLISH_BEGINNER
+  ENGLISH_INTERMEDIATE
+  ENGLISH_ADVANCED
+  ENGLISH_NATIVE
 }
 
 model Image {

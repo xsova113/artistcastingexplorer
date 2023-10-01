@@ -13,21 +13,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { talentFormSchema } from "@/lib/talentFormSchema";
-import { Province } from "@prisma/client";
+import { Language } from "@prisma/client";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 
-interface ProvinceFormFieldProps {
+interface LanguageFormFieldProps {
   form: UseFormReturn<z.infer<typeof talentFormSchema>>;
 }
-const ProvinceFormField = ({ form }: ProvinceFormFieldProps) => {
+
+const LanguageFormField = ({ form }: LanguageFormFieldProps) => {
   return (
     <FormField
       control={form.control}
-      name="province"
+      name="language"
       render={({ field }) => (
         <FormItem className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
-          <FormLabel className="font-semibold">Province</FormLabel>
+          <FormLabel className="font-semibold">Language</FormLabel>
           <Select
             onValueChange={field.onChange}
             disabled={form.formState.isSubmitting}
@@ -35,15 +36,15 @@ const ProvinceFormField = ({ form }: ProvinceFormFieldProps) => {
             <FormControl>
               <SelectTrigger disabled={form.formState.isSubmitting}>
                 <SelectValue
-                  placeholder="Select a province"
                   defaultValue={field.value}
+                  placeholder="Select a english level"
                 />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {Object.keys(Province).map((item) => (
-                <SelectItem value={item} key={item} className="capitalize">
-                  {item.replaceAll("_", " ").toLowerCase()}
+              {Object.keys(Language).map((item) => (
+                <SelectItem key={item} value={item} className="capitalize">
+                  {item.toLowerCase().replaceAll("_", " ")}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -55,4 +56,4 @@ const ProvinceFormField = ({ form }: ProvinceFormFieldProps) => {
   );
 };
 
-export default ProvinceFormField;
+export default LanguageFormField;

@@ -20,7 +20,7 @@ const MiddlenameFormField = ({ form }: MiddlenameFormFieldProps) => {
       control={form.control}
       name="middleName"
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
           <FormLabel>Middlename</FormLabel>
           <FormControl>
             <Input {...field} placeholder="Middlename" disabled={form.formState.isSubmitting} />

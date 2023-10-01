@@ -10,7 +10,7 @@ import { useUser } from "@clerk/nextjs";
 import { talentFormSchema } from "@/lib/talentFormSchema";
 import Stack from "@/components/Stack";
 import { createTalent } from "@/actions/createTalent";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { updateTalent } from "@/actions/updateTalent";
 import {
@@ -31,6 +31,7 @@ import {
   StageNameFormField,
   AgeRangeFormField,
 } from ".";
+import LanguageFormField from "./LanguageFormField";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
@@ -50,6 +51,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           gender: initialData.gender.gender,
           city: initialData.location.city || undefined,
           province: initialData.location.province || undefined,
+          language: initialData.language || undefined,
           performerType: initialData.performerType.role,
           middleName: initialData.middleName || undefined,
           stageName: initialData.stageName || undefined,
@@ -115,7 +117,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           <h3 className="mb-8 text-xl underline underline-offset-8">
             Basic Information
           </h3>
-          <div className="flex flex-wrap gap-8">
+          <div className="flex flex-wrap gap-6">
             <AgencyFormField form={form} />
             <FirstNameFormField form={form} />
             <MiddlenameFormField form={form} />
@@ -129,6 +131,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             <CityFormField form={form} />
             <ProvinceFormField form={form} />
             <AgeRangeFormField form={form} />
+            <LanguageFormField form={form} />
           </div>
         </Stack>
 

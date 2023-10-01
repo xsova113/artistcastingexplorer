@@ -27,7 +27,7 @@ const CityFormField = ({ form }: CityFormFieldProps) => {
       control={form.control}
       name="city"
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
           <FormLabel className="font-semibold">City</FormLabel>
           <Select
             onValueChange={field.onChange}

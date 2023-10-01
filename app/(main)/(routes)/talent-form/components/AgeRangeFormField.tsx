@@ -18,7 +18,7 @@ interface AgeRangeFormFieldProps {
 
 const AgeRangeFormField = ({ form }: AgeRangeFormFieldProps) => {
   return (
-    <Stack>
+    <Stack className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
       <div className="flex items-end gap-2">
         <FormField
           control={form.control}
@@ -46,7 +46,7 @@ const AgeRangeFormField = ({ form }: AgeRangeFormFieldProps) => {
           control={form.control}
           name="ageMax"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="">
               <FormLabel>Max Age</FormLabel>
               <FormControl>
                 <Input
