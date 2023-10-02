@@ -16,12 +16,19 @@ import { useReviewStore } from "@/hooks/useReviewStore";
 import { Badge } from "@/components/ui/badge";
 import TalentDetailSheet from "./TalentDetailSheet";
 import { useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface TalentReviewCard {
   talent: TalentProfileType;
+  selectedTalentIds: string[];
+  setSelectedTalentIds: (value: any) => void;
 }
 
-const TalentReviewCard = ({ talent }: TalentReviewCard) => {
+const TalentReviewCard = ({
+  talent,
+  selectedTalentIds,
+  setSelectedTalentIds,
+}: TalentReviewCard) => {
   const { onOpen } = useReviewStore();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -44,6 +51,20 @@ const TalentReviewCard = ({ talent }: TalentReviewCard) => {
           alt={"image"}
           fill
           className="rounded-t-lg object-cover"
+        />
+        <Checkbox
+          className="absolute right-0 m-2 bg-white"
+          checked={selectedTalentIds.includes(talent.id)}
+          onCheckedChange={(checked) => {
+            return checked
+              ? setSelectedTalentIds((prev: string[]) => [...prev, talent.id])
+              : setSelectedTalentIds(
+                  selectedTalentIds.filter((value) => value !== talent.id),
+                );
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         />
       </div>
 
@@ -74,8 +95,7 @@ const TalentReviewCard = ({ talent }: TalentReviewCard) => {
             talent.location.province?.toString()}
         </p>
         <p>
-          Age: {talent.ageMin} -{" "}
-          {talent.ageMax}
+          Age: {talent.ageMin} - {talent.ageMax}
         </p>
       </CardContent>
 
@@ -90,7 +110,7 @@ const TalentReviewCard = ({ talent }: TalentReviewCard) => {
             className="bg-red-500 text-white hover:bg-red-400 hover:text-white max-sm:text-xs"
             variant={"outline"}
             size={"sm"}
-            onClick={() => onOpen({ talentId: talent.id }, "reject")}
+            onClick={() => onOpen({ talentIds: [talent.id] }, "reject")}
             disabled={talent.isApproved === false}
           >
             Reject
@@ -99,7 +119,7 @@ const TalentReviewCard = ({ talent }: TalentReviewCard) => {
 
         <Button
           className="w-full max-sm:text-xs"
-          onClick={() => onOpen({ talentId: talent.id }, "approve")}
+          onClick={() => onOpen({ talentIds: [talent.id] }, "approve")}
           size={"sm"}
           disabled={talent.isApproved === true}
         >

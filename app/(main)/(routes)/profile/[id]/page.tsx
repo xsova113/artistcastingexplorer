@@ -6,21 +6,24 @@ import { Separator } from "@/components/ui/separator";
 import TalentMedias from "../components/TalentMedias";
 import TalentBio from "../components/TalentBio";
 import { notFound, redirect } from "next/navigation";
-import prisma from "@/lib/client";
 
 interface ProfilePageProps {
   params: { id: string };
 }
 
 const ProfilePage = async ({ params }: ProfilePageProps) => {
-  const { userId } = auth();
+  const { userId, orgRole } = auth();
   const talent = await getTalentProfile(params.id);
 
   if (!talent) notFound();
 
   const talentUser = await clerkClient.users.getUser(talent.userId);
 
-  if (talent.isApproved === false && userId !== talentUser.id) {
+  if (
+    talent.isApproved === false &&
+    userId !== talentUser.id &&
+    orgRole !== "admin"
+  ) {
     redirect("/");
   }
 

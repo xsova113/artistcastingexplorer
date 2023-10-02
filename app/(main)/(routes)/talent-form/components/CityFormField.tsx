@@ -27,7 +27,7 @@ const CityFormField = ({ form }: CityFormFieldProps) => {
       control={form.control}
       name="city"
       render={({ field }) => (
-        <FormItem className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
+        <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1">
           <FormLabel className="font-semibold">City</FormLabel>
           <Select
             onValueChange={field.onChange}
@@ -44,7 +44,7 @@ const CityFormField = ({ form }: CityFormFieldProps) => {
             <SelectContent>
               {Object.keys(City).map((item) => (
                 <SelectItem key={item} value={item} className="capitalize">
-                  {item.toLowerCase()}
+                  {item.toLowerCase().replace("_", " ")}
                 </SelectItem>
               ))}
             </SelectContent>

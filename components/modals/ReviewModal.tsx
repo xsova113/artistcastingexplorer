@@ -17,14 +17,14 @@ import { approveTalent, rejectTalent } from "@/actions/reviewTalent";
 import { toast } from "@/components/ui/use-toast";
 
 const ReviewModal = () => {
-  const { isOpen, onClose, type, talentId } = useReviewStore();
+  const { isOpen, onClose, type, talentIds } = useReviewStore();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const onApprove = async () => {
     try {
       setIsLoading(true);
-      await approveTalent(talentId);
+      await approveTalent(talentIds);
 
       toast({ title: "Approved", description: "Talent has been approved!" });
       router.refresh();
@@ -42,7 +42,7 @@ const ReviewModal = () => {
   const onReject = async () => {
     try {
       setIsLoading(true);
-      await rejectTalent(talentId);
+      await rejectTalent(talentIds);
 
       toast({ title: "Rejected", description: "Talent has been rejected!" });
       router.refresh();

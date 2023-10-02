@@ -6,7 +6,7 @@ import MobileHeader from "./MobileHeader";
 import Logo from "./Logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { UserButton, useAuth } from "@clerk/nextjs";
+import { CreateOrganization, UserButton, useAuth } from "@clerk/nextjs";
 import { buttonVariants } from "./ui/button";
 import { User } from "lucide-react";
 import useSignInAlertStore from "@/hooks/useSignInAlertStore";
@@ -26,7 +26,7 @@ const routes = [
 
 const Header = () => {
   const pathname = usePathname();
-  const { isSignedIn } = useAuth();
+  const { isSignedIn, userId } = useAuth();
   const { onOpen } = useSignInAlertStore();
   const [talent, setTalent] = useState<TalentProfile>();
 
@@ -87,7 +87,6 @@ const Header = () => {
               </Link>
             )
           )}
-
           {isSignedIn ? (
             <UserButton afterSignOutUrl="/sign-in" />
           ) : (

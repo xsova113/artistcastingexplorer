@@ -3,15 +3,15 @@
 import prisma from "@/lib/client";
 import { auth } from "@clerk/nextjs";
 
-export const approveTalent = async (id: string) => {
+export const approveTalent = async (id: string[]) => {
   const { userId } = auth();
 
   try {
     if (!userId) return console.log("User ID is missing");
     if (!id) return console.log("Talent ID is missing");
 
-    const approvedTalent = await prisma.talentProfile.update({
-      where: { id },
+    const approvedTalent = await prisma.talentProfile.updateMany({
+      where: { id: { in: id } },
       data: { isApproved: true },
     });
 
@@ -21,15 +21,15 @@ export const approveTalent = async (id: string) => {
   }
 };
 
-export const rejectTalent = async (id: string) => {
+export const rejectTalent = async (id: string[]) => {
   const { userId } = auth();
 
   try {
     if (!userId) return console.log("User ID is missing");
     if (!id) return console.log("Talent ID is missing");
 
-    const rejectedTalent = await prisma.talentProfile.update({
-      where: { id },
+    const rejectedTalent = await prisma.talentProfile.updateMany({
+      where: { id: { in: id } },
       data: { isApproved: false },
     });
 

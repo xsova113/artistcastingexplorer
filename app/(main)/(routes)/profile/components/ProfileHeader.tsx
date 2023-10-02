@@ -1,6 +1,7 @@
 "use client";
 
 import Stack from "@/components/Stack";
+import TalentFormModal from "@/components/modals/TalentFormModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -17,7 +18,6 @@ interface ProfileHeaderProps {
 
 const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
   const { userId, orgRole } = useAuth();
-  const router = useRouter();
 
   return (
     <div className="flex items-center gap-4">
@@ -56,7 +56,7 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
               : "Pending Review"}
           </Badge>
         </h1>
-        <Stack className="text-muted-foreground md:gap-2 text-sm">
+        <Stack className="text-sm text-muted-foreground md:gap-2">
           <h2 className="flex gap-3 capitalize">
             {talent.performerType.role.toLowerCase().replaceAll("_", " ")}
             <span className="font-medium">|</span>
@@ -73,17 +73,9 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
             {talent.ageMin} - {talent.ageMax}
           </h3>
         </Stack>
-        <Button
-          size={"sm"}
-          className={cn(
-            "w-fit text-muted-foreground",
-            userId !== talentUser.id && "hidden",
-          )}
-          variant={"secondary"}
-          onClick={() => router.push("/talent-form")}
-        >
-          Edit Profile
-        </Button>
+        {(orgRole === "admin" || userId === talentUser.id) && (
+          <TalentFormModal talentUser={talentUser} talent={talent} />
+        )}
       </Stack>
     </div>
   );

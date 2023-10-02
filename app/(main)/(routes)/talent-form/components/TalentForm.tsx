@@ -129,7 +129,9 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             <EmailFormField form={form} />
             <HeightFormField form={form} />
             <CityFormField form={form} />
-            <ProvinceFormField form={form} />
+            {form.getValues().city === "OTHER_PROVINCE" && (
+              <ProvinceFormField form={form} />
+            )}
             <AgeRangeFormField form={form} />
             <LanguageFormField form={form} />
           </div>
