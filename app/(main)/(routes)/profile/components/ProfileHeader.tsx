@@ -60,8 +60,21 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
           <h2 className="flex gap-3 capitalize">
             {talent.performerType.role.toLowerCase().replaceAll("_", " ")}
             <span className="font-medium">|</span>
-            {talent.location.city?.toLocaleLowerCase()},{" "}
-            {talent.location.province?.toLocaleLowerCase().replaceAll("_", " ")}
+            <span
+              className={cn(
+                talent.location.city === "OTHER_PROVINCE" && "hidden",
+              )}
+            >
+              {talent.location.city.toLocaleLowerCase()}
+            </span>
+
+            {talent.location.province && (
+              <span>
+                {talent.location.province
+                  ?.toLocaleLowerCase()
+                  .replaceAll("_", " ")}
+              </span>
+            )}
           </h2>
           <h3 className="flex gap-3 capitalize ">
             {talent.gender.gender.toLocaleLowerCase()}
