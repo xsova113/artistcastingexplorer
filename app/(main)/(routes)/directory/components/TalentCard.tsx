@@ -93,8 +93,6 @@ const TalentCard = ({
         // If UserSavedTalent's savedTalent ID exists already, delete it
         await removeSavedTalents([data.id]);
       }
-
-      router.refresh();
     } catch (error: any) {
       toast({
         title: "Error favouriting talents",

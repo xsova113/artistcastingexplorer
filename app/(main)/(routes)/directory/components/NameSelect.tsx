@@ -20,7 +20,7 @@ const NameSelect = ({ form }: FirstNameFormFieldProps) => {
       control={form.control}
       name="name"
       render={({ field }) => (
-        <FormItem className="w-full rounded-md bg-secondary p-2 md:w-1/3">
+        <FormItem className="w-full rounded-md bg-secondary p-2 md:w-1/2">
           <FormLabel>Name</FormLabel>
           <FormControl>
             <Input

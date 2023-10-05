@@ -14,6 +14,4 @@ export type Post = {
     medium: string[];
     large: string[];
   };
-  link: string;
-  slug: string;
 };

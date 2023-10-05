@@ -4,7 +4,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Facebook, Link2, Linkedin, Share2, Twitter } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Link2,
+  Linkedin,
+  Share2,
+  Twitter,
+} from "lucide-react";
 import Link from "next/link";
 import { toast } from "./ui/use-toast";
 
@@ -14,6 +21,7 @@ const SocialDropdown = () => {
     toast({
       title: "Link Copied",
       description: "Link copied to the clipboard",
+      variant: "success",
     });
   };
 
@@ -56,7 +64,7 @@ const SocialDropdown = () => {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={handleClick}
-          className="flex cursor-pointer items-center gap-2"
+          className="flex items-center gap-2 cursor-pointer"
         >
           <Link2 size={19} />
           Copy Link

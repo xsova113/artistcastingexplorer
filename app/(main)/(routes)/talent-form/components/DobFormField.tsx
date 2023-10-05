@@ -31,7 +31,7 @@ const DobFormField = ({ form }: DobFormFieldProps) => {
       control={form.control}
       name="dob"
       render={({ field }) => (
-        <FormItem className="flex flex-col rounded-lg bg-secondary p-3">
+        <FormItem className="flex flex-col pt-2">
           <FormLabel>Date of birth</FormLabel>
           <Popover>
             <PopoverTrigger asChild>

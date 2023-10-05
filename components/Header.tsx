@@ -4,15 +4,15 @@ import FlexBetween from "./FlexBetween";
 import Link from "next/link";
 import MobileHeader from "./MobileHeader";
 import Logo from "./Logo";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { CreateOrganization, UserButton, useAuth } from "@clerk/nextjs";
+import { UserButton, useAuth } from "@clerk/nextjs";
 import { buttonVariants } from "./ui/button";
 import { User } from "lucide-react";
-import useSignInAlertStore from "@/hooks/useSignInAlertStore";
+import useSignInAlertStore from "@/store/SignInAlertStore";
 import checkTalent from "@/lib/checkTalent";
 import { useEffect, useState } from "react";
-import { TalentProfile } from "@prisma/client";
+import { TalentProfile } from "@prisma/client"
 
 const routes = [
   { name: "home", pathname: "/" },
@@ -21,12 +21,11 @@ const routes = [
   { name: "interviews", pathname: "/interviews" },
   { name: "subscribe", pathname: "/subscribe" },
   { name: "contact", pathname: "/contact" },
-  { name: "settings", pathname: "/settings" },
 ];
 
 const Header = () => {
   const pathname = usePathname();
-  const { isSignedIn, userId } = useAuth();
+  const { isSignedIn } = useAuth();
   const { onOpen } = useSignInAlertStore();
   const [talent, setTalent] = useState<TalentProfile>();
 
@@ -40,10 +39,10 @@ const Header = () => {
   }, [isSignedIn]);
 
   return (
-    <header className="bg-slate-50 shadow">
+    <header className="shadow bg-slate-50">
       <FlexBetween className="px-4 py-4">
         <Logo />
-        <nav className="hidden gap-4 text-sm lg:flex">
+        <nav className="hidden gap-4 lg:flex">
           {routes.map((route) => (
             <Link
               className={cn(
@@ -64,8 +63,8 @@ const Header = () => {
               href={!isSignedIn ? "/sign-in" : "/talent-form"}
               className={cn(
                 buttonVariants({
-                  className:
-                    "hidden bg-gradient-to-tr from-violet-500 to-red-500 font-semibold transition hover:scale-105 lg:flex",
+                  variant: "outline",
+                  className: "hidden font-semibold lg:flex",
                 }),
               )}
               onClick={() => !isSignedIn && onOpen()}
@@ -83,10 +82,11 @@ const Header = () => {
                   }),
                 )}
               >
-                Profile
+                Talent Profile
               </Link>
             )
           )}
+
           {isSignedIn ? (
             <UserButton afterSignOutUrl="/sign-in" />
           ) : (

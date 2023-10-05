@@ -20,24 +20,15 @@ import { useSortStore } from "@/hooks/useSortStore";
 import { checkSubscription } from "@/lib/subscription";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import CreateSavedFilterModal from "@/components/modals/CreateSavedFilterModal";
-import checkTalent from "@/lib/checkTalent";
-import { TalentProfile } from "@prisma/client";
 
 const FilterForm = () => {
   const router = useRouter();
   const orderBy = useSortStore((state) => state.orderBy);
   const [isPremium, setIsPremium] = useState(false);
-  const [talent, setTalent] = useState<TalentProfile>();
 
   const checkIsPremium = async () => {
     const response = await checkSubscription();
     setIsPremium(response);
-  };
-
-  const checkIsTalent = async () => {
-    const response = await checkTalent();
-    setTalent(response);
   };
 
   const form = useForm<z.infer<typeof filterFormSchema>>({
@@ -52,10 +43,7 @@ const FilterForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof filterFormSchema>) => {
-    if (
-      !isPremium &&
-      (talent?.isApproved === false || talent?.isApproved === null || !talent)
-    )
+    if (isPremium === false) {
       return toast({
         title: "Premium feature",
         description: "Subscribe to premium plan for this feature.",
@@ -68,6 +56,7 @@ const FilterForm = () => {
           </ToastAction>
         ),
       });
+    }
 
     const query = {
       gender: values.gender,
@@ -103,7 +92,6 @@ const FilterForm = () => {
 
   useEffect(() => {
     checkIsPremium();
-    checkIsTalent();
   }, []);
 
   return (
@@ -119,7 +107,6 @@ const FilterForm = () => {
           <SearchKeyword form={form} />
         </div>
         <div className="mt-4 flex items-center justify-end gap-4 p-1">
-          <CreateSavedFilterModal />
           <Button onClick={(e) => clearForm(e)} variant={"secondary"}>
             Clear
           </Button>

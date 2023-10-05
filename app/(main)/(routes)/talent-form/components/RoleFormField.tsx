@@ -27,7 +27,7 @@ const RoleFormField = ({ form }: CityFormFieldProps) => {
       control={form.control}
       name="performerType"
       render={({ field }) => (
-        <FormItem className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
+        <FormItem>
           <FormLabel className="font-semibold">Role</FormLabel>
           <Select
             onValueChange={field.onChange}

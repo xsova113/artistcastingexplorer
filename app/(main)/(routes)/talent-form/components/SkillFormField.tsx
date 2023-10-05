@@ -33,24 +33,11 @@ const SkillFormField = ({ form }: ProvinceFormFieldProps) => {
               components={animatedComponents}
               value={field.value.map((value) => ({
                 ...value,
-                label:
-                  value.skill![0].toUpperCase() +
-                  value.skill?.substring(1).replaceAll("_", " "),
+                label: value.skill,
                 value: value.skill,
-                skill: value.skill,
               }))}
               onChange={(value) => field.onChange(value)}
               options={skillOptions}
-              onCreateOption={(value) =>
-                field.onChange([
-                  ...field.value,
-                  {
-                    label: value,
-                    value: value,
-                    skill: value,
-                  },
-                ])
-              }
             />
           </FormControl>
 

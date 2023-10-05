@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import FilterReview from "./components/FilterReview";
 import { fetchFilteredTalents } from "@/lib/utils";
 import TalentReviewSection from "./components/TalentReviewSection";
-import SortForm from "../directory/components/SortForm";
 
 interface ProfileReviewPageProps {
   searchParams: { name: string; status: string; email: string };

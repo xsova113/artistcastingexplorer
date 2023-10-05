@@ -27,7 +27,7 @@ const GenderFormField = ({ form }: GenderFormFieldProps) => {
       control={form.control}
       name="gender"
       render={({ field }) => (
-        <FormItem className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
+        <FormItem>
           <FormLabel className="font-semibold">Gender</FormLabel>
           <Select
             onValueChange={field.onChange}

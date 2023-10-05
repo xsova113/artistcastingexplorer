@@ -21,19 +21,21 @@ const SortForm = () => {
   };
 
   return (
-    <Select onValueChange={(value: OrderBy) => onSelect(value)}>
-      <SelectTrigger className="h-8 w-[180px]">
-        <SelectValue placeholder="Order By" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Sort By</SelectLabel>
-          <SelectItem value="recently_updated">Recently Updated</SelectItem>
-          <SelectItem value="name-a">Name: A - Z</SelectItem>
-          <SelectItem value="name-z">Name: Z - A</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <div className="mx-auto my-2 mb-6 w-11/12">
+      <Select onValueChange={(value: OrderBy) => onSelect(value)}>
+        <SelectTrigger className="h-8 w-[180px] p-2">
+          <SelectValue placeholder="Order By" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Sort By</SelectLabel>
+            <SelectItem value="recently_updated">Recently Updated</SelectItem>
+            <SelectItem value="name-a">Name: A - Z</SelectItem>
+            <SelectItem value="name-z">Name: Z - A</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   );
 };
 

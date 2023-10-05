@@ -20,7 +20,7 @@ const HeightFormField = ({ form }: HeightFormFieldProps) => {
       control={form.control}
       name="height"
       render={({ field }) => (
-        <FormItem className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
+        <FormItem>
           <FormLabel>Height</FormLabel>
           <FormControl>
             <Input {...field} placeholder="170" disabled={form.formState.isSubmitting} />

@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import UserMenu from "./UserMenu";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { buttonVariants } from "./ui/button";
-import useSignInAlertStore from "@/hooks/useSignInAlertStore";
+import useSignInAlertStore from "@/store/SignInAlertStore";
 import { TalentProfile } from "@prisma/client";
 
 interface MobileHeaderProps {

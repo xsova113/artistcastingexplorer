@@ -1,7 +1,6 @@
 "use client";
 
 import Stack from "@/components/Stack";
-import TalentFormModal from "@/components/modals/TalentFormModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -18,6 +17,7 @@ interface ProfileHeaderProps {
 
 const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
   const { userId, orgRole } = useAuth();
+  const router = useRouter();
 
   return (
     <div className="flex items-center gap-4">
@@ -56,25 +56,11 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
               : "Pending Review"}
           </Badge>
         </h1>
-        <Stack className="text-sm text-muted-foreground md:gap-2">
+        <Stack className="text-muted-foreground md:gap-2">
           <h2 className="flex gap-3 capitalize">
             {talent.performerType.role.toLowerCase().replaceAll("_", " ")}
             <span className="font-medium">|</span>
-            <span
-              className={cn(
-                talent.location.city === "OTHER_PROVINCE" && "hidden",
-              )}
-            >
-              {talent.location.city.toLocaleLowerCase()}
-            </span>
-
-            {talent.location.province && (
-              <span>
-                {talent.location.province
-                  ?.toLocaleLowerCase()
-                  .replaceAll("_", " ")}
-              </span>
-            )}
+            {talent.location.city?.toLocaleLowerCase()}
           </h2>
           <h3 className="flex gap-3 capitalize ">
             {talent.gender.gender.toLocaleLowerCase()}
@@ -86,9 +72,17 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
             {talent.ageMin} - {talent.ageMax}
           </h3>
         </Stack>
-        {(orgRole === "admin" || userId === talentUser.id) && (
-          <TalentFormModal talentUser={talentUser} talent={talent} />
-        )}
+        <Button
+          size={"sm"}
+          className={cn(
+            "w-fit text-muted-foreground",
+            userId !== talentUser.id && "hidden",
+          )}
+          variant={"secondary"}
+          onClick={() => router.push("/talent-form")}
+        >
+          Edit Profile
+        </Button>
       </Stack>
     </div>
   );

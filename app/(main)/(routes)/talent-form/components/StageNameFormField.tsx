@@ -20,7 +20,7 @@ const StageNameFormField = ({ form }: StageNameFormFieldProps) => {
       control={form.control}
       name="stageName"
       render={({ field }) => (
-        <FormItem className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
+        <FormItem>
           <FormLabel>Stage Name (optional)</FormLabel>
           <FormControl>
             <Input

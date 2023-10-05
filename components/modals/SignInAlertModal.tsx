@@ -10,7 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import useSignInAlertStore from "@/hooks/useSignInAlertStore";
+import useSignInAlertStore from "@/store/SignInAlertStore";
 import { useRouter } from "next/navigation";
 
 const SignInAlertModal = () => {

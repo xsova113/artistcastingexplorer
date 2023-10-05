@@ -34,7 +34,7 @@ const ImageUpload = ({
 
   return (
     <div className="mb-5">
-      <div className="flex flex-wrap gap-4">
+      <div className="flex items-center gap-4">
         {value.map((url) => (
           <div
             key={url}
@@ -59,7 +59,7 @@ const ImageUpload = ({
                 priority
               />
             ) : (
-              <video controls src={url} className="rounded-lg" />
+              <video controls src={url} />
             )}
           </div>
         ))}

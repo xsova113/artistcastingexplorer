@@ -14,7 +14,7 @@ const MediaLightBox = () => {
         {mediaType === ("jpg" || "png" || "jpeg") ? (
           <Image src={media} alt={"Image"} fill className="object-contain" />
         ) : (
-          <video src={media} controls className="h-[350px] w-[500px]" />
+          <video src={media} controls />
         )}
       </DialogContent>
     </Dialog>

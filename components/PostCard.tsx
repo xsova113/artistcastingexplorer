@@ -33,7 +33,7 @@ const PostCard = ({
 
   const fetchAuthor = async () => {
     const response = await axios.get(
-      `https://castingjapanese.ca/wp-json/wp/v2/users/${authorId}`,
+      `https://castingjapanese.ca/wp-json/wp/v2/users/${authorId}`
     );
 
     return response.data;
@@ -44,13 +44,13 @@ const PostCard = ({
   return (
     <Card className="mx-4 mb-4 h-[560px]">
       <CardHeader>
-        <div className="relative mb-2 h-[280px] w-full">
+        <div className="relative w-full h-[280px] mb-2">
           {featuredImage && (
             <Image
               src={featuredImage}
               alt={"Featured Image"}
               fill
-              className="rounded object-cover"
+              className="object-cover rounded"
               loading="lazy"
             />
           )}
@@ -63,14 +63,14 @@ const PostCard = ({
         </CardTitle>
       </CardHeader>
       <div
-        className="flex h-[33%] cursor-pointer flex-col"
+        className="cursor-pointer h-[33%] flex flex-col"
         onClick={() => router.push(`/news/${postId}`)}
       >
         <CardContent>
           <p className="line-clamp-3">{content}</p>
         </CardContent>
         <CardFooter className="mt-auto">
-          <p className="flex w-full items-center">
+          <p className="flex items-center w-full">
             By {author?.name} - {dayjs(date).format("MMM DD, YYYY")}
             <ArrowRight size={20} className="ml-auto" />
           </p>
