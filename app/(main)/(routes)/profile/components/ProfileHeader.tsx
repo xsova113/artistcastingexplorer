@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { useAuth } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
-import { City } from "@prisma/client";
 import Image from "next/image";
 
 interface ProfileHeaderProps {
@@ -20,6 +19,7 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
 
   return (
     <div className="flex items-center gap-4">
+      {orgRole}
       <div className="relative flex h-[125px] w-[125px]">
         {!talentUser.imageUrl ? (
           <span className="self-center text-center text-muted-foreground">
