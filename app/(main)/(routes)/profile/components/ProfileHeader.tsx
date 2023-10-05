@@ -61,7 +61,9 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
             {talent.performerType.role.toLowerCase().replaceAll("_", " ")}
             <span className="font-medium">|</span>
             <span
-              className={cn(talent.location.city === City.OTHER && "hidden")}
+              className={cn(
+                talent.location.city === "OTHER_PROVINCE" && "hidden",
+              )}
             >
               {talent.location.city?.toLocaleLowerCase()}
             </span>
