@@ -19,7 +19,6 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
 
   return (
     <div className="flex items-center gap-4">
-      {orgRole}
       <div className="relative flex h-[125px] w-[125px]">
         {!talentUser.imageUrl ? (
           <span className="self-center text-center text-muted-foreground">
