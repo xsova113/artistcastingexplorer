@@ -31,6 +31,7 @@ import {
   StageNameFormField,
   AgeRangeFormField,
 } from ".";
+import LanguageFormField from "./LanguageFormField";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
@@ -49,6 +50,8 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           skills: initialData.skills,
           gender: initialData.gender.gender,
           city: initialData.location.city || undefined,
+          province: initialData.location.province || undefined,
+          language: initialData.language || undefined,
           performerType: initialData.performerType.role,
           middleName: initialData.middleName || undefined,
           stageName: initialData.stageName || undefined,
@@ -63,8 +66,6 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           bio: "",
           bodyType: "",
           email: "",
-          ageMax: 40,
-          ageMin: 25,
           height: "",
           skills: [],
           images: [],
@@ -82,10 +83,15 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
     try {
       if (initialData) {
         await updateTalent(values, user?.id);
+        router.refresh();
+        router.push(`/profile/${initialData?.id}`);
       } else {
         const newTalent = await createTalent(values, user?.id);
 
-        if (!newTalent) return;
+        if (!newTalent)
+          return console.log("Failed to create a new talent profile.");
+
+        window.location.replace(`/profile/${newTalent.id}`);
       }
 
       toast({
@@ -93,9 +99,6 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
         description: toastMessage,
         variant: "success",
       });
-
-      router.push(`/profile/${initialData?.id}`);
-      router.refresh();
     } catch (error: any) {
       toast({
         title: "Error Submitting",
@@ -114,7 +117,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           <h3 className="mb-8 text-xl underline underline-offset-8">
             Basic Information
           </h3>
-          <div className="flex flex-wrap gap-8">
+          <div className="flex flex-wrap gap-6">
             <AgencyFormField form={form} />
             <FirstNameFormField form={form} />
             <MiddlenameFormField form={form} />
@@ -126,8 +129,11 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             <EmailFormField form={form} />
             <HeightFormField form={form} />
             <CityFormField form={form} />
-            <ProvinceFormField form={form} />
+            {form.getValues().city === "OTHER_PROVINCE" && (
+              <ProvinceFormField form={form} />
+            )}
             <AgeRangeFormField form={form} />
+            <LanguageFormField form={form} />
           </div>
         </Stack>
 

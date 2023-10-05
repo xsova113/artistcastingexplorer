@@ -21,7 +21,7 @@ const FreePlanCard = () => {
         </CardDescription>
       </CardHeader>
       <Separator className="mx-auto mb-8 h-1 w-1/3 bg-primary" />
-      <div className="flex h-[250px] cursor-pointer flex-col">
+      <div className="flex h-[250px] flex-col">
         <CardContent>
           <p className="max-md:text-sm">
             Get the latest news and interviews about our talents and the keep up

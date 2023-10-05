@@ -30,12 +30,14 @@ export const updateTalent = async (
           bodyType: values.bodyType,
           middleName: values.middleName,
           stageName: values.stageName,
+          language: values.language,
           ageMax: values.ageMax,
           ageMin: values.ageMin,
           skills: { deleteMany: {} },
           location: {
             update: {
               city: values.city,
+              province: values.province,
             },
           },
           images: { deleteMany: {} },

@@ -18,7 +18,7 @@ interface AgeRangeFormFieldProps {
 
 const AgeRangeFormField = ({ form }: AgeRangeFormFieldProps) => {
   return (
-    <Stack>
+    <Stack className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
       <div className="flex items-end gap-2">
         <FormField
           control={form.control}
@@ -31,6 +31,7 @@ const AgeRangeFormField = ({ form }: AgeRangeFormFieldProps) => {
                   type="number"
                   {...field}
                   onChange={(e) => field.onChange(Number(e.target.value))}
+                  defaultValue={25}
                   value={field.value}
                   disabled={form.formState.isSubmitting}
                   className="max-w-[65px] rounded-none border-0 border-b focus-visible:ring-0"
@@ -45,12 +46,13 @@ const AgeRangeFormField = ({ form }: AgeRangeFormFieldProps) => {
           control={form.control}
           name="ageMax"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="">
               <FormLabel>Max Age</FormLabel>
               <FormControl>
                 <Input
                   type="number"
                   {...field}
+                  defaultValue={40}
                   onChange={(e) => field.onChange(Number(e.target.value))}
                   value={field.value}
                   disabled={form.formState.isSubmitting}

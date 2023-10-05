@@ -1,4 +1,4 @@
-import { City, GenderType, Province, Role } from "@prisma/client";
+import { City, GenderType, Language, Province, Role } from "@prisma/client";
 import * as z from "zod";
 
 export const talentFormSchema = z.object({
@@ -20,6 +20,7 @@ export const talentFormSchema = z.object({
   ageMax: z.number(),
   ageMin: z.number(),
   height: z.string(),
+  language: z.nativeEnum(Language),
   bio: z
     .string()
     .min(150, { message: "Your bio must be at least 150 characters" }),

@@ -20,7 +20,7 @@ const SearchKeyword = ({ form }: FirstNameFormFieldProps) => {
       control={form.control}
       name="keyword"
       render={({ field }) => (
-        <FormItem className="w-full rounded-md bg-secondary p-2 md:w-1/2">
+        <FormItem className="w-full rounded-md bg-secondary p-2 md:w-1/3">
           <FormLabel>Keyword</FormLabel>
           <FormControl>
             <Input

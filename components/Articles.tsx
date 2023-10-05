@@ -14,7 +14,7 @@ interface ArticlesProps {
 }
 
 const Articles = ({ filteredPosts, isLoading, title, path }: ArticlesProps) => {
-  const itemsPerPage = 9;
+  const itemsPerPage = 2;
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const pageCount = Math.ceil((filteredPosts?.length || 0) / itemsPerPage);
@@ -57,6 +57,7 @@ const Articles = ({ filteredPosts, isLoading, title, path }: ArticlesProps) => {
             postId={post.id}
             title={post.title.rendered}
             path={path}
+            date={post.date}
           />
         ))}
       </div>

@@ -7,15 +7,17 @@ import PostCard from "./PostCard";
 import { useEffect, useState } from "react";
 import { Post } from "@/types/post";
 import axios from "axios";
+import { Category, Slug } from "@/types/category";
 
-const PostCarousel = () => {
+const PostCarousel = ({ categorySlug }: { categorySlug: Slug }) => {
   const isAboveMediumScreen = useMediaQuery("(min-width: 640px)");
   const [posts, setPosts] = useState<Post[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const fetchPosts = async () => {
     try {
       const response = await axios.get(
-        "https://castingjapanese.ca/wp-json/wp/v2/posts"
+        "https://castingjapanese.ca/wp-json/wp/v2/posts",
       );
 
       setPosts(response.data);
@@ -24,13 +26,32 @@ const PostCarousel = () => {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(
+        "https://castingjapanese.ca/wp-json/wp/v2/categories",
+      );
+
+      setCategories(response.data);
+    } catch (error) {
+      console.log("Error: " + error);
+    }
+  };
+
+  const filteredPosts = posts.filter((post) =>
+    post.categories.includes(
+      categories.find((category) => category.slug === categorySlug)!.id,
+    ),
+  );
+
   useEffect(() => {
     fetchPosts();
+    fetchCategories();
   }, []);
 
   return (
-    <section className="w-full flex flex-col mb-20">
-      <h1 className="self-center font-semibold text-3xl md:text-4xl mb-10">
+    <section className="mb-20 flex w-full flex-col">
+      <h1 className="mb-10 self-center text-3xl font-semibold md:text-4xl">
         Related Articles
       </h1>
 
@@ -47,7 +68,7 @@ const PostCarousel = () => {
         slidesToScroll={1}
         slidesToShow={isAboveMediumScreen ? 2 : 1}
       >
-        {posts.map((post) => (
+        {filteredPosts.map((post) => (
           <PostCard
             authorId={post.author}
             content={post.uagb_excerpt}

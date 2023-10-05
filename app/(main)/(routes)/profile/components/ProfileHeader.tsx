@@ -1,14 +1,14 @@
 "use client";
 
 import Stack from "@/components/Stack";
+import TalentFormModal from "@/components/modals/TalentFormModal";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { useAuth } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
+import { City } from "@prisma/client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 interface ProfileHeaderProps {
   talentUser: User;
@@ -17,7 +17,6 @@ interface ProfileHeaderProps {
 
 const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
   const { userId, orgRole } = useAuth();
-  const router = useRouter();
 
   return (
     <div className="flex items-center gap-4">
@@ -38,29 +37,42 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
       <Stack className="gap-4">
         <h1 className="items- flex flex-col gap-x-4 gap-y-1 text-2xl font-semibold md:flex-row">
           {talent.firstName} {talent.lastName}
-          <Badge
-            className={cn(
-              userId !== talentUser.id && "hidden",
-              talent.isApproved === true
-                ? "bg-green-500 hover:bg-green-400"
+          {(orgRole === "admin" || userId === talentUser.id) && (
+            <Badge
+              className={cn(
+                talent.isApproved === true
+                  ? "bg-green-500 hover:bg-green-400"
+                  : talent.isApproved === false
+                  ? "bg-red-500 hover:bg-red-400"
+                  : "bg-primary",
+                "w-fit",
+              )}
+            >
+              {talent.isApproved === true
+                ? "Approved"
                 : talent.isApproved === false
-                ? "bg-red-500 hover:bg-red-400"
-                : "bg-primary",
-              "w-fit",
-            )}
-          >
-            {talent.isApproved === true
-              ? "Approved"
-              : talent.isApproved === false
-              ? "Rejected"
-              : "Pending Review"}
-          </Badge>
+                ? "Rejected"
+                : "Pending Review"}
+            </Badge>
+          )}
         </h1>
-        <Stack className="text-muted-foreground md:gap-2">
+        <Stack className="text-sm text-muted-foreground md:gap-2">
           <h2 className="flex gap-3 capitalize">
             {talent.performerType.role.toLowerCase().replaceAll("_", " ")}
             <span className="font-medium">|</span>
-            {talent.location.city?.toLocaleLowerCase()}
+            <span
+              className={cn(talent.location.city === City.OTHER && "hidden")}
+            >
+              {talent.location.city?.toLocaleLowerCase()}
+            </span>
+
+            {talent.location.province && (
+              <span>
+                {talent.location.province
+                  ?.toLocaleLowerCase()
+                  .replaceAll("_", " ")}
+              </span>
+            )}
           </h2>
           <h3 className="flex gap-3 capitalize ">
             {talent.gender.gender.toLocaleLowerCase()}
@@ -72,17 +84,9 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
             {talent.ageMin} - {talent.ageMax}
           </h3>
         </Stack>
-        <Button
-          size={"sm"}
-          className={cn(
-            "w-fit text-muted-foreground",
-            userId !== talentUser.id && "hidden",
-          )}
-          variant={"secondary"}
-          onClick={() => router.push("/talent-form")}
-        >
-          Edit Profile
-        </Button>
+        {(orgRole === "admin" || userId === talentUser.id) && (
+          <TalentFormModal talentUser={talentUser} talent={talent} />
+        )}
       </Stack>
     </div>
   );

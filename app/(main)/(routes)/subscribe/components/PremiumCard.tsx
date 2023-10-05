@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "@/components/ui/use-toast";
-import useSignInAlertStore from "@/store/SignInAlertStore";
+import useSignInAlertStore from "@/hooks/useSignInAlertStore";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { Star } from "lucide-react";

@@ -30,6 +30,7 @@ model TalentProfile {
   ageMin          Int           @default(25)
   bodyType        String?
   agency          String?
+  language        Language?
   skills          Skill[]
   images          Image[]
   location        Location      @relation(fields: [locationId], references: [id])
@@ -68,7 +69,7 @@ model PerformerType {
 
 model Location {
   id             String          @id @default(auto()) @map("_id") @db.ObjectId
-  city           City?
+  city           City
   province       Province?
   talentProfiles TalentProfile[]
 }
@@ -81,7 +82,8 @@ enum Role {
   DANCER
   IDOL
   MASTER_OF_CEREMONIES
-  modelMUSICIAN
+  MODEL
+  MUSICIAN
   SINGER
   STAGE_PERFORMER
   STUNT_PERFORMER
@@ -92,12 +94,11 @@ enum Role {
 enum City {
   VANCOUVER
   TORONTO
-  OTHER
+  OTHER_PROVINCE
+  NATIONWIDE
 }
 
 enum Province {
-  BRITISH_COLUMBIA
-  ONTARIO
   ALBERTA
   MANITOBA
   NEWB_RUNSWICK
@@ -106,6 +107,13 @@ enum Province {
   PRINCE_EDWARD_ISLAND
   QUEBEC
   SASKATCHEWAN
+}
+
+enum Language {
+  ENGLISH_BEGINNER
+  ENGLISH_INTERMEDIATE
+  ENGLISH_ADVANCED
+  ENGLISH_NATIVE
 }
 
 model Image {
@@ -142,6 +150,15 @@ model UserSavedTalent {
 }
 
 model SavedFilter {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @unique
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  queryPathname     String
+  UserSavedFilter   UserSavedFilter? @relation(fields: [userSavedFilterId], references: [id])
+  userSavedFilterId String?          @db.ObjectId
+}
+
+model UserSavedFilter {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String        @unique
+  savedFilters SavedFilter[]
 }

@@ -5,26 +5,25 @@ import Stack from "@/components/Stack";
 import { Separator } from "@/components/ui/separator";
 import TalentMedias from "../components/TalentMedias";
 import TalentBio from "../components/TalentBio";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 interface ProfilePageProps {
   params: { id: string };
 }
 
 const ProfilePage = async ({ params }: ProfilePageProps) => {
-  const { userId } = auth();
+  const { userId, orgRole } = auth();
   const talent = await getTalentProfile(params.id);
 
-  if (!talent)
-    return (
-      <div className="my-20 text-center">
-        <h1 className="text-lg">Talent not found...</h1>
-      </div>
-    );
+  if (!talent) notFound();
 
   const talentUser = await clerkClient.users.getUser(talent.userId);
 
-  if (talent.isApproved === false && userId !== talentUser.id) {
+  if (
+    talent.isApproved === false &&
+    userId !== talentUser.id &&
+    orgRole !== "admin"
+  ) {
     redirect("/");
   }
 

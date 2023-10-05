@@ -1,6 +1,6 @@
 import { getTalents } from "@/actions/getTalents";
 import Stack from "@/components/Stack";
-import { currentUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import FilterReview from "./components/FilterReview";
 import { fetchFilteredTalents } from "@/lib/utils";
@@ -10,22 +10,11 @@ interface ProfileReviewPageProps {
   searchParams: { name: string; status: string; email: string };
 }
 
-const admin = process.env.ADMIN_EMAIL;
-const admin2 = process.env.ADMIN_EMAIL2;
-const admin3 = process.env.ADMIN_EMAIL3;
-
 const ProfileReviewPage = async ({ searchParams }: ProfileReviewPageProps) => {
-  const user = await currentUser();
+  const { orgRole, user } = auth();
   const talents = await getTalents();
 
-  if (!user) redirect("/");
-
-  if (
-    user.emailAddresses[0].emailAddress !== admin &&
-    user.emailAddresses[0].emailAddress !== admin2 &&
-    user.emailAddresses[0].emailAddress !== admin3
-  )
-    redirect("/");
+  if (!user && orgRole !== "admin") redirect("/");
 
   if (!talents || talents.length === 0)
     return <div className="py-20 text-center">No talents found...</div>;

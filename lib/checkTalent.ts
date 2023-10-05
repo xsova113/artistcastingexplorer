@@ -1,15 +1,15 @@
 "use server";
 
-import { auth } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
 import prisma from "./client";
 
 const checkTalent = async () => {
-  const { userId } = auth();
+  const user = await currentUser();
 
-  if (!userId) return;
+  if (!user?.id) return;
 
   const talent = await prisma.talentProfile.findUnique({
-    where: { userId },
+    where: { userId: user.id },
   });
 
   if (!talent) return;

@@ -2,10 +2,10 @@ import { create } from "zustand";
 
 interface ReviewStore {
   isOpen: boolean;
-  talentId: string;
+  talentIds: string[];
   type: "approve" | "reject" | "";
   onOpen: (
-    talentId: { talentId: string },
+    talentId: { talentIds: string[] },
     value?: "approve" | "reject",
   ) => void;
   onClose: () => void;
@@ -14,8 +14,12 @@ interface ReviewStore {
 export const useReviewStore = create<ReviewStore>()((set) => ({
   isOpen: false,
   type: "",
-  talentId: "",
-  onOpen: (talentId, value) =>
-    set(() => ({ isOpen: true, type: value, talentId: talentId.talentId })),
+  talentIds: [],
+  onOpen: (talentIds, value) =>
+    set(() => ({
+      isOpen: true,
+      type: value,
+      talentIds: [...talentIds.talentIds],
+    })),
   onClose: () => set(() => ({ isOpen: false })),
 }));

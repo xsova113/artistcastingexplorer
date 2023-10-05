@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 
 // TODO: Add categories / subcategories as Title type
 
-type Title = "actor" | "model" | "singer" | "musician";
+type Title = "actors" | "model" | "singer" | "musician" | "interview";
 
 const InterviewPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -52,16 +52,17 @@ const InterviewPage = () => {
 
   // Get specific category
   const interviewCategory = useCallback(
-    (categoryType: Slug = "uncategorized") =>
+    (categoryType: string) =>
       categories.find((category) => category.slug === categoryType),
     [categories],
   );
 
   // Filter the post to display based on the specific category chosen
   useMemo(() => {
-    const filteredPosts = posts.filter(
-      (post) => post.categories[0] === interviewCategory("interview")?.id,
+    const filteredPosts = posts.filter((post) =>
+      post.categories.includes(interviewCategory("interview")!.id),
     );
+
     setFilteredPosts(filteredPosts);
   }, [interviewCategory, posts]);
 
@@ -70,15 +71,16 @@ const InterviewPage = () => {
     fetchPosts();
   }, []);
 
-  // TODO: Change the arguement type to Title type
   const handleClick = useCallback(
-    (title: Slug) => {
-      const filteredPosts = posts.filter(
-        (post) => post.categories[0] === interviewCategory(title)?.id,
+    (title: string) => {
+      const filteredPosts = posts.filter((post) =>
+        post.categories.includes(
+          categories.find((category) => category.slug === title)!.id,
+        ),
       );
       setFilteredPosts(filteredPosts);
     },
-    [interviewCategory, posts],
+    [categories, posts],
   );
 
   return (
@@ -100,35 +102,20 @@ const InterviewPage = () => {
             Archives
           </h2>
           <article className="mt-6 flex flex-col items-center gap-x-4 md:items-start">
-            <div className="flex items-start gap-x-4 md:flex-col">
-              <Button
-                onClick={() => handleClick("interview")}
-                variant={"link"}
-                className="p-0 font-semibold text-muted-foreground"
-              >
-                Actor ({interviewCategory("interview")?.count})
-              </Button>
-              <Button
-                onClick={() => handleClick("news")}
-                variant={"link"}
-                className="p-0 font-semibold text-muted-foreground"
-              >
-                Model ({interviewCategory("news")?.count})
-              </Button>
-              <Button
-                onClick={() => handleClick("uncategorized")}
-                variant={"link"}
-                className="p-0 font-semibold text-muted-foreground"
-              >
-                Singer ({interviewCategory("uncategorized")?.count})
-              </Button>
-              <Button
-                onClick={() => handleClick("interview")}
-                variant={"link"}
-                className="p-0 font-semibold text-muted-foreground"
-              >
-                Musician ({interviewCategory("interview")?.count})
-              </Button>
+            <div className="flex flex-wrap items-start justify-center gap-4 md:flex-col">
+              {categories
+                .filter((category) => category.slug !== "news")
+                .sort((a, b) => (a.name > b.name ? 1 : -1))
+                .map((category) => (
+                  <Button
+                    key={category.id}
+                    onClick={() => handleClick(category.slug)}
+                    variant={"link"}
+                    className="p-0 font-semibold text-muted-foreground"
+                  >
+                    {category.name} ({category.count})
+                  </Button>
+                ))}
             </div>
           </article>
         </div>

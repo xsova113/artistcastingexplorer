@@ -7,18 +7,20 @@ import { Loader2 } from "lucide-react";
 import SocialDropdown from "./SocialDropdown";
 import YProgressBar from "./YProgressBar";
 import ProfileAvatar from "./ProfileAvatar";
-import Image from "next/image";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { WPUser } from "@/types/wpUser";
 import { Post } from "@/types/post";
-import { cn } from "@/lib/utils";
+import { useCallback, useEffect, useState } from "react";
+import DisqusComments from "./DisqusComments";
 
 interface NewPostProps {
   postId: string;
 }
 
 const Post = ({ postId }: NewPostProps) => {
+  const [author, setAuthor] = useState<WPUser>();
+
   const fetchPost = async () => {
     const response = await axios.get(
       `https://castingjapanese.ca/wp-json/wp/v2/posts/${postId}`,
@@ -33,71 +35,63 @@ const Post = ({ postId }: NewPostProps) => {
     isLoading: isPostLoading,
   } = useQuery<Post, Error>("post", fetchPost);
 
-  const fetchAuthor = async () => {
+  const fetchAuthor = useCallback(async () => {
     if (!post) return;
 
     const response = await axios.get(
       `https://castingjapanese.ca/wp-json/wp/v2/users/${post.author}`,
     );
+    setAuthor(response.data);
     return response.data;
-  };
+  }, [post]);
 
-  const {
-    data: author,
-    error: userError,
-    isLoading: isUserLoading,
-  } = useQuery<WPUser, Error>("author", fetchAuthor);
+  useEffect(() => {
+    fetchAuthor();
+  }, [fetchAuthor]);
 
   return (
     <section className="items-center py-20">
       <YProgressBar />
-      {postError || userError ? (
+      {postError ? (
         <span>Oh no, there was an error</span>
-      ) : isPostLoading || isUserLoading || !post ? (
+      ) : isPostLoading || !post ? (
         <div className="flex w-full items-center justify-center gap-4 text-2xl">
           Loading...
           <Loader2 className="animate-spin" size={50} />
         </div>
       ) : (
-        <Stack>
-          <h1 className="mb-4 self-start text-4xl font-medium md:mb-12 md:text-6xl">
-            {post?.title.rendered}
-          </h1>
-          <FlexBetween className="mb-8">
-            <span className="text-muted-foreground">
-              {dayjs(post?.date).format("MMM DD, YYYY")}
-            </span>
-            <SocialDropdown />
-          </FlexBetween>
-          <div className="mb-10 flex items-start gap-2">
-            <ProfileAvatar
-              image={post ? post.uagb_featured_image_src.thumbnail[0] : ""}
-            />
-            <div className="flex flex-col">
-              <h3>{post.uagb_author_info.display_name}</h3>
-              <p className="text-xs text-muted-foreground md:w-1/2">
-                {author?.description}
-              </p>
+        <section>
+          <Stack>
+            <h1 className="mb-4 self-start text-4xl font-medium md:mb-12 md:text-6xl">
+              {post?.title.rendered}
+            </h1>
+            <FlexBetween className="mb-8">
+              <span className="text-muted-foreground">
+                {dayjs(post?.date).format("MMM DD, YYYY")}
+              </span>
+              <SocialDropdown />
+            </FlexBetween>
+            <div className="mb-10 flex items-start gap-2">
+              <ProfileAvatar image={author ? author.avatar_urls[96] : ""} />
+              <div className="flex flex-col">
+                <h3>{author?.name}</h3>
+                <p className="text-xs text-muted-foreground md:w-1/2">
+                  {author?.description}
+                </p>
+              </div>
             </div>
-          </div>
-          {/* <Stack className="mx-auto mb-10 w-11/12 gap-8">
-            <div
-              className={cn(
-                "relative h-[450px] w-full",
-                !post.uagb_featured_image_src.thumbnail && "hidden",
-              )}
-            >
-              <Image
-                src={post.uagb_featured_image_src.full[1]}
-                alt={"featured image"}
-                fill
-                className="rounded object-cover"
-              />
-            </div>
-            <p>{post.uagb_excerpt}</p>
-          </Stack> */}
-          <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
-        </Stack>
+          </Stack>
+
+          <article
+            dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+            className="mb-24"
+          />
+          {/* <iframe
+            src={post.link}
+            className="min-h-screen w-full"
+          /> */}
+          <DisqusComments post={post} />
+        </section>
       )}
     </section>
   );

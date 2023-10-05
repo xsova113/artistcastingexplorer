@@ -14,6 +14,9 @@ import createSavedTalents from "@/actions/createSavedtalents";
 import { findUserSavedTalent } from "@/actions/findUserSavedTalent";
 import { updateSavedTalents } from "@/actions/updateSavedTalents";
 import { removeSavedTalents } from "@/actions/removeSavedTalents";
+import { useRouter } from "next/navigation";
+import SortForm from "./SortForm";
+import SelectItemsPerPage from "./SelectItemsPerPage";
 
 interface TalentSectionProps {
   talents: TalentProfileType[];
@@ -23,15 +26,16 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
   const { userId } = useAuth();
   const [isSaving, setIsSaving] = useState(false);
   const [selectedTalentId, setSelectedTalentId] = useState<string[]>([]);
-  const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const pageCount = Math.ceil(talents.length / itemsPerPage);
   const [UserSavedTalent, setUserSavedTalent] = useState<UserSavedTalentType>();
+  const [itemsPerPage, setItemsPerPage] = useState(12);
+  const pageCount = Math.ceil(talents.length / itemsPerPage);
+  const router = useRouter();
 
   useEffect(() => {
     setTotalPages(Math.ceil(talents.length / itemsPerPage));
-  }, [talents.length]);
+  }, [itemsPerPage, talents.length]);
 
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -65,11 +69,12 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
           title: "Action saved",
           description: "Talents saved successfully",
         });
+
+        router.refresh();
         return await createSavedTalents(selectedTalentId);
       }
 
       // If UserSavedTalents exist but savedTalents ID not found, update it
-
       const unSavedTalentIds = selectedTalentId.filter(
         (id) =>
           !UserSavedTalent.savedTalents
@@ -77,6 +82,7 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
             .includes(id),
       );
 
+      router.refresh();
       await updateSavedTalents(unSavedTalentIds);
 
       toast({
@@ -105,6 +111,7 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
         });
       }
 
+      router.refresh();
       await removeSavedTalents(selectedTalentId);
 
       toast({
@@ -129,25 +136,34 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
   return (
     <Stack className="mx-auto w-full max-w-screen-lg items-center bg-white pb-24">
       <div className="w-full px-8 md:px-10">
-        <Button
-          className="m-2 mx-auto w-fit text-xs"
-          onClick={onBulkSave}
-          disabled={isSaving}
-          size={"sm"}
-          variant={"outline"}
-        >
-          Bulk Save
-        </Button>
+        <Stack className="mb-4 gap-y-1">
+          <div className="mt-8 flex w-fit items-center gap-1">
+            <SortForm />
+            <Button
+              className="mx-auto min-w-fit text-xs"
+              onClick={onBulkSave}
+              disabled={isSaving || selectedTalentId.length === 0}
+              size={"sm"}
+              variant={"outline"}
+            >
+              Bulk Save
+            </Button>
+            <Button
+              className="mx-auto min-w-fit text-xs"
+              onClick={onBulkRemove}
+              disabled={isSaving || selectedTalentId.length === 0}
+              size={"sm"}
+              variant={"outline"}
+            >
+              Bulk Remove
+            </Button>
+          </div>
+          <SelectItemsPerPage
+            setItemsPerPage={setItemsPerPage}
+            itemsPerPage={itemsPerPage}
+          />
+        </Stack>
 
-        <Button
-          className="m-2 mx-auto mb-2 w-fit text-xs"
-          onClick={onBulkRemove}
-          disabled={isSaving}
-          size={"sm"}
-          variant={"outline"}
-        >
-          Bulk Remove
-        </Button>
         <div
           className={cn(
             "mb-10 grid grid-cols-2 justify-center gap-6 md:grid-cols-3 lg:grid-cols-4",
