@@ -12,6 +12,7 @@ import TalentBio from "../../profile/components/TalentBio";
 import { getTalentUser } from "@/actions/getTalentUser";
 import { User } from "@clerk/nextjs/server";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 interface TalentDetailSheetProps {
   talent: TalentProfileType;
@@ -50,7 +51,16 @@ const TalentDetailSheet = ({
       <SheetContent className="min-w-[340px] overflow-x-scroll p-0 md:min-w-[800px] lg:min-w-[1000px]">
         <Stack className="px-6 py-20 md:px-20">
           <ProfileHeader talentUser={talentUser} talent={talent} />
-          <span className="mt-4 text-sm">{talent.email}</span>
+          <div className="mt-4 flex flex-col gap-3 text-sm text-muted-foreground md:flex-row">
+            <span>
+              <b className="text-foreground">Email</b>: {talent.email}
+            </span>
+            <span>
+              <b className="text-foreground">DOB</b>:{" "}
+              {format(talent.dob, "yyyy-MM-dd")}
+            </span>
+          </div>
+
           <Separator className="mt-8" />
           <div className="mt-10 flex flex-col-reverse gap-x-14 gap-y-10 md:flex-row lg:mt-20">
             <TalentMedias medias={talent.images.map((image) => image.url)} />

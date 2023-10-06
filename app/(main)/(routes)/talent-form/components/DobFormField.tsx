@@ -1,25 +1,23 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import {
-  FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { talentFormSchema } from "@/lib/talentFormSchema";
+import { UseFormReturn } from "react-hook-form";
+import * as z from "zod";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { talentFormSchema } from "@/lib/talentFormSchema";
-import { cn } from "@/lib/utils";
+import { Calendar } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { UseFormReturn } from "react-hook-form";
-import * as z from "zod";
 
 interface DobFormFieldProps {
   form: UseFormReturn<z.infer<typeof talentFormSchema>>;
@@ -34,34 +32,15 @@ const DobFormField = ({ form }: DobFormFieldProps) => {
         <FormItem className="flex flex-col rounded-lg bg-secondary p-3">
           <FormLabel>Date of birth</FormLabel>
           <Popover>
-            <PopoverTrigger asChild>
-              <FormControl>
-                <Button
-                  disabled={form.formState.isSubmitting}
-                  variant={"outline"}
-                  className={cn(
-                    "w-[240px] pl-3 text-left font-normal",
-                    !field.value && "text-muted-foreground",
-                  )}
-                >
-                  {field.value ? (
-                    format(field.value, "PPP")
-                  ) : (
-                    <span>Pick a date</span>
-                  )}
-                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                </Button>
-              </FormControl>
+            <PopoverTrigger className="rounded border bg-white px-3 py-2">
+              {format(field.value, "yyyy-MM-dd")}
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent className="w-full">
               <Calendar
-                mode="single"
-                selected={field.value}
-                onSelect={field.onChange}
-                disabled={(date) =>
-                  date > new Date() || date < new Date("1900-01-01")
-                }
-                initialFocus
+                onChange={(date) => field.onChange(date)}
+                maxDate={new Date()}
+                color="orange"
+                date={field.value}
               />
             </PopoverContent>
           </Popover>
@@ -69,18 +48,6 @@ const DobFormField = ({ form }: DobFormFieldProps) => {
         </FormItem>
       )}
     />
-    // <FormField
-    //   control={form.control}
-    //   name="dob"
-    //   render={({ field }) => (
-    //     <FormItem className="flex flex-col gap-1">
-    //       <FormLabel className="pt-1">Date of Birth</FormLabel>
-    //       <FormControl>
-
-    //       </FormControl>
-    //     </FormItem>
-    //   )}
-    // />
   );
 };
 

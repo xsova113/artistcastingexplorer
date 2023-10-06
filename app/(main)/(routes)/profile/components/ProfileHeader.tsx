@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { useAuth } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
+import { format } from "date-fns";
 import Image from "next/image";
 
 interface ProfileHeaderProps {

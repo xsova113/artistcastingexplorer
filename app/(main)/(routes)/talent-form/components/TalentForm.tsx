@@ -6,11 +6,10 @@ import { Form } from "@/components/ui/form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { useUser } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { talentFormSchema } from "@/lib/talentFormSchema";
 import Stack from "@/components/Stack";
 import { createTalent } from "@/actions/createTalent";
-import { useRouter } from "next/navigation";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { updateTalent } from "@/actions/updateTalent";
 import {
@@ -32,14 +31,28 @@ import {
   AgeRangeFormField,
 } from ".";
 import LanguageFormField from "./LanguageFormField";
+import { useCallback, useEffect, useState } from "react";
+import { User } from "@clerk/nextjs/server";
+import { getTalentUser } from "@/actions/getTalentUser";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
 }
 
 const TalentForm = ({ talent: initialData }: TalentFormProps) => {
+  const { orgRole } = useAuth();
   const { user } = useUser();
-  const router = useRouter();
+  const [talentUser, setTalentUser] = useState<User>();
+
+  const fetchTalentUser = useCallback(async () => {
+    if (!initialData) return;
+    const response = await getTalentUser(initialData.userId);
+    setTalentUser(response);
+  }, [initialData]);
+
+  useEffect(() => {
+    fetchTalentUser();
+  }, [fetchTalentUser]);
 
   const form = useForm<z.infer<typeof talentFormSchema>>({
     resolver: zodResolver(talentFormSchema),
@@ -82,9 +95,13 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
   async function onSubmit(values: z.infer<typeof talentFormSchema>) {
     try {
       if (initialData) {
-        await updateTalent(values, user?.id);
-        router.refresh();
-        router.push(`/profile/${initialData?.id}`);
+        if (orgRole === "admin") {
+          await updateTalent(values, talentUser?.id);
+          window.location.reload();
+        } else {
+          await updateTalent(values, user?.id);
+          window.location.replace(`/profile/${initialData?.id}`);
+        }
       } else {
         const newTalent = await createTalent(values, user?.id);
 
