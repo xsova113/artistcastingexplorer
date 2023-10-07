@@ -67,7 +67,7 @@ const FilterReview = () => {
       <Stack className="gap-2">
         <div className="flex flex-col items-center gap-2 md:flex-row">
           <Label htmlFor="search-input" className="max-md:self-start">
-            Search Last Name:
+            Search By Name:
           </Label>
           <Input
             id="search-input"
