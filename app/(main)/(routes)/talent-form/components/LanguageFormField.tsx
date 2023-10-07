@@ -27,7 +27,7 @@ const LanguageFormField = ({ form }: LanguageFormFieldProps) => {
       control={form.control}
       name="language"
       render={({ field }) => (
-        <FormItem className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
+        <FormItem className="bg-secondary max-sm:w-full px-3 pb-3 pt-1 rounded-lg">
           <FormLabel className="font-semibold">Language</FormLabel>
           <Select
             onValueChange={field.onChange}

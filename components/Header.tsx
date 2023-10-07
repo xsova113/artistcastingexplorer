@@ -6,9 +6,8 @@ import MobileHeader from "./MobileHeader";
 import Logo from "./Logo";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { CreateOrganization, UserButton, useAuth } from "@clerk/nextjs";
+import { UserButton, useAuth } from "@clerk/nextjs";
 import { buttonVariants } from "./ui/button";
-import { User } from "lucide-react";
 import useSignInAlertStore from "@/hooks/useSignInAlertStore";
 import checkTalent from "@/lib/checkTalent";
 import { useEffect, useState } from "react";
@@ -66,6 +65,7 @@ const Header = () => {
                 buttonVariants({
                   className:
                     "hidden bg-gradient-to-tr from-violet-500 to-red-500 font-semibold transition hover:scale-105 lg:flex",
+                    size: "sm"
                 }),
               )}
               onClick={() => !isSignedIn && onOpen()}
@@ -80,6 +80,7 @@ const Header = () => {
                   buttonVariants({
                     variant: "outline",
                     className: "hidden font-semibold lg:flex",
+                    size: "sm"
                   }),
                 )}
               >
@@ -90,8 +91,11 @@ const Header = () => {
           {isSignedIn ? (
             <UserButton afterSignOutUrl="/sign-in" />
           ) : (
-            <Link href={"/sign-in"} className={"rounded-full bg-primary p-2"}>
-              <User size={20} className="text-white" />
+            <Link
+              href={"/sign-in"}
+              className={buttonVariants({ variant: "outline", size: "sm" })}
+            >
+              Sign in
             </Link>
           )}
           <MobileHeader routes={routes} talent={talent} />

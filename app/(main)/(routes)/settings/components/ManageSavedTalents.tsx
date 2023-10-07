@@ -41,7 +41,7 @@ const ManageSavedTalents = async ({
   return (
     <Stack>
       <h1 className="text-xl font-medium">Saved Talents</h1>
-      <DataTable columns={columns} data={formattedData} />
+      <DataTable columns={columns} data={!savedTalents ? [] : formattedData} />
     </Stack>
   );
 };

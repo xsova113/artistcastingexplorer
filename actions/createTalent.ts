@@ -14,7 +14,7 @@ export const createTalent = async (
     try {
       const talent = await prisma.talentProfile.create({
         data: {
-          userId: userId,
+          userId: values.talentUserId ? values.talentUserId : userId,
           bio: values.bio,
           dob: values.dob,
           performerType: { create: { role: values.performerType } },

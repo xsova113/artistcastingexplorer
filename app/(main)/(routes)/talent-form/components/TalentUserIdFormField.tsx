@@ -10,22 +10,22 @@ import { talentFormSchema } from "@/lib/talentFormSchema";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 
-interface StageNameFormFieldProps {
+interface TalentUserIdFormFieldProps {
   form: UseFormReturn<z.infer<typeof talentFormSchema>>;
 }
 
-const StageNameFormField = ({ form }: StageNameFormFieldProps) => {
+const TalentUserIdFormField = ({ form }: TalentUserIdFormFieldProps) => {
   return (
     <FormField
       control={form.control}
-      name="stageName"
+      name="talentUserId"
       render={({ field }) => (
-        <FormItem className="bg-secondary max-sm:w-full px-3 pb-3 pt-1 rounded-lg">
-          <FormLabel>Stage Name (optional)</FormLabel>
+        <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1 max-sm:w-full">
+          <FormLabel>User ID</FormLabel>
           <FormControl>
             <Input
               {...field}
-              placeholder="Stage name"
+              placeholder="User ID"
               disabled={form.formState.isSubmitting}
             />
           </FormControl>
@@ -36,4 +36,4 @@ const StageNameFormField = ({ form }: StageNameFormFieldProps) => {
   );
 };
 
-export default StageNameFormField;
+export default TalentUserIdFormField;

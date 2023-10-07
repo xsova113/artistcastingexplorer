@@ -69,7 +69,7 @@ const TalentReviewSection = ({ filteredTalents }: TalentReviewSectionProps) => {
           Bulk Reject
         </Button>
       </div>
-      <div className="mt-6 grid grid-cols-12 gap-8">
+      <div className="mt-6 grid grid-cols-12 gap-8 mb-12">
         {subset.map((talent) => (
           <TalentReviewCard
             key={talent.id}
@@ -86,7 +86,7 @@ const TalentReviewSection = ({ filteredTalents }: TalentReviewSectionProps) => {
         pageRangeDisplayed={5}
         onPageChange={handlePageChange}
         containerClassName={"flex items-center justify-center md:gap-24 gap-8"}
-        activeClassName="bg-secondary py-1 px-2 rounded"
+        activeClassName="bg-secondary py-1 px-2"
       />
     </Stack>
   );

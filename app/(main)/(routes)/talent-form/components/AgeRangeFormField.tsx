@@ -24,7 +24,7 @@ const AgeRangeFormField = ({ form }: AgeRangeFormFieldProps) => {
           control={form.control}
           name="ageMin"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="">
               <FormLabel>Min Age</FormLabel>
               <FormControl>
                 <Input
@@ -64,9 +64,6 @@ const AgeRangeFormField = ({ form }: AgeRangeFormFieldProps) => {
           )}
         />
       </div>
-      <FormDescription className="mt-2 text-xs">
-        Age range for the role you can play.
-      </FormDescription>
     </Stack>
   );
 };

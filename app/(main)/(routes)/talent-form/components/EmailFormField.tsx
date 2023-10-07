@@ -20,7 +20,7 @@ const EmailFormField = ({ form }: EmailFormFieldProps) => {
       control={form.control}
       name="email"
       render={({ field }) => (
-        <FormItem className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
+        <FormItem className="bg-secondary max-sm:w-full px-3 pb-3 pt-1 rounded-lg">
           <FormLabel>Email Address</FormLabel>
           <FormControl>
             <Input disabled={form.formState.isSubmitting} {...field} placeholder="Email address" />

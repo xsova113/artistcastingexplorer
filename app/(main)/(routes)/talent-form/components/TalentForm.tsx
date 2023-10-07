@@ -34,15 +34,19 @@ import LanguageFormField from "./LanguageFormField";
 import { useCallback, useEffect, useState } from "react";
 import { User } from "@clerk/nextjs/server";
 import { getTalentUser } from "@/actions/getTalentUser";
+import TalentUserIdFormField from "./TalentUserIdFormField";
+import { usePathname } from "next/navigation";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
+  talentUserId?: string;
 }
 
-const TalentForm = ({ talent: initialData }: TalentFormProps) => {
+const TalentForm = ({ talent: initialData, talentUserId }: TalentFormProps) => {
   const { orgRole } = useAuth();
   const { user } = useUser();
   const [talentUser, setTalentUser] = useState<User>();
+  const pathname = usePathname();
 
   const fetchTalentUser = useCallback(async () => {
     if (!initialData) return;
@@ -86,6 +90,8 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           stageName: "",
         },
   });
+
+  const cityValue = form.watch("city");
 
   const isSubmitting = form.formState.isSubmitting;
 
@@ -135,6 +141,9 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             Basic Information
           </h3>
           <div className="flex flex-wrap gap-6">
+            {pathname === "/profileReview/createProfile" && (
+              <TalentUserIdFormField form={form} />
+            )}
             <AgencyFormField form={form} />
             <FirstNameFormField form={form} />
             <MiddlenameFormField form={form} />
@@ -146,7 +155,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             <EmailFormField form={form} />
             <HeightFormField form={form} />
             <CityFormField form={form} />
-            {form.getValues().city === "OTHER_PROVINCE" && (
+            {cityValue === "OTHER_PROVINCE" && (
               <ProvinceFormField form={form} />
             )}
             <AgeRangeFormField form={form} />

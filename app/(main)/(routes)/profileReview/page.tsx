@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import FilterReview from "./components/FilterReview";
 import { fetchFilteredTalents } from "@/lib/utils";
 import TalentReviewSection from "./components/TalentReviewSection";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 interface ProfileReviewPageProps {
   searchParams: { name: string; status: string; email: string };
@@ -26,6 +28,12 @@ const ProfileReviewPage = async ({ searchParams }: ProfileReviewPageProps) => {
       <Stack className="mx-4 md:mx-10">
         <h1 className="text-4xl font-semibold">Profile Review</h1>
         <FilterReview />
+        <Link
+          href={"/profileReview/createProfile"}
+          className={buttonVariants({ className: "w-fit -mb-10" })}
+        >
+          Create Profile
+        </Link>
         <TalentReviewSection filteredTalents={filteredTalents} />
       </Stack>
     </section>
