@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 "use client";
 
 import useMediaQuery from "@/hooks/useMediaQuery";
@@ -17,7 +19,7 @@ const SeenOn = () => {
         slidesToScroll={1}
         slidesToShow={isAboveMediumScreens ? 4 : 2}
       >
-        <div className="relative w-full h-[25px]">
+        <div className="relative h-[25px] w-full">
           <Image
             src={
               "https://castingjapanese.ca/wp-content/uploads/2023/09/client-logo-5.png"
@@ -27,7 +29,7 @@ const SeenOn = () => {
             className="object-contain"
           />
         </div>
-        <div className="relative w-full h-[25px]">
+        <div className="relative h-[25px] w-full">
           <Image
             src={
               "https://castingjapanese.ca/wp-content/uploads/2023/09/client-logo-1.png"
@@ -37,7 +39,7 @@ const SeenOn = () => {
             className="object-contain"
           />
         </div>
-        <div className="relative w-full h-[25px]">
+        <div className="relative h-[25px] w-full">
           <Image
             src={
               "https://castingjapanese.ca/wp-content/uploads/2023/09/client-logo-2.png"
@@ -47,7 +49,7 @@ const SeenOn = () => {
             className="object-contain"
           />
         </div>
-        <div className="relative w-full h-[25px]">
+        <div className="relative h-[25px] w-full">
           <Image
             src={
               "https://castingjapanese.ca/wp-content/uploads/2023/09/client-logo-4.png"
@@ -57,7 +59,7 @@ const SeenOn = () => {
             className="object-contain"
           />
         </div>
-        <div className="relative w-full h-[25px]">
+        <div className="relative h-[25px] w-full">
           <Image
             src={
               "https://castingjapanese.ca/wp-content/uploads/2023/09/client-logo-2.png"
