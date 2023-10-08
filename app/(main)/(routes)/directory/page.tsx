@@ -10,30 +10,16 @@ import DIrectoryCards from "./components/DIrectoryCards";
 import Stack from "@/components/Stack";
 import { useSortStore } from "@/hooks/useSortStore";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import { TalentProfileType } from "@/types/talentProfileType";
 import { BeatLoader } from "react-spinners";
+import { useQuery } from "react-query";
 
 const DirectoryPage = () => {
   const searchParams = useSearchParams();
-  const [talents, setTalents] = useState<TalentProfileType[]>();
-  const [loading, setLoading] = useState(false);
   const { orderBy } = useSortStore();
-  const fetchTalents = useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await getTalents();
-      setTalents(response);
-    } catch (error: any) {
-      console.log("Error fetching: " + error.message);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
 
-  useEffect(() => {
-    fetchTalents();
-  }, [fetchTalents]);
+  const { data: talents, isLoading } = useQuery("talents", getTalents, {
+    keepPreviousData: true,
+  });
 
   const approvedTalents = talents?.filter(
     (talent) => talent.isApproved === true,
@@ -132,9 +118,9 @@ const DirectoryPage = () => {
         <div className="mx-auto mb-12 mt-8 w-full border-b-2 border-primary" />
       </Stack>
       <FilterAccordian />
-      {loading ? (
+      {isLoading ? (
         <span className="my-20 flex items-center justify-center gap-2 text-center text-lg">
-          Loading <BeatLoader loading={loading} size={10} />
+          Loading <BeatLoader loading={isLoading} size={10} />
         </span>
       ) : filteredTalents?.length === 0 || !filteredTalents ? (
         <span className="my-20 gap-2 text-center text-lg">
