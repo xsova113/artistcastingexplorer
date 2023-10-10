@@ -11,30 +11,31 @@ datasource db {
 }
 
 model TalentProfile {
-  id              String        @id @default(auto()) @map("_id") @db.ObjectId
-  userId          String        @unique
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String         @unique
   isApproved      Boolean?
   firstName       String
   middleName      String?
   lastName        String
   stageName       String?
-  email           String        @unique
-  dob             DateTime
-  performerType   PerformerType @relation(fields: [performerTypeId], references: [id])
-  performerTypeId String        @db.ObjectId
+  email           String         @unique
+  performerType   PerformerType  @relation(fields: [performerTypeId], references: [id])
+  performerTypeId String         @db.ObjectId
   height          String
-  gender          Gender        @relation(fields: [genderId], references: [id])
-  genderId        String        @db.ObjectId
+  gender          Gender         @relation(fields: [genderId], references: [id])
+  genderId        String         @db.ObjectId
   bio             String
-  ageMax          Int           @default(40)
-  ageMin          Int           @default(25)
+  ageMax          Int            @default(40)
+  ageMin          Int            @default(25)
   bodyType        String?
   agency          String?
+  credits         Credit[]
   language        Language?
+  japaneseLevel   JapaneseLevel?
   skills          Skill[]
   images          Image[]
-  location        Location      @relation(fields: [locationId], references: [id])
-  locationId      String        @db.ObjectId
+  location        Location       @relation(fields: [locationId], references: [id])
+  locationId      String         @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -116,6 +117,13 @@ enum Language {
   ENGLISH_NATIVE
 }
 
+enum JapaneseLevel {
+  JAPANESE_BEGINNER
+  JAPANESE_INTERMEDIATE
+  JAPANESE_ADVANCED
+  JAPANESE_NATIVE
+}
+
 model Image {
   id  String @id @default(auto()) @map("_id") @db.ObjectId
   url String
@@ -141,6 +149,9 @@ model SavedTalent {
   talentProfileId   String?
   userSavedTalent   UserSavedTalent? @relation(fields: [userSavedTalentId], references: [id])
   userSavedTalentId String?          @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model UserSavedTalent {
@@ -161,4 +172,19 @@ model UserSavedFilter {
   id           String        @id @default(auto()) @map("_id") @db.ObjectId
   userId       String        @unique
   savedFilters SavedFilter[]
+}
+
+model Credit {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  category        String
+  productionTitle String
+  yearOfRelease   Int
+  role            String?
+  numberOfEpisode Int
+
+  TalentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
+  talentProfileId String        @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

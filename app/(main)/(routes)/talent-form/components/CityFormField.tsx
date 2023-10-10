@@ -32,6 +32,7 @@ const CityFormField = ({ form }: CityFormFieldProps) => {
           <Select
             onValueChange={field.onChange}
             disabled={form.formState.isSubmitting}
+            defaultValue={field.value}
           >
             <FormControl>
               <SelectTrigger disabled={form.formState.isSubmitting}>

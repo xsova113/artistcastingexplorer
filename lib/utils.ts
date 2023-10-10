@@ -62,3 +62,4 @@ export const fetchFilteredTalents = (
 
   return filteredTalents;
 };
+

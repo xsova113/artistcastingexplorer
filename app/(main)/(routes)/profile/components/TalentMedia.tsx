@@ -5,16 +5,16 @@ import { useLightBoxStore } from "@/hooks/useLightBoxStore";
 import Image from "next/image";
 import MediaLightBox from "./MediaLightBox";
 
-interface TalentMediasProps {
+interface TalentMediaProps {
   medias: string[];
 }
 
-const TalentMedias = ({ medias }: TalentMediasProps) => {
+const TalentMedia = ({ medias }: TalentMediaProps) => {
   const { onOpen, setMedia } = useLightBoxStore();
 
   return (
-    <Stack className="w-full md:w-[40%]">
-      <h1 className="mb-4 text-2xl font-semibold">Medias</h1>
+    <Stack className="w-full md:w-[55%] p-2 rounded-lg ">
+      <h1 className="mb-6 text-2xl font-semibold">Media</h1>
       <div className="relative h-[400px] w-full overflow-hidden rounded">
         <Image
           src={
@@ -50,4 +50,4 @@ const TalentMedias = ({ medias }: TalentMediasProps) => {
   );
 };
 
-export default TalentMedias;
+export default TalentMedia;

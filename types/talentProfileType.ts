@@ -1,4 +1,5 @@
 import {
+  Credit,
   Gender,
   Image,
   Location,
@@ -13,4 +14,5 @@ export type TalentProfileType = TalentProfile & {
   performerType: PerformerType;
   gender: Gender;
   skills: Skill[];
+  credits: Credit[];
 };

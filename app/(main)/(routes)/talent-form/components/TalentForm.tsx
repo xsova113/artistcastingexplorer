@@ -17,7 +17,6 @@ import {
   AgencyFormField,
   BioFormField,
   CityFormField,
-  DobFormField,
   EmailFormField,
   FirstNameFormField,
   GenderFormField,
@@ -36,13 +35,15 @@ import { User } from "@clerk/nextjs/server";
 import { getTalentUser } from "@/actions/getTalentUser";
 import TalentUserIdFormField from "./TalentUserIdFormField";
 import { usePathname } from "next/navigation";
+import JapLanguageFormField from "./JapLanguageFormField";
+import TermsAndConditions from "./TermsAndConditions";
+import AgeCheckFormField from "./AgeCheckFormField";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
-  talentUserId?: string;
 }
 
-const TalentForm = ({ talent: initialData, talentUserId }: TalentFormProps) => {
+const TalentForm = ({ talent: initialData }: TalentFormProps) => {
   const { orgRole } = useAuth();
   const { user } = useUser();
   const [talentUser, setTalentUser] = useState<User>();
@@ -69,6 +70,7 @@ const TalentForm = ({ talent: initialData, talentUserId }: TalentFormProps) => {
           city: initialData.location.city || undefined,
           province: initialData.location.province || undefined,
           language: initialData.language || undefined,
+          JapaneseLanguage: initialData.japaneseLevel || undefined,
           performerType: initialData.performerType.role,
           middleName: initialData.middleName || undefined,
           stageName: initialData.stageName || undefined,
@@ -79,7 +81,6 @@ const TalentForm = ({ talent: initialData, talentUserId }: TalentFormProps) => {
           firstName: "",
           lastName: "",
           agency: "",
-          dob: new Date(),
           bio: "",
           bodyType: "",
           email: "",
@@ -88,10 +89,13 @@ const TalentForm = ({ talent: initialData, talentUserId }: TalentFormProps) => {
           images: [],
           middleName: "",
           stageName: "",
+          termAcceptance: false,
         },
   });
 
   const cityValue = form.watch("city");
+  const termsValue = form.watch("termAcceptance");
+  const ageCheck = form.watch("ageCheck");
 
   const isSubmitting = form.formState.isSubmitting;
 
@@ -149,7 +153,6 @@ const TalentForm = ({ talent: initialData, talentUserId }: TalentFormProps) => {
             <MiddlenameFormField form={form} />
             <LastNameFormField form={form} />
             <GenderFormField form={form} />
-            <DobFormField form={form} />
             <RoleFormField form={form} />
             <StageNameFormField form={form} />
             <EmailFormField form={form} />
@@ -158,8 +161,8 @@ const TalentForm = ({ talent: initialData, talentUserId }: TalentFormProps) => {
             {cityValue === "OTHER_PROVINCE" && (
               <ProvinceFormField form={form} />
             )}
-            <AgeRangeFormField form={form} />
             <LanguageFormField form={form} />
+            <JapLanguageFormField form={form} />
           </div>
         </Stack>
 
@@ -172,11 +175,25 @@ const TalentForm = ({ talent: initialData, talentUserId }: TalentFormProps) => {
               <ImagesFormField form={form} />
               <BioFormField form={form} />
             </Stack>
+            <div className="flex flex-wrap gap-4">
+              <AgeRangeFormField form={form} />
+            </div>
+
             <SkillFormField form={form} />
           </Stack>
         </Stack>
 
-        <Button disabled={isSubmitting} type="submit">
+        <Stack className="gap-y-4">
+          {!initialData && <TermsAndConditions form={form} />}
+          {!initialData && <AgeCheckFormField form={form} />}
+        </Stack>
+
+        <Button
+          disabled={
+            isSubmitting || (initialData ? false : !termsValue || !ageCheck)
+          }
+          type="submit"
+        >
           {action}
         </Button>
       </form>

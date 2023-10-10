@@ -7,6 +7,7 @@ const nextConfig = {
       "img.clerk.com",
       "res.cloudinary.com",
       "embed.filekitcdn.com",
+      "utfs.io",
     ],
   },
 

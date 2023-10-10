@@ -13,22 +13,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { talentFormSchema } from "@/lib/talentFormSchema";
-import { Role } from "@prisma/client";
+import { JapaneseLevel, Language } from "@prisma/client";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 
-interface CityFormFieldProps {
+interface JapLanguageFormFieldProps {
   form: UseFormReturn<z.infer<typeof talentFormSchema>>;
 }
 
-const RoleFormField = ({ form }: CityFormFieldProps) => {
+const JapLanguageFormField = ({ form }: JapLanguageFormFieldProps) => {
   return (
     <FormField
       control={form.control}
-      name="performerType"
+      name="JapaneseLanguage"
       render={({ field }) => (
         <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1 max-sm:w-full">
-          <FormLabel className="font-semibold">Role</FormLabel>
+          <FormLabel className="font-semibold">Japanese Skill Level</FormLabel>
           <Select
             onValueChange={field.onChange}
             disabled={form.formState.isSubmitting}
@@ -37,13 +37,13 @@ const RoleFormField = ({ form }: CityFormFieldProps) => {
             <FormControl>
               <SelectTrigger disabled={form.formState.isSubmitting}>
                 <SelectValue
-                  placeholder="Select a role"
                   defaultValue={field.value}
+                  placeholder="Select a english level"
                 />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {Object.keys(Role).map((item) => (
+              {Object.keys(JapaneseLevel).map((item) => (
                 <SelectItem key={item} value={item} className="capitalize">
                   {item.toLowerCase().replaceAll("_", " ")}
                 </SelectItem>
@@ -57,4 +57,4 @@ const RoleFormField = ({ form }: CityFormFieldProps) => {
   );
 };
 
-export default RoleFormField;
+export default JapLanguageFormField;

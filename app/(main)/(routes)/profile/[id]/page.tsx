@@ -3,9 +3,10 @@ import ProfileHeader from "../components/ProfileHeader";
 import { auth, clerkClient } from "@clerk/nextjs";
 import Stack from "@/components/Stack";
 import { Separator } from "@/components/ui/separator";
-import TalentMedias from "../components/TalentMedias";
+import TalentMedia from "../components/TalentMedia";
 import TalentBio from "../components/TalentBio";
 import { notFound, redirect } from "next/navigation";
+import CreditSection from "../components/CreditSection";
 
 interface ProfilePageProps {
   params: { id: string };
@@ -32,9 +33,12 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
       <Stack className="px-6 md:px-20">
         <ProfileHeader talentUser={talentUser} talent={talent} />
         <Separator className="mt-8" />
-        <div className="mt-10 flex flex-col-reverse gap-x-14 gap-y-10 md:flex-row lg:mt-20">
-          <TalentMedias medias={talent.images.map((image) => image.url)} />
-          <TalentBio talent={talent} />
+        <div className="mt-10 flex flex-col-reverse gap-x-4 gap-y-4 md:flex-row lg:mt-20">
+          <TalentMedia medias={talent.images.map((image) => image.url)} />
+          <Stack className="w-full">
+            <TalentBio talent={talent} />
+            <CreditSection talent={talent} />
+          </Stack>
         </div>
       </Stack>
     </section>

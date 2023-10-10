@@ -32,6 +32,7 @@ const GenderFormField = ({ form }: GenderFormFieldProps) => {
           <Select
             onValueChange={field.onChange}
             disabled={form.formState.isSubmitting}
+            defaultValue={field.value}
           >
             <FormControl>
               <SelectTrigger disabled={form.formState.isSubmitting}>

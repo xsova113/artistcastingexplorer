@@ -14,6 +14,7 @@ export const getTalents = async (): Promise<
         location: true,
         performerType: true,
         skills: true,
+        credits: true
       },
       orderBy: { createdAt: "desc" },
     });

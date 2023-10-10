@@ -39,9 +39,7 @@ const TalentFormModal = ({ talent, talentUser }: TalentFormModalProps) => {
       <DialogContent className="h-5/6 min-w-[70%] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>Edit Profile</DialogTitle>
-          <DialogDescription>
-            <TalentForm talent={talent} />
-          </DialogDescription>
+          <TalentForm talent={talent} />
         </DialogHeader>
       </DialogContent>
     </Dialog>

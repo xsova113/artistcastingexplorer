@@ -18,13 +18,13 @@ interface AgeRangeFormFieldProps {
 
 const AgeRangeFormField = ({ form }: AgeRangeFormFieldProps) => {
   return (
-    <Stack className="bg-secondary px-3 pb-3 pt-1 rounded-lg">
+    <Stack className="rounded-lg bg-secondary px-3 pb-3 pt-1">
       <div className="flex items-end gap-2">
         <FormField
           control={form.control}
           name="ageMin"
           render={({ field }) => (
-            <FormItem className="">
+            <FormItem>
               <FormLabel>Min Age</FormLabel>
               <FormControl>
                 <Input
@@ -64,6 +64,9 @@ const AgeRangeFormField = ({ form }: AgeRangeFormFieldProps) => {
           )}
         />
       </div>
+      <FormDescription className="-mb-2 mt-1 text-xs">
+        Age range for the role
+      </FormDescription>
     </Stack>
   );
 };

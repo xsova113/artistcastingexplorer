@@ -8,11 +8,15 @@ interface TalentBio {
 
 const TalentBio = ({ talent }: TalentBio) => {
   return (
-    <Stack className="w-full md:w-[60%]">
-      <h1 className="mb-4 text-2xl font-semibold">About me</h1>
-      <p className="text-muted-foreground">{talent.bio}</p>
+    <div className="rounded-lg border p-2 shadow">
+      <h1 className="mb-6 text-2xl font-semibold">Biography</h1>
+      <Stack className="gap-4">
+        <h3 className="text-lg font-medium">About me</h3>
+        <p className="text-muted-foreground">{talent.bio}</p>
+      </Stack>
+
       <Separator className="my-5" />
-      <h1 className="mb-4 text-2xl font-semibold">Skills</h1>
+      <h1 className="mb-4 text-lg font-medium">Skills</h1>
       <div className="flex flex-wrap gap-3 text-muted-foreground">
         {talent.skills.map((skill) => (
           <div
@@ -26,12 +30,9 @@ const TalentBio = ({ talent }: TalentBio) => {
         ))}
       </div>
       <Separator className="my-5" />
-      <h1 className="mb-4 text-2xl font-semibold">Credits</h1>
-      <p className="text-muted-foreground">TODO: Add Credits</p>
-      <Separator className="my-5" />
-      <h1 className="mb-4 text-2xl font-semibold">Union Affiliation</h1>
+      <h1 className="mb-4 text-lg font-medium">Union Affiliation</h1>
       <p className="text-muted-foreground">TODO: Add Affiliations</p>
-    </Stack>
+    </div>
   );
 };
 

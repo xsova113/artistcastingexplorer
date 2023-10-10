@@ -19,7 +19,6 @@ export const updateTalent = async (
         data: {
           userId: userId,
           bio: values.bio,
-          dob: values.dob,
           performerType: { update: { role: values.performerType } },
           email: values.email,
           firstName: values.firstName,
@@ -31,8 +30,7 @@ export const updateTalent = async (
           middleName: values.middleName,
           stageName: values.stageName,
           language: values.language,
-          ageMax: values.ageMax,
-          ageMin: values.ageMin,
+          japaneseLevel: values.JapaneseLanguage,
           skills: { deleteMany: {} },
           location: {
             update: {

@@ -9,6 +9,9 @@ import { Toaster } from "@/components/ui/toaster";
 import SignInAlertModal from "@/components/modals/SignInAlertModal";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import ReviewModal from "@/components/modals/ReviewModal";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "../app/api/uploadthing/core";
 
 const font = Raleway({
   subsets: ["latin"],
@@ -46,6 +49,9 @@ export default function RootLayout({
               <SignInAlertModal />
               <ReviewModal />
               <Header />
+              <NextSSRPlugin
+                routerConfig={extractRouterConfig(ourFileRouter)}
+              />
               {children}
               <Footer />
               <Toaster />

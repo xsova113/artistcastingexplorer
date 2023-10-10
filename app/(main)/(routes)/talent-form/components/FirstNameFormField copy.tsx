@@ -21,7 +21,7 @@ const FirstNameFormField = ({ form }: FirstNameFormFieldProps) => {
       name="firstName"
       render={({ field }) => (
         <FormItem className="bg-secondary max-sm:w-full px-3 pb-3 pt-1 rounded-lg">
-          <FormLabel>First Name</FormLabel>
+          <FormLabel className="flex">First Name</FormLabel>
           <FormControl>
             <Input {...field} placeholder="First name" disabled={form.formState.isSubmitting} />
           </FormControl>

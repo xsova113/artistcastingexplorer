@@ -7,12 +7,13 @@ import { TalentProfileType } from "@/types/talentProfileType";
 import { useCallback, useEffect, useState } from "react";
 import ProfileHeader from "../../profile/components/ProfileHeader";
 import { Separator } from "@/components/ui/separator";
-import TalentMedias from "../../profile/components/TalentMedias";
+import TalentMedia from "../../profile/components/TalentMedia";
 import TalentBio from "../../profile/components/TalentBio";
 import { getTalentUser } from "@/actions/getTalentUser";
 import { User } from "@clerk/nextjs/server";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import CreditSection from "../../profile/components/CreditSection";
 
 interface TalentDetailSheetProps {
   talent: TalentProfileType;
@@ -48,23 +49,22 @@ const TalentDetailSheet = ({
       >
         Detail
       </SheetTrigger>
-      <SheetContent className="min-w-[340px] overflow-x-scroll p-0 md:min-w-[800px] lg:min-w-[1000px]">
+      <SheetContent className="min-w-[340px] overflow-x-scroll p-0 md:min-w-[750px] lg:min-w-[1000px]">
         <Stack className="px-6 py-20 md:px-20">
           <ProfileHeader talentUser={talentUser} talent={talent} />
           <div className="mt-4 flex flex-col gap-3 text-sm text-muted-foreground md:flex-row">
             <span>
               <b className="text-foreground">Email</b>: {talent.email}
             </span>
-            <span>
-              <b className="text-foreground">DOB</b>:{" "}
-              {format(talent.dob, "yyyy-MM-dd")}
-            </span>
           </div>
 
           <Separator className="mt-8" />
-          <div className="mt-10 flex flex-col-reverse gap-x-14 gap-y-10 md:flex-row lg:mt-20">
-            <TalentMedias medias={talent.images.map((image) => image.url)} />
-            <TalentBio talent={talent} />
+          <div className="mt-10 flex flex-col-reverse gap-x-4 gap-y-6 md:flex-row lg:mt-20">
+            <TalentMedia medias={talent.images.map((image) => image.url)} />
+            <div className="md:w-[75%] w-full">
+              <TalentBio talent={talent} />
+              <CreditSection talent={talent} />
+            </div>
           </div>
         </Stack>
       </SheetContent>

@@ -10,13 +10,14 @@ export const createTalent = async (
 ): Promise<TalentProfile | undefined> => {
   if (!userId) {
     console.log("User ID is missing");
+  } else if (!values.termAcceptance && !values.ageCheck) {
+    console.log("Terms and conditions are not accepted");
   } else {
     try {
       const talent = await prisma.talentProfile.create({
         data: {
           userId: values.talentUserId ? values.talentUserId : userId,
           bio: values.bio,
-          dob: values.dob,
           performerType: { create: { role: values.performerType } },
           email: values.email,
           firstName: values.firstName,
@@ -32,6 +33,8 @@ export const createTalent = async (
           stageName: values.stageName,
           images: { createMany: { data: values.images } },
           language: values.language,
+          japaneseLevel: values.JapaneseLanguage,
+          credits: {},
           location: {
             create: {
               city: values.city,

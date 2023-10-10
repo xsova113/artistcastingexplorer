@@ -1,4 +1,11 @@
-import { City, GenderType, Language, Province, Role } from "@prisma/client";
+import {
+  City,
+  GenderType,
+  JapaneseLevel,
+  Language,
+  Province,
+  Role,
+} from "@prisma/client";
 import * as z from "zod";
 
 export const talentFormSchema = z.object({
@@ -15,13 +22,11 @@ export const talentFormSchema = z.object({
   bodyType: z.string().optional(),
   email: z.string().email(),
   skills: z.object({ skill: z.string().nullable() }).array(),
-  dob: z.date({
-    required_error: "A date of birth is required.",
-  }),
   ageMax: z.number(),
   ageMin: z.number(),
   height: z.string(),
   language: z.nativeEnum(Language),
+  JapaneseLanguage: z.nativeEnum(JapaneseLevel),
   bio: z
     .string()
     .min(150, { message: "Your bio must be at least 150 characters" }),
@@ -30,6 +35,8 @@ export const talentFormSchema = z.object({
   province: z.nativeEnum(Province).optional(),
   agency: z.string().optional(),
   performerType: z.nativeEnum(Role),
+  termAcceptance: z.boolean().optional(),
+  ageCheck: z.boolean().optional(),
 });
 
 export type TalentFormValues = z.infer<typeof talentFormSchema>;
