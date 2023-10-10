@@ -18,24 +18,30 @@ const CreditAccordian = ({ data, talent }: CreditAccordianProps) => {
     <Accordion type="single" collapsible>
       <AccordionItem
         value={data.id}
-        className="rounded border-b-0 bg-secondary px-4 border-l-2 border-primary"
+        className="rounded border-b-0 border-l-2 border-primary bg-secondary px-4"
       >
         <AccordionTrigger className="hover:no-underline">
-          <div className="mr-8 flex w-full justify-between">
-            <span className="">{data.productionTitle}</span>
-            <span>{data.yearOfRelease}</span>
+          <div className="mr-8 flex w-full items-baseline justify-between">
+            <span className="font-semibold">{data.productionTitle}</span>
+            <span className="text-sm text-muted-foreground">
+              {data.yearOfRelease}
+            </span>
           </div>
         </AccordionTrigger>
         <AccordionContent>
           <Stack className="gap-y-2 text-muted-foreground">
             <p>
-              <span className="font-semibold text-black">Category:</span> {data.category}
+              <span className="font-semibold text-black">Category:</span>{" "}
+              {data.category}
             </p>
             <p>
-              <span className="font-semibold text-black">Role:</span> {data.role}
+              <span className="font-semibold text-black">Role:</span>{" "}
+              {data.role}
             </p>
             <p>
-              <span className="font-semibold text-black">Number of Episode:</span>{" "}
+              <span className="font-semibold text-black">
+                Number of Episode:
+              </span>{" "}
               {data.numberOfEpisode}
             </p>
             <CreditFormDialog talent={talent} initialData={data}>
