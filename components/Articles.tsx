@@ -46,10 +46,7 @@ const Articles = ({ filteredPosts, isLoading, title, path }: ArticlesProps) => {
       )}
 
       <div className="flex flex-wrap justify-center gap-4 pb-12">
-        {(!filteredPosts || filteredPosts.length === 0) && (
-          <div>No articles found...</div>
-        )}
-        {subset?.map((post) => (
+        {subset.map((post) => (
           <ArticleCard
             key={post.id}
             author={post.uagb_author_info.display_name}
