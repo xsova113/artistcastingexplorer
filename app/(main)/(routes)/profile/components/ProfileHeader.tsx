@@ -94,29 +94,29 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
         </Stack>
 
         <div className="flex flex-col gap-3">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex items-center flex-wrap gap-3">
             {talent.instagram && (
-              <Link target="_blank" href={talent.instagram}>
+              <Link target="_blank" href={talent.instagram} className="hover:-translate-y-1 transition">
                 <Instagram />
               </Link>
             )}
             {talent.twitter && (
-              <Link target="_blank" href={talent.twitter}>
+              <Link target="_blank" href={talent.twitter} className="hover:-translate-y-1 transition">
                 <FaXTwitter />
               </Link>
             )}
             {talent.youtube && (
-              <Link target="_blank" href={talent.youtube}>
+              <Link target="_blank" href={talent.youtube} className="hover:-translate-y-1 transition">
                 <Youtube />
               </Link>
             )}
             {talent.tiktok && (
-              <Link target="_blank" href={talent.tiktok}>
+              <Link target="_blank" href={talent.tiktok} className="hover:-translate-y-1 transition">
                 <FaTiktok />
               </Link>
             )}
             {talent.website && (
-              <Link target="_blank" href={talent.website}>
+              <Link target="_blank" href={talent.website} className="hover:-translate-y-1 transition">
                 <LinkIcon />
               </Link>
             )}
