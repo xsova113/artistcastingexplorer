@@ -1,14 +1,18 @@
 "use client";
 
 import Stack from "@/components/Stack";
+
 import TalentFormModal from "@/components/modals/TalentFormModal";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { useAuth } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
-import { format } from "date-fns";
+import { FaTiktok } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { Facebook, Instagram, LinkIcon, Plus, Youtube } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ProfileHeaderProps {
   talentUser: User;
@@ -84,11 +88,44 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
             {talent.stageName ? talent.stageName : null}
             <span className={cn("font-medium")}>|</span>
             {talent.ageMin} - {talent.ageMax}
+            <span className={cn("font-medium")}>|</span>
+            {talent.bodyType?.toLowerCase().replaceAll("_", " ")}
           </h3>
         </Stack>
-        {(orgRole === "admin" || userId === talentUser.id) && (
-          <TalentFormModal talentUser={talentUser} talent={talent} />
-        )}
+
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-wrap gap-2">
+            {talent.instagram && (
+              <Link target="_blank" href={talent.instagram}>
+                <Instagram />
+              </Link>
+            )}
+            {talent.twitter && (
+              <Link target="_blank" href={talent.twitter}>
+                <FaXTwitter />
+              </Link>
+            )}
+            {talent.youtube && (
+              <Link target="_blank" href={talent.youtube}>
+                <Youtube />
+              </Link>
+            )}
+            {talent.tiktok && (
+              <Link target="_blank" href={talent.tiktok}>
+                <FaTiktok />
+              </Link>
+            )}
+            {talent.website && (
+              <Link target="_blank" href={talent.website}>
+                <LinkIcon />
+              </Link>
+            )}
+          </div>
+
+          {(orgRole === "admin" || userId === talentUser.id) && (
+            <TalentFormModal talentUser={talentUser} talent={talent} />
+          )}
+        </div>
       </Stack>
     </div>
   );

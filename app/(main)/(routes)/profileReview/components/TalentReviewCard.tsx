@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getAge, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { TalentProfileType } from "@/types/talentProfileType";
@@ -43,10 +43,14 @@ const TalentReviewCard = ({
       >
         <Image
           src={
-            talent.images.filter(
-              (image) =>
-                image.url.split(".").pop() === ("jpg" || "png" || "jpeg"),
-            )[0].url
+            talent.images.length > 0
+              ? talent.images.filter(
+                  (image) =>
+                    image.url.split(".").pop() === "jpg" ||
+                    image.url.split(".").pop() === "png" ||
+                    image.url.split(".").pop() === "jpeg",
+                )[0].url
+              : "/user_placeholder.jpg"
           }
           alt={"image"}
           fill

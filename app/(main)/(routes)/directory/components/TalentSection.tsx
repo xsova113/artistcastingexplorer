@@ -183,7 +183,9 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
               image={
                 item.images.filter(
                   (image) =>
-                    image.url.split(".").pop() === ("jpg" || "png" || "jpeg"),
+                    image.url.split(".").pop() === "jpg" ||
+                    image.url.split(".").pop() === "png" ||
+                    image.url.split(".").pop() === "jpeg",
                 )[0].url
               }
               isSaving={isSaving}

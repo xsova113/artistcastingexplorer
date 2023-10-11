@@ -38,6 +38,8 @@ import { usePathname } from "next/navigation";
 import JapLanguageFormField from "./JapLanguageFormField";
 import TermsAndConditions from "./TermsAndConditions";
 import AgeCheckFormField from "./AgeCheckFormField";
+import UnionFormField from "./UnionFormField";
+import SocialFormField from "./SocialFormField";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
@@ -64,7 +66,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
     defaultValues: initialData
       ? {
           ...initialData,
-          images: initialData.images,
+          images: initialData.images.map((item) => item.url),
           skills: initialData.skills,
           gender: initialData.gender.gender,
           city: initialData.location.city || undefined,
@@ -76,13 +78,19 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           stageName: initialData.stageName || undefined,
           bodyType: initialData.bodyType || undefined,
           agency: initialData.agency || undefined,
+          union: initialData.union || undefined,
+          instagram: initialData.instagram || undefined,
+          twitter: initialData.twitter || undefined,
+          youtube: initialData.youtube || undefined,
+          tiktok: initialData.tiktok || undefined,
+          website: initialData.website || undefined,
         }
       : {
           firstName: "",
           lastName: "",
           agency: "",
           bio: "",
-          bodyType: "",
+          bodyType: "FIT",
           email: "",
           height: "",
           skills: [],
@@ -177,9 +185,11 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             </Stack>
             <div className="flex flex-wrap gap-4">
               <AgeRangeFormField form={form} />
+              <UnionFormField form={form} />
             </div>
 
             <SkillFormField form={form} />
+            <SocialFormField form={form} />
           </Stack>
         </Stack>
 

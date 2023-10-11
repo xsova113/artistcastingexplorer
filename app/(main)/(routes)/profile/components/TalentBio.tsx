@@ -31,7 +31,7 @@ const TalentBio = ({ talent }: TalentBio) => {
       </div>
       <Separator className="my-5" />
       <h1 className="mb-4 text-lg font-medium">Union Affiliation</h1>
-      <p className="text-muted-foreground">TODO: Add Affiliations</p>
+      <p className="text-muted-foreground">{talent.union}</p>
     </div>
   );
 };

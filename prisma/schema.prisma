@@ -27,18 +27,34 @@ model TalentProfile {
   bio             String
   ageMax          Int            @default(40)
   ageMin          Int            @default(25)
-  bodyType        String?
+  bodyType        BodyType?
   agency          String?
+  hairColour      String?
+  eyeColour       String?
   credits         Credit[]
+  instagram       String?
+  twitter         String?
+  tiktok          String?
+  youtube         String?
+  website         String?
   language        Language?
   japaneseLevel   JapaneseLevel?
   skills          Skill[]
   images          Image[]
   location        Location       @relation(fields: [locationId], references: [id])
   locationId      String         @db.ObjectId
+  union           String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum BodyType {
+  SLIM
+  FIT
+  CURVY
+  MUSCULAR
+  EXTRA_SIZE
 }
 
 model Gender {
@@ -175,7 +191,7 @@ model UserSavedFilter {
 }
 
 model Credit {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
   category        String
   productionTitle String
   yearOfRelease   Int

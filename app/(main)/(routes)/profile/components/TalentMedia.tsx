@@ -13,13 +13,16 @@ const TalentMedia = ({ medias }: TalentMediaProps) => {
   const { onOpen, setMedia } = useLightBoxStore();
 
   return (
-    <Stack className="w-full md:w-[55%] p-2 rounded-lg ">
+    <Stack className="w-full rounded-lg p-2 md:w-[55%] ">
       <h1 className="mb-6 text-2xl font-semibold">Media</h1>
       <div className="relative h-[400px] w-full overflow-hidden rounded">
         <Image
           src={
             medias.filter(
-              (image) => image.split(".").pop() === ("jpg" || "png" || "jpeg"),
+              (image) =>
+                image.split(".").pop() === "jpg" ||
+                image.split(".").pop() === "png" ||
+                image.split(".").pop() === "jpeg",
             )[0]
           }
           alt={"Main talent image"}
@@ -37,10 +40,32 @@ const TalentMedia = ({ medias }: TalentMediaProps) => {
               onOpen();
             }}
           >
-            {media.split(".").pop() === ("jpg" || "jpeg" || "png") ? (
-              <Image fill src={media} alt={media} className="object-cover" />
+            {media.split(".").pop() === "png" ? (
+              <Image
+                src={media}
+                alt={"Image"}
+                fill
+                className="object-cover"
+                priority
+              />
+            ) : media.split(".").pop() === "jpg" ? (
+              <Image
+                src={media}
+                alt={"Image"}
+                fill
+                className="object-cover"
+                priority
+              />
+            ) : media.split(".").pop() === "jpeg" ? (
+              <Image
+                src={media}
+                alt={"Image"}
+                fill
+                className="object-cover"
+                priority
+              />
             ) : (
-              <video src={media} className="rounded" />
+              <video src={media} className="rounded-lg object-cover" />
             )}
           </div>
         ))}

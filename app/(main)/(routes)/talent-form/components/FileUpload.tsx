@@ -1,33 +1,33 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ImagePlus, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import Image from "next/image";
-import { CldUploadWidget } from "next-cloudinary";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
+import { UploadFileResponse } from "uploadthing/client";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import "@uploadthing/react/styles.css";
 
 interface ImageUploadProps {
   disabled?: boolean;
-  onChange: (value: string) => void;
+  onChange: (value: string[]) => void;
   onRemove: (value: string) => void;
   value: string[];
 }
 
-const ImageUpload = ({
-  disabled,
-  onChange,
-  onRemove,
-  value,
-}: ImageUploadProps) => {
+const ImageUpload = ({ onChange, onRemove, value }: ImageUploadProps) => {
   const [isMounted, setIsMounted] = useState(false);
+  const isLargeScreen = useMediaQuery("(min-width: 1060px)");
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const onUpload = (result: any) => {
-    onChange(result.info.secure_url);
+  const onUpload = (result: UploadFileResponse[] | undefined) => {
+    if (!result) return console.log("No image uploaded");
+
+    onChange([...value, ...result.map((item) => item.url)]);
   };
 
   if (!isMounted) return null;
@@ -50,7 +50,23 @@ const ImageUpload = ({
                 <Trash className="h-4 w-4" />
               </Button>
             </div>
-            {url.split(".").pop() === ("jpg" || "jpeg" || "png") ? (
+            {url.split(".").pop() === "png" ? (
+              <Image
+                src={url}
+                alt={"Image"}
+                fill
+                className="object-cover"
+                priority
+              />
+            ) : url.split(".").pop() === "jpg" ? (
+              <Image
+                src={url}
+                alt={"Image"}
+                fill
+                className="object-cover"
+                priority
+              />
+            ) : url.split(".").pop() === "jpeg" ? (
               <Image
                 src={url}
                 alt={"Image"}
@@ -64,20 +80,39 @@ const ImageUpload = ({
           </div>
         ))}
       </div>
-      <CldUploadWidget onUpload={onUpload} uploadPreset="pnr4eaw9">
-        {({ open }) => (
-          <Button
-            type="button"
-            disabled={disabled}
-            variant={"secondary"}
-            onClick={() => open()}
-            className={cn(value.length > 0 && "mt-3")}
-          >
-            <ImagePlus className="mr-2 h-4 w-4" />
-            Upload an Image
-          </Button>
+      <div className="mb-4 mt-7 flex items-center justify-start gap-8">
+        {isLargeScreen ? (
+          <>
+            <UploadDropzone
+              endpoint="imageUploader"
+              onClientUploadComplete={(res) => {
+                onUpload(res);
+              }}
+            />
+            <UploadDropzone
+              endpoint="videoUploader"
+              onClientUploadComplete={(res) => {
+                onUpload(res);
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <UploadButton
+              endpoint="imageUploader"
+              onClientUploadComplete={(res) => {
+                onUpload(res);
+              }}
+            />
+            <UploadButton
+              endpoint="videoUploader"
+              onClientUploadComplete={(res) => {
+                onUpload(res);
+              }}
+            />
+          </>
         )}
-      </CldUploadWidget>
+      </div>
     </div>
   );
 };

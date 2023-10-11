@@ -11,8 +11,8 @@ const MediaLightBox = () => {
   return (
     <Dialog onOpenChange={onClose} open={isOpen}>
       <DialogContent className="h-96 border-none bg-transparent shadow-none">
-        {mediaType === ("jpg" || "png" || "jpeg") ? (
-          <Image src={media} alt={"Image"} fill className="object-contain" />
+        {mediaType === "jpg" || mediaType === "png" || mediaType === "jpeg" ? (
+          <Image src={media} alt={"Image"} fill className="object-cover" />
         ) : (
           <video src={media} controls className="h-[350px] w-[500px]" />
         )}

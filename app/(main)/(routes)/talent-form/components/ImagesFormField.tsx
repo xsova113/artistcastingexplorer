@@ -23,21 +23,18 @@ const ImagesFormField = ({ form }: ImagesFormFieldProps) => {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Portfolio</FormLabel>
-          <FormControl>
+          <FormControl className="z-50">
             <FileUpload
               disabled={form.formState.isSubmitting}
-              value={field.value.map((image) => image.url)}
-              onChange={(url) => field.onChange([...field.value, { url }])}
+              value={field.value}
+              onChange={field.onChange}
               onRemove={(url) =>
                 field.onChange([
-                  ...field.value.filter((current) => current.url !== url),
+                  ...field.value.filter((current) => current !== url),
                 ])
               }
             />
           </FormControl>
-          <FormDescription>
-            Upload images or videos to showcase your skills
-          </FormDescription>
           <FormMessage />
         </FormItem>
       )}

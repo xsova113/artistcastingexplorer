@@ -31,7 +31,13 @@ export const updateTalent = async (
           stageName: values.stageName,
           language: values.language,
           japaneseLevel: values.JapaneseLanguage,
+          union: values.union,
           skills: { deleteMany: {} },
+          instagram: values.instagram,
+          twitter: values.twitter,
+          youtube: values.youtube,
+          tiktok: values.tiktok,
+          website: values.website,
           location: {
             update: {
               city: values.city,
@@ -48,7 +54,7 @@ export const updateTalent = async (
         },
         data: {
           images: {
-            createMany: { data: values.images },
+            createMany: { data: values.images.map((url) => ({ url })) },
           },
           skills: {
             createMany: { data: values.skills },

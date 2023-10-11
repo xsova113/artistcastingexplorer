@@ -28,13 +28,21 @@ export const createTalent = async (
           ageMax: values.ageMax,
           ageMin: values.ageMin,
           bodyType: values.bodyType,
+          instagram: values.instagram,
+          twitter: values.twitter,
+          youtube: values.youtube,
+          tiktok: values.tiktok,
+          website: values.website,
           skills: { createMany: { data: values.skills } },
           middleName: values.middleName,
           stageName: values.stageName,
-          images: { createMany: { data: values.images } },
+          images: {
+            createMany: { data: values.images.map((url) => ({ url })) },
+          },
           language: values.language,
           japaneseLevel: values.JapaneseLanguage,
           credits: {},
+          union: values.union,
           location: {
             create: {
               city: values.city,

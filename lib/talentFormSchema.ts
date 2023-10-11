@@ -1,4 +1,5 @@
 import {
+  BodyType,
   City,
   GenderType,
   JapaneseLevel,
@@ -19,7 +20,7 @@ export const talentFormSchema = z.object({
   middleName: z.string().optional(),
   stageName: z.string().optional(),
   gender: z.nativeEnum(GenderType),
-  bodyType: z.string().optional(),
+  bodyType: z.nativeEnum(BodyType).optional(),
   email: z.string().email(),
   skills: z.object({ skill: z.string().nullable() }).array(),
   ageMax: z.number(),
@@ -30,13 +31,19 @@ export const talentFormSchema = z.object({
   bio: z
     .string()
     .min(150, { message: "Your bio must be at least 150 characters" }),
-  images: z.object({ url: z.string() }).array(),
+  images: z.string().array(),
   city: z.nativeEnum(City),
   province: z.nativeEnum(Province).optional(),
   agency: z.string().optional(),
   performerType: z.nativeEnum(Role),
+  instagram: z.string().optional(),
+  twitter: z.string().optional(),
+  youtube: z.string().optional(),
+  tiktok: z.string().optional(),
+  website: z.string().optional(),
   termAcceptance: z.boolean().optional(),
   ageCheck: z.boolean().optional(),
+  union: z.string().optional(),
 });
 
 export type TalentFormValues = z.infer<typeof talentFormSchema>;
