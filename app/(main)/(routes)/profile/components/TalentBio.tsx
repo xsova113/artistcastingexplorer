@@ -12,6 +12,27 @@ const TalentBio = ({ talent }: TalentBio) => {
       <h1 className="mb-6 text-2xl font-semibold">Biography</h1>
       <Stack className="gap-4">
         <h3 className="text-lg font-medium">About me</h3>
+        <div className="flex flex-col space-y-1 text-sm">
+          <li className="capitalize">
+            <span className="">Body Type:</span>{" "}
+            <span className="text-muted-foreground">
+              {talent.bodyType?.toLowerCase().replaceAll("_", " ")}
+            </span>
+          </li>
+          <li className="capitalize">
+            <span className="">Hair colour:</span>{" "}
+            <span className="text-muted-foreground">
+              {talent.hairColour?.toLowerCase().replaceAll("_", " ")}
+            </span>
+          </li>
+          <li className="capitalize">
+            <span className="">Eye colour:</span>{" "}
+            <span className="text-muted-foreground">
+              {talent.eyeColour?.toLowerCase().replaceAll("_", " ")}
+            </span>
+          </li>
+        </div>
+
         <p className="text-muted-foreground">{talent.bio}</p>
       </Stack>
 

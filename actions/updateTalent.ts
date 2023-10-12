@@ -27,6 +27,8 @@ export const updateTalent = async (
           lastName: values.lastName,
           agency: values.agency,
           bodyType: values.bodyType,
+          hairColour: values.hair,
+          eyeColour: values.eye,
           middleName: values.middleName,
           stageName: values.stageName,
           language: values.language,

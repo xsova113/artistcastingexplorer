@@ -28,6 +28,8 @@ export const createTalent = async (
           ageMax: values.ageMax,
           ageMin: values.ageMin,
           bodyType: values.bodyType,
+          hairColour: values.hair,
+          eyeColour: values.eye,
           instagram: values.instagram,
           twitter: values.twitter,
           youtube: values.youtube,

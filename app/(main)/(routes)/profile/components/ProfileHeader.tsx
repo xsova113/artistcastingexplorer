@@ -10,7 +10,7 @@ import { useAuth } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
 import { FaTiktok } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { Facebook, Instagram, LinkIcon, Plus, Youtube } from "lucide-react";
+import { Instagram, LinkIcon, Youtube } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,7 +23,7 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
   const { userId, orgRole } = useAuth();
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-start gap-4">
       <div className="relative flex h-[125px] w-[125px]">
         {!talentUser.imageUrl ? (
           <span className="self-center text-center text-muted-foreground">
@@ -60,7 +60,7 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
             </Badge>
           )}
         </h1>
-        <Stack className="text-sm text-muted-foreground md:gap-2">
+        <Stack className="rounded text-sm text-muted-foreground md:gap-2">
           <h2 className="flex gap-3 capitalize">
             {talent.performerType.role.toLowerCase().replaceAll("_", " ")}
             <span className="font-medium">|</span>
@@ -88,35 +88,53 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
             {talent.stageName ? talent.stageName : null}
             <span className={cn("font-medium")}>|</span>
             {talent.ageMin} - {talent.ageMax}
-            <span className={cn("font-medium")}>|</span>
-            {talent.bodyType?.toLowerCase().replaceAll("_", " ")}
           </h3>
         </Stack>
 
         <div className="flex flex-col gap-3">
-          <div className="flex items-center flex-wrap gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             {talent.instagram && (
-              <Link target="_blank" href={talent.instagram} className="hover:-translate-y-1 transition">
+              <Link
+                target="_blank"
+                href={talent.instagram}
+                className="transition hover:-translate-y-1"
+              >
                 <Instagram />
               </Link>
             )}
             {talent.twitter && (
-              <Link target="_blank" href={talent.twitter} className="hover:-translate-y-1 transition">
+              <Link
+                target="_blank"
+                href={talent.twitter}
+                className="transition hover:-translate-y-1"
+              >
                 <FaXTwitter />
               </Link>
             )}
             {talent.youtube && (
-              <Link target="_blank" href={talent.youtube} className="hover:-translate-y-1 transition">
+              <Link
+                target="_blank"
+                href={talent.youtube}
+                className="transition hover:-translate-y-1"
+              >
                 <Youtube />
               </Link>
             )}
             {talent.tiktok && (
-              <Link target="_blank" href={talent.tiktok} className="hover:-translate-y-1 transition">
+              <Link
+                target="_blank"
+                href={talent.tiktok}
+                className="transition hover:-translate-y-1"
+              >
                 <FaTiktok />
               </Link>
             )}
             {talent.website && (
-              <Link target="_blank" href={talent.website} className="hover:-translate-y-1 transition">
+              <Link
+                target="_blank"
+                href={talent.website}
+                className="transition hover:-translate-y-1"
+              >
                 <LinkIcon />
               </Link>
             )}

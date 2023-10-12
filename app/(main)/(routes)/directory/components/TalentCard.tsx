@@ -32,10 +32,11 @@ interface TalentCardProps {
   ageMax: number;
   image: string;
   id: string;
+  discoverSection?: boolean;
   data: TalentProfileType;
   userId?: string | null;
-  isSaving: boolean;
-  setIsSaving: (loading: boolean) => void;
+  isSaving?: boolean;
+  setIsSaving?: (loading: boolean) => void;
   setSelectedTalentId: (value: any) => void;
   selectedTalentId?: string[];
   UserSavedTalent?: UserSavedTalentType;
@@ -58,6 +59,7 @@ const TalentCard = ({
   isSaving,
   userId,
   setSelectedTalentId,
+  discoverSection,
   selectedTalentId,
   UserSavedTalent,
   fetchUserSavedTalent,
@@ -127,7 +129,7 @@ const TalentCard = ({
   if (!isMounted) return null;
 
   return (
-    <Card className="w-[165px] drop-shadow transition-all sm:w-[230px]">
+    <Card className={cn("w-[165px] drop-shadow transition-all sm:w-[230px]")}>
       <div
         className="w-full cursor-pointer"
         onClick={() => {
@@ -141,20 +143,26 @@ const TalentCard = ({
             fill
             className="rounded-t-lg object-cover"
           />
-          <Checkbox
-            className="absolute right-0 m-2 bg-white"
-            checked={selectedTalentId?.includes(data.id)}
-            onCheckedChange={(checked) => {
-              return checked
-                ? setSelectedTalentId((prev: string[]) => [...prev, data.id, ,])
-                : setSelectedTalentId(
-                    selectedTalentId?.filter((value) => value !== data.id),
-                  );
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          />
+          {!discoverSection && (
+            <Checkbox
+              className="absolute right-0 m-2 bg-white"
+              checked={selectedTalentId?.includes(data.id)}
+              onCheckedChange={(checked) => {
+                return checked
+                  ? setSelectedTalentId((prev: string[]) => [
+                      ...prev,
+                      data.id,
+                      ,
+                    ])
+                  : setSelectedTalentId(
+                      selectedTalentId?.filter((value) => value !== data.id),
+                    );
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            />
+          )}
         </div>
 
         <CardHeader className="p-2">

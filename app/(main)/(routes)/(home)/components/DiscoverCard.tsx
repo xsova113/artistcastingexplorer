@@ -21,7 +21,7 @@ const DiscoverCard = ({ image, title, description }: DiscoverCardProps) => {
   return (
     <Card
       onClick={() => router.push("/directory")}
-      className="drop-shadow md:w-[290px] w-full border-none transition-all cursor-pointer"
+      className="drop-shadow md:w-[290px] w-11/12 mx-auto border-none transition-all cursor-pointer"
     >
       <div className="relative w-full h-[200px]">
         <Image

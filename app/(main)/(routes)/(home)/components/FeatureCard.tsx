@@ -7,18 +7,18 @@ interface ServiceCardProps {
   description: string;
 }
 
-const ServiceCard = ({ Icon, description, title }: ServiceCardProps) => {
+const FeatureCard = ({ Icon, description, title }: ServiceCardProps) => {
   return (
-    <Stack className="gap-4 items-center">
-      <div className="border-2 border-primary p-5 rounded-full">
+    <Stack className="items-center gap-4 w-80">
+      <div className="rounded-full border-2 border-primary p-5">
         <Icon size={28} className="text-primary" />
       </div>
       <h1 className="text-lg font-semibold text-muted-foreground">{title}</h1>
-      <p className="w-4/5 text-center text-sm text-muted-foreground">
+      <p className="w-5/6 self-center text-center text-sm text-muted-foreground">
         {description}
       </p>
     </Stack>
   );
 };
 
-export default ServiceCard;
+export default FeatureCard;

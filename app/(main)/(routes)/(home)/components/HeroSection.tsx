@@ -3,14 +3,9 @@
 import Stack from "@/components/Stack";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { ParallaxBanner, ParallaxBannerLayer } from "react-scroll-parallax";
 
 const HeroSection = () => {
-  const [X, setX] = useState(0);
-
-  useEffect(() => {});
-
   return (
     <ParallaxBanner className="h-[500px] w-full lg:h-[600px]">
       <ParallaxBannerLayer
@@ -28,9 +23,11 @@ const HeroSection = () => {
               visible: { opacity: 1, x: 0 },
             }}
             transition={{ duration: 0.5 }}
-            className="text-4xl capitalize text-white md:text-6xl"
+            className="self-center text-3xl tracking-wider text-white md:w-4/5 md:text-5xl"
           >
-            find actors, models, entertainers
+            Discover and Connect with{" "}
+            <span className="textGradient font-semibold">Artists</span> and{" "}
+            <span className="textGradient font-semibold">Creators</span>
           </motion.h1>
           <motion.div
             initial="hidden"
@@ -60,8 +57,9 @@ const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="w-2/3 self-center text-primary-foreground/80"
           >
-            Discover Canada largest network for Japanese models, actors, and
-            entertainers
+            Casting Japanese is a general information website dedicated to
+            artists and creators in entertainment industry geographically
+            located in Canada and Japan
           </motion.h2>
         </Stack>
       </ParallaxBannerLayer>

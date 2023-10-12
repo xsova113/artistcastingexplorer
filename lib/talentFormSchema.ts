@@ -26,6 +26,8 @@ export const talentFormSchema = z.object({
   ageMax: z.number(),
   ageMin: z.number(),
   height: z.string(),
+  hair: z.string().min(2),
+  eye: z.string().min(2),
   language: z.nativeEnum(Language),
   JapaneseLanguage: z.nativeEnum(JapaneseLevel),
   bio: z

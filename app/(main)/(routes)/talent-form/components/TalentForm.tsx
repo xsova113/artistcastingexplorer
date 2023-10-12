@@ -40,6 +40,8 @@ import TermsAndConditions from "./TermsAndConditions";
 import AgeCheckFormField from "./AgeCheckFormField";
 import UnionFormField from "./UnionFormField";
 import SocialFormField from "./SocialFormField";
+import HairFormField from "./HairFormField";
+import EyeFormField from "./EyeFormField";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
@@ -77,6 +79,8 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           middleName: initialData.middleName || undefined,
           stageName: initialData.stageName || undefined,
           bodyType: initialData.bodyType || undefined,
+          eye: initialData.eyeColour || undefined,
+          hair: initialData.hairColour || undefined,
           agency: initialData.agency || undefined,
           union: initialData.union || undefined,
           instagram: initialData.instagram || undefined,
@@ -165,6 +169,8 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             <StageNameFormField form={form} />
             <EmailFormField form={form} />
             <HeightFormField form={form} />
+            <HairFormField form={form} />
+            <EyeFormField form={form} />
             <CityFormField form={form} />
             {cityValue === "OTHER_PROVINCE" && (
               <ProvinceFormField form={form} />
