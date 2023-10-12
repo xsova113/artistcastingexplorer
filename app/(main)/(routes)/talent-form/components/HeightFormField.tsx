@@ -21,7 +21,7 @@ const HeightFormField = ({ form }: HeightFormFieldProps) => {
       name="height"
       render={({ field }) => (
         <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1 max-sm:w-full">
-          <FormLabel>Height</FormLabel>
+          <FormLabel className="flex">Height</FormLabel>
           <FormControl>
             <Input
               {...field}

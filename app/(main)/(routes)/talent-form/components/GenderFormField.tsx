@@ -28,7 +28,7 @@ const GenderFormField = ({ form }: GenderFormFieldProps) => {
       name="gender"
       render={({ field }) => (
         <FormItem className="bg-secondary px-3 pb-3 pt-1 rounded-lg max-sm:w-full">
-          <FormLabel className="font-semibold">Gender</FormLabel>
+          <FormLabel className="flex">Gender</FormLabel>
           <Select
             onValueChange={field.onChange}
             disabled={form.formState.isSubmitting}

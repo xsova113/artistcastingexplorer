@@ -28,7 +28,7 @@ const RoleFormField = ({ form }: CityFormFieldProps) => {
       name="performerType"
       render={({ field }) => (
         <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1 max-sm:w-full">
-          <FormLabel className="font-semibold">Role</FormLabel>
+          <FormLabel className="flex">Role</FormLabel>
           <Select
             onValueChange={field.onChange}
             disabled={form.formState.isSubmitting}

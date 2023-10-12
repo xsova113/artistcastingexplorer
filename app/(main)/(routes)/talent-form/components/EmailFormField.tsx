@@ -21,7 +21,7 @@ const EmailFormField = ({ form }: EmailFormFieldProps) => {
       name="email"
       render={({ field }) => (
         <FormItem className="bg-secondary max-sm:w-full px-3 pb-3 pt-1 rounded-lg">
-          <FormLabel>Email Address</FormLabel>
+          <FormLabel className="flex">Email Address</FormLabel>
           <FormControl>
             <Input disabled={form.formState.isSubmitting} {...field} placeholder="Email address" />
           </FormControl>

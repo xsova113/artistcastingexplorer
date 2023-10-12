@@ -20,7 +20,7 @@ const LastNameFormField = ({ form }: LastNameFormFieldProps) => {
       name="lastName"
       render={({ field }) => (
         <FormItem className="bg-secondary max-sm:w-full px-3 pb-3 pt-1 rounded-lg">
-          <FormLabel>Last Name</FormLabel>
+          <FormLabel className="flex">Last Name</FormLabel>
           <FormControl>
             <Input {...field} placeholder="Last name" disabled={form.formState.isSubmitting} />
           </FormControl>

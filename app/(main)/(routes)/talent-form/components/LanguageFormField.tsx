@@ -28,7 +28,7 @@ const LanguageFormField = ({ form }: LanguageFormFieldProps) => {
       name="language"
       render={({ field }) => (
         <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1 max-sm:w-full">
-          <FormLabel className="font-semibold">Language</FormLabel>
+          <FormLabel className="flex">Language</FormLabel>
           <Select
             onValueChange={field.onChange}
             disabled={form.formState.isSubmitting}

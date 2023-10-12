@@ -21,7 +21,7 @@ const StageNameFormField = ({ form }: StageNameFormFieldProps) => {
       name="stageName"
       render={({ field }) => (
         <FormItem className="bg-secondary max-sm:w-full px-3 pb-3 pt-1 rounded-lg">
-          <FormLabel>Stage Name (optional)</FormLabel>
+          <FormLabel className="flex">Stage Name (optional)</FormLabel>
           <FormControl>
             <Input
               {...field}
