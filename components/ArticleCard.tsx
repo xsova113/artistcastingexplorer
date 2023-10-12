@@ -11,6 +11,7 @@ interface ArticleCardProps {
   postId: number;
   path: "news" | "interviews";
   date: string;
+  content: string;
 }
 
 const ArticleCard = ({
@@ -19,11 +20,12 @@ const ArticleCard = ({
   image,
   postId,
   path,
+  content,
   date,
 }: ArticleCardProps) => {
   return (
     <Link href={`/${path}/${postId}`}>
-      <Card className="flex h-[330px] w-[280px] flex-col border-none shadow-none drop-shadow">
+      <Card className="flex h-[370px] w-[330px] flex-col border-none shadow-none drop-shadow">
         <div className={cn("relative h-full w-full", !image && "hidden")}>
           <Image
             src={image}
@@ -34,14 +36,17 @@ const ArticleCard = ({
           />
         </div>
         <div className="mt-auto">
-          <CardHeader className="pb-2 -mt-2">
+          <CardHeader className="-mt-2 pb-2">
             <CardTitle className="line-clamp-2 text-lg">{title}</CardTitle>
           </CardHeader>
-          <CardContent className="flex items-center justify-between pb-4">
-            <p className="text-sm">{author}</p>
-            <span className="text-xs">
-              {format(new Date(date), "MMMM dd, yyyy")}
-            </span>
+          <CardContent className="space-y-3 pb-4">
+            <p className="line-clamp-4 text-muted-foreground">{content}</p>
+            <div className="flex items-center justify-between">
+              <p className="text-sm">{author}</p>
+              <span className="text-xs">
+                {format(new Date(date), "MMMM dd, yyyy")}
+              </span>
+            </div>
           </CardContent>
         </div>
       </Card>

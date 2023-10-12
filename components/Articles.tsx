@@ -49,6 +49,7 @@ const Articles = ({ filteredPosts, isLoading, title, path }: ArticlesProps) => {
         {subset.map((post) => (
           <ArticleCard
             key={post.id}
+            content={post.uagb_excerpt}
             author={post.uagb_author_info.display_name}
             image={post.uagb_featured_image_src.medium[0]}
             postId={post.id}

@@ -31,7 +31,7 @@ const CreditSection = ({ talent }: CreditSectioinProps) => {
     <Accordion
       type="single"
       collapsible
-      className="mt-4 w-full rounded-lg border p-2 shadow"
+      className="mt-4 w-full rounded-lg border p-3 shadow"
     >
       <AccordionItem value="credit" className="border-none">
         <AccordionTrigger className="hover:no-underline">

@@ -8,7 +8,7 @@ interface TalentBio {
 
 const TalentBio = ({ talent }: TalentBio) => {
   return (
-    <div className="rounded-lg border p-2 shadow">
+    <div className="rounded-lg border p-3 shadow">
       <h1 className="mb-6 text-2xl font-semibold">Biography</h1>
       <Stack className="gap-4">
         <h3 className="text-lg font-medium">About me</h3>

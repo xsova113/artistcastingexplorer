@@ -190,6 +190,8 @@ const TalentCard = ({
               favouritedTalent?.savedTalents
                 .map((talent) => talent.talentProfileId)
                 .includes(data.id) && "fill-red-500 text-red-500",
+              loading && "scale-75",
+              "hover:opacity-50 transition"
             )}
           />
         </button>
