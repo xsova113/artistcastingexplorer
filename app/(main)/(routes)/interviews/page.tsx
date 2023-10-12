@@ -87,8 +87,8 @@ const InterviewPage = () => {
     <section>
       <HeroSection
         image={"/interviewhero.jpg"}
-        title={"Interview"}
-        description="Check out our latest interview articles where we discuss [fill in]"
+        title={"Interview Articles"}
+        description="Discover the latest stories here"
       />
       <div className="mx-auto flex max-w-screen-lg flex-col justify-center py-20 md:flex-row">
         <Articles

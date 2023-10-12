@@ -4,7 +4,6 @@ import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
 
 interface ArticleCardProps {
   title: string;
@@ -42,7 +41,9 @@ const ArticleCard = ({
             <CardTitle className="line-clamp-2 text-lg">{title}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 pb-4">
-            <p className="line-clamp-3 text-sm text-muted-foreground">{content}</p>
+            <p className="line-clamp-3 text-sm text-muted-foreground">
+              {content}
+            </p>
             <div className="flex items-center justify-between">
               <p className="text-sm">{author}</p>
               <span className="text-xs">
