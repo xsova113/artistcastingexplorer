@@ -1,7 +1,6 @@
 import Stack from "@/components/Stack";
 import FeatureCard from "./FeatureCard";
-import FlexBetween from "@/components/FlexBetween";
-import { Camera, ChefHat, Heart, Speaker } from "lucide-react";
+import { Camera, ChefHat, Heart } from "lucide-react";
 
 const ServiceSection = () => {
   return (
