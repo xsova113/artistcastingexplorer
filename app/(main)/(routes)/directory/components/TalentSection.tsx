@@ -199,15 +199,15 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
         </div>
 
         <ReactPaginate
-          nextLabel={<ArrowRight />}
-          previousLabel={<ArrowLeft />}
+          nextLabel={<ArrowRight size={20} />}
+          previousLabel={<ArrowLeft size={20} />}
           pageCount={pageCount}
           pageRangeDisplayed={5}
           onPageChange={handlePageChange}
           containerClassName={
-            "flex items-center justify-center md:gap-24 gap-8"
+            "flex items-center justify-center md:gap-10 gap-8"
           }
-          activeClassName="bg-secondary py-1 px-2 rounded"
+          activeClassName="bg-secondary border py-1 px-2 rounded"
         />
       </div>
     </Stack>

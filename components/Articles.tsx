@@ -61,13 +61,13 @@ const Articles = ({ filteredPosts, isLoading, title, path }: ArticlesProps) => {
       </div>
       {!filteredPosts || !subset || subset.length === 0 ? null : (
         <ReactPaginate
-          nextLabel={<ArrowRight />}
-          previousLabel={<ArrowLeft />}
+          nextLabel={<ArrowRight size={20} />}
+          previousLabel={<ArrowLeft size={20} />}
           pageCount={pageCount}
           pageRangeDisplayed={5}
           onPageChange={handlePageChange}
-          containerClassName={"flex items-center justify-center gap-24"}
-          activeClassName="bg-secondary py-1 px-2 rounded"
+          containerClassName={"flex items-center justify-center gap-10"}
+          activeClassName="bg-secondary py-1 border px-2 rounded"
         />
       )}
     </div>
