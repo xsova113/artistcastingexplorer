@@ -18,8 +18,8 @@ const InterviewSection = async () => {
     (category: Category) => category.slug === "interview",
   );
 
-  const interviewPosts = posts.filter(
-    (post: Post) => post.categories[0] === interviewCategory.id,
+  const interviewPosts = posts.filter((post: Post) =>
+    post.categories.includes(interviewCategory.id),
   );
 
   const latestInterviewPosts = interviewPosts.sort((a: Post, b: Post) =>
