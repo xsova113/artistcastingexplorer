@@ -119,7 +119,7 @@ const NewsPage = () => {
     <section>
       <HeroSection
         image={"/heronews.jpg"}
-        title={"News and Upcoming events"}
+        title={"News"}
         description="Explore here for details on artist appearances and more"
       />
       <div className="mx-auto flex max-w-screen-lg flex-col justify-center py-20 md:flex-row">

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -42,7 +44,7 @@ const PostCard = ({
   const { data: author } = useQuery("author", fetchAuthor);
 
   return (
-    <Card className="md:mx-4 mb-4 h-[560px]">
+    <Card className="mb-4 h-[560px] md:mx-4">
       <CardHeader>
         <div className="relative mb-2 h-[280px] w-full">
           {featuredImage && (

@@ -1,9 +1,12 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface ArticleCardProps {
   title: string;
@@ -24,6 +27,14 @@ const ArticleCard = ({
   content,
   date,
 }: ArticleCardProps) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
   return (
     <Link href={`/${path}/${postId}`}>
       <Card className="flex h-[400px] w-[330px] flex-col border-none shadow-none drop-shadow">
