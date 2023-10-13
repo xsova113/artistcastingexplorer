@@ -208,6 +208,7 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
             "flex items-center justify-center md:gap-10 gap-8"
           }
           activeClassName="bg-secondary border py-1 px-2 rounded"
+          disabledClassName="opacity-40"
         />
       </div>
     </Stack>

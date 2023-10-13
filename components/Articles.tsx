@@ -68,6 +68,7 @@ const Articles = ({ filteredPosts, isLoading, title, path }: ArticlesProps) => {
           onPageChange={handlePageChange}
           containerClassName={"flex items-center justify-center gap-10"}
           activeClassName="bg-secondary py-1 border px-2 rounded"
+          disabledClassName="opacity-40"
         />
       )}
     </div>
