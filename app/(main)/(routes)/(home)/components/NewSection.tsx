@@ -20,8 +20,8 @@ const NewSection = async () => {
     (category: Category) => category.slug === "news",
   );
 
-  const newsPosts = posts.filter(
-    (post: Post) => post.categories[0] === newsCategory.id,
+  const newsPosts = posts.filter((post: Post) =>
+    post.categories.includes(newsCategory.id),
   );
 
   const latestNewsPosts = newsPosts.sort((a: Post, b: Post) =>
