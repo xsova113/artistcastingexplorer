@@ -1,9 +1,11 @@
 import ArticleCard from "@/components/ArticleCard";
 import Stack from "@/components/Stack";
+import { buttonVariants } from "@/components/ui/button";
 import { Category } from "@/types/category";
 import { Post } from "@/types/post";
 import axios from "axios";
 import { compareDesc } from "date-fns";
+import Link from "next/link";
 
 const InterviewSection = async () => {
   const { data: posts } = await axios.get(
@@ -50,6 +52,15 @@ const InterviewSection = async () => {
           ))}
         </div>
       )}
+      <Link
+        href="/interviews"
+        className={buttonVariants({
+          className:
+            "bg-secondary-foreground px-8 hover:bg-secondary-foreground/80",
+        })}
+      >
+        View All
+      </Link>
     </Stack>
   );
 };
