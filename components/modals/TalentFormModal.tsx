@@ -12,6 +12,16 @@ import { useAuth } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { cn } from "@/lib/utils";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 
 interface TalentFormModalProps {
   talentUser: User;
@@ -22,8 +32,8 @@ const TalentFormModal = ({ talent, talentUser }: TalentFormModalProps) => {
   const { userId, orgRole } = useAuth();
 
   return (
-    <Dialog>
-      <DialogTrigger
+    <AlertDialog>
+      <AlertDialogTrigger
         className={cn(
           "w-fit",
           userId !== talentUser.id && orgRole !== "admin" && "hidden",
@@ -35,14 +45,14 @@ const TalentFormModal = ({ talent, talentUser }: TalentFormModalProps) => {
         )}
       >
         Edit Profile
-      </DialogTrigger>
-      <DialogContent className="h-5/6 min-w-[70%] overflow-y-scroll">
-        <DialogHeader>
-          <DialogTitle>Edit Profile</DialogTitle>
+      </AlertDialogTrigger>
+      <AlertDialogContent className="h-5/6 min-w-[70%] overflow-y-scroll">
+        <AlertDialogHeader>
+          <AlertDialogTitle>Edit Profile</AlertDialogTitle>
           <TalentForm talent={talent} />
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+        </AlertDialogHeader>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 

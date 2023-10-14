@@ -11,6 +11,7 @@ export const getTalentProfile = async (id: string) => {
         },
         include: {
           images: true,
+          videos: true,
           location: true,
           performerType: true,
           gender: true,

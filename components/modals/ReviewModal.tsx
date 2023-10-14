@@ -72,7 +72,7 @@ const ReviewModal = () => {
               : "This action will approve talent profile's submission."}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="flex items-baseline">
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             disabled={isLoading}

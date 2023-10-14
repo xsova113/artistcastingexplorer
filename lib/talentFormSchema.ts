@@ -20,7 +20,7 @@ export const talentFormSchema = z.object({
   middleName: z.string().optional(),
   stageName: z.string().optional(),
   gender: z.nativeEnum(GenderType),
-  bodyType: z.nativeEnum(BodyType).optional(),
+  bodyType: z.nativeEnum(BodyType),
   email: z.string().email(),
   skills: z.object({ skill: z.string().nullable() }).array(),
   ageMax: z.number(),
@@ -33,7 +33,8 @@ export const talentFormSchema = z.object({
   bio: z
     .string()
     .min(150, { message: "Your bio must be at least 150 characters" }),
-  images: z.string().array(),
+  images: z.object({ url: z.string(), fileKey: z.string() }).array(),
+  videos: z.object({ url: z.string(), fileKey: z.string() }).array().optional(),
   city: z.nativeEnum(City),
   province: z.nativeEnum(Province).optional(),
   agency: z.string().optional(),

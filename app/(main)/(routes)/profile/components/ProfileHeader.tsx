@@ -25,18 +25,12 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
   return (
     <div className="flex items-start gap-4">
       <div className="relative flex h-[125px] w-[125px]">
-        {!talentUser.imageUrl ? (
-          <span className="self-center text-center text-muted-foreground">
-            Upload a profile image in &quot;Manage Account&quot;
-          </span>
-        ) : (
-          <Image
-            src={talentUser.imageUrl}
-            alt={"talent image"}
-            fill
-            className="rounded-full object-cover"
-          />
-        )}
+        <Image
+          src={talent.images[0].url}
+          alt={"Main talent image"}
+          fill
+          className="rounded-full object-cover"
+        />
       </div>
       <Stack className="gap-4">
         <h1 className="items- flex flex-col gap-x-4 gap-y-1 text-2xl font-semibold md:flex-row">
@@ -108,7 +102,7 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
                 href={talent.twitter}
                 className="transition hover:-translate-y-1"
               >
-                <FaXTwitter />
+                <FaXTwitter size={23} />
               </Link>
             )}
             {talent.youtube && (

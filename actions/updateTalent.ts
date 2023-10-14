@@ -47,6 +47,7 @@ export const updateTalent = async (
             },
           },
           images: { deleteMany: {} },
+          videos: { deleteMany: {} },
         },
       });
 
@@ -56,8 +57,24 @@ export const updateTalent = async (
         },
         data: {
           images: {
-            createMany: { data: values.images.map((url) => ({ url })) },
+            createMany: {
+              data: values.images.map((item) => ({
+                url: item.url,
+                fileKey: item.fileKey,
+              })),
+            },
           },
+          videos:
+            !values.videos || values.videos.length === 0
+              ? {}
+              : {
+                  createMany: {
+                    data: values.videos.map((video) => ({
+                      url: video.url,
+                      fileKey: video.fileKey,
+                    })),
+                  },
+                },
           skills: {
             createMany: { data: values.skills },
           },

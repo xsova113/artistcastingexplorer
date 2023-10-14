@@ -39,8 +39,24 @@ export const createTalent = async (
           middleName: values.middleName,
           stageName: values.stageName,
           images: {
-            createMany: { data: values.images.map((url) => ({ url })) },
+            createMany: {
+              data: values.images.map((image) => ({
+                url: image.url,
+                fileKey: image.fileKey,
+              })),
+            },
           },
+          videos:
+            !values.videos || values.videos.length === 0
+              ? {}
+              : {
+                  createMany: {
+                    data: values.videos.map((video) => ({
+                      url: video.url,
+                      fileKey: video.fileKey,
+                    })),
+                  },
+                },
           language: values.language,
           japaneseLevel: values.JapaneseLanguage,
           credits: {},

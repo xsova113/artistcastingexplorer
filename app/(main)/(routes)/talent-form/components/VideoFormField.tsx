@@ -8,35 +8,37 @@ import {
 import { talentFormSchema } from "@/lib/talentFormSchema";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
-import ImageUpload from "./ImageUpload";
+import VideoUpload from "./VideoUpload";
 
-interface ImagesFormFieldProps {
+interface VideoFormFieldProps {
   form: UseFormReturn<z.infer<typeof talentFormSchema>>;
   setFilesToDelete: (values: string[]) => void;
   filesToDelete: string[];
 }
 
-const ImagesFormField = ({
+const VideoFormField = ({
   form,
   setFilesToDelete,
   filesToDelete,
-}: ImagesFormFieldProps) => {
+}: VideoFormFieldProps) => {
   return (
     <FormField
       control={form.control}
-      name="images"
+      name="videos"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Upload Images</FormLabel>
+          <FormLabel>Upload Videos</FormLabel>
           <FormControl>
-            <ImageUpload
+            <VideoUpload
               disabled={form.formState.isSubmitting}
-              values={field.value}
+              values={field.value || []}
               onChange={field.onChange}
               onRemove={async ({ url, fileKey }) => {
-                field.onChange([
-                  ...field.value.filter((current) => current.url !== url),
-                ]);
+                field.onChange(
+                  field.value
+                    ? [...field.value.filter((current) => current.url !== url)]
+                    : [],
+                );
                 setFilesToDelete([...filesToDelete, fileKey]);
               }}
             />
@@ -48,4 +50,4 @@ const ImagesFormField = ({
   );
 };
 
-export default ImagesFormField;
+export default VideoFormField;

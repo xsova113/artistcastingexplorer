@@ -69,7 +69,7 @@ const TalentReviewSection = ({ filteredTalents }: TalentReviewSectionProps) => {
           Bulk Reject
         </Button>
       </div>
-      <div className="mt-6 grid grid-cols-12 gap-8 mb-12">
+      <div className="mt-6 grid grid-cols-12 gap-3 md:gap-8 mb-12">
         {subset.map((talent) => (
           <TalentReviewCard
             key={talent.id}

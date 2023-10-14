@@ -10,6 +10,7 @@ export const getTalents = async (): Promise<
     const recentlyUpdatedTalents = await prisma.talentProfile.findMany({
       include: {
         images: true,
+        videos: true,
         gender: true,
         location: true,
         performerType: true,

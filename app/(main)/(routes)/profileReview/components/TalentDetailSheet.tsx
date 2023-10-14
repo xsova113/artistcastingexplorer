@@ -60,7 +60,7 @@ const TalentDetailSheet = ({
 
           <Separator className="mt-8" />
           <div className="mt-10 flex flex-col-reverse gap-x-4 gap-y-6 md:flex-row lg:mt-20">
-            <TalentMedia medias={talent.images.map((image) => image.url)} />
+            <TalentMedia images={talent.images.map((image) => image.url)} />
             <div className="md:w-[75%] w-full">
               <TalentBio talent={talent} />
               <CreditSection talent={talent} />

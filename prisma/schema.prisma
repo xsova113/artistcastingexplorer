@@ -11,38 +11,39 @@ datasource db {
 }
 
 model TalentProfile {
-  id              String         @id @default(auto()) @map("_id") @db.ObjectId
-  userId          String         @unique
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String        @unique
   isApproved      Boolean?
   firstName       String
   middleName      String?
   lastName        String
   stageName       String?
-  email           String         @unique
-  performerType   PerformerType  @relation(fields: [performerTypeId], references: [id])
-  performerTypeId String         @db.ObjectId
+  email           String        @unique
+  performerType   PerformerType @relation(fields: [performerTypeId], references: [id])
+  performerTypeId String        @db.ObjectId
   height          String
-  gender          Gender         @relation(fields: [genderId], references: [id])
-  genderId        String         @db.ObjectId
+  gender          Gender        @relation(fields: [genderId], references: [id])
+  genderId        String        @db.ObjectId
   bio             String
-  ageMax          Int            @default(40)
-  ageMin          Int            @default(25)
-  bodyType        BodyType?
+  ageMax          Int           @default(40)
+  ageMin          Int           @default(25)
+  bodyType        BodyType
   agency          String?
-  hairColour      String?
-  eyeColour       String?
+  hairColour      String
+  eyeColour       String
   credits         Credit[]
   instagram       String?
   twitter         String?
   tiktok          String?
   youtube         String?
   website         String?
-  language        Language?
-  japaneseLevel   JapaneseLevel?
+  language        Language
+  japaneseLevel   JapaneseLevel
   skills          Skill[]
   images          Image[]
-  location        Location       @relation(fields: [locationId], references: [id])
-  locationId      String         @db.ObjectId
+  videos          Video[]
+  location        Location      @relation(fields: [locationId], references: [id])
+  locationId      String        @db.ObjectId
   union           String?
 
   createdAt DateTime @default(now())
@@ -141,11 +142,24 @@ enum JapaneseLevel {
 }
 
 model Image {
-  id  String @id @default(auto()) @map("_id") @db.ObjectId
-  url String
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  url     String
+  fileKey String
 
   talentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
   talentProfileId String        @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Video {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  url     String
+  fileKey String
+
+  talentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
+  talentProfileId String       @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

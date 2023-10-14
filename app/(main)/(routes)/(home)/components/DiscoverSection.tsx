@@ -24,6 +24,9 @@ const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
     if (!response) return console.log("No UserSavedTalent found");
     setUserSavedTalent(response);
   };
+  const approvedTalents = talents?.filter(
+    (talent) => talent.isApproved === true,
+  );
 
   return (
     <Stack className="my-28 w-full items-center gap-8">
@@ -32,8 +35,8 @@ const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
       </h1>
       <p className="text-center">You can find latest profiles here</p>
 
-      <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
-        {talents
+      <div className="flex flex-wrap justify-center gap-4">
+        {approvedTalents
           ?.slice(0, 4)
           .map((item) => (
             <TalentCard

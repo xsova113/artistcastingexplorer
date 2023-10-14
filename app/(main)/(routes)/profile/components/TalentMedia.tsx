@@ -4,12 +4,14 @@ import Stack from "@/components/Stack";
 import { useLightBoxStore } from "@/hooks/useLightBoxStore";
 import Image from "next/image";
 import MediaLightBox from "./MediaLightBox";
+import { Play, PlayCircle } from "lucide-react";
 
 interface TalentMediaProps {
-  medias: string[];
+  images: string[];
+  videos: string[];
 }
 
-const TalentMedia = ({ medias }: TalentMediaProps) => {
+const TalentMedia = ({ images, videos }: TalentMediaProps) => {
   const { onOpen, setMedia } = useLightBoxStore();
 
   return (
@@ -18,12 +20,7 @@ const TalentMedia = ({ medias }: TalentMediaProps) => {
       <div className="relative h-[400px] w-full overflow-hidden rounded">
         <Image
           src={
-            medias.filter(
-              (image) =>
-                image.split(".").pop() === "jpg" ||
-                image.split(".").pop() === "png" ||
-                image.split(".").pop() === "jpeg",
-            )[0]
+            images[0]
           }
           alt={"Main talent image"}
           fill
@@ -31,42 +28,39 @@ const TalentMedia = ({ medias }: TalentMediaProps) => {
         />
       </div>
       <div className="grid grid-cols-3 gap-4 lg:grid-cols-4">
-        {medias.map((media) => (
+        {images.map((image) => (
           <div
-            key={media}
-            className="relative mt-4 h-20 w-20 cursor-pointer overflow-hidden rounded-md"
+            key={image}
+            className="relative mt-4 h-20 w-20 cursor-pointer overflow-hidden rounded-md transition hover:opacity-70"
             onClick={() => {
-              setMedia(media);
+              setMedia(image);
               onOpen();
             }}
           >
-            {media.split(".").pop() === "png" ? (
-              <Image
-                src={media}
-                alt={"Image"}
-                fill
-                className="object-cover"
-                priority
-              />
-            ) : media.split(".").pop() === "jpg" ? (
-              <Image
-                src={media}
-                alt={"Image"}
-                fill
-                className="object-cover"
-                priority
-              />
-            ) : media.split(".").pop() === "jpeg" ? (
-              <Image
-                src={media}
-                alt={"Image"}
-                fill
-                className="object-cover"
-                priority
-              />
-            ) : (
-              <video src={media} className="rounded-lg object-cover" />
-            )}
+            <Image
+              src={image}
+              alt={"Image"}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+        ))}
+
+        {videos.map((video) => (
+          <div
+            key={video}
+            className="relative mt-4 h-20 w-20 cursor-pointer overflow-hidden rounded-md transition hover:opacity-70"
+            onClick={() => {
+              setMedia(video);
+              onOpen();
+            }}
+          >
+            <PlayCircle
+              strokeWidth={1}
+              className="absolute right-1/3 top-1/3 fill-white/30"
+            />
+            <video src={video} />
           </div>
         ))}
       </div>
