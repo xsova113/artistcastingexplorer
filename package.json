@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.25.4",
@@ -86,6 +87,7 @@
     "@types/react-date-range": "^1.4.5",
     "@types/react-datepicker": "^4.19.0",
     "@types/react-slick": "^0.23.10",
+    "cypress": "^13.3.1",
     "prettier-plugin-tailwindcss": "^0.5.6"
   }
 }
