@@ -12,7 +12,6 @@ import TalentBio from "../../profile/components/TalentBio";
 import { getTalentUser } from "@/actions/getTalentUser";
 import { User } from "@clerk/nextjs/server";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
 import CreditSection from "../../profile/components/CreditSection";
 
 interface TalentDetailSheetProps {
@@ -60,8 +59,11 @@ const TalentDetailSheet = ({
 
           <Separator className="mt-8" />
           <div className="mt-10 flex flex-col-reverse gap-x-4 gap-y-6 md:flex-row lg:mt-20">
-            <TalentMedia images={talent.images.map((image) => image.url)} />
-            <div className="md:w-[75%] w-full">
+            <TalentMedia
+              images={talent.images.map((image) => image.url)}
+              videos={talent.videos.map((video) => video.url)}
+            />
+            <div className="w-full md:w-[75%]">
               <TalentBio talent={talent} />
               <CreditSection talent={talent} />
             </div>

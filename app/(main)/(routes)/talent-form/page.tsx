@@ -18,6 +18,7 @@ const TalentFormPage = async () => {
       gender: true,
       performerType: true,
       skills: true,
+      videos: true,
       credits: true
     },
   });
