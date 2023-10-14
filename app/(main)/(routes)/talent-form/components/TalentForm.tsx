@@ -266,7 +266,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           {!initialData && <AgeCheckFormField form={form} />}
         </Stack>
 
-        <AlertDialogFooter className="flex items-baseline">
+        <AlertDialogFooter className="flex items-baseline gap-y-2">
           <span className={cn("mr-4 text-red-500", !isFormEdited && "hidden")}>
             * You have unsaved changes
           </span>
