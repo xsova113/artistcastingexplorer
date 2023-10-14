@@ -1,17 +1,25 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Category } from "@/types/category";
 
 interface InterviewArchiveProps {
   categories: Category[];
   handleClick: (value: string) => void;
+  isMobile?: boolean;
 }
 
 const InterviewArchive = ({
   categories,
   handleClick,
+  isMobile,
 }: InterviewArchiveProps) => {
   return (
-    <div className="flex flex-col md:pt-16 md:ml-auto md:pr-10">
+    <div
+      className={cn(
+        "flex-col md:ml-auto md:flex md:pr-10 md:pt-16",
+        isMobile ? "block" : "hidden",
+      )}
+    >
       <h2 className="text-lg font-semibold underline underline-offset-4">
         Archives
       </h2>

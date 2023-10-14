@@ -73,7 +73,7 @@ const Archive = ({
   return (
     <div
       className={cn(
-        "flex-col pt-16 md:ml-auto md:flex md:pr-10",
+        "flex-col md:pt-16 md:ml-auto md:flex md:pr-10",
         isMobile ? "block" : "hidden",
       )}
     >

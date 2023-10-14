@@ -24,7 +24,6 @@ interface ArticlesProps {
 const Articles = ({
   filteredPosts,
   path,
-  fetchPosts,
   posts,
   setFilteredPosts,
   categories,
@@ -57,7 +56,11 @@ const Articles = ({
         {pathname === "/news" ? (
           <Archive posts={posts} setFilteredPosts={setFilteredPosts} isMobile />
         ) : (
-          <InterviewArchive categories={categories} handleClick={handleClick} />
+          <InterviewArchive
+            categories={categories}
+            handleClick={handleClick}
+            isMobile
+          />
         )}
       </MobileArchive>
       <div className="flex flex-wrap justify-center gap-4 pb-12">
@@ -74,6 +77,7 @@ const Articles = ({
           />
         ))}
       </div>
+
       {!filteredPosts || !subset || subset.length === 0 ? null : (
         <ReactPaginate
           nextLabel={<ArrowRight size={20} />}
