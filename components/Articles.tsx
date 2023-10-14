@@ -5,15 +5,32 @@ import { useState, useEffect, SetStateAction } from "react";
 import ReactPaginate from "react-paginate";
 import ArticleCard from "./ArticleCard";
 import { Post } from "@/types/post";
+import MobileArchive from "@/app/(main)/(routes)/news/components/MobileArchive";
+import Archive from "@/app/(main)/(routes)/news/components/Archive";
+import { usePathname } from "next/navigation";
+import InterviewArchive from "@/app/(main)/(routes)/news/components/InterviewArchive";
+import { Category } from "@/types/category";
 
 interface ArticlesProps {
-  title: string;
   filteredPosts: Post[];
-  isLoading: boolean;
   path: "news" | "interviews";
+  fetchPosts: () => void;
+  posts: Post[];
+  setFilteredPosts: (value: Post[]) => void;
+  categories: Category[];
+  handleClick: (value: string) => void;
 }
 
-const Articles = ({ filteredPosts, isLoading, title, path }: ArticlesProps) => {
+const Articles = ({
+  filteredPosts,
+  path,
+  fetchPosts,
+  posts,
+  setFilteredPosts,
+  categories,
+  handleClick,
+}: ArticlesProps) => {
+  const pathname = usePathname();
   const itemsPerPage = 2;
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -35,16 +52,14 @@ const Articles = ({ filteredPosts, isLoading, title, path }: ArticlesProps) => {
   }, [filteredPosts?.length]);
 
   return (
-    <div className="flex flex-col px-10 md:ml-auto">
-      <h1 className="mx-auto mb-10 text-3xl font-semibold">{title}</h1>
-
-      {isLoading && (
-        <div className="flex w-full items-center justify-center gap-4 pb-8 text-2xl">
-          Loading...
-          <Loader2 className="animate-spin" size={50} />
-        </div>
-      )}
-
+    <div className="flex flex-col px-10">
+      <MobileArchive>
+        {pathname === "/news" ? (
+          <Archive posts={posts} setFilteredPosts={setFilteredPosts} isMobile />
+        ) : (
+          <InterviewArchive categories={categories} handleClick={handleClick} />
+        )}
+      </MobileArchive>
       <div className="flex flex-wrap justify-center gap-4 pb-12">
         {subset.map((post) => (
           <ArticleCard

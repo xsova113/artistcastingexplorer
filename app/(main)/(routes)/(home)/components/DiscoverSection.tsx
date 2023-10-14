@@ -35,7 +35,7 @@ const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
       </h1>
       <p className="text-center">You can find latest profiles here</p>
 
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="flex flex-wrap justify-center gap-4 md:gap-8 transition-all">
         {approvedTalents
           ?.slice(0, 4)
           .map((item) => (

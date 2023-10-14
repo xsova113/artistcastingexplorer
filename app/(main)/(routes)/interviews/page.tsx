@@ -4,9 +4,10 @@ import HeroSection from "@/components/HeroSection";
 import Articles from "../../../../components/Articles";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Post } from "@/types/post";
-import { Category, Slug } from "@/types/category";
+import { Category } from "@/types/category";
 import axios from "axios";
-import { Button } from "@/components/ui/button";
+import InterviewArchive from "../news/components/InterviewArchive";
+import { Loader2 } from "lucide-react";
 
 // TODO: Add categories / subcategories as Title type
 
@@ -91,34 +92,28 @@ const InterviewPage = () => {
         description="Discover the latest stories here"
       />
       <div className="mx-auto flex max-w-screen-lg flex-col justify-center py-20 md:flex-row">
-        <Articles
-          path="interviews"
-          filteredPosts={filteredPosts}
-          isLoading={isLoading}
-          title={"Recent Interviews"}
-        />
-        <div className="flex flex-col pt-16 max-md:items-center md:ml-auto md:pr-10">
-          <h2 className="text-lg font-semibold underline underline-offset-4">
-            Archives
-          </h2>
-          <article className="mt-6 flex flex-col items-center gap-x-4 md:items-start">
-            <div className="flex flex-wrap items-start justify-center gap-4 md:flex-col">
-              {categories
-                .filter((category) => category.slug !== "news")
-                .sort((a, b) => (a.name > b.name ? 1 : -1))
-                .map((category) => (
-                  <Button
-                    key={category.id}
-                    onClick={() => handleClick(category.slug)}
-                    variant={"link"}
-                    className="p-0 font-semibold text-muted-foreground"
-                  >
-                    {category.name} ({category.count})
-                  </Button>
-                ))}
+        <div className="flex flex-col md:ml-auto">
+          <h1 className="mx-auto mb-10 text-3xl font-semibold">
+            Recent Interviews
+          </h1>
+          {isLoading && (
+            <div className="flex w-full items-center justify-center gap-4 pb-8 text-2xl">
+              Loading...
+              <Loader2 className="animate-spin" size={50} />
             </div>
-          </article>
+          )}
+          <Articles
+            path="interviews"
+            filteredPosts={filteredPosts}
+            fetchPosts={fetchPosts}
+            posts={posts}
+            setFilteredPosts={setFilteredPosts}
+            categories={categories}
+            handleClick={handleClick}
+          />
         </div>
+
+        <InterviewArchive categories={categories} handleClick={handleClick} />
       </div>
     </section>
   );

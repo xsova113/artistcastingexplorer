@@ -1,7 +1,6 @@
 "use client";
 
 import { buttonVariants } from "@/components/ui/button";
-import useMediaQuery from "@/hooks/useMediaQuery";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -10,7 +9,7 @@ import Link from "next/link";
 const SubscribePremium = () => {
   return (
     <section className="relative">
-      <div className="relative w-full h-[470px] -z-10">
+      <div className="relative -z-10 h-[470px] w-full">
         <Image
           src={
             "https://castingjapanese.ca/wp-content/uploads/2023/09/banner-03.jpg"
@@ -19,9 +18,9 @@ const SubscribePremium = () => {
           fill
           className="object-cover opacity-80"
         />
-        <div className="bg-slate-800 w-full h-full" />
+        <div className="h-full w-full bg-slate-800" />
       </div>
-      <div className="absolute top-1/3 flex flex-col text-center items-center w-full gap-8">
+      <div className="absolute top-1/3 flex w-full flex-col items-center gap-8 text-center">
         <motion.h1
           initial="hidden"
           whileInView="visible"
@@ -30,7 +29,7 @@ const SubscribePremium = () => {
             visible: { opacity: 1, x: 0 },
           }}
           transition={{ duration: 0.5 }}
-          className="text-3xl md:text-5xl text-white font-semibold"
+          className="text-3xl font-semibold text-white md:text-5xl"
         >
           Subscribe for premium feature
         </motion.h1>
@@ -59,7 +58,7 @@ const SubscribePremium = () => {
             href={"/subscribe"}
             className={cn(
               buttonVariants(),
-              "uppercase rounded-full font-semibold px-6 bg-white text-slate-800 hover:bg-white/80"
+              "rounded-full bg-white px-6 font-semibold uppercase text-slate-800 hover:bg-white/80",
             )}
           >
             Subscribe
