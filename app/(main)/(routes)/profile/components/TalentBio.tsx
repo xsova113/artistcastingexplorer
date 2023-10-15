@@ -1,7 +1,11 @@
+"use client";
+
 import Stack from "@/components/Stack";
 import { Separator } from "@/components/ui/separator";
+import { api } from "@/convex/_generated/api";
 import { cmToInFt } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
+import { useQuery } from "convex/react";
 
 interface TalentBio {
   talent: TalentProfileType;

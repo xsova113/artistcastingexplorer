@@ -12,6 +12,7 @@ import useSignInAlertStore from "@/hooks/useSignInAlertStore";
 import checkTalent from "@/lib/checkTalent";
 import { useEffect, useState } from "react";
 import { TalentProfile } from "@prisma/client";
+import { useConvexAuth } from "convex/react";
 
 const routes = [
   { name: "home", pathname: "/" },
@@ -25,7 +26,7 @@ const routes = [
 
 const Header = () => {
   const pathname = usePathname();
-  const { isSignedIn, userId } = useAuth();
+  const { isAuthenticated } = useConvexAuth();
   const { onOpen } = useSignInAlertStore();
   const [talent, setTalent] = useState<TalentProfile>();
 
@@ -36,7 +37,7 @@ const Header = () => {
 
   useEffect(() => {
     checkIsTalent();
-  }, [isSignedIn]);
+  }, [isAuthenticated]);
 
   return (
     <header className="bg-slate-50 shadow">
@@ -60,7 +61,7 @@ const Header = () => {
         <div className="flex items-center gap-2">
           {!talent ? (
             <Link
-              href={!isSignedIn ? "/sign-in" : "/talent-form"}
+              href={!isAuthenticated ? "/sign-in" : "/talent-form"}
               className={cn(
                 buttonVariants({
                   className:
@@ -68,12 +69,12 @@ const Header = () => {
                     size: "sm"
                 }),
               )}
-              onClick={() => !isSignedIn && onOpen()}
+              onClick={() => !isAuthenticated && onOpen()}
             >
               Become Talent
             </Link>
           ) : (
-            isSignedIn && (
+            isAuthenticated && (
               <Link
                 href={`/profile/${talent.id}`}
                 className={cn(
@@ -88,7 +89,7 @@ const Header = () => {
               </Link>
             )
           )}
-          {isSignedIn ? (
+          {isAuthenticated ? (
             <UserButton afterSignOutUrl="/sign-in" />
           ) : (
             <Link

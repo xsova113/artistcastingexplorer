@@ -1,4 +1,3 @@
-import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
@@ -12,6 +11,7 @@ import ReviewModal from "@/components/modals/ReviewModal";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "../app/api/uploadthing/core";
+import ConvexClientProvider from "@/providers/ConvexClientProvider";
 
 const font = Raleway({
   subsets: ["latin"],
@@ -29,23 +29,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider appearance={{ variables: { colorPrimary: "#f97316" } }}>
-      <html lang="en">
-        <head>
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-          />
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-          />
-        </head>
-        <body className={font.className}>
-          <ReactQueryProvider>
-            <RParallaxProvider>
+    <html lang="en">
+      <head>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
+      </head>
+      <body className={font.className}>
+        <ReactQueryProvider>
+          <RParallaxProvider>
+            <ConvexClientProvider>
               <SignInAlertModal />
               <ReviewModal />
               <Header />
@@ -55,10 +55,10 @@ export default function RootLayout({
               {children}
               <Footer />
               <Toaster />
-            </RParallaxProvider>
-          </ReactQueryProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+            </ConvexClientProvider>
+          </RParallaxProvider>
+        </ReactQueryProvider>
+      </body>
+    </html>
   );
 }
