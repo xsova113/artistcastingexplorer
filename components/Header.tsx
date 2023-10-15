@@ -12,6 +12,7 @@ import useSignInAlertStore from "@/hooks/useSignInAlertStore";
 import checkTalent from "@/lib/checkTalent";
 import { useEffect, useState } from "react";
 import { TalentProfile } from "@prisma/client";
+import { useScrollTrigger } from "@/hooks/useScrollTrigger";
 
 const routes = [
   { name: "home", pathname: "/" },
@@ -28,6 +29,7 @@ const Header = () => {
   const { isSignedIn } = useAuth();
   const { onOpen } = useSignInAlertStore();
   const [talent, setTalent] = useState<TalentProfile>();
+  const show = useScrollTrigger();
 
   const checkIsTalent = async () => {
     const talent = await checkTalent();
@@ -39,7 +41,12 @@ const Header = () => {
   }, [isSignedIn]);
 
   return (
-    <header className="bg-slate-50 shadow">
+    <header
+      className={cn(
+        "fixed top-0 z-50 w-full bg-slate-50 shadow transition duration-500",
+        !show && "-translate-y-28",
+      )}
+    >
       <FlexBetween className="px-4 py-4">
         <Logo />
         <nav className="hidden gap-4 text-sm lg:flex">
@@ -65,7 +72,7 @@ const Header = () => {
                 buttonVariants({
                   className:
                     "hidden bg-gradient-to-tr from-violet-500 to-red-500 font-semibold transition hover:scale-105 lg:flex",
-                    size: "sm"
+                  size: "sm",
                 }),
               )}
               onClick={() => !isSignedIn && onOpen()}
@@ -80,7 +87,7 @@ const Header = () => {
                   buttonVariants({
                     variant: "outline",
                     className: "hidden font-semibold lg:flex",
-                    size: "sm"
+                    size: "sm",
                   }),
                 )}
               >
