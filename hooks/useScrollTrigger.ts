@@ -11,6 +11,10 @@ export const useScrollTrigger = () => {
       // Get the new Value
       currentScrollPosition = window.scrollY;
 
+      if (window.scrollY === 0) {
+        return setShow(true);
+      }
+
       //Subtract the two and conclude
       if (previousScrollPosition - currentScrollPosition < 0) {
         setShow(false);
