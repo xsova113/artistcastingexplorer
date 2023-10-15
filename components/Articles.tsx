@@ -14,11 +14,11 @@ import { Category } from "@/types/category";
 interface ArticlesProps {
   filteredPosts: Post[];
   path: "news" | "interviews";
-  fetchPosts: () => void;
   posts: Post[];
   setFilteredPosts: (value: Post[]) => void;
   categories: Category[];
   handleClick: (value: string) => void;
+  isLoading: boolean;
 }
 
 const Articles = ({
@@ -28,6 +28,7 @@ const Articles = ({
   setFilteredPosts,
   categories,
   handleClick,
+  isLoading,
 }: ArticlesProps) => {
   const pathname = usePathname();
   const itemsPerPage = 2;
@@ -49,6 +50,13 @@ const Articles = ({
   useEffect(() => {
     setTotalPages(Math.ceil(filteredPosts?.length / itemsPerPage));
   }, [filteredPosts?.length]);
+
+  if ((!filteredPosts || filteredPosts.length === 0) && !isLoading)
+    return (
+      <div className="flex w-full items-center justify-center gap-4 pb-8 text-2xl">
+        No articles found...
+      </div>
+    );
 
   return (
     <div className="flex flex-col px-10">

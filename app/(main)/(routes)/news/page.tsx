@@ -83,7 +83,7 @@ const NewsPage = () => {
           <Articles
             filteredPosts={filteredPosts}
             path={"news"}
-            fetchPosts={fetchPosts}
+            isLoading={isLoading}
             posts={posts}
             setFilteredPosts={setFilteredPosts}
           />

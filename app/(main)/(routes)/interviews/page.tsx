@@ -105,7 +105,7 @@ const InterviewPage = () => {
           <Articles
             path="interviews"
             filteredPosts={filteredPosts}
-            fetchPosts={fetchPosts}
+            isLoading={isLoading}
             posts={posts}
             setFilteredPosts={setFilteredPosts}
             categories={categories}
