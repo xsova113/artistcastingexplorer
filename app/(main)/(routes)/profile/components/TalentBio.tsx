@@ -13,6 +13,7 @@ interface TalentBio {
 
 const TalentBio = ({ talent }: TalentBio) => {
   const height = cmToInFt(Number(talent.height));
+  const tasks = useQuery(api.tasks.get);
 
   return (
     <div className="rounded-lg border p-3 shadow">

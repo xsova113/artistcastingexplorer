@@ -29,23 +29,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-        />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-        />
-      </head>
-      <body className={font.className}>
-        <ReactQueryProvider>
-          <RParallaxProvider>
-            <ConvexClientProvider>
+    <ConvexClientProvider>
+      <html lang="en">
+        <head>
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+          />
+        </head>
+        <body className={font.className}>
+          <ReactQueryProvider>
+            <RParallaxProvider>
               <SignInAlertModal />
               <ReviewModal />
               <Header />
@@ -55,10 +55,10 @@ export default function RootLayout({
               {children}
               <Footer />
               <Toaster />
-            </ConvexClientProvider>
-          </RParallaxProvider>
-        </ReactQueryProvider>
-      </body>
-    </html>
+            </RParallaxProvider>
+          </ReactQueryProvider>
+        </body>
+      </html>
+    </ConvexClientProvider>
   );
 }

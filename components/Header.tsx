@@ -66,7 +66,7 @@ const Header = () => {
                 buttonVariants({
                   className:
                     "hidden bg-gradient-to-tr from-violet-500 to-red-500 font-semibold transition hover:scale-105 lg:flex",
-                    size: "sm"
+                  size: "sm",
                 }),
               )}
               onClick={() => !isAuthenticated && onOpen()}
@@ -81,7 +81,7 @@ const Header = () => {
                   buttonVariants({
                     variant: "outline",
                     className: "hidden font-semibold lg:flex",
-                    size: "sm"
+                    size: "sm",
                   }),
                 )}
               >
