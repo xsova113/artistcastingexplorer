@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState, useEffect, SetStateAction } from "react";
 import ReactPaginate from "react-paginate";
 import ArticleCard from "./ArticleCard";
