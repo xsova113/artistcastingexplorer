@@ -11,12 +11,12 @@ import Logo from "./Logo";
 import { Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import UserMenu from "./UserMenu";
-import { UserButton, useAuth } from "@clerk/nextjs";
+import { useState } from "react";
+import { useAuth } from "@clerk/nextjs";
 import { buttonVariants } from "./ui/button";
 import useSignInAlertStore from "@/hooks/useSignInAlertStore";
 import { TalentProfile } from "@prisma/client";
+import { useConvexAuth } from "convex/react";
 
 interface MobileHeaderProps {
   routes: {
@@ -29,7 +29,7 @@ interface MobileHeaderProps {
 const MobileHeader = ({ routes, talent }: MobileHeaderProps) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const { isSignedIn } = useAuth();
+  const { isAuthenticated } = useConvexAuth();
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -57,7 +57,7 @@ const MobileHeader = ({ routes, talent }: MobileHeaderProps) => {
 
           {!talent ? (
             <Link
-              href={isSignedIn ? "/talent-form" : "/sign-in"}
+              href={isAuthenticated ? "/talent-form" : "/sign-in"}
               className={cn(
                 buttonVariants({
                   variant: "outline",
