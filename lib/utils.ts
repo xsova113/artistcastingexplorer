@@ -10,6 +10,14 @@ export function absoluteUrl(path: string) {
   return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
 }
 
+export const cmToInFt = (height: number) => {
+  const inches = Math.round(height / 2.54);
+  return {
+    feet: Math.floor(inches / 12),
+    inches: inches % 12,
+  };
+};
+
 export function getAge(dateString: string) {
   var today = new Date();
   var birthDate = new Date(dateString);
@@ -62,4 +70,3 @@ export const fetchFilteredTalents = (
 
   return filteredTalents;
 };
-

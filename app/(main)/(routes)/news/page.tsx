@@ -89,10 +89,7 @@ const NewsPage = () => {
           />
         </div>
 
-        <Archive
-          posts={posts}
-          setFilteredPosts={setFilteredPosts}
-        />
+        <Archive posts={posts} setFilteredPosts={setFilteredPosts} />
       </div>
     </section>
   );
