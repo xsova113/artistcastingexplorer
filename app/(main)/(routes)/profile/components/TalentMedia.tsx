@@ -4,7 +4,7 @@ import Stack from "@/components/Stack";
 import { useLightBoxStore } from "@/hooks/useLightBoxStore";
 import Image from "next/image";
 import MediaLightBox from "./MediaLightBox";
-import { PlayCircle } from "lucide-react";
+import { Play } from "lucide-react";
 
 interface TalentMediaProps {
   images: string[];
@@ -58,10 +58,7 @@ const TalentMedia = ({ images, videos }: TalentMediaProps) => {
                     onOpen();
                   }}
                 >
-                  <PlayCircle
-                    strokeWidth={1}
-                    className="absolute right-1/3 top-1/3 fill-white/30"
-                  />
+                  <Play className="absolute right-1/3 top-1/3 fill-white/70 text-transparent" />
                   <video src={video} />
                 </div>
               </div>
