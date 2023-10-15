@@ -25,7 +25,7 @@ const routes = [
 
 const Header = () => {
   const pathname = usePathname();
-  const { isSignedIn, userId } = useAuth();
+  const { isSignedIn } = useAuth();
   const { onOpen } = useSignInAlertStore();
   const [talent, setTalent] = useState<TalentProfile>();
 
