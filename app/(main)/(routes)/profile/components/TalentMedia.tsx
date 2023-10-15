@@ -48,23 +48,25 @@ const TalentMedia = ({ images, videos }: TalentMediaProps) => {
       {videos.length > 0 && (
         <Stack className="mt-6">
           <h1 className="text-lg font-semibold">Videos</h1>
-          {videos.map((video) => (
-            <div key={video}>
-              <div
-                className="relative mt-4 h-20 w-20 cursor-pointer overflow-hidden rounded-md transition hover:opacity-70"
-                onClick={() => {
-                  setMedia(video);
-                  onOpen();
-                }}
-              >
-                <PlayCircle
-                  strokeWidth={1}
-                  className="absolute right-1/3 top-1/3 fill-white/30"
-                />
-                <video src={video} />
+          <div className="grid grid-cols-3 gap-4 lg:grid-cols-4">
+            {videos.map((video) => (
+              <div key={video}>
+                <div
+                  className="relative mt-4 h-20 w-20 cursor-pointer overflow-hidden rounded-md transition hover:opacity-70"
+                  onClick={() => {
+                    setMedia(video);
+                    onOpen();
+                  }}
+                >
+                  <PlayCircle
+                    strokeWidth={1}
+                    className="absolute right-1/3 top-1/3 fill-white/30"
+                  />
+                  <video src={video} />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </Stack>
       )}
 

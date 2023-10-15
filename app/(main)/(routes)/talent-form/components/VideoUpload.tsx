@@ -51,7 +51,11 @@ const VideoUpload = ({ onChange, onRemove, values }: VideoUploadProps) => {
               </Button>
             </div>
 
-            <video controls src={item.url} className="rounded-lg object-cover" />
+            <video
+              controls
+              src={item.url}
+              className="rounded-lg object-cover"
+            />
           </div>
         ))}
       </div>
