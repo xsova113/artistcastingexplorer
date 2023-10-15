@@ -29,11 +29,7 @@ const ManageSavedTalents = async ({
   const formattedData = savedTalentProfiles.map((talent) => ({
     id: talent.id,
     name: talent.firstName + " " + talent.lastName,
-    image: talent.images
-      .map((img) => img.url)
-      .filter(
-        (image) => image.split(".").pop() === ("jpg" || "png" || "jpeg"),
-      )[0],
+    image: talent.images.map((img) => img.url)[0],
     role: talent.performerType.role,
     location: talent.location.city || talent.location.province,
   }));
