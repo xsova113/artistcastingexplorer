@@ -1,16 +1,14 @@
 import Stack from "@/components/Stack";
 import { Separator } from "@/components/ui/separator";
+import { cmToInFt } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
-import configureMeasurements, { allMeasures } from "convert-units";
 
 interface TalentBio {
   talent: TalentProfileType;
 }
 
 const TalentBio = ({ talent }: TalentBio) => {
-  const convert = configureMeasurements(allMeasures);
-
-  const height = convert(Number(talent.height)).from("cm").to("ft");
+  const height = cmToInFt(Number(talent.height));
 
   return (
     <div className="rounded-lg border p-3 shadow">
@@ -39,7 +37,7 @@ const TalentBio = ({ talent }: TalentBio) => {
           <li className="capitalize">
             <span className="">Height:</span>{" "}
             <span className="text-muted-foreground">
-              {height.toFixed(1).replace(".", "'")}
+              {height.feet}&apos;{height.inches}
             </span>
           </li>
         </div>
