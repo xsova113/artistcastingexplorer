@@ -34,7 +34,7 @@ export const talentFormSchema = z.object({
     .string()
     .min(150, { message: "Your bio must be at least 150 characters" }),
   images: z.object({ url: z.string(), fileKey: z.string() }).array(),
-  videos: z.object({ url: z.string(), fileKey: z.string() }).array().optional(),
+  videos: z.object({ url: z.string(), fileKey: z.string(), name: z.string().nullable() }).array().optional(),
   city: z.nativeEnum(City),
   province: z.nativeEnum(Province).optional(),
   agency: z.string().optional(),

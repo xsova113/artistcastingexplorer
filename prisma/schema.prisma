@@ -154,12 +154,13 @@ model Image {
 }
 
 model Video {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
   url     String
   fileKey String
+  name    String?
 
   talentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
-  talentProfileId String       @db.ObjectId
+  talentProfileId String        @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

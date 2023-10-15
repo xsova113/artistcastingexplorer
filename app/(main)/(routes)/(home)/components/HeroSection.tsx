@@ -16,6 +16,7 @@ const HeroSection = () => {
       <ParallaxBannerLayer className="flex w-full items-center bg-cover">
         <Stack className="mt-20 w-full text-center text-white lg:mt-32">
           <motion.h1
+            data-cy="hero-text"
             initial="hidden"
             whileInView="visible"
             variants={{

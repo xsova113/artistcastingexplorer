@@ -4,7 +4,7 @@ import Stack from "@/components/Stack";
 import { useLightBoxStore } from "@/hooks/useLightBoxStore";
 import Image from "next/image";
 import MediaLightBox from "./MediaLightBox";
-import { Play, PlayCircle } from "lucide-react";
+import { PlayCircle } from "lucide-react";
 
 interface TalentMediaProps {
   images: string[];
@@ -19,9 +19,7 @@ const TalentMedia = ({ images, videos }: TalentMediaProps) => {
       <h1 className="mb-6 text-2xl font-semibold">Media</h1>
       <div className="relative h-[400px] w-full overflow-hidden rounded">
         <Image
-          src={
-            images[0]
-          }
+          src={images[0]}
           alt={"Main talent image"}
           fill
           className="object-cover"
@@ -46,24 +44,30 @@ const TalentMedia = ({ images, videos }: TalentMediaProps) => {
             />
           </div>
         ))}
-
-        {videos.map((video) => (
-          <div
-            key={video}
-            className="relative mt-4 h-20 w-20 cursor-pointer overflow-hidden rounded-md transition hover:opacity-70"
-            onClick={() => {
-              setMedia(video);
-              onOpen();
-            }}
-          >
-            <PlayCircle
-              strokeWidth={1}
-              className="absolute right-1/3 top-1/3 fill-white/30"
-            />
-            <video src={video} />
-          </div>
-        ))}
       </div>
+      {videos.length > 0 && (
+        <Stack className="mt-6">
+          <h1 className="text-lg font-semibold">Videos</h1>
+          {videos.map((video) => (
+            <div key={video}>
+              <div
+                className="relative mt-4 h-20 w-20 cursor-pointer overflow-hidden rounded-md transition hover:opacity-70"
+                onClick={() => {
+                  setMedia(video);
+                  onOpen();
+                }}
+              >
+                <PlayCircle
+                  strokeWidth={1}
+                  className="absolute right-1/3 top-1/3 fill-white/30"
+                />
+                <video src={video} />
+              </div>
+            </div>
+          ))}
+        </Stack>
+      )}
+
       <MediaLightBox />
     </Stack>
   );

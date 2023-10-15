@@ -1,17 +1,22 @@
 import Stack from "@/components/Stack";
 import { Separator } from "@/components/ui/separator";
 import { TalentProfileType } from "@/types/talentProfileType";
+import configureMeasurements, { allMeasures } from "convert-units";
 
 interface TalentBio {
   talent: TalentProfileType;
 }
 
 const TalentBio = ({ talent }: TalentBio) => {
+  const convert = configureMeasurements(allMeasures);
+
+  const height = convert(Number(talent.height)).from("cm").to("ft");
+
   return (
     <div className="rounded-lg border p-3 shadow">
       <h1 className="mb-6 text-2xl font-semibold">Biography</h1>
-      <Stack className="gap-4">
-        <h3 className="text-lg font-medium">About me</h3>
+      <Stack>
+        <h3 className="mb-4 text-lg font-medium">Attributes</h3>
         <div className="flex flex-col space-y-1 text-sm">
           <li className="capitalize">
             <span className="">Body Type:</span>{" "}
@@ -31,8 +36,19 @@ const TalentBio = ({ talent }: TalentBio) => {
               {talent.eyeColour?.toLowerCase().replaceAll("_", " ")}
             </span>
           </li>
+          <li className="capitalize">
+            <span className="">Height:</span>{" "}
+            <span className="text-muted-foreground">
+              {height.toFixed(1).replace(".", "'")}
+            </span>
+          </li>
         </div>
+      </Stack>
 
+      <Separator className="my-5" />
+
+      <Stack className="gap-4">
+        <h3 className="text-lg font-medium">About me</h3>
         <p className="text-muted-foreground">{talent.bio}</p>
       </Stack>
 

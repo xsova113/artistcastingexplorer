@@ -12,14 +12,14 @@ interface HeroSectionProps {
 
 const HeroSection = ({ image, title, description }: HeroSectionProps) => {
   return (
-    <ParallaxBanner className="w-full h-[500px]">
+    <ParallaxBanner className="h-[500px] w-full">
       <ParallaxBannerLayer
         image={image}
         scale={[0.8, 1.2]}
         className="opacity-80"
       />
-      <ParallaxBannerLayer className="flex items-center bg-cover w-full">
-        <Stack className="w-full text-center text-white gap-10">
+      <ParallaxBannerLayer className="flex w-full items-center bg-cover">
+        <Stack className="w-full gap-10 text-center text-white">
           <motion.h1
             initial="hidden"
             whileInView="visible"
@@ -28,7 +28,7 @@ const HeroSection = ({ image, title, description }: HeroSectionProps) => {
               visible: { opacity: 1, x: 0 },
             }}
             transition={{ duration: 0.5 }}
-            className="text-white md:text-6xl sm:text-4xl text-3xl capitalize"
+            className="text-3xl capitalize text-white sm:text-4xl md:text-6xl"
           >
             {title}
           </motion.h1>
@@ -40,14 +40,14 @@ const HeroSection = ({ image, title, description }: HeroSectionProps) => {
               visible: { opacity: 1, x: 0 },
             }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-primary-foreground/80 w-2/3 self-center"
+            className="w-2/3 self-center text-primary-foreground/80"
           >
             {description}
           </motion.p>
         </Stack>
       </ParallaxBannerLayer>
 
-      <div className="bg-black w-full h-full" />
+      <div className="h-full w-full bg-black" />
     </ParallaxBanner>
   );
 };

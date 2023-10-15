@@ -72,6 +72,7 @@ export const updateTalent = async (
                     data: values.videos.map((video) => ({
                       url: video.url,
                       fileKey: video.fileKey,
+                      name: video.name,
                     })),
                   },
                 },
