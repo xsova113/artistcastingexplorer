@@ -29,7 +29,7 @@ import {
   AgeRangeFormField,
 } from ".";
 import LanguageFormField from "./LanguageFormField";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { ElementRef, useCallback, useEffect, useRef, useState } from "react";
 import { User } from "@clerk/nextjs/server";
 import { getTalentUser } from "@/actions/getTalentUser";
 import TalentUserIdFormField from "./TalentUserIdFormField";
@@ -43,12 +43,13 @@ import HairFormField from "./HairFormField";
 import EyeFormField from "./EyeFormField";
 import { removeFile } from "@/actions/RemoveFile";
 import VideoFormField from "./VideoFormField";
+import { cn } from "@/lib/utils";
 import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
-import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
@@ -60,7 +61,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
   const [talentUser, setTalentUser] = useState<User>();
   const pathname = usePathname();
   const [filesToDelete, setFilesToDelete] = useState<string[]>([]);
-
+  const formRef = useRef<ElementRef<"form">>(null);
   const fetchTalentUser = useCallback(async () => {
     if (!initialData) return;
     const response = await getTalentUser(initialData.userId);
@@ -197,6 +198,20 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="mt-12 space-y-8">
+        <AlertDialogCancel
+          className="absolute right-0 top-0 border-0 p-2"
+          onClick={async () => {
+            if (addedVideos) {
+              await removeFile(addedVideos.map((v) => v.fileKey));
+            }
+
+            if (addedImages) {
+              await removeFile(addedImages.map((image) => image.fileKey));
+            }
+          }}
+        >
+          <X size={20} />
+        </AlertDialogCancel>
         <Stack>
           <h3
             className={cn(

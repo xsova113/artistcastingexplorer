@@ -51,7 +51,7 @@ const Articles = ({
     setTotalPages(Math.ceil(filteredPosts?.length / itemsPerPage));
   }, [filteredPosts?.length]);
 
-  if ((!filteredPosts || filteredPosts.length === 0) && !isLoading)
+  if ((!filteredPosts || !filteredPosts.length) && !isLoading)
     return (
       <div className="flex w-full items-center justify-center gap-4 pb-8 text-2xl">
         No articles found...

@@ -1,23 +1,12 @@
 import TalentForm from "@/app/(main)/(routes)/talent-form/components/TalentForm";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button, buttonVariants } from "../ui/button";
+import { buttonVariants } from "../ui/button";
 import { useAuth } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { cn } from "@/lib/utils";
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
