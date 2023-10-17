@@ -51,6 +51,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import BodyTypeFormField from "./BodyTypeFormField";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
@@ -240,6 +241,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             <StageNameFormField form={form} />
             <EmailFormField form={form} />
             <HeightFormField form={form} />
+            <BodyTypeFormField form={form} />
             <HairFormField form={form} />
             <EyeFormField form={form} />
             <CityFormField form={form} />

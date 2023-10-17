@@ -17,11 +17,11 @@ import { Role } from "@prisma/client";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 
-interface CityFormFieldProps {
+interface RoleFormFieldProps {
   form: UseFormReturn<z.infer<typeof talentFormSchema>>;
 }
 
-const RoleFormField = ({ form }: CityFormFieldProps) => {
+const RoleFormField = ({ form }: RoleFormFieldProps) => {
   return (
     <FormField
       control={form.control}
