@@ -211,7 +211,7 @@ model Credit {
   productionTitle String
   yearOfRelease   Int
   role            String?
-  numberOfEpisode Int
+  numberOfEpisode Int?
 
   TalentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
   talentProfileId String        @db.ObjectId
