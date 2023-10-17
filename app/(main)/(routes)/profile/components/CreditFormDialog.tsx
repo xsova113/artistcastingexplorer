@@ -40,7 +40,7 @@ const CreditFormSchema = z.object({
   productionTitle: z.string().min(2).max(50),
   yearOfRelease: z.number(),
   role: z.string().optional(),
-  numberOfEpisode: z.number(),
+  numberOfEpisode: z.number().optional(),
 });
 
 export type CreditFormValues = z.infer<typeof CreditFormSchema>;
