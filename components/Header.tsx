@@ -4,15 +4,13 @@ import FlexBetween from "./FlexBetween";
 import Link from "next/link";
 import MobileHeader from "./MobileHeader";
 import Logo from "./Logo";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { UserButton, useAuth } from "@clerk/nextjs";
-import { buttonVariants } from "./ui/button";
+import { UserButton, SignInButton, useAuth } from "@clerk/clerk-react";
+import { Button, buttonVariants } from "./ui/button";
 import useSignInAlertStore from "@/hooks/useSignInAlertStore";
-import checkTalent from "@/lib/checkTalent";
-import { useEffect, useState } from "react";
-import { TalentProfile } from "@prisma/client";
-import { useConvexAuth } from "convex/react";
+import { useConvexAuth, useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 const routes = [
   { name: "home", pathname: "/" },
@@ -26,18 +24,13 @@ const routes = [
 
 const Header = () => {
   const pathname = usePathname();
+  const { userId } = useAuth();
   const { isAuthenticated } = useConvexAuth();
   const { onOpen } = useSignInAlertStore();
-  const [talent, setTalent] = useState<TalentProfile>();
+  const router = useRouter();
+  const profiles = useQuery(api.profile.get);
 
-  const checkIsTalent = async () => {
-    const talent = await checkTalent();
-    setTalent(talent);
-  };
-
-  useEffect(() => {
-    checkIsTalent();
-  }, [isAuthenticated]);
+  const profile = profiles?.find((p) => p.userId === userId);
 
   return (
     <header className="bg-slate-50 shadow">
@@ -59,24 +52,18 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-2">
-          {!talent ? (
-            <Link
-              href={!isAuthenticated ? "/sign-in" : "/talent-form"}
-              className={cn(
-                buttonVariants({
-                  className:
-                    "hidden bg-gradient-to-tr from-violet-500 to-red-500 font-semibold transition hover:scale-105 lg:flex",
-                  size: "sm",
-                }),
-              )}
-              onClick={() => !isAuthenticated && onOpen()}
+          {!profile ? (
+            <Button
+              className="hidden bg-gradient-to-tr from-violet-500 to-red-500 font-semibold transition hover:scale-105 lg:flex"
+              onClick={() => (!isAuthenticated ? onOpen() : router.push('/talent-form'))}
+              size={"sm"}
             >
               Become Talent
-            </Link>
+            </Button>
           ) : (
             isAuthenticated && (
               <Link
-                href={`/profile/${talent.id}`}
+                href={`/profile/${profile?._id}`}
                 className={cn(
                   buttonVariants({
                     variant: "outline",
@@ -92,14 +79,13 @@ const Header = () => {
           {isAuthenticated ? (
             <UserButton afterSignOutUrl="/sign-in" />
           ) : (
-            <Link
-              href={"/sign-in"}
-              className={buttonVariants({ variant: "outline", size: "sm" })}
-            >
-              Sign in
-            </Link>
+            <SignInButton mode="modal">
+              <Button variant={"outline"} size={"sm"}>
+                Sign in
+              </Button>
+            </SignInButton>
           )}
-          <MobileHeader routes={routes} talent={talent} />
+          <MobileHeader routes={routes} talent={profile} />
         </div>
       </FlexBetween>
     </header>

@@ -119,7 +119,7 @@ enum City {
 enum Province {
   ALBERTA
   MANITOBA
-  NEWB_RUNSWICK
+  NEW_BRUNSWICK
   NEWFOUNDLAND_AND_LABRADOR
   NOVA_SCOTIA
   PRINCE_EDWARD_ISLAND
@@ -211,7 +211,7 @@ model Credit {
   productionTitle String
   yearOfRelease   Int
   role            String?
-  numberOfEpisode Int
+  numberOfEpisode Int?
 
   TalentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
   talentProfileId String        @db.ObjectId

@@ -11,11 +11,10 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import useSignInAlertStore from "@/hooks/useSignInAlertStore";
-import { useRouter } from "next/navigation";
+import { SignInButton } from "@clerk/clerk-react";
 
 const SignInAlertModal = () => {
   const { isOpen, onClose } = useSignInAlertStore();
-  const router = useRouter();
 
   return (
     <AlertDialog open={isOpen} onOpenChange={onClose}>
@@ -28,8 +27,8 @@ const SignInAlertModal = () => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => router.push("/sign-in")}>
-            Continue
+          <AlertDialogAction>
+            <SignInButton mode="modal">Continue</SignInButton>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

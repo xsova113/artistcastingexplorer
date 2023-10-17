@@ -2,6 +2,8 @@
 
 import { currentUser } from "@clerk/nextjs";
 import prisma from "./client";
+import { useQuery } from "react-query";
+import { api } from "@/convex/_generated/api";
 
 const checkTalent = async () => {
   const user = await currentUser();

@@ -12,6 +12,7 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "../app/api/uploadthing/core";
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
+import { Toaster as ToasterSonner } from "sonner";
 
 const font = Raleway({
   subsets: ["latin"],
@@ -52,6 +53,7 @@ export default function RootLayout({
               <NextSSRPlugin
                 routerConfig={extractRouterConfig(ourFileRouter)}
               />
+              <ToasterSonner />
               {children}
               <Footer />
               <Toaster />

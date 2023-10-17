@@ -17,13 +17,14 @@ import { buttonVariants } from "./ui/button";
 import useSignInAlertStore from "@/hooks/useSignInAlertStore";
 import { TalentProfile } from "@prisma/client";
 import { useConvexAuth } from "convex/react";
+import { Doc} from "../convex/_generated/dataModel";
 
 interface MobileHeaderProps {
   routes: {
     name: string;
     pathname: string;
   }[];
-  talent?: TalentProfile;
+  talent?: Doc<"profile">;
 }
 
 const MobileHeader = ({ routes, talent }: MobileHeaderProps) => {
@@ -70,7 +71,7 @@ const MobileHeader = ({ routes, talent }: MobileHeaderProps) => {
             </Link>
           ) : (
             <Link
-              href={`/profile/${talent.id}`}
+              href={`/profile/${talent._id}`}
               className={cn(
                 buttonVariants({
                   variant: "outline",

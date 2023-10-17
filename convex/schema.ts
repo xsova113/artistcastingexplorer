@@ -2,13 +2,44 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
-  users: defineTable({
-    name: v.string(),
-    tokenIdentifier: v.string(),
-  }).index("by_token", ["tokenIdentifier"]),
-
-  tasks: defineTable({
-    isCompleted: v.boolean(),
-    text: v.string(),
-  }),
+  profile: defineTable({
+    isApproved: v.optional(v.boolean()),
+    ageMax: v.float64(),
+    ageMin: v.float64(),
+    agency: v.optional(v.string()),
+    bio: v.string(),
+    bodyType: v.string(),
+    credits: v.optional(
+      v.object({
+        category: v.string(),
+        numberOfEpisode: v.optional(v.float64()),
+        productionTitle: v.string(),
+        role: v.optional(v.string()),
+        yearOfRelease: v.float64(),
+      }),
+    ),
+    email: v.string(),
+    eyeColour: v.string(),
+    firstName: v.string(),
+    middlename: v.optional(v.string()),
+    stageName: v.optional(v.string()),
+    gender: v.string(),
+    hairColour: v.string(),
+    height: v.float64(),
+    images: v.array(v.string()),
+    instagram: v.optional(v.string()),
+    twitter: v.optional(v.string()),
+    youtube: v.optional(v.string()),
+    website: v.optional(v.string()),
+    tiktok: v.optional(v.string()),
+    japaneseLevel: v.string(),
+    language: v.string(),
+    lastName: v.string(),
+    location: v.object({ city: v.string() }),
+    role: v.string(),
+    skills: v.array(v.string()),
+    videos: v.optional(v.array(v.string())),
+    userId: v.string(),
+    union: v.optional(v.string()),
+  }).index("by_userId", ["userId"]),
 });
