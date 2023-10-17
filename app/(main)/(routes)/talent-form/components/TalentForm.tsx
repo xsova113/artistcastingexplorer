@@ -50,6 +50,7 @@ import {
   AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
 import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
@@ -136,7 +137,6 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
   const isFormEdited = form.formState.isDirty;
 
   const toastMessage = initialData ? "Profile updated." : "Profile created.";
-  const action = initialData ? "Save changes" : "Create";
 
   async function onSubmit(values: z.infer<typeof talentFormSchema>) {
     try {
@@ -284,11 +284,39 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           {!initialData && <AgeCheckFormField form={form} />}
         </Stack>
 
-        <AlertDialogFooter className="flex items-baseline gap-y-2">
-          <span className={cn("mr-4 text-red-500", !isFormEdited && "hidden")}>
-            * You have unsaved changes
-          </span>
-          <AlertDialogAction
+        {initialData ? (
+          <AlertDialogFooter className="flex items-baseline gap-y-2">
+            <span
+              className={cn("mr-4 text-red-500", !isFormEdited && "hidden")}
+            >
+              * You have unsaved changes
+            </span>
+            <AlertDialogAction
+              disabled={
+                isSubmitting ||
+                (initialData ? false : !termsValue || !ageCheck) ||
+                !isFormEdited
+              }
+              type="submit"
+            >
+              Save changes
+            </AlertDialogAction>
+            <AlertDialogCancel
+              onClick={async () => {
+                if (addedVideos) {
+                  await removeFile(addedVideos.map((v) => v.fileKey));
+                }
+
+                if (addedImages) {
+                  await removeFile(addedImages.map((image) => image.fileKey));
+                }
+              }}
+            >
+              Cancel
+            </AlertDialogCancel>
+          </AlertDialogFooter>
+        ) : (
+          <Button
             disabled={
               isSubmitting ||
               (initialData ? false : !termsValue || !ageCheck) ||
@@ -296,22 +324,9 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             }
             type="submit"
           >
-            {action}
-          </AlertDialogAction>
-          <AlertDialogCancel
-            onClick={async () => {
-              if (addedVideos) {
-                await removeFile(addedVideos.map((v) => v.fileKey));
-              }
-
-              if (addedImages) {
-                await removeFile(addedImages.map((image) => image.fileKey));
-              }
-            }}
-          >
-            Cancel
-          </AlertDialogCancel>
-        </AlertDialogFooter>
+            Create
+          </Button>
+        )}
       </form>
     </Form>
   );
