@@ -59,7 +59,7 @@ const CreditFormDialog = ({
     defaultValues: initialData
       ? {
           category: initialData.category,
-          numberOfEpisode: initialData.numberOfEpisode,
+          numberOfEpisode: initialData.numberOfEpisode || undefined,
           productionTitle: initialData.productionTitle,
           role: initialData.role || undefined,
           yearOfRelease: initialData.yearOfRelease,

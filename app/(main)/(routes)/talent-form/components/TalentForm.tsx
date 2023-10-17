@@ -198,20 +198,23 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="mt-12 space-y-8">
-        <AlertDialogCancel
-          className="absolute right-0 top-0 border-0 p-2"
-          onClick={async () => {
-            if (addedVideos) {
-              await removeFile(addedVideos.map((v) => v.fileKey));
-            }
+        {initialData && (
+          <AlertDialogCancel
+            className="absolute right-0 top-0 border-0 p-2"
+            onClick={async () => {
+              if (addedVideos) {
+                await removeFile(addedVideos.map((v) => v.fileKey));
+              }
 
-            if (addedImages) {
-              await removeFile(addedImages.map((image) => image.fileKey));
-            }
-          }}
-        >
-          <X size={20} />
-        </AlertDialogCancel>
+              if (addedImages) {
+                await removeFile(addedImages.map((image) => image.fileKey));
+              }
+            }}
+          >
+            <X size={20} />
+          </AlertDialogCancel>
+        )}
+
         <Stack>
           <h3
             className={cn(
