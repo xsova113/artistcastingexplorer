@@ -9,12 +9,12 @@ import {
 import Link from "next/link";
 import Logo from "./Logo";
 import { Menu } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import UserMenu from "./UserMenu";
 import { UserButton, useAuth } from "@clerk/nextjs";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import useSignInAlertStore from "@/hooks/useSignInAlertStore";
 import { TalentProfile } from "@prisma/client";
 
@@ -30,6 +30,8 @@ const MobileHeader = ({ routes, talent }: MobileHeaderProps) => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const { isSignedIn } = useAuth();
+  const router = useRouter();
+  const { onOpen } = useSignInAlertStore();
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -56,18 +58,18 @@ const MobileHeader = ({ routes, talent }: MobileHeaderProps) => {
           ))}
 
           {!talent ? (
-            <Link
-              href={isSignedIn ? "/talent-form" : "/sign-in"}
-              className={cn(
-                buttonVariants({
-                  variant: "outline",
-                  className: "flex font-semibold lg:hidden",
-                }),
-              )}
-              onClick={() => setIsOpen(false)}
+            <Button
+              className={
+                "mt-4 bg-gradient-to-tr from-violet-500 to-red-500 font-semibold transition hover:scale-105 lg:flex"
+              }
+              size={"sm"}
+              onClick={() => {
+                !isSignedIn ? onOpen() : router.push("/talent-form");
+                setIsOpen(false);
+              }}
             >
               Become Talent
-            </Link>
+            </Button>
           ) : (
             <Link
               href={`/profile/${talent.id}`}
