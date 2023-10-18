@@ -5,7 +5,7 @@ import { absoluteUrl } from "@/lib/utils";
 import prisma from "@/lib/client";
 
 export const dynamic = 'force-dynamic'
-const settingsUrl = absoluteUrl("/subscribe");
+const settingsUrl = absoluteUrl("/settings");
 
 export async function GET() {
   try {
