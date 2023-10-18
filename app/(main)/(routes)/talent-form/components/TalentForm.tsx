@@ -198,7 +198,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-12 space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-12 space-y-8 overflow-y-scroll">
         {initialData && (
           <AlertDialogCancel
             className="absolute right-0 top-0 border-0 p-2"
