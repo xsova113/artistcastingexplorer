@@ -76,7 +76,7 @@ const MobileHeader = ({ routes, talent }: MobileHeaderProps) => {
               className={cn(
                 buttonVariants({
                   variant: "outline",
-                  className: "flex font-semibold lg:hidden",
+                  className: "mt-4 flex font-semibold lg:hidden",
                 }),
               )}
               onClick={() => setIsOpen(false)}

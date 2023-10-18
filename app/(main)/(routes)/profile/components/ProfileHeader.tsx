@@ -23,7 +23,7 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
   const { userId, orgRole } = useAuth();
 
   return (
-    <div className="flex items-start gap-4">
+    <div className="flex items-start gap-4 mt-12">
       <div className="relative flex h-[125px] w-[125px]">
         <Image
           src={talent.images[0].url}
