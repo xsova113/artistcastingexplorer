@@ -38,7 +38,7 @@ const JapLanguageFormField = ({ form }: JapLanguageFormFieldProps) => {
               <SelectTrigger disabled={form.formState.isSubmitting}>
                 <SelectValue
                   defaultValue={field.value}
-                  placeholder="Select a english level"
+                  placeholder="Select a Japanese level"
                 />
               </SelectTrigger>
             </FormControl>
