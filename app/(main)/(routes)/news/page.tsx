@@ -19,7 +19,7 @@ const NewsPage = () => {
     try {
       setIsLoading(true);
       const response = await axios.get(
-        "https://castingjapanese.ca/wp-json/wp/v2/posts",
+        "https://artistcastingexplorer.com/wp-json/wp/v2/posts",
       );
 
       setPosts(response.data);
@@ -37,7 +37,7 @@ const NewsPage = () => {
   const fetchCategories = useCallback(async () => {
     try {
       const response = await axios.get(
-        "https://castingjapanese.ca/wp-json/wp/v2/categories",
+        "https://artistcastingexplorer.com/wp-json/wp/v2/categories",
       );
 
       setCategories(response.data);

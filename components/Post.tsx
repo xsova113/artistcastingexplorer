@@ -23,7 +23,7 @@ const Post = ({ postId }: NewPostProps) => {
 
   const fetchPost = async () => {
     const response = await axios.get(
-      `https://castingjapanese.ca/wp-json/wp/v2/posts/${postId}`,
+      `https://artistcastingexplorer.com/wp-json/wp/v2/posts/${postId}`,
     );
 
     return response.data;
@@ -39,7 +39,7 @@ const Post = ({ postId }: NewPostProps) => {
     if (!post) return;
 
     const response = await axios.get(
-      `https://castingjapanese.ca/wp-json/wp/v2/users/${post.author}`,
+      `https://artistcastingexplorer.com/wp-json/wp/v2/users/${post.author}`,
     );
     setAuthor(response.data);
     return response.data;

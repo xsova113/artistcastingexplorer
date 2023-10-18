@@ -9,11 +9,11 @@ import Link from "next/link";
 
 const InterviewSection = async () => {
   const { data: posts } = await axios.get(
-    "https://castingjapanese.ca/wp-json/wp/v2/posts",
+    "https://artistcastingexplorer.com/wp-json/wp/v2/posts",
   );
 
   const { data: categories } = await axios.get(
-    "https://castingjapanese.ca/wp-json/wp/v2/categories",
+    "https://artistcastingexplorer.com/wp-json/wp/v2/categories",
   );
 
   const interviewCategory: Category = categories.find(
