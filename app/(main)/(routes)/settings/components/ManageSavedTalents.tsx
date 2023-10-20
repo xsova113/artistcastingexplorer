@@ -1,32 +1,24 @@
 import Stack from "@/components/Stack";
-import { UserSavedTalentType } from "../../directory/components/TalentCard";
 import { DataTable } from "./DataTable";
 import { columns } from "./Columns";
 import prisma from "@/lib/client";
+import { auth } from "@clerk/nextjs";
 
-interface ManageSavedTalentsProps {
-  savedTalents?: UserSavedTalentType | void | null;
-}
+const ManageSavedTalents = async () => {
+  const { userId } = auth();
 
-const ManageSavedTalents = async ({
-  savedTalents,
-}: ManageSavedTalentsProps) => {
-  const savedTalentProfiles = await prisma.talentProfile.findMany({
-    where: {
-      id: {
-        in: savedTalents?.savedTalents.map(
-          (talent) => talent.talentProfileId as string,
-        ),
-      },
-    },
-    include: {
-      images: true,
-      location: true,
-      performerType: true,
-    },
-  });
+  const savedTalents = !userId
+    ? []
+    : await prisma.talentProfile.findMany({
+        where: { savedByUsers: { some: { userId } } },
+        include: {
+          images: true,
+          performerType: true,
+          location: true,
+        },
+      });
 
-  const formattedData = savedTalentProfiles.map((talent) => ({
+  const formattedData = savedTalents.map((talent) => ({
     id: talent.id,
     name: talent.firstName + " " + talent.lastName,
     image: talent.images.map((img) => img.url)[0],
@@ -37,7 +29,7 @@ const ManageSavedTalents = async ({
   return (
     <Stack>
       <h1 className="text-xl font-medium">Saved Talents</h1>
-      <DataTable columns={columns} data={!savedTalents ? [] : formattedData} />
+      <DataTable columns={columns} data={formattedData} />
     </Stack>
   );
 };

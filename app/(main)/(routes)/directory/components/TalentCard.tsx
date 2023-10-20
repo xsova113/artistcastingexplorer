@@ -1,7 +1,5 @@
 "use client";
 
-import { fetchSavedTalents } from "@/actions/fetchSavedTalents";
-import createSavedTalents from "@/actions/createSavedtalents";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -12,17 +10,23 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
-import { City, Province, SavedTalent, UserSavedTalent } from "@prisma/client";
+import {
+  City,
+  Province,
+  SavedByUser,
+  SavedTalent,
+  UserSavedTalent,
+} from "@prisma/client";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import { updateSavedTalents } from "@/actions/updateSavedTalents";
-import { removeSavedTalents } from "@/actions/removeSavedTalents";
+import { useEffect, useState } from "react";
+import { saveTalentByUser } from "./saveTalentByUser";
+import { toast } from "sonner";
+import { removeTalentByUser } from "@/actions/removeTalentByUser";
 
 interface TalentCardProps {
   name: string;
@@ -39,8 +43,7 @@ interface TalentCardProps {
   setIsSaving?: (loading: boolean) => void;
   setSelectedTalentId: (value: any) => void;
   selectedTalentId?: string[];
-  UserSavedTalent?: UserSavedTalentType;
-  fetchUserSavedTalent: () => void;
+  savedByUsers?: SavedByUser[];
 }
 
 export type UserSavedTalentType = UserSavedTalent & {
@@ -61,13 +64,14 @@ const TalentCard = ({
   setSelectedTalentId,
   discoverSection,
   selectedTalentId,
-  UserSavedTalent,
-  fetchUserSavedTalent,
+  savedByUsers,
 }: TalentCardProps) => {
   const [loading, setLoading] = useState(false);
-  const [favouritedTalent, setFavouritedTalent] =
-    useState<UserSavedTalentType>();
   const [isMounted, setIsMounted] = useState(false);
+  const isTalentSaved = savedByUsers
+    ?.map((user) => user.userId)
+    .includes(userId!);
+  const [isSaved, setIsSaved] = useState(isTalentSaved);
   const router = useRouter();
 
   const onSave = async () => {
@@ -75,52 +79,28 @@ const TalentCard = ({
       setLoading(true);
 
       if (!userId) {
-        return toast({
-          title: "Action failed",
-          description: "Please login to save a talent.",
-        });
+        return toast.error("Please login to save a talent");
       }
 
-      // If UserSavedTalent doesn't exist, create it
-      if (!UserSavedTalent) {
-        await createSavedTalents([data.id]);
-      } else if (
-        !UserSavedTalent?.savedTalents
-          .map((talent) => talent.talentProfileId)
-          .includes(data.id)
-      ) {
-        // If UserSavedTalents exist but savedTalents ID not found, update it
-        await updateSavedTalents([data.id]);
+      if (!selectedTalentId) return toast.error("No talents selected");
+
+      if (!savedByUsers?.map((user) => user.userId).includes(userId)) {
+        const response = await saveTalentByUser({ talentIds: [data.id] });
+        setIsSaved(true);
+        toast.success(response.message);
       } else {
-        // If UserSavedTalent's savedTalent ID exists already, delete it
-        await removeSavedTalents([data.id]);
+        const response = await removeTalentByUser({ talentIds: [data.id] });
+        setIsSaved(false);
+        toast.success(response.message);
       }
 
       router.refresh();
     } catch (error: any) {
-      toast({
-        title: "Error favouriting talents",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
   };
-
-  const getSavedTalents = useCallback(async () => {
-    const response = await fetchSavedTalents();
-    if (!response) return console.log("No savedTalents found");
-
-    setFavouritedTalent(response);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading]);
-
-  useEffect(() => {
-    getSavedTalents();
-    fetchUserSavedTalent();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getSavedTalents, isSaving]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -187,9 +167,7 @@ const TalentCard = ({
           <Heart
             size={20}
             className={cn(
-              favouritedTalent?.savedTalents
-                .map((talent) => talent.talentProfileId)
-                .includes(data.id) && "fill-red-500 text-red-500",
+              isSaved && "fill-red-500 text-red-500",
               loading && "scale-75",
               "transition hover:opacity-50",
             )}

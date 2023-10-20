@@ -4,6 +4,7 @@ import {
   Image,
   Location,
   PerformerType,
+  SavedByUser,
   Skill,
   TalentProfile,
   Video,
@@ -17,4 +18,5 @@ export type TalentProfileType = TalentProfile & {
   gender: Gender;
   skills: Skill[];
   credits: Credit[];
+  savedByUsers?: SavedByUser[]
 };

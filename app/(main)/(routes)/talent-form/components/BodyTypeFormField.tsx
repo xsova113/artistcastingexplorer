@@ -33,7 +33,7 @@ import {
               onValueChange={field.onChange}
               disabled={form.formState.isSubmitting}
               defaultValue={field.value}
-              value={field.value.toLowerCase()}
+              value={field.value}
             >
               <FormControl>
                 <SelectTrigger disabled={form.formState.isSubmitting}>

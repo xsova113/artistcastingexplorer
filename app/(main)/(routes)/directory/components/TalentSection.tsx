@@ -1,7 +1,7 @@
 "use client";
 
 import Stack from "@/components/Stack";
-import TalentCard, { UserSavedTalentType } from "./TalentCard";
+import TalentCard from "./TalentCard";
 import { SetStateAction, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -9,14 +9,12 @@ import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@clerk/nextjs";
-import { toast } from "@/components/ui/use-toast";
-import createSavedTalents from "@/actions/createSavedtalents";
-import { findUserSavedTalent } from "@/actions/findUserSavedTalent";
-import { updateSavedTalents } from "@/actions/updateSavedTalents";
-import { removeSavedTalents } from "@/actions/removeSavedTalents";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import SortForm from "./SortForm";
 import SelectItemsPerPage from "./SelectItemsPerPage";
+import { saveTalentByUser } from "./saveTalentByUser";
+import { removeTalentByUser } from "@/actions/removeTalentByUser";
 
 interface TalentSectionProps {
   talents: TalentProfileType[];
@@ -28,14 +26,9 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
   const [selectedTalentId, setSelectedTalentId] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [UserSavedTalent, setUserSavedTalent] = useState<UserSavedTalentType>();
   const [itemsPerPage, setItemsPerPage] = useState(12);
   const pageCount = Math.ceil(talents.length / itemsPerPage);
   const router = useRouter();
-
-  useEffect(() => {
-    setTotalPages(Math.ceil(talents.length / itemsPerPage));
-  }, [itemsPerPage, talents.length]);
 
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -47,54 +40,19 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
     setCurrentPage(selectedPage.selected);
   };
 
-  const fetchUserSavedTalent = async () => {
-    const response = await findUserSavedTalent();
-    if (!response) return console.log("No UserSavedTalent found");
-    setUserSavedTalent(response);
-  };
-
   const onBulkSave = async () => {
     try {
       setIsSaving(true);
 
       if (!userId) {
-        return toast({
-          title: "Action failed",
-          description: "Please login to save a talent.",
-        });
+        return toast.error("Please login to save a talent.");
       }
 
-      if (!UserSavedTalent) {
-        toast({
-          title: "Action saved",
-          description: "Talents saved successfully",
-        });
-
-        router.refresh();
-        return await createSavedTalents(selectedTalentId);
-      }
-
-      // If UserSavedTalents exist but savedTalents ID not found, update it
-      const unSavedTalentIds = selectedTalentId.filter(
-        (id) =>
-          !UserSavedTalent.savedTalents
-            .map((talent) => talent.talentProfileId)
-            .includes(id),
-      );
-
+      const response = await saveTalentByUser({ talentIds: selectedTalentId });
+      toast.success(response.message);
       router.refresh();
-      await updateSavedTalents(unSavedTalentIds);
-
-      toast({
-        title: "Action saved",
-        description: "Talents saved successfully",
-      });
     } catch (error: any) {
-      toast({
-        title: "Error favouriting talents",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast.error(error.message);
     } finally {
       setIsSaving(false);
     }
@@ -105,33 +63,24 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
       setIsSaving(true);
 
       if (!userId) {
-        return toast({
-          title: "Action failed",
-          description: "Please login to save a talent.",
-        });
+        return toast.error("Please login to save a talent.");
       }
 
+      const response = await removeTalentByUser({
+        talentIds: selectedTalentId,
+      });
+      toast.success(response.message);
       router.refresh();
-      await removeSavedTalents(selectedTalentId);
-
-      toast({
-        title: "Action saved",
-        description: "Talents saved successfully",
-      });
     } catch (error: any) {
-      toast({
-        title: "Error favouriting talents",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast.error(error.message);
     } finally {
       setIsSaving(false);
     }
   };
 
   useEffect(() => {
-    fetchUserSavedTalent();
-  }, [isSaving]);
+    setTotalPages(Math.ceil(talents.length / itemsPerPage));
+  }, [itemsPerPage, talents.length]);
 
   return (
     <Stack className="mx-auto w-full max-w-screen-lg items-center bg-white pb-24">
@@ -155,7 +104,7 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
               size={"sm"}
               variant={"outline"}
             >
-              Bulk Remove
+              Bulk Unsave
             </Button>
           </div>
           <SelectItemsPerPage
@@ -192,8 +141,7 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
               setIsSaving={setIsSaving}
               setSelectedTalentId={setSelectedTalentId}
               userId={userId}
-              UserSavedTalent={UserSavedTalent}
-              fetchUserSavedTalent={fetchUserSavedTalent}
+              savedByUsers={item.savedByUsers}
             />
           ))}
         </div>

@@ -1,4 +1,3 @@
-import { findUserSavedTalent } from "@/actions/findUserSavedTalent";
 import { Separator } from "@/components/ui/separator";
 import { checkSubscription } from "@/lib/subscription";
 import ManageSubscription from "./components/ManageSubscription";
@@ -10,7 +9,6 @@ import checkTalent from "@/lib/checkTalent";
 
 const SettingsPage = async () => {
   const isPremium = await checkSubscription();
-  const savedTalents = await findUserSavedTalent();
   const savedFilter = await fetchSavedFilter();
   const talent = await checkTalent();
 
@@ -34,7 +32,7 @@ const SettingsPage = async () => {
           talent={talent}
         />
         <Separator className="my-8" />
-        <ManageSavedTalents savedTalents={savedTalents} />
+        <ManageSavedTalents />
       </Stack>
     </section>
   );

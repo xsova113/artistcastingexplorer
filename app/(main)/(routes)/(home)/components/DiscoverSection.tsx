@@ -3,11 +3,8 @@
 import Stack from "@/components/Stack";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import TalentCard, {
-  UserSavedTalentType,
-} from "../../directory/components/TalentCard";
+import TalentCard from "../../directory/components/TalentCard";
 import { TalentProfileType } from "@/types/talentProfileType";
-import { findUserSavedTalent } from "@/actions/findUserSavedTalent";
 import { useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 
@@ -18,12 +15,6 @@ interface DiscoverSectionProps {
 const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
   const { userId } = useAuth();
   const [selectedTalentId, setSelectedTalentId] = useState<string[]>([]);
-  const [UserSavedTalent, setUserSavedTalent] = useState<UserSavedTalentType>();
-  const fetchUserSavedTalent = async () => {
-    const response = await findUserSavedTalent();
-    if (!response) return console.log("No UserSavedTalent found");
-    setUserSavedTalent(response);
-  };
   const approvedTalents = talents?.filter(
     (talent) => talent.isApproved === true,
   );
@@ -35,7 +26,7 @@ const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
       </h1>
       <p className="text-center">You can find latest profiles here</p>
 
-      <div className="flex flex-wrap justify-center gap-4 md:gap-8 transition-all">
+      <div className="flex flex-wrap justify-center gap-4 transition-all md:gap-8">
         {approvedTalents
           ?.slice(0, 4)
           .map((item) => (
@@ -59,9 +50,8 @@ const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
               }
               setSelectedTalentId={setSelectedTalentId}
               userId={userId}
-              UserSavedTalent={UserSavedTalent}
-              fetchUserSavedTalent={fetchUserSavedTalent}
               discoverSection
+              savedByUsers={item.savedByUsers}
             />
           ))}
       </div>

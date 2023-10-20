@@ -31,6 +31,7 @@ const Header = () => {
   const [talent, setTalent] = useState<TalentProfile>();
   const show = useScrollTrigger();
   const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
 
   const checkIsTalent = async () => {
     const talent = await checkTalent();
@@ -39,7 +40,10 @@ const Header = () => {
 
   useEffect(() => {
     checkIsTalent();
+    setIsMounted(true);
   }, [isSignedIn]);
+
+  if (!isMounted) return null;
 
   return (
     <header

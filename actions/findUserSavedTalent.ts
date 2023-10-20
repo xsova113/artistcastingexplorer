@@ -8,12 +8,12 @@ export const findUserSavedTalent = async () => {
 
   if (!user?.id || !user) return null;
 
-  const userSavedTalent = await prisma.userSavedTalent.findUnique({
+  const userSavedTalent = await prisma.talentProfile.findUnique({
     where: {
       userId: user.id,
     },
     include: {
-      savedTalents: true,
+      savedByUsers: true,
     },
   });
 

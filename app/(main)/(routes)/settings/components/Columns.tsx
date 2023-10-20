@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { removeSavedTalents } from "@/actions/removeSavedTalents";
+import { removeTalentByUser } from "@/actions/removeTalentByUser";
 
 export type SavedTalent = {
   id: string;
@@ -108,7 +109,7 @@ export const columns: ColumnDef<SavedTalent>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={async () => {
-                await removeSavedTalents([talent.id]);
+                await removeTalentByUser({ talentIds: [talent.id] });
                 window.location.reload();
               }}
             >

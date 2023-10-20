@@ -38,6 +38,7 @@ export const createTalent = async (
           skills: { createMany: { data: values.skills } },
           middleName: values.middleName,
           stageName: values.stageName,
+          savedByUsers: {},
           images: {
             createMany: {
               data: values.images.map((image) => ({

@@ -9,11 +9,11 @@ import Link from "next/link";
 
 const NewSection = async () => {
   const { data: posts } = await axios.get(
-    "https://artistcastingexplorer.com/wp-json/wp/v2/posts",
+    "https://castingjapanese.ca/wp-json/wp/v2/posts",
   );
 
   const { data: categories } = await axios.get(
-    "https://artistcastingexplorer.com/wp-json/wp/v2/categories",
+    "https://castingjapanese.ca/wp-json/wp/v2/categories",
   );
 
   const newsCategory: Category = categories.find(

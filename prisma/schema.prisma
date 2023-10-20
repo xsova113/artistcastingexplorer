@@ -45,6 +45,18 @@ model TalentProfile {
   location        Location      @relation(fields: [locationId], references: [id])
   locationId      String        @db.ObjectId
   union           String?
+  savedByUsers    SavedByUser[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SavedByUser {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String
+
+  TalentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
+  talentProfileId String        @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

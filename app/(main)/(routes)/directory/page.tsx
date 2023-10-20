@@ -1,12 +1,10 @@
 "use client";
 
 import HeroSection from "@/components/HeroSection";
-import SeenOn from "./components/SeenOn";
 import TalentSection from "./components/TalentSection";
 import SubscribePremium from "./components/SubscribePremium";
 import { getTalents } from "@/actions/getTalents";
 import FilterAccordian from "./components/FilterAccordian";
-import DIrectoryCards from "./components/DIrectoryCards";
 import Stack from "@/components/Stack";
 import { useSortStore } from "@/hooks/useSortStore";
 import { useSearchParams } from "next/navigation";

@@ -3,7 +3,6 @@
 import prisma from "@/lib/client";
 import { sendEmail } from "@/lib/sendgrid";
 import { auth } from "@clerk/nextjs";
-import { getTalentUser } from "./getTalentUser";
 
 export const approveTalent = async (id: string[]) => {
   const { userId } = auth();
