@@ -23,10 +23,13 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { saveTalentByUser } from "./saveTalentByUser";
 import { toast } from "sonner";
 import { removeTalentByUser } from "@/actions/removeTalentByUser";
+import prisma from "@/lib/client";
+import { useAuth } from "@clerk/nextjs";
+import { fetchSavedByUser } from "@/actions/fetchSavedByUser";
 
 interface TalentCardProps {
   name: string;
@@ -64,15 +67,22 @@ const TalentCard = ({
   setSelectedTalentId,
   discoverSection,
   selectedTalentId,
-  savedByUsers,
 }: TalentCardProps) => {
   const [loading, setLoading] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const isTalentSaved = savedByUsers
-    ?.map((user) => user.userId)
-    .includes(userId!);
-  const [isSaved, setIsSaved] = useState(isTalentSaved);
+  const [savedByUsers, setSavedByUsers] = useState<SavedByUser[]>();
   const router = useRouter();
+
+  const fetchSavedTalents = useCallback(async () => {
+    const savedByUser = await fetchSavedByUser(id);
+    setSavedByUsers(savedByUser);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, isSaving, loading]);
+
+  useEffect(() => {
+    fetchSavedTalents();
+  }, [fetchSavedTalents]);
 
   const onSave = async () => {
     try {
@@ -86,11 +96,9 @@ const TalentCard = ({
 
       if (!savedByUsers?.map((user) => user.userId).includes(userId)) {
         const response = await saveTalentByUser({ talentIds: [data.id] });
-        setIsSaved(true);
         toast.success(response.message);
       } else {
         const response = await removeTalentByUser({ talentIds: [data.id] });
-        setIsSaved(false);
         toast.success(response.message);
       }
 
@@ -167,7 +175,8 @@ const TalentCard = ({
           <Heart
             size={20}
             className={cn(
-              isSaved && "fill-red-500 text-red-500",
+              savedByUsers?.map((user) => user.userId).includes(userId!) &&
+                "fill-red-500 text-red-500",
               loading && "scale-75",
               "transition hover:opacity-50",
             )}

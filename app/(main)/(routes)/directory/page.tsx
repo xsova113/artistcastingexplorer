@@ -109,8 +109,6 @@ const DirectoryPage = () => {
         title={"Discover Top Japanese Talents"}
         description="Your Ultimate Resource for Hiring Success!"
       />
-      {/* <SeenOn /> */}
-      {/* <DIrectoryCards /> */}
       <Stack className="mx-auto">
         <h1 className="text-3xl font-semibold lg:text-4xl mt-24">Talents</h1>
         <div className="mx-auto mb-12 mt-8 w-full border-b-2 border-primary" />
