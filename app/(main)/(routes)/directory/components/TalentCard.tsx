@@ -27,8 +27,6 @@ import { useCallback, useEffect, useState } from "react";
 import { saveTalentByUser } from "./saveTalentByUser";
 import { toast } from "sonner";
 import { removeTalentByUser } from "@/actions/removeTalentByUser";
-import prisma from "@/lib/client";
-import { useAuth } from "@clerk/nextjs";
 import { fetchSavedByUser } from "@/actions/fetchSavedByUser";
 
 interface TalentCardProps {
