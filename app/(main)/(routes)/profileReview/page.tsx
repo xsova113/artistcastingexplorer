@@ -30,7 +30,7 @@ const ProfileReviewPage = async ({ searchParams }: ProfileReviewPageProps) => {
         <FilterReview />
         <Link
           href={"/profileReview/createProfile"}
-          className={buttonVariants({ className: "w-fit -mb-10" })}
+          className={buttonVariants({ className: "-mb-10 w-fit" })}
         >
           Create Profile
         </Link>

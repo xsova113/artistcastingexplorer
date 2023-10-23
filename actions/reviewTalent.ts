@@ -27,7 +27,6 @@ export const approveTalent = async (id: string[]) => {
     await sendEmail({
       to: talents.map((talent) => talent.email),
       subject: "Your profile has been reviewed",
-      text: "Your talent profile has been approved!",
       templateId: "d-26f1d7a5bc7c44e19accd7acb237c87a",
     });
 
@@ -60,7 +59,6 @@ export const rejectTalent = async (id: string[]) => {
     await sendEmail({
       to: talents.map((talent) => talent.email),
       subject: "Your profile has been reviewed",
-      text: "Your talent profile has been rejected!",
       templateId: "d-3a18e65171de47a897844df4db1d9d6f",
     });
 

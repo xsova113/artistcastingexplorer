@@ -7,7 +7,7 @@ import Stack from "@/components/Stack";
 import ReactPaginate from "react-paginate";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useSortStore } from "@/hooks/useSortStore";
-import SortForm from "../../directory/components/SortForm";
+import SortForm from "../../directory/_components/SortForm";
 import { Button } from "@/components/ui/button";
 import { useReviewStore } from "@/hooks/useReviewStore";
 

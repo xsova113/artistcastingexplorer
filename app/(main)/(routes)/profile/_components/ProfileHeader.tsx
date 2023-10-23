@@ -13,6 +13,9 @@ import { FaXTwitter } from "react-icons/fa6";
 import { Instagram, LinkIcon, Youtube } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { useContactModalStore } from "@/hooks/useContactModalStore";
+import useSignInAlertStore from "@/hooks/useSignInAlertStore";
 
 interface ProfileHeaderProps {
   talentUser: User;
@@ -20,10 +23,12 @@ interface ProfileHeaderProps {
 }
 
 const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
-  const { userId, orgRole } = useAuth();
+  const { userId, orgRole, isSignedIn } = useAuth();
+  const { setOpen, setTalent } = useContactModalStore();
+  const { onOpen } = useSignInAlertStore();
 
   return (
-    <div className="flex items-start gap-4 mt-12">
+    <div className="mt-12 flex items-start gap-4">
       <div className="relative flex h-[125px] w-[125px]">
         <Image
           src={talent.images[0].url}
@@ -134,9 +139,23 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
             )}
           </div>
 
-          {(orgRole === "admin" || userId === talentUser.id) && (
-            <TalentFormModal talentUser={talentUser} talent={talent} />
-          )}
+          <div className="flex gap-x-2">
+            {(orgRole === "admin" || userId === talentUser.id) && (
+              <TalentFormModal talentUser={talentUser} talent={talent} />
+            )}
+            {userId !== talentUser.id && isSignedIn && (
+              <Button
+                size={"sm"}
+                onClick={() => {
+                  if (!isSignedIn) return onOpen;
+                  setOpen(true);
+                  setTalent({ name: talent.firstName, email: talent.email });
+                }}
+              >
+                Contact
+              </Button>
+            )}
+          </div>
         </div>
       </Stack>
     </div>

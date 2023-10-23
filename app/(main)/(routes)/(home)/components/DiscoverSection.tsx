@@ -3,7 +3,7 @@
 import Stack from "@/components/Stack";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import TalentCard from "../../directory/components/TalentCard";
+import TalentCard from "../../directory/_components/TalentCard";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { useState } from "react";
 import { useAuth } from "@clerk/nextjs";
@@ -52,6 +52,7 @@ const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
               userId={userId}
               discoverSection
               savedByUsers={item.savedByUsers}
+              email={item.email}
             />
           ))}
       </div>

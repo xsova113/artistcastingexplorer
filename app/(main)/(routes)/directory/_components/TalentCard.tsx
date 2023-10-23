@@ -28,6 +28,9 @@ import { saveTalentByUser } from "./saveTalentByUser";
 import { toast } from "sonner";
 import { removeTalentByUser } from "@/actions/removeTalentByUser";
 import { fetchSavedByUser } from "@/actions/fetchSavedByUser";
+import { useContactModalStore } from "@/hooks/useContactModalStore";
+import useSignInAlertStore from "@/hooks/useSignInAlertStore";
+import { useAuth } from "@clerk/nextjs";
 
 interface TalentCardProps {
   name: string;
@@ -45,6 +48,7 @@ interface TalentCardProps {
   setSelectedTalentId: (value: any) => void;
   selectedTalentId?: string[];
   savedByUsers?: SavedByUser[];
+  email: string;
 }
 
 export type UserSavedTalentType = UserSavedTalent & {
@@ -64,12 +68,16 @@ const TalentCard = ({
   userId,
   setSelectedTalentId,
   discoverSection,
+  email,
   selectedTalentId,
 }: TalentCardProps) => {
   const [loading, setLoading] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [savedByUsers, setSavedByUsers] = useState<SavedByUser[]>();
   const router = useRouter();
+  const { setTalent, setOpen } = useContactModalStore();
+  const { onOpen } = useSignInAlertStore();
+  const { isSignedIn } = useAuth();
 
   const fetchSavedTalents = useCallback(async () => {
     const savedByUser = await fetchSavedByUser(id);
@@ -183,6 +191,11 @@ const TalentCard = ({
         <div className="flex items-center gap-x-2">
           <Button
             className={cn("max-sm:text-xs", buttonVariants({ size: "sm" }))}
+            onClick={() => {
+              if (!isSignedIn) return onOpen();
+              setOpen(true);
+              setTalent({ name, email });
+            }}
           >
             Contact
           </Button>

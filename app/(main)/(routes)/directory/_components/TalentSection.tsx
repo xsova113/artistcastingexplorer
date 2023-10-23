@@ -142,6 +142,7 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
               setSelectedTalentId={setSelectedTalentId}
               userId={userId}
               savedByUsers={item.savedByUsers}
+              email={item.email}
             />
           ))}
         </div>

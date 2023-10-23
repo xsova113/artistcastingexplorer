@@ -5,14 +5,14 @@ import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { useCallback, useEffect, useState } from "react";
-import ProfileHeader from "../../profile/components/ProfileHeader";
+import ProfileHeader from "../../profile/_components/ProfileHeader";
 import { Separator } from "@/components/ui/separator";
-import TalentMedia from "../../profile/components/TalentMedia";
-import TalentBio from "../../profile/components/TalentBio";
+import TalentMedia from "../../profile/_components/TalentMedia";
+import TalentBio from "../../profile/_components/TalentBio";
 import { getTalentUser } from "@/actions/getTalentUser";
 import { User } from "@clerk/nextjs/server";
 import { cn } from "@/lib/utils";
-import CreditSection from "../../profile/components/CreditSection";
+import CreditSection from "../../profile/_components/CreditSection";
 
 interface TalentDetailSheetProps {
   talent: TalentProfileType;

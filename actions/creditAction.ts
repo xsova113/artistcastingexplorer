@@ -1,6 +1,6 @@
 "use server";
 
-import { CreditFormValues } from "@/app/(main)/(routes)/profile/components/CreditFormDialog";
+import { CreditFormValues } from "@/app/(main)/(routes)/profile/_components/CreditFormDialog";
 import prisma from "@/lib/client";
 import { auth } from "@clerk/nextjs";
 

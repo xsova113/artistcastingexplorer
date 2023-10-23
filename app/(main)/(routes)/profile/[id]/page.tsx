@@ -1,12 +1,12 @@
 import { getTalentProfile } from "@/actions/getTalentProfile";
-import ProfileHeader from "../components/ProfileHeader";
+import ProfileHeader from "../_components/ProfileHeader";
 import { auth, clerkClient } from "@clerk/nextjs";
 import Stack from "@/components/Stack";
 import { Separator } from "@/components/ui/separator";
-import TalentMedia from "../components/TalentMedia";
-import TalentBio from "../components/TalentBio";
+import TalentMedia from "../_components/TalentMedia";
+import TalentBio from "../_components/TalentBio";
 import { notFound, redirect } from "next/navigation";
-import CreditSection from "../components/CreditSection";
+import CreditSection from "../_components/CreditSection";
 
 interface ProfilePageProps {
   params: { id: string };

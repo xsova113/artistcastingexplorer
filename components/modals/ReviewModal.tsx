@@ -14,7 +14,7 @@ import { useReviewStore } from "@/hooks/useReviewStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { approveTalent, rejectTalent } from "@/actions/reviewTalent";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 const ReviewModal = () => {
   const { isOpen, onClose, type, talentIds } = useReviewStore();
@@ -22,39 +22,33 @@ const ReviewModal = () => {
   const router = useRouter();
 
   const onApprove = async () => {
-    try {
-      setIsLoading(true);
-      await approveTalent(talentIds);
+    setIsLoading(true);
+    const promise = approveTalent(talentIds);
 
-      toast({ title: "Approved", description: "Talent has been approved!" });
-      router.refresh();
-    } catch (error: any) {
-      toast({
-        title: "Something went wrong",
-        description: error.message,
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    toast.promise(promise, {
+      success: "Talent has been approved",
+      loading: "Approving...",
+      error: "Oops! Failed to approve...",
+      finally: () => {
+        setIsLoading(false);
+        router.refresh(); 
+      },
+    });
   };
 
   const onReject = async () => {
-    try {
-      setIsLoading(true);
-      await rejectTalent(talentIds);
+    setIsLoading(true);
+    const promise = rejectTalent(talentIds);
 
-      toast({ title: "Rejected", description: "Talent has been rejected!" });
-      router.refresh();
-    } catch (error: any) {
-      toast({
-        title: "Something went wrong",
-        description: error.message,
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    toast.promise(promise, {
+      success: "Talent has been rejected",
+      loading: "Rejecting...",
+      error: "Oops! Failed to reject...",
+      finally: () => {
+        setIsLoading(false);
+        router.refresh();
+      },
+    });
   };
 
   return (
