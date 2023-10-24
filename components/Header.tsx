@@ -21,6 +21,7 @@ const routes = [
   { name: "interviews", pathname: "/interviews" },
   { name: "subscribe", pathname: "/subscribe" },
   { name: "contact", pathname: "/contact" },
+  { name: "about", pathname: "/about" },
   { name: "settings", pathname: "/settings" },
 ];
 

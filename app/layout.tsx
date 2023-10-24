@@ -52,7 +52,7 @@ export default function RootLayout({
               <SignInAlertModal />
               <ReviewModal />
               <Header />
-              <div className="mb-16" />
+              <div className="mb-[74px]" />
               <NextSSRPlugin
                 routerConfig={extractRouterConfig(ourFileRouter)}
               />
