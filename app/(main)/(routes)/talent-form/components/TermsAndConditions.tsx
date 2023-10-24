@@ -1,5 +1,6 @@
 "use client";
 
+import TermsAndPrivacy from "@/components/TermsAndPrivacy";
 import { buttonVariants } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FormField, FormItem, FormLabel } from "@/components/ui/form";
@@ -29,22 +30,12 @@ const TermsAndConditions = ({ form }: TermsAndConditionsProps) => {
             <div className="grid gap-1.5 leading-none">
               <FormLabel
                 htmlFor="terms1"
-                className="flex gap-x-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                className="flex gap-x-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 Accept
-                <Link
-                  href={"#"}
-                  className="text-primary underline-offset-4 hover:underline"
-                >
-                  Terms & Conditions
-                </Link>
+                <TermsAndPrivacy terms />
                 and
-                <Link
-                  href={"#"}
-                  className="text-primary underline-offset-4 hover:underline"
-                >
-                  Privacy Policy
-                </Link>
+                <TermsAndPrivacy />
               </FormLabel>
               <p className="text-sm text-muted-foreground">
                 You agree to our Terms of Service and Privacy Policy.

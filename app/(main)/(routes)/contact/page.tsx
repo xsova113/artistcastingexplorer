@@ -22,13 +22,10 @@ import Link from "next/link";
 import { FaXTwitter } from "react-icons/fa6";
 
 const formSchema = z.object({
-  name: z.string().nonempty({ message: "This field is required" }),
-  email: z
-    .string()
-    .nonempty({ message: "This field is required" })
-    .regex(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, {
-      message: "Invalid email address",
-    }),
+  name: z.string().min(1, { message: "This field is required" }),
+  email: z.string().min(1, { message: "This field is required" }).email({
+    message: "Invalid email address",
+  }),
   message: z.string().min(1, { message: "This field is required" }),
 });
 
@@ -72,7 +69,7 @@ const ContactPage = () => {
               }}
               transition={{ duration: 0.5 }}
               method="POST"
-              action="https://formsubmit.co/bd17236c209884c56a9ed0aac12382b7"
+              action="https://formsubmit.co/info@artistcastingexplorer.com"
               onSubmit={onSubmit}
               className="w-full space-y-8"
             >
@@ -119,6 +116,7 @@ const ContactPage = () => {
                         transition={{ duration: 0.5, delay: 0.2 }}
                       >
                         <Input
+                          type="email"
                           placeholder="EMAIL"
                           {...field}
                           disabled={isSubmitting}
@@ -158,6 +156,11 @@ const ContactPage = () => {
                   </FormItem>
                 )}
               />
+              <input
+                type="hidden"
+                name="_subject"
+                value="New Contact Message!"
+              />
               <motion.div
                 variants={{
                   hidden: { opacity: 0, x: -50 },
@@ -195,7 +198,7 @@ const ContactPage = () => {
             <Stack className="gap-2">
               <h3 className="text-lg font-semibold">Email Us</h3>
               <span className="text-muted-foreground">
-                contact@example.com​
+                info@artistcastingexplorer.com
               </span>
             </Stack>
             <Stack className="gap-2">
