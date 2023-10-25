@@ -21,8 +21,8 @@ const font = Raleway({
 });
 
 export const metadata: Metadata = {
-  title: "Casting Japanese",
-  description: "Find Actors, Models, Entertainers",
+  title: "Artist Casting Explorer",
+  description: "Discover and connect with artists and creators",
 };
 
 export default function RootLayout({
