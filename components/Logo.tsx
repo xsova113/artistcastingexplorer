@@ -3,13 +3,8 @@ import Link from "next/link";
 
 const Logo = () => {
   return (
-    <Link href={"/"} className="relative h-11 w-40">
-      <Image
-        src={"/logo-no-background.png"}
-        alt={"logo"}
-        fill
-        className="object-contain"
-      />
+    <Link href={"/"} className="relative h-24 w-24 -my-1">
+      <Image src={"/logo.png"} fill alt={"logo"} className="object-contain" />
     </Link>
   );
 };

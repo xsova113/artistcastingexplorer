@@ -53,7 +53,7 @@ const Header = () => {
         !show && "-translate-y-28",
       )}
     >
-      <FlexBetween className="px-4 py-4">
+      <FlexBetween className="px-4">
         <Logo />
         <nav className="hidden gap-4 text-sm lg:flex">
           {routes.map((route) => (
