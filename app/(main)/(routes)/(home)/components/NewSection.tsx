@@ -30,12 +30,15 @@ const NewSection = async () => {
 
   return (
     <Stack className="mb-28 mt-10 w-full items-center gap-8">
-      <h1 className="text-2xl font-semibold capitalize lg:text-4xl">
-        News and Upcoming events
-      </h1>
-      <p className="text-center">
-        Explore here for details on artist appearances and more
-      </p>
+      <div className="flex flex-col gap-y-2">
+        <h1 className="text-2xl font-semibold capitalize lg:text-4xl">
+          News and Upcoming events
+        </h1>
+        <p className="text-center">
+          Explore here for details on artist appearances and more
+        </p>
+      </div>
+
       {!posts || posts.length === 0 ? (
         <p>Cannot load...</p>
       ) : (
@@ -45,7 +48,7 @@ const NewSection = async () => {
               key={post.id}
               title={post.title.rendered}
               author={post.uagb_author_info.display_name}
-              image={post.uagb_featured_image_src.medium[0]}
+              image={post.uagb_featured_image_src.large[0]}
               postId={post.id}
               path={"news"}
               date={post.date}

@@ -69,7 +69,7 @@ const ContactPage = () => {
               }}
               transition={{ duration: 0.5 }}
               method="POST"
-              action="https://formsubmit.co/info@artistcastingexplorer.com"
+              action="https://formsubmit.co/62eeff40bd1b93c9531e63016003bbe7"
               onSubmit={onSubmit}
               className="w-full space-y-8"
             >

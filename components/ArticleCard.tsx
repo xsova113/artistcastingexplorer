@@ -37,37 +37,39 @@ const ArticleCard = ({
 
   return (
     <Link href={`/${path}/${postId}`}>
-      <Card className="flex h-[400px] w-[330px] flex-col border-none shadow-none drop-shadow">
-        <div className={cn("relative h-full w-full", !image && "hidden")}>
-          <Image
-            src={image}
-            alt={"featured image"}
-            fill
-            className="rounded-t-lg object-cover"
-            loading="lazy"
-          />
-        </div>
-        <div className="mt-auto">
-          <CardHeader className="-mt-2 pb-2">
-            <CardTitle className="line-clamp-2 text-lg">{title}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 pb-4">
-            <p className="line-clamp-3 text-sm text-muted-foreground">
-              {content}
-            </p>
-            <div className="flex items-center justify-between">
-              <p className="text-sm">{author}</p>
-              <span className="text-xs">
-                {format(new Date(date), "MMMM dd, yyyy")}
-              </span>
-            </div>
-            <Link
-              href={`/${path}/${postId}`}
-              className="flex items-center text-sm font-bold underline-offset-4 hover:underline"
-            >
-              Read More <ChevronRight className="ml-2" size={18} />
-            </Link>
-          </CardContent>
+      <Card className="flex h-[400px] w-[330px] flex-col overflow-clip rounded-2xl border-none shadow-none drop-shadow">
+        <div className="flex h-full flex-col bg-gradient-to-b from-transparent to-black">
+          <div
+            className={cn("absolute -z-50 h-full w-full", !image && "hidden")}
+          >
+            <Image
+              src={image}
+              alt={"featured image"}
+              fill
+              className="object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div className="mt-auto">
+            <CardHeader className="pb-2 text-white">
+              <CardTitle className="line-clamp-2 text-lg">{title}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 pb-4 text-muted">
+              <p className="line-clamp-3 text-sm text-muted">{content}</p>
+              <div className="flex items-center justify-between">
+                <p className="text-sm">{author}</p>
+                <span className="text-xs">
+                  {format(new Date(date), "MMMM dd, yyyy")}
+                </span>
+              </div>
+              <Link
+                href={`/${path}/${postId}`}
+                className="flex items-center text-sm font-bold text-white underline-offset-4 hover:underline"
+              >
+                Read More <ChevronRight className="ml-2" size={18} />
+              </Link>
+            </CardContent>
+          </div>
         </div>
       </Card>
     </Link>

@@ -172,9 +172,9 @@ const TalentCard = ({
           </p>
         </CardContent>
       </div>
-      <CardFooter className="flex flex-col items-start bg-secondary p-2">
+      <CardFooter className="flex flex-col items-start justify-center bg-secondary p-2 md:flex-row-reverse md:items-center md:justify-end">
         <button
-          className="px-2 pb-2"
+          className="px-2 max-md:pb-2 md:ml-auto"
           onClick={onSave}
           disabled={loading || isSaving}
         >

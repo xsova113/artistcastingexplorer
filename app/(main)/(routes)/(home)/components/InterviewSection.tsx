@@ -30,10 +30,13 @@ const InterviewSection = async () => {
 
   return (
     <Stack className="mb-28 mt-10 w-full items-center gap-8">
-      <h1 className="text-2xl font-semibold capitalize lg:text-4xl">
-        Interview Articles
-      </h1>
-      <p className="text-center">Discover the latest stories here</p>
+      <div className="flex flex-col gap-y-2">
+        <h1 className="text-2xl font-semibold capitalize lg:text-4xl">
+          Interview Articles
+        </h1>
+        <p className="text-center">Discover the latest stories here</p>
+      </div>
+
       {!posts || posts.length === 0 ? (
         <p>Cannot load...</p>
       ) : (

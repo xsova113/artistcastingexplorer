@@ -1,4 +1,4 @@
-'use server'
+"use server";
 
 import sgMail from "@sendgrid/mail";
 
@@ -17,19 +17,22 @@ export const sendEmail = async ({
   templateId,
   message,
   name,
-  userEmail
+  userEmail,
 }: SendEmail) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
   try {
     await sgMail.sendMultiple({
       to,
       subject,
-      from: { name, email: "xsova113@gmail.com" },
+      from: {
+        name: "ArtistCastingExplorer",
+        email: "info@artistcastingexplorer.com",
+      },
       templateId,
       dynamicTemplateData: {
         name,
         message,
-        userEmail
+        userEmail,
       },
     });
     console.log(`Email sent to ${to}`);
