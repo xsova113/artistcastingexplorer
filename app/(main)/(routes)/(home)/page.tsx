@@ -1,10 +1,10 @@
-import DiscoverSection from "./components/DiscoverSection";
-import HeroSection from "./components/HeroSection";
+import DiscoverSection from "./_components/DiscoverSection";
+import HeroSection from "./_components/HeroSection";
 import NewsletterSection from "@/components/NewsletterSection";
-import ServiceSection from "./components/FeatureSection";
+import ServiceSection from "./_components/FeatureSection";
 import { getTalents } from "@/actions/getTalents";
-import NewSection from "./components/NewSection";
-import InterviewSection from "./components/InterviewSection";
+import NewSection from "./_components/NewSection";
+import InterviewSection from "./_components/InterviewSection";
 
 const HomePage = async () => {
   const talents = await getTalents();

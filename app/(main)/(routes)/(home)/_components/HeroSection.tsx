@@ -11,7 +11,7 @@ const HeroSection = () => {
       <ParallaxBannerLayer
         image="/hero.jpg"
         speed={-15}
-        className="opacity-60"
+        className="opacity-50"
       />
       <ParallaxBannerLayer className="flex w-full items-center bg-cover">
         <Stack className="mt-20 w-full text-center text-white lg:mt-32">

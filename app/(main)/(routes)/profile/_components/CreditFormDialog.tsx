@@ -25,9 +25,9 @@ import { useState } from "react";
 import { Credit, TalentProfile } from "@prisma/client";
 import { createCredit, updateCredit } from "@/actions/creditAction";
 import { useAuth } from "@clerk/nextjs";
-import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface CreditFormDialogProps {
   initialData?: Credit;
@@ -77,37 +77,23 @@ const CreditFormDialog = ({
 
   const onSubmit = async (values: z.infer<typeof CreditFormSchema>) => {
     try {
+      toast.loading("Submitting...");
       if (userId !== talent.userId)
-        return toast({
-          title: "Failed to submit",
-          description: "You are not authorized to submit the form",
-          variant: "destructive",
-        });
+        return toast.error("You are not authorized to submit this form");
 
-      if (!talent.id)
-        return toast({
-          title: "Error submitting",
-          description: "Talent ID is missing",
-          variant: "destructive",
-        });
+      if (!talent.id) return toast.error("Talent ID is missing...");
 
       if (
         initialData
           ? await updateCredit({ creditId: initialData.id, values })
           : await createCredit({ values, talentId: talent.id })
       )
-        toast({
-          title: "Success",
-          description: "You have successfully submitted the form",
-        });
+        toast.success("You have successfully submitted the form");
       setOpen(false);
       router.refresh();
     } catch (error: any) {
-      toast({
-        title: "Something went wrong",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast.error("Failed to submit the form");
+      console.log("Credit form submission error: " + error.message);
     } finally {
       if (!initialData) form.reset();
     }
