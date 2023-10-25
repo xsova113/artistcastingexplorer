@@ -18,11 +18,11 @@ import { HeightSelect } from "./HeightSelect";
 import SearchKeyword from "./SearchKeyword";
 import { useSortStore } from "@/hooks/useSortStore";
 import { checkSubscription } from "@/lib/subscription";
-import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import CreateSavedFilterModal from "@/components/modals/CreateSavedFilterModal";
 import checkTalent from "@/lib/checkTalent";
 import { TalentProfile } from "@prisma/client";
+import { toast } from "@/components/ui/use-toast";
 
 const FilterForm = () => {
   const router = useRouter();
@@ -50,6 +50,8 @@ const FilterForm = () => {
       keyword: "",
     },
   });
+
+  const city = form.watch("city");
 
   const onSubmit = (values: z.infer<typeof filterFormSchema>) => {
     if (
@@ -112,7 +114,7 @@ const FilterForm = () => {
         <div className="flex flex-wrap gap-4 p-1">
           <GenderSelect form={form} />
           <AgeSelect form={form} />
-          <LocationSelect form={form} />
+          <LocationSelect form={form} city={city} />
           <NameSelect form={form} />
           <RoleSelect form={form} />
           <HeightSelect form={form} />

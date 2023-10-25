@@ -19,6 +19,7 @@ import { useAuth } from "@clerk/nextjs";
 import { createSavedFilter } from "@/actions/createSavedFilter";
 import { useState } from "react";
 import checkTalent from "@/lib/checkTalent";
+import { toast as sonnerToast } from "sonner";
 
 const CreateSavedFilterModal = () => {
   const [open, setOpen] = useState(false);
@@ -57,17 +58,11 @@ const CreateSavedFilterModal = () => {
           description: "Please sign in to continue",
         });
 
-      await createSavedFilter({ name, queryPathname });
-      toast({
-        title: "Filter Saved",
-        description:
-          "Filter saved successfully, you can access it in the Settings",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Something went wrong",
-        description: error.message,
-        variant: "destructive",
+      const promise = createSavedFilter({ name, queryPathname });
+      sonnerToast.promise(promise, {
+        success: "Filter saved successfully, you can access it in the Settings",
+        loading: "Saving filter...",
+        error: "Something went wrong, failed to save the filter",
       });
     } finally {
       setLoading(false);
