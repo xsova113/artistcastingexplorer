@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import * as z from "zod";
-import { toast } from "@/components/ui/use-toast";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { talentFormSchema } from "@/lib/talentFormSchema";
 import Stack from "@/components/Stack";
@@ -52,6 +51,7 @@ import {
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BodyTypeFormField from "./BodyTypeFormField";
+import { toast } from "sonner";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
@@ -63,7 +63,6 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
   const [talentUser, setTalentUser] = useState<User>();
   const pathname = usePathname();
   const [filesToDelete, setFilesToDelete] = useState<string[]>([]);
-  const formRef = useRef<ElementRef<"form">>(null);
   const fetchTalentUser = useCallback(async () => {
     if (!initialData) return;
     const response = await getTalentUser(initialData.userId);
@@ -141,6 +140,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
 
   async function onSubmit(values: z.infer<typeof talentFormSchema>) {
     try {
+      toast.loading("Submitting...");
       if (initialData) {
         if (orgRole === "admin") {
           await updateTalent(values, talentUser?.id);
@@ -159,17 +159,10 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
         window.location.replace(`/profile/${newTalent.id}`);
       }
 
-      toast({
-        title: "Success",
-        description: toastMessage,
-        variant: "success",
-      });
+      toast.success(toastMessage);
     } catch (error: any) {
-      toast({
-        title: "Error Submitting",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast.error("Failed to submit profile form");
+      console.log("Error submitting talent form: " + error.message);
     }
   }
 
