@@ -56,8 +56,6 @@ export type UserSavedTalentType = UserSavedTalent & {
 };
 
 const TalentCard = ({
-  ageMin,
-  ageMax,
   image,
   location,
   name,

@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/client";
+import { sendEmail } from "@/lib/sendgrid";
 import { TalentFormValues } from "@/lib/talentFormSchema";
 import { TalentProfile } from "@prisma/client";
 
@@ -73,6 +74,16 @@ export const createTalent = async (
             },
           },
         },
+      });
+
+      if (!talent) throw new Error("Faild to create a new profile.");
+
+      await sendEmail({
+        subject: "New Talent Form Sign Up",
+        to: ["info@artistcastingexplorer.com", "xsova113@gmail.com"],
+        templateId: "d-790443c21bc24d789de4142aac5b25ea",
+        name: values.firstName + " " + values.lastName,
+        userEmail: values.email,
       });
 
       return talent;
