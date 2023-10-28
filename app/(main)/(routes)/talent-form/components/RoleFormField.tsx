@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { talentFormSchema } from "@/lib/talentFormSchema";
 import { Role } from "@prisma/client";
 import { UseFormReturn } from "react-hook-form";
@@ -22,6 +23,7 @@ interface RoleFormFieldProps {
 }
 
 const RoleFormField = ({ form }: RoleFormFieldProps) => {
+  const isLargeScreen = useMediaQuery("(min-width: 640px)");
   return (
     <FormField
       control={form.control}
@@ -44,7 +46,7 @@ const RoleFormField = ({ form }: RoleFormFieldProps) => {
                 />
               </SelectTrigger>
             </FormControl>
-            <SelectContent>
+            <SelectContent side={isLargeScreen ? "right" : "bottom"}>
               {Object.keys(Role).map((item) => (
                 <SelectItem key={item} value={item} className="capitalize">
                   {item.toLowerCase().replaceAll("_", " ")}
