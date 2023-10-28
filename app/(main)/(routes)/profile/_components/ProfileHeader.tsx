@@ -37,7 +37,6 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
           className="rounded-full object-cover"
         />
       </div>
-      {orgRole}
       <Stack className="gap-4">
         <h1 className="items- flex flex-col gap-x-4 gap-y-1 text-2xl font-semibold md:flex-row">
           {talent.firstName} {talent.lastName}

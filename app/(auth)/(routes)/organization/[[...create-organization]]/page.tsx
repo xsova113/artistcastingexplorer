@@ -4,12 +4,7 @@ import { notFound } from "next/navigation";
 const CreateOrganizationPage = async () => {
   const { userId, orgRole } = auth();
 
-  if (
-    userId !== process.env.ADMIN_ID1 &&
-    userId !== process.env.ADMIN_ID2 &&
-    orgRole !== "admin"
-  )
-    notFound();
+  if (userId !== process.env.ADMIN_ID1) notFound();
 
   return <CreateOrganization />;
 };
