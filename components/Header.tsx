@@ -100,7 +100,7 @@ const Header = () => {
             )
           )}
           {isSignedIn ? (
-            <UserButton afterSignOutUrl="/" />
+            <UserButton />
           ) : (
             <SignInButton mode="modal">
               <Button size={"sm"} variant={"outline"}>
