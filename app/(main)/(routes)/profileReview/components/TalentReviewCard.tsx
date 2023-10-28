@@ -74,7 +74,9 @@ const TalentReviewCard = ({
 
       <CardHeader className="p-2">
         <CardTitle className="text-md flex w-full items-center sm:text-lg">
-          {talent.firstName} {talent.lastName}
+          {talent.firstName}
+          <br />
+          {talent.lastName}
           <Badge
             className={cn(
               "ml-auto hover:cursor-default",
