@@ -48,7 +48,10 @@ const DirectoryPage = () => {
                       .toLowerCase()
                       .replaceAll("%20", ""),
                   )) &&
-            (!searchParams.get("ageMax") || !searchParams.get("ageMin")
+            (!searchParams.get("ageMax") ||
+            !searchParams.get("ageMin") ||
+            !talent.ageMin ||
+            !talent.ageMax
               ? true
               : talent.ageMin <= Number(searchParams.get("ageMax")) &&
                 talent.ageMin >= Number(searchParams.get("ageMin"))) &&
@@ -71,7 +74,7 @@ const DirectoryPage = () => {
               : talent.performerType.role === searchParams.get("role")) &&
             (!searchParams.get("gender")
               ? true
-              : talent.gender.gender === searchParams.get("gender")) &&
+              : talent.gender?.gender === searchParams.get("gender")) &&
             (!searchParams.get("keyword")
               ? true
               : talent.skills

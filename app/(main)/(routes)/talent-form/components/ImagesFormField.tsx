@@ -1,5 +1,6 @@
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,7 +28,10 @@ const ImagesFormField = ({
       name="images"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Upload Images</FormLabel>
+          <FormLabel>
+            <span className="text-lg text-red-500">*</span>Upload Images
+          </FormLabel>
+          <FormDescription>At least One headshot is required</FormDescription>
           <FormControl>
             <ImageUpload
               disabled={form.formState.isSubmitting}

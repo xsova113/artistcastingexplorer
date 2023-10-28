@@ -4,62 +4,73 @@ import Logo from "./Logo";
 import Stack from "./Stack";
 import Link from "next/link";
 import { Separator } from "./ui/separator";
+import { FaXTwitter } from "react-icons/fa6";
+import FooterNewsletter from "./FooterNewsletter";
 
 const currentYear = new Date().getFullYear();
 
 const Footer = () => {
   return (
-    <Stack className="items-center shadow bg-slate-50">
-      <FlexBetween className="pt-10 px-10 max-md:flex-col space-y-10 max-md:text-center md:items-start">
-        <Stack className="md:w-1/5 gap-6 max-md:items-center">
+    <Stack className="items-center bg-slate-50 shadow">
+      <FlexBetween className="space-y-10 px-10 pt-10 max-md:flex-col max-md:text-center md:items-start">
+        <Stack className="gap-6 max-md:items-center md:w-1/5">
           <Logo />
-          <p className="text-muted-foreground text-sm">
-            Summarize your business so the visitor can learn about your
-            offerings from any page on your website.
+          <p className="text-sm text-muted-foreground">
+            Discover and Connect with Artists and Creators
           </p>
           <div className="flex gap-4 max-md:justify-center">
             <Link href={"#"}>
-              <Facebook className="hover:-translate-y-1 transition" />
+              <Facebook className="transition hover:-translate-y-1" />
             </Link>
             <Link href={"#"}>
-              <Instagram className="hover:-translate-y-1 transition" />
+              <Instagram className="transition hover:-translate-y-1" />
             </Link>
             <Link href={"#"}>
-              <Youtube className="hover:-translate-y-1 transition" />
+              <Youtube className="transition hover:-translate-y-1" />
+            </Link>
+            <Link href={"#"}>
+              <FaXTwitter
+                size={21}
+                className="transition hover:-translate-y-1"
+              />
             </Link>
           </div>
         </Stack>
-        <Stack className="gap-2 text-muted-foreground text-sm">
-          <h2 className="mb-2 font-semibold text-lg text-primary">
+        <Stack className="gap-2 text-sm text-muted-foreground">
+          <h2 className="mb-2 text-lg font-semibold text-primary">
             Quick Links
           </h2>
           <Link href={"/news"}>News</Link>
           <Link href={"/directory"}>Directory</Link>
           <Link href={"/interviews"}>Interviews</Link>
-          <Link href={"#"}>Privacy Policy</Link>
+          <Link href={"/contact"}>Contact</Link>
         </Stack>
-        <Stack className="gap-2 text-muted-foreground text-sm">
-          <h2 className="mb-2 font-semibold text-lg text-primary">
+        <Stack className="gap-2 text-sm text-muted-foreground">
+          <h2 className="mb-2 text-lg font-semibold text-primary">
             Quick Links
           </h2>
-          <Link href={"/news"}>News</Link>
-          <Link href={"/directory"}>Directory</Link>
-          <Link href={"/interviews"}>Interviews</Link>
-          <Link href={"#"}>Privacy Policy</Link>
+          <Link href={"/about"}>About</Link>
+          <Link href={"/subscribe"}>Subscribe</Link>
+          <Link
+            href={
+              "https://docs.google.com/document/d/e/2PACX-1vSdMRBGYn4U8U2-j3TA6dWREBlz0-VwUDyfqnxsrf3cJf1grcDhfR-scdMV9NfWCsZMHz9fcCEjC3p7/pub?embedded=true"
+            }
+          >
+            Terms & Conditions
+          </Link>
+          <Link
+            href={
+              "https://docs.google.com/document/d/e/2PACX-1vTtACSPl3mWUFyyI2CJMqAoSd0HD7WyF_zwksYZeOsMWVsrSrNYZQwgLYU67s10rGBSPeUC5yN_Hu5p/pub?embedded=true"
+            }
+          >
+            Privacy Policy
+          </Link>
         </Stack>
-        <Stack className="gap-2 text-muted-foreground text-sm">
-          <h2 className="mb-2 font-semibold text-lg text-primary">
-            Quick Links
-          </h2>
-          <Link href={"/news"}>News</Link>
-          <Link href={"/directory"}>Directory</Link>
-          <Link href={"/interviews"}>Interviews</Link>
-          <Link href={"#"}>Privacy Policy</Link>
-        </Stack>
+        <FooterNewsletter />
       </FlexBetween>
-      <Separator className="mt-8 mb-2 w-[80%] flex" />
-      <span className="text-sm text-muted-foreground pb-2">
-        Casting Japanese © {currentYear} Copyright
+      <Separator className="mb-2 mt-8 flex w-[80%]" />
+      <span className="pb-2 text-sm text-muted-foreground">
+        Artist Casting Explorer © {currentYear} Copyright
       </span>
     </Stack>
   );

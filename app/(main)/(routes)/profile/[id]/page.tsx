@@ -31,8 +31,8 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
   }
 
   return (
-    <section className="mx-auto my-20 flex w-full max-w-screen-xl">
-      <Stack className="px-6 md:px-20">
+    <section className="mx-auto my-20 flex max-w-screen-xl">
+      <Stack className="px-6 md:px-20 w-full">
         <ProfileHeader talentUser={talentUser} talent={talent} />
         <Separator className="mt-8" />
         <div className="mt-10 flex flex-col-reverse gap-x-4 gap-y-4 md:flex-row lg:mt-20">

@@ -27,7 +27,7 @@ export const createTalent = async (
           agency: values.agency,
           ageMax: values.ageMax,
           ageMin: values.ageMin,
-          bodyType: values.bodyType,
+          bodyType: values.bodyType ? values.bodyType : undefined,
           hairColour: values.hair,
           eyeColour: values.eye,
           instagram: values.instagram,
@@ -35,7 +35,10 @@ export const createTalent = async (
           youtube: values.youtube,
           tiktok: values.tiktok,
           website: values.website,
-          skills: { createMany: { data: values.skills } },
+          skills:
+            !values.skills || values.videos?.length === 0
+              ? {}
+              : { createMany: { data: values.skills } },
           middleName: values.middleName,
           stageName: values.stageName,
           savedByUsers: {},

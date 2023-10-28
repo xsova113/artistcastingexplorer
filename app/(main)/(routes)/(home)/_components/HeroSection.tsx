@@ -1,11 +1,14 @@
 "use client";
 
 import Stack from "@/components/Stack";
+import { SignUpButton, useAuth } from "@clerk/nextjs";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ParallaxBanner, ParallaxBannerLayer } from "react-scroll-parallax";
 
 const HeroSection = () => {
+  const { isSignedIn } = useAuth();
+
   return (
     <ParallaxBanner className="h-[500px] w-full lg:h-[600px]">
       <ParallaxBannerLayer
@@ -40,12 +43,20 @@ const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="my-12"
           >
-            <Link
-              href={"/subscribe"}
-              className="w-fit self-center rounded-full bg-primary px-8 py-2 uppercase transition hover:bg-secondary-foreground lg:my-14"
-            >
-              Join Now
-            </Link>
+            {isSignedIn ? (
+              <Link
+                href="/subscribe"
+                className="w-fit self-center rounded-full bg-primary px-8 py-2 uppercase transition hover:bg-secondary-foreground lg:my-14"
+              >
+                Join Now
+              </Link>
+            ) : (
+              <SignUpButton mode="modal">
+                <button className="w-fit self-center rounded-full bg-primary px-8 py-1.5 uppercase transition hover:bg-secondary-foreground lg:my-14">
+                  Join Now
+                </button>
+              </SignUpButton>
+            )}
           </motion.div>
 
           <motion.h2

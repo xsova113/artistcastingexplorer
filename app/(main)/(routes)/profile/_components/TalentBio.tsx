@@ -53,7 +53,7 @@ const TalentBio = ({ talent }: TalentBio) => {
       <Separator className="my-5" />
       <h1 className="mb-4 text-lg font-medium">Skills</h1>
       <div className="flex flex-wrap gap-3 text-muted-foreground">
-        {talent.skills.map((skill) => (
+        {talent.skills?.map((skill) => (
           <div
             key={skill.id}
             className="cursor-default rounded bg-secondary p-2 shadow transition hover:-translate-y-1 hover:scale-110"

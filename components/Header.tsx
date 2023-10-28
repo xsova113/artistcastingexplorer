@@ -81,7 +81,7 @@ const Header = () => {
                 !isSignedIn ? onOpen() : router.push("/talent-form");
               }}
             >
-              Become Talent
+              Become ACE Member
             </Button>
           ) : (
             isSignedIn && (

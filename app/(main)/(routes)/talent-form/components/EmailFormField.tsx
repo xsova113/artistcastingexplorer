@@ -20,10 +20,16 @@ const EmailFormField = ({ form }: EmailFormFieldProps) => {
       control={form.control}
       name="email"
       render={({ field }) => (
-        <FormItem className="bg-secondary max-sm:w-full px-3 pb-3 pt-1 rounded-lg">
-          <FormLabel className="flex">Email Address</FormLabel>
+        <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1 max-sm:w-full">
+          <FormLabel className="flex items-center">
+            <span className="text-lg text-red-500">*</span>Email Address
+          </FormLabel>
           <FormControl>
-            <Input disabled={form.formState.isSubmitting} {...field} placeholder="Email address" />
+            <Input
+              disabled={form.formState.isSubmitting}
+              {...field}
+              placeholder="Email address"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

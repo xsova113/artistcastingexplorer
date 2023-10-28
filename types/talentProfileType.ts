@@ -15,7 +15,7 @@ export type TalentProfileType = TalentProfile & {
   videos: Video[];
   location: Location;
   performerType: PerformerType;
-  gender: Gender;
+  gender: Gender | null;
   skills: Skill[];
   credits: Credit[];
   savedByUsers?: SavedByUser[]

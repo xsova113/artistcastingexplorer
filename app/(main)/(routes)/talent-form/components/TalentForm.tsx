@@ -28,7 +28,7 @@ import {
   AgeRangeFormField,
 } from ".";
 import LanguageFormField from "./LanguageFormField";
-import { ElementRef, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { User } from "@clerk/nextjs/server";
 import { getTalentUser } from "@/actions/getTalentUser";
 import TalentUserIdFormField from "./TalentUserIdFormField";
@@ -78,10 +78,13 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
     defaultValues: initialData
       ? {
           ...initialData,
+          ageMax: initialData.ageMax || undefined,
+          ageMin: initialData.ageMin || undefined,
+          bio: initialData.bio || undefined,
           images: initialData.images,
           videos: initialData.videos,
           skills: initialData.skills,
-          gender: initialData.gender.gender,
+          gender: initialData.gender?.gender || undefined,
           city: initialData.location.city,
           province: initialData.location.province || undefined,
           language: initialData.language,
@@ -89,9 +92,9 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           performerType: initialData.performerType.role,
           middleName: initialData.middleName || undefined,
           stageName: initialData.stageName || undefined,
-          bodyType: initialData.bodyType,
-          eye: initialData.eyeColour,
-          hair: initialData.hairColour,
+          bodyType: initialData.bodyType || undefined,
+          eye: initialData.eyeColour || undefined,
+          hair: initialData.hairColour || undefined,
           agency: initialData.agency || undefined,
           union: initialData.union || undefined,
           instagram: initialData.instagram || undefined,
@@ -105,7 +108,6 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           lastName: "",
           agency: "",
           bio: "",
-          bodyType: "FIT",
           email: "",
           height: "",
           skills: [],
@@ -213,17 +215,18 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
         )}
 
         <Stack>
-          <h3
-            className={cn(
-              "mb-8 text-xl underline underline-offset-8",
-              isFormEdited && "mb-4",
-            )}
-          >
-            Basic Information
-          </h3>
-          <span className={cn(" mb-4 text-red-500", !isFormEdited && "hidden")}>
+          <span className={cn("mb-4 text-red-500", !isFormEdited && "hidden")}>
             * You have unsaved changes
           </span>
+          <div className="mb-3 flex flex-col">
+            <h3 className={cn("text-xl underline underline-offset-8")}>
+              Basic Information
+            </h3>
+            <p className="mt-4 text-sm">
+              <span className="text-lg text-red-500">*</span> fields are
+              required
+            </p>
+          </div>
           <div className="flex flex-wrap gap-6">
             {pathname === "/profileReview/createProfile" && (
               <TalentUserIdFormField form={form} />
@@ -250,9 +253,16 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
         </Stack>
 
         <Stack>
-          <h3 className="mb-8 text-xl underline underline-offset-8">
-            Advanced Information
-          </h3>
+          <div className="mb-3 flex flex-col">
+            <h3 className="text-xl underline underline-offset-8">
+              Advanced Information
+            </h3>
+            <p className="mt-4 text-sm">
+              <span className="text-lg text-red-500">*</span> fields are
+              required
+            </p>
+          </div>
+
           <Stack className="gap-8">
             <Stack className="gap-8">
               <ImagesFormField

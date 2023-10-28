@@ -20,10 +20,18 @@ const FirstNameFormField = ({ form }: FirstNameFormFieldProps) => {
       control={form.control}
       name="firstName"
       render={({ field }) => (
-        <FormItem className="bg-secondary max-sm:w-full px-3 pb-3 pt-1 rounded-lg">
-          <FormLabel className="flex">First Name</FormLabel>
+        <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1 max-sm:w-full">
+          <FormLabel className="flex items-center">
+            <span className="text-lg text-red-500">*</span>
+            First Name
+          </FormLabel>
           <FormControl>
-            <Input {...field} placeholder="First name" disabled={form.formState.isSubmitting} />
+            <Input
+              {...field}
+              required
+              placeholder="First name"
+              disabled={form.formState.isSubmitting}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

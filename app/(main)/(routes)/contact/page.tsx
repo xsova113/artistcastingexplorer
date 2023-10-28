@@ -202,10 +202,6 @@ const ContactPage = () => {
               </span>
             </Stack>
             <Stack className="gap-2">
-              <h3 className="text-lg font-semibold">Call Us</h3>
-              <span className="text-muted-foreground">800-123-456</span>
-            </Stack>
-            <Stack className="gap-2">
               <h3 className="text-lg font-semibold">Follow Us</h3>
               <div className="flex gap-3">
                 <Link href={"#"} className="rounded-full bg-primary p-2">

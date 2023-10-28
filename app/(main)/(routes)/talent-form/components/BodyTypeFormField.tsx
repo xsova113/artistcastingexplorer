@@ -32,7 +32,6 @@ import {
             <Select
               onValueChange={field.onChange}
               disabled={form.formState.isSubmitting}
-              defaultValue={field.value}
               value={field.value}
             >
               <FormControl>

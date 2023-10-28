@@ -28,7 +28,9 @@ const CityFormField = ({ form }: CityFormFieldProps) => {
       name="city"
       render={({ field }) => (
         <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1">
-          <FormLabel className="flex">City</FormLabel>
+          <FormLabel className="flex items-center">
+            <span className="text-lg text-red-500">*</span>City
+          </FormLabel>
           <Select
             onValueChange={field.onChange}
             disabled={form.formState.isSubmitting}

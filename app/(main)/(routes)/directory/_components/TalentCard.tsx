@@ -36,8 +36,8 @@ interface TalentCardProps {
   name: string;
   title: string;
   location: City | Province | null;
-  ageMin: number;
-  ageMax: number;
+  ageMin: number | null;
+  ageMax: number | null;
   image: string;
   id: string;
   discoverSection?: boolean;
@@ -166,9 +166,8 @@ const TalentCard = ({
           </CardDescription>
         </CardHeader>
         <CardContent className="px-2 py-1 max-sm:text-xs">
-          <p className="capitalize">{location?.toLocaleLowerCase()}</p>
-          <p>
-            Age: {ageMin} - {ageMax}
+          <p className="capitalize">
+            Location: {location?.toLocaleLowerCase().replaceAll("_", " ")}
           </p>
         </CardContent>
       </div>

@@ -22,15 +22,15 @@ model TalentProfile {
   performerType   PerformerType @relation(fields: [performerTypeId], references: [id])
   performerTypeId String        @db.ObjectId
   height          String
-  gender          Gender        @relation(fields: [genderId], references: [id])
-  genderId        String        @db.ObjectId
-  bio             String
-  ageMax          Int           @default(40)
-  ageMin          Int           @default(25)
-  bodyType        BodyType
+  gender          Gender?       @relation(fields: [genderId], references: [id])
+  genderId        String?       @db.ObjectId
+  bio             String?
+  ageMax          Int?          @default(40)
+  ageMin          Int?          @default(25)
+  bodyType        BodyType?
   agency          String?
-  hairColour      String
-  eyeColour       String
+  hairColour      String?
+  eyeColour       String?
   credits         Credit[]
   instagram       String?
   twitter         String?
@@ -72,7 +72,7 @@ enum BodyType {
 
 model Gender {
   id             String          @id @default(auto()) @map("_id") @db.ObjectId
-  gender         GenderType
+  gender         GenderType?
   talentProfiles TalentProfile[]
 }
 

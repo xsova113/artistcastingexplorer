@@ -52,13 +52,13 @@ const ImageUpload = ({ onChange, onRemove, values }: ImageUploadProps) => {
               </Button>
             </div>
 
-              <Image
-                src={item.url}
-                alt={"Image"}
-                fill
-                className="object-cover"
-                priority
-              />
+            <Image
+              src={item.url}
+              alt={"Image"}
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
         ))}
       </div>

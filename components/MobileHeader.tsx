@@ -67,7 +67,7 @@ const MobileHeader = ({ routes, talent }: MobileHeaderProps) => {
                 setIsOpen(false);
               }}
             >
-              Become Talent
+              Become ACE Member
             </Button>
           ) : (
             <Link

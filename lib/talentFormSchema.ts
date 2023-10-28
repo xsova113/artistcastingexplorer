@@ -19,22 +19,27 @@ export const talentFormSchema = z.object({
     .min(2, { message: "Last name must be at least 2 characters." }),
   middleName: z.string().optional(),
   stageName: z.string().optional(),
-  gender: z.nativeEnum(GenderType),
-  bodyType: z.nativeEnum(BodyType),
+  gender: z.nativeEnum(GenderType).optional(),
+  bodyType: z.nativeEnum(BodyType).optional(),
   email: z.string().email(),
   skills: z.object({ skill: z.string().nullable() }).array(),
-  ageMax: z.number(),
-  ageMin: z.number(),
+  ageMax: z.number().optional(),
+  ageMin: z.number().optional(),
   height: z.string(),
-  hair: z.string().min(2),
-  eye: z.string().min(2),
+  hair: z.string().optional(),
+  eye: z.string().optional(),
   language: z.nativeEnum(Language),
   JapaneseLanguage: z.nativeEnum(JapaneseLevel),
-  bio: z
-    .string()
-    .min(150, { message: "Your bio must be at least 150 characters" }),
+  bio: z.string().optional(),
   images: z.object({ url: z.string(), fileKey: z.string() }).array(),
-  videos: z.object({ url: z.string(), fileKey: z.string(), name: z.string().nullable() }).array().optional(),
+  videos: z
+    .object({
+      url: z.string(),
+      fileKey: z.string(),
+      name: z.string().nullable(),
+    })
+    .array()
+    .optional(),
   city: z.nativeEnum(City),
   province: z.nativeEnum(Province).optional(),
   agency: z.string().optional(),
