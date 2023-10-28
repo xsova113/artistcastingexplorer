@@ -23,6 +23,14 @@ const font = Raleway({
 export const metadata: Metadata = {
   title: "Artist Casting Explorer",
   description: "Discover and connect with artists and creators",
+  icons: {
+    icon: [
+      {
+        url: "/ace.png",
+        href: "/ace.png",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
