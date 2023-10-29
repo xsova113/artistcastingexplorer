@@ -1,6 +1,6 @@
 import Stack from "@/components/Stack";
 import { currentUser } from "@clerk/nextjs";
-import TalentForm from "./components/TalentForm";
+import TalentForm from "./_components/TalentForm";
 import { redirect } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import prisma from "@/lib/client";

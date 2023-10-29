@@ -1,4 +1,4 @@
-import TalentForm from "@/app/(main)/(routes)/talent-form/components/TalentForm";
+import TalentForm from "@/app/(main)/(routes)/talent-form/_components/TalentForm";
 import { buttonVariants } from "../ui/button";
 import { useAuth } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";

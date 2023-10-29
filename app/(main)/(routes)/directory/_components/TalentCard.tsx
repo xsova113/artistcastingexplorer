@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
 import {
   City,
+  Location,
   Province,
   SavedByUser,
   SavedTalent,
@@ -35,7 +36,7 @@ import { useAuth } from "@clerk/nextjs";
 interface TalentCardProps {
   name: string;
   title: string;
-  location: City | Province | null;
+  location: Location;
   ageMin: number | null;
   ageMax: number | null;
   image: string;
@@ -165,7 +166,9 @@ const TalentCard = ({
         </CardHeader>
         <CardContent className="px-2 py-1 max-sm:text-xs">
           <p className="capitalize">
-            Location: {location?.toLocaleLowerCase().replaceAll("_", " ")}
+            {location?.city !== "OTHER_PROVINCE"
+              ? location.city.toLocaleLowerCase().replaceAll("_", " ")
+              : location.province?.toLocaleLowerCase().replaceAll("_", " ")}
           </p>
         </CardContent>
       </div>

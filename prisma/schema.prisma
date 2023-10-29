@@ -18,7 +18,7 @@ model TalentProfile {
   middleName      String?
   lastName        String
   stageName       String?
-  email           String        @unique
+  email           String
   performerType   PerformerType @relation(fields: [performerTypeId], references: [id])
   performerTypeId String        @db.ObjectId
   height          String

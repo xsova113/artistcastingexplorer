@@ -1,4 +1,4 @@
-import TalentForm from "../../talent-form/components/TalentForm";
+import TalentForm from "../../talent-form/_components/TalentForm";
 
 const CreateProfilePage = () => {
   return (

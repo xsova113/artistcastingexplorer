@@ -1,15 +1,16 @@
 "use client";
 
-import Image from "next/image";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 const NewsletterSection = () => {
   const convertKitUrl = process.env.NEXT_PUBLIC_CONVERTKIT_URL;
+  const isLargeScreen = useMediaQuery("(min-width: 1024px)");
 
   return (
     <form
       action={convertKitUrl}
       target="_blank"
-      className="seva-form formkit-form mb-24 min-w-full rounded-lg bg-[#FFFFFF]"
+      className="seva-form formkit-form mb-24  min-w-full rounded-lg bg-[#FFFFFF] text-start md:text-center"
       method="post"
       data-sv-form={5634602}
       data-uid="e7dd934312"
@@ -19,7 +20,7 @@ const NewsletterSection = () => {
       min-width="400 500 600 700 800"
     >
       <div data-style="full">
-        <div
+        {/* <div
           data-element="column"
           className="formkit-column hidden bg-slate-50 md:block"
         >
@@ -36,7 +37,7 @@ const NewsletterSection = () => {
               fill
             />
           </div>
-        </div>
+        </div> */}
         <div data-element="column" className="formkit-column">
           <div
             className="formkit-header"
@@ -58,7 +59,7 @@ const NewsletterSection = () => {
             data-group="alert"
           />
           <div data-element="fields" className="seva-fields formkit-fields">
-            <div className="flex gap-4">
+            <div className="flex justify-center gap-4">
               <div className="formkit-field">
                 <input
                   className="formkit-input"
@@ -101,6 +102,7 @@ const NewsletterSection = () => {
                 backgroundColor: "rgb(249, 115, 21)",
                 borderRadius: 24,
                 fontWeight: 700,
+                width: isLargeScreen ? "50%" : "100%",
               }}
             >
               <div className="formkit-spinner">
@@ -108,7 +110,7 @@ const NewsletterSection = () => {
                 <div />
                 <div />
               </div>
-              <span className="">Subscribe</span>
+              <span>Subscribe</span>
             </button>
           </div>
           <div
