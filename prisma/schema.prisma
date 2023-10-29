@@ -25,8 +25,8 @@ model TalentProfile {
   gender          GenderType?
   genderId        String?
   bio             String?
-  ageMax          Int?          @default(40)
-  ageMin          Int?          @default(25)
+  ageMax          Int?
+  ageMin          Int?
   bodyType        BodyType?
   agency          String?
   hairColour      String?

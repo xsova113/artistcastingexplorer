@@ -216,7 +216,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
 
         <Stack>
           <span className={cn("mb-4 text-red-500", !isFormEdited && "hidden")}>
-            * You have unsaved changes
+            You have unsaved changes
           </span>
           <div className="mb-3 flex flex-col">
             <h3 className={cn("text-xl underline underline-offset-8")}>
@@ -297,7 +297,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             <span
               className={cn("mr-4 text-red-500", !isFormEdited && "hidden")}
             >
-              * You have unsaved changes
+              You have unsaved changes
             </span>
             <AlertDialogAction
               disabled={
