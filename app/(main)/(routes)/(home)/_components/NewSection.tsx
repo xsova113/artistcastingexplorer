@@ -31,7 +31,7 @@ const NewSection = async () => {
   return (
     <Stack className="mb-28 mt-10 w-full items-center gap-8">
       <div className="flex flex-col gap-y-2">
-        <h1 className="text-2xl font-semibold capitalize lg:text-4xl">
+        <h1 className="text-2xl font-semibold capitalize text-center lg:text-4xl">
           News and Upcoming events
         </h1>
         <p className="text-center">

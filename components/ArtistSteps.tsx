@@ -4,7 +4,7 @@ const ArtistSteps = () => {
       <div className="flex flex-col gap-y-2">
         <h1 className="text-lg font-semibold">For Artist or Creator</h1>
         <p className="text-sm text-muted-foreground">
-          Easy 4 Steps to register and post your artist profile!
+          Easy 3 Steps to register and post your artist profile!
         </p>
       </div>
       <ul className="space-y-1 text-sm">

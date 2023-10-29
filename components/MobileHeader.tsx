@@ -43,17 +43,17 @@ const MobileHeader = ({ routes, talent }: MobileHeaderProps) => {
         </SheetHeader>
         <nav className="mt-20 flex flex-col gap-1">
           {routes.map((route) => (
-            <div
+            <Link
+              href={route.pathname}
+              onClick={() => setIsOpen(false)}
               key={route.name}
               className={cn(
                 "rounded-md p-2 capitalize transition hover:bg-secondary",
                 pathname === route.pathname && "rounded-md bg-slate-100",
               )}
             >
-              <Link href={route.pathname} onClick={() => setIsOpen(false)}>
-                {route.name}
-              </Link>
-            </div>
+              {route.name}
+            </Link>
           ))}
 
           {!talent ? (
