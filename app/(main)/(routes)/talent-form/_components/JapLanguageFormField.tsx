@@ -29,7 +29,7 @@ const JapLanguageFormField = ({ form }: JapLanguageFormFieldProps) => {
       render={({ field }) => (
         <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1 max-sm:w-full">
           <FormLabel className="flex items-center">
-            <span className="text-lg text-red-500">*</span>Last NameJapanese
+            <span className="text-lg text-red-500">*</span>Japanese
             Skill Level
           </FormLabel>
           <Select
