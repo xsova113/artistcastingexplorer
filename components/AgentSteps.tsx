@@ -1,6 +1,8 @@
+import { SignUpButton } from "@clerk/nextjs";
+
 const AgentSteps = () => {
   return (
-    <div className="flex flex-col gap-y-4 sm:w-1/2">
+    <div className="flex flex-col gap-y-4 rounded-lg bg-secondary p-4 sm:w-1/2">
       <div className="flex flex-col gap-y-2">
         <h1 className="text-lg font-semibold">For Casting Agent</h1>
         <p className="text-sm text-muted-foreground">
@@ -8,12 +10,23 @@ const AgentSteps = () => {
           creators!
         </p>
       </div>
-      <ul className="space-y-1 text-sm">
-        <li>1. Sign-up here for free!</li>
-        <li>2. Let&apos;s promptly initiate contact with the talents!</li>
-        <li>
+      <ul className="space-y-4 text-sm">
+        <li className="rounded border-l-2 border-primary bg-white p-2">
+          1.{" "}
+          <SignUpButton mode="modal">
+            <span className="cursor-pointer underline">Sign-up</span>
+          </SignUpButton>{" "}
+          here for free!
+        </li>
+        <li className="rounded border-l-2 border-primary bg-white p-2">
+          2. Let&apos;s promptly initiate contact with the talents!
+        </li>
+        <li className="rounded border-l-2 border-primary bg-white p-2">
           3. Sign-up for our newsletter to stay informed about the latest news
-          and newly joined ACE members! Click here!
+          and newly joined ACE members!{" "}
+          <a href="#newsletter" className="underline">
+            Click here!
+          </a>
         </li>
       </ul>
     </div>

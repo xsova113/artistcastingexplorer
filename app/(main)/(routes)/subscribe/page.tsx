@@ -16,7 +16,10 @@ const SubscribePage = async () => {
           Sign up for newsletter or join premium plan
         </p>
         <EasySteps />
-        <div className="flex flex-col gap-4 gap-y-8 lg:flex-row">
+        <div
+          className="flex flex-col gap-4 gap-y-8 lg:flex-row"
+          id="newsletter"
+        >
           <FreePlanCard />
           <PremiumCard isPremium={isPremium} />
         </div>
