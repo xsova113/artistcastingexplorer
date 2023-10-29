@@ -74,7 +74,7 @@ const DirectoryPage = () => {
               : talent.performerType.role === searchParams.get("role")) &&
             (!searchParams.get("gender")
               ? true
-              : talent.gender?.gender === searchParams.get("gender")) &&
+              : talent.gender === searchParams.get("gender")) &&
             (!searchParams.get("keyword")
               ? true
               : talent.skills

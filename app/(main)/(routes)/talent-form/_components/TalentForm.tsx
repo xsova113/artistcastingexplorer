@@ -84,7 +84,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           images: initialData.images,
           videos: initialData.videos,
           skills: initialData.skills,
-          gender: initialData.gender?.gender || undefined,
+          gender: initialData.gender || undefined,
           city: initialData.location.city,
           province: initialData.location.province || undefined,
           language: initialData.language,

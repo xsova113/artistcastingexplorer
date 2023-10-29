@@ -23,7 +23,7 @@ export const createTalent = async (
           email: values.email,
           firstName: values.firstName,
           height: values.height,
-          gender: { create: { gender: values.gender } },
+          gender: values.gender,
           lastName: values.lastName,
           agency: values.agency,
           ageMax: values.ageMax,

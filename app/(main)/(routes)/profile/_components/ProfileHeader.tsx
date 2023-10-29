@@ -80,9 +80,9 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
             )}
           </h2>
           <h3 className="flex gap-3 capitalize ">
-            {!talent.gender?.gender
+            {!talent.gender
               ? null
-              : talent.gender.gender?.toLocaleLowerCase()}
+              : talent.gender?.toLocaleLowerCase()}
             <span className={cn("font-medium", !talent.stageName && "hidden")}>
               |
             </span>

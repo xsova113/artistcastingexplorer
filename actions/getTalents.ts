@@ -11,7 +11,6 @@ export const getTalents = async (): Promise<
       include: {
         images: true,
         videos: true,
-        gender: true,
         location: true,
         performerType: true,
         skills: true,

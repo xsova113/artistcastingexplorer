@@ -6,12 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model TalentProfile {
-  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  id              String        @id @default(uuid())
   userId          String        @unique
   isApproved      Boolean?
   firstName       String
@@ -20,10 +20,10 @@ model TalentProfile {
   stageName       String?
   email           String
   performerType   PerformerType @relation(fields: [performerTypeId], references: [id])
-  performerTypeId String        @db.ObjectId
+  performerTypeId String
   height          String
-  gender          Gender?       @relation(fields: [genderId], references: [id])
-  genderId        String?       @db.ObjectId
+  gender          GenderType?
+  genderId        String?
   bio             String?
   ageMax          Int?          @default(40)
   ageMin          Int?          @default(25)
@@ -42,8 +42,8 @@ model TalentProfile {
   skills          Skill[]
   images          Image[]
   videos          Video[]
-  location        Location      @relation(fields: [locationId], references: [id])
-  locationId      String        @db.ObjectId
+  location        Location      @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  locationId      String
   union           String?
   savedByUsers    SavedByUser[]
 
@@ -52,11 +52,11 @@ model TalentProfile {
 }
 
 model SavedByUser {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  id     String @id @default(uuid())
   userId String
 
-  TalentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
-  talentProfileId String        @db.ObjectId
+  TalentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id], onDelete: Cascade)
+  talentProfileId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -70,11 +70,11 @@ enum BodyType {
   EXTRA_SIZE
 }
 
-model Gender {
-  id             String          @id @default(auto()) @map("_id") @db.ObjectId
-  gender         GenderType?
-  talentProfiles TalentProfile[]
-}
+// model Gender {
+//   id             String          @id @default(uuid())
+//   gender         GenderType?
+//   talentProfiles TalentProfile[]
+// }
 
 enum GenderType {
   MALE
@@ -85,20 +85,20 @@ enum GenderType {
 }
 
 model Skill {
-  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  id              String        @id @default(uuid())
   skill           String?
-  TalentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
-  talentProfileId String        @db.ObjectId
+  TalentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id], onDelete: Cascade)
+  talentProfileId String
 }
 
 model PerformerType {
-  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  id             String          @id @default(uuid())
   role           Role
   talentProfiles TalentProfile[]
 }
 
 model Location {
-  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  id             String          @id @default(uuid())
   city           City
   province       Province?
   talentProfiles TalentProfile[]
@@ -154,32 +154,32 @@ enum JapaneseLevel {
 }
 
 model Image {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  id      String @id @default(uuid())
   url     String
   fileKey String
 
-  talentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
-  talentProfileId String        @db.ObjectId
+  talentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id], onDelete: Cascade)
+  talentProfileId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Video {
-  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  id      String  @id @default(uuid())
   url     String
   fileKey String
   name    String?
 
-  talentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
-  talentProfileId String        @db.ObjectId
+  talentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id], onDelete: Cascade)
+  talentProfileId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model UserSubscription {
-  id                     String    @id @default(auto()) @map("_id") @db.ObjectId
+  id                     String    @id @default(uuid())
   userId                 String    @unique
   stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
   stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
@@ -188,45 +188,45 @@ model UserSubscription {
 }
 
 model SavedTalent {
-  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  id                String           @id @default(uuid())
   talentProfileId   String?
-  userSavedTalent   UserSavedTalent? @relation(fields: [userSavedTalentId], references: [id])
-  userSavedTalentId String?          @db.ObjectId
+  userSavedTalent   UserSavedTalent? @relation(fields: [userSavedTalentId], references: [id], onDelete: Cascade)
+  userSavedTalentId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model UserSavedTalent {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  id           String        @id @default(uuid())
   userId       String        @unique
   savedTalents SavedTalent[]
 }
 
 model SavedFilter {
-  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  id                String           @id @default(uuid())
   name              String
   queryPathname     String
-  UserSavedFilter   UserSavedFilter? @relation(fields: [userSavedFilterId], references: [id])
-  userSavedFilterId String?          @db.ObjectId
+  UserSavedFilter   UserSavedFilter? @relation(fields: [userSavedFilterId], references: [id], onDelete: Cascade)
+  userSavedFilterId String?
 }
 
 model UserSavedFilter {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  id           String        @id @default(uuid())
   userId       String        @unique
   savedFilters SavedFilter[]
 }
 
 model Credit {
-  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  id              String  @id @default(uuid())
   category        String
   productionTitle String
   yearOfRelease   Int
   role            String?
   numberOfEpisode Int?
 
-  TalentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id])
-  talentProfileId String        @db.ObjectId
+  TalentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id], onDelete: Cascade)
+  talentProfileId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

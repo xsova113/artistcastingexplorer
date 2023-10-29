@@ -15,7 +15,6 @@ const TalentFormPage = async () => {
     include: {
       images: true,
       location: true,
-      gender: true,
       performerType: true,
       skills: true,
       videos: true,
