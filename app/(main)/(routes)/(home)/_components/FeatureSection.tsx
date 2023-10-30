@@ -6,7 +6,7 @@ const ServiceSection = () => {
   return (
     <Stack className="mx-auto mt-24 flex w-full flex-col items-center gap-16 lg:max-w-screen-lg">
       <h1 className="text-2xl font-semibold lg:text-4xl">Our Features</h1>
-      <div className="flex flex-col justify-between gap-y-14 md:flex-row">
+      <div className="grid-cols-1 md:grid-cols-3 grid justify-between gap-y-14">
         <FeatureCard
           Icon={ChefHat}
           description="This platform features information about artists excelling in a wide range of fields. Ideal resources tailored to your project can be found here to match your specific requirements"

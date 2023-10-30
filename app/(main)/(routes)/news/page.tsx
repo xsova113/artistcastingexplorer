@@ -70,8 +70,8 @@ const NewsPage = () => {
         title={"News"}
         description="Explore here for details on artist appearances and more"
       />
-      <div className="mx-auto flex max-w-screen-lg flex-col justify-center py-20 md:flex-row">
-        <div className="flex flex-col md:ml-auto">
+      <div className="mx-auto grid max-w-screen-lg grid-cols-1 justify-center py-20 md:grid-cols-2">
+        <div className="flex w-full flex-col md:ml-[40%]">
           <h1 className="mx-auto mb-10 text-3xl font-semibold">Recent News</h1>
           {isLoading && (
             <div className="flex w-full items-center justify-center gap-4 pb-8 text-2xl">
@@ -89,10 +89,7 @@ const NewsPage = () => {
           />
         </div>
 
-        <Archive
-          posts={posts}
-          setFilteredPosts={setFilteredPosts}
-        />
+        <Archive posts={posts} setFilteredPosts={setFilteredPosts} />
       </div>
     </section>
   );

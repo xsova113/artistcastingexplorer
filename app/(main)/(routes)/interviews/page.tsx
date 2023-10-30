@@ -91,8 +91,8 @@ const InterviewPage = () => {
         title={"Interview Articles"}
         description="Discover the latest stories here"
       />
-      <div className="mx-auto flex max-w-screen-lg flex-col justify-center py-20 md:flex-row">
-        <div className="flex flex-col md:ml-auto">
+      <div className="mx-auto grid max-w-screen-lg grid-cols-1 justify-center py-20 md:grid-cols-2">
+        <div className="flex flex-col md:ml-[40%] w-full">
           <h1 className="mx-auto mb-10 text-3xl font-semibold">
             Recent Interviews
           </h1>

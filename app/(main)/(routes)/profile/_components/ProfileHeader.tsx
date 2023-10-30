@@ -28,7 +28,7 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
   const { onOpen } = useSignInAlertStore();
 
   return (
-    <div className="mt-12 flex items-start gap-4">
+    <div className="flex items-start gap-4">
       <div className="relative flex h-[125px] w-[125px]">
         <Image
           src={talent.images[0].url}

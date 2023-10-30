@@ -15,7 +15,7 @@ const TalentMedia = ({ images, videos }: TalentMediaProps) => {
   const { onOpen, setMedia } = useLightBoxStore();
 
   return (
-    <Stack className="w-full rounded-lg p-2 md:w-[40%]">
+    <Stack className="basis-full rounded-lg p-2 md:basis-[40%]">
       <h1 className="mb-6 text-2xl font-semibold">Media</h1>
       <div className="relative h-[400px] w-full overflow-hidden rounded">
         <Image

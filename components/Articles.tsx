@@ -10,6 +10,7 @@ import Archive from "@/app/(main)/(routes)/news/components/Archive";
 import { usePathname } from "next/navigation";
 import InterviewArchive from "@/app/(main)/(routes)/news/components/InterviewArchive";
 import { Category } from "@/types/category";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 interface ArticlesProps {
   filteredPosts: Post[];
@@ -35,6 +36,7 @@ const Articles = ({
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const pageCount = Math.ceil((filteredPosts?.length || 0) / itemsPerPage);
+  const isLargeScreen = useMediaQuery("(min-width: 765px)");
 
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -60,17 +62,24 @@ const Articles = ({
 
   return (
     <div className="flex flex-col px-10">
-      <MobileArchive>
-        {pathname === "/news" ? (
-          <Archive posts={posts} setFilteredPosts={setFilteredPosts} isMobile />
-        ) : (
-          <InterviewArchive
-            categories={categories}
-            handleClick={handleClick}
-            isMobile
-          />
-        )}
-      </MobileArchive>
+      {!isLargeScreen && (
+        <MobileArchive>
+          {pathname === "/news" ? (
+            <Archive
+              posts={posts}
+              setFilteredPosts={setFilteredPosts}
+              isMobile
+            />
+          ) : (
+            <InterviewArchive
+              categories={categories}
+              handleClick={handleClick}
+              isMobile
+            />
+          )}
+        </MobileArchive>
+      )}
+
       <div className="flex flex-wrap justify-center gap-4 pb-12">
         {subset.map((post) => (
           <ArticleCard
