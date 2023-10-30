@@ -35,7 +35,7 @@ const TalentReviewCard = ({
   return (
     <Card
       key={talent.id}
-      className="col-span-6 w-[165px] drop-shadow transition-all sm:w-[230px] md:col-span-4 lg:col-span-3"
+      className="col-span-6 w-[165px] drop-shadow transition-all sm:w-[230px] md:col-span-4 lg:col-span-3 flex flex-col overflow-hidden"
     >
       <div
         onClick={() => setIsOpen(true)}
@@ -112,7 +112,7 @@ const TalentReviewCard = ({
         </p>
       </CardContent>
 
-      <CardFooter className="flex flex-col gap-2 bg-secondary p-2">
+      <CardFooter className="mt-auto flex flex-col gap-2 bg-secondary p-2">
         <div className="mr-auto flex gap-2">
           <TalentDetailSheet
             talent={talent}
