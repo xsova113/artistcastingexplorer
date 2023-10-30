@@ -1,0 +1,62 @@
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import { talentFormSchema } from "@/lib/talentFormSchema";
+import { Role } from "@prisma/client";
+import { UseFormReturn } from "react-hook-form";
+import z from "zod";
+
+interface RoleFormFieldProps {
+  form: UseFormReturn<z.infer<typeof talentFormSchema>>;
+}
+
+const RoleFormField = ({ form }: RoleFormFieldProps) => {
+  const isLargeScreen = useMediaQuery("(min-width: 640px)");
+  return (
+    <FormField
+      control={form.control}
+      name="secondaryRole"
+      render={({ field }) => (
+        <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1 max-sm:w-full">
+          <FormLabel className="flex items-center">Secondary Role</FormLabel>
+          <Select
+            onValueChange={field.onChange}
+            disabled={form.formState.isSubmitting}
+            defaultValue={field.value || undefined}
+          >
+            <FormControl>
+              <SelectTrigger disabled={form.formState.isSubmitting}>
+                <SelectValue
+                  placeholder="Select a role"
+                  defaultValue={field.value || undefined}
+                />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent side={isLargeScreen ? "right" : "bottom"}>
+              {Object.keys(Role).map((item) => (
+                <SelectItem key={item} value={item} className="capitalize">
+                  {item.toLowerCase().replaceAll("_", " ")}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+export default RoleFormField;

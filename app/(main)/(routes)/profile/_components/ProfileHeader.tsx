@@ -70,6 +70,15 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
           <h2 className="flex gap-3 capitalize">
             {talent.performerType.role.toLowerCase().replaceAll("_", " ")}
             <span className="font-medium">|</span>
+            {talent.performerType.secondaryRole ? (
+              <>
+                {talent.performerType.secondaryRole
+                  .toLowerCase()
+                  .replaceAll("_", " ")}
+                <span className="font-medium">|</span>
+              </>
+            ) : null}
+
             <span
               className={cn(
                 talent.location.city === "OTHER_PROVINCE" && "hidden",
@@ -86,20 +95,6 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
               </span>
             )}
           </h2>
-          <h3 className="flex gap-3 capitalize ">
-            {!talent.gender ? null : talent.gender?.toLocaleLowerCase()}
-            <span
-              className={cn(
-                "font-medium",
-                !talent.ageMin && !talent.ageMax && "hidden",
-              )}
-            >
-              |
-            </span>
-            {talent.ageMin && talent.ageMax ? (
-              <span>{`${talent.ageMin} - ${talent.ageMax}`}</span>
-            ) : null}
-          </h3>
         </Stack>
 
         <div className="flex flex-col gap-3">

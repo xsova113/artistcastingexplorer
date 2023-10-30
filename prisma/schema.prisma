@@ -21,7 +21,7 @@ model TalentProfile {
   email           String
   performerType   PerformerType @relation(fields: [performerTypeId], references: [id])
   performerTypeId String
-  height          String
+  height          String?
   gender          GenderType?
   genderId        String?
   bio             String?
@@ -70,18 +70,13 @@ enum BodyType {
   EXTRA_SIZE
 }
 
-// model Gender {
-//   id             String          @id @default(uuid())
-//   gender         GenderType?
-//   talentProfiles TalentProfile[]
-// }
-
 enum GenderType {
   MALE
   FEMALE
   NON_BINARY
   TRANS_MALE
   TRANS_FEMALE
+  PREFER_NOT_TO_SAY
 }
 
 model Skill {
@@ -94,6 +89,7 @@ model Skill {
 model PerformerType {
   id             String          @id @default(uuid())
   role           Role
+  secondaryRole  Role?
   talentProfiles TalentProfile[]
 }
 

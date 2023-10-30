@@ -19,7 +19,12 @@ export const createTalent = async (
         data: {
           userId: values.talentUserId ? values.talentUserId : userId,
           bio: values.bio,
-          performerType: { create: { role: values.performerType } },
+          performerType: {
+            create: {
+              role: values.performerType,
+              secondaryRole: values.secondaryRole,
+            },
+          },
           email: values.email,
           firstName: values.firstName,
           height: values.height,

@@ -16,30 +16,59 @@ const TalentBio = ({ talent }: TalentBio) => {
       <Stack>
         <h3 className="mb-4 text-lg font-medium">Attributes</h3>
         <div className="flex flex-col space-y-1 text-sm">
-          <li className="capitalize">
-            <span className="">Body Type:</span>{" "}
-            <span className="text-muted-foreground">
-              {talent.bodyType?.toLowerCase().replaceAll("_", " ")}
-            </span>
-          </li>
-          <li className="capitalize">
-            <span className="">Hair colour:</span>{" "}
-            <span className="text-muted-foreground">
-              {talent.hairColour?.toLowerCase().replaceAll("_", " ")}
-            </span>
-          </li>
-          <li className="capitalize">
-            <span className="">Eye colour:</span>{" "}
-            <span className="text-muted-foreground">
-              {talent.eyeColour?.toLowerCase().replaceAll("_", " ")}
-            </span>
-          </li>
-          <li className="capitalize">
-            <span className="">Height:</span>{" "}
-            <span className="text-muted-foreground">
-              {height.feet}&apos;{height.inches}
-            </span>
-          </li>
+          {talent.ageMin && talent.ageMax ? (
+            <>
+              <li className="capitalize">
+                <span className="">Age range:</span>{" "}
+                <span className="text-muted-foreground">{`${talent.ageMin} - ${talent.ageMax}`}</span>
+              </li>
+            </>
+          ) : null}
+
+          {talent.gender && talent.gender === "PREFER_NOT_TO_SAY" ? (
+            <li className="capitalize">
+              <span className="">Gender:</span>{" "}
+              <span className="text-muted-foreground">
+                {talent.gender?.toLowerCase().replaceAll("_", " ")}
+              </span>
+            </li>
+          ) : null}
+
+          {talent.bodyType && (
+            <li className="capitalize">
+              <span className="">Body Type:</span>{" "}
+              <span className="text-muted-foreground">
+                {talent.bodyType?.toLowerCase().replaceAll("_", " ")}
+              </span>
+            </li>
+          )}
+
+          {talent.hairColour && (
+            <li className="capitalize">
+              <span className="">Hair colour:</span>{" "}
+              <span className="text-muted-foreground">
+                {talent.hairColour?.toLowerCase().replaceAll("_", " ")}
+              </span>
+            </li>
+          )}
+
+          {talent.eyeColour && (
+            <li className="capitalize">
+              <span className="">Eye colour:</span>{" "}
+              <span className="text-muted-foreground">
+                {talent.eyeColour?.toLowerCase().replaceAll("_", " ")}
+              </span>
+            </li>
+          )}
+
+          {talent.height && (
+            <li className="capitalize">
+              <span className="">Height:</span>{" "}
+              <span className="text-muted-foreground">
+                {height.feet}&apos;{height.inches}
+              </span>
+            </li>
+          )}
         </div>
       </Stack>
 
@@ -64,6 +93,15 @@ const TalentBio = ({ talent }: TalentBio) => {
           </div>
         ))}
       </div>
+
+      <Separator className="my-5" />
+      <h1 className="mb-4 text-lg font-medium">Agency</h1>
+      {talent.agency?.split(",").map((item) => (
+        <p key={item} className="text-muted-foreground">
+          - {item}
+        </p>
+      ))}
+
       <Separator className="my-5" />
       <h1 className="mb-4 text-lg font-medium">Union Affiliation</h1>
       <p className="text-muted-foreground">{talent.union}</p>

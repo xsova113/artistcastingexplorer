@@ -41,11 +41,13 @@ export function GenderSelect({ form }: GenderSelectProps) {
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {Object.keys(GenderType).map((item) => (
-                <SelectItem key={item} value={item} className="capitalize">
-                  {item.toLowerCase().replaceAll("_", " ")}
-                </SelectItem>
-              ))}
+              {Object.keys(GenderType)
+                .filter((item) => item !== "PREFER_NOT_TO_SAY")
+                .map((item) => (
+                  <SelectItem key={item} value={item} className="capitalize">
+                    {item.toLowerCase().replaceAll("_", " ")}
+                  </SelectItem>
+                ))}
             </SelectContent>
           </Select>
           <FormMessage />

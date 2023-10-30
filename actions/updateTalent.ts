@@ -19,7 +19,12 @@ export const updateTalent = async (
         data: {
           userId: userId,
           bio: values.bio,
-          performerType: { update: { role: values.performerType } },
+          performerType: {
+            update: {
+              role: values.performerType,
+              secondaryRole: values.secondaryRole,
+            },
+          },
           email: values.email,
           firstName: values.firstName,
           height: values.height,

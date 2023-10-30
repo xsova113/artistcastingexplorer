@@ -52,6 +52,7 @@ import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BodyTypeFormField from "./BodyTypeFormField";
 import { toast } from "sonner";
+import SecondaryRoleFormField from "./SecondaryRoleFormField";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
@@ -84,12 +85,14 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           images: initialData.images,
           videos: initialData.videos,
           skills: initialData.skills,
+          height: initialData.height || undefined,
           gender: initialData.gender || undefined,
           city: initialData.location.city,
           province: initialData.location.province || undefined,
           language: initialData.language,
           JapaneseLanguage: initialData.japaneseLevel,
           performerType: initialData.performerType.role,
+          secondaryRole: initialData.performerType.secondaryRole,
           middleName: initialData.middleName || undefined,
           stageName: initialData.stageName || undefined,
           bodyType: initialData.bodyType || undefined,
@@ -109,7 +112,6 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           agency: "",
           bio: "",
           email: "",
-          height: "",
           skills: [],
           images: [],
           videos: [],
@@ -237,6 +239,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             <LastNameFormField form={form} />
             <GenderFormField form={form} />
             <RoleFormField form={form} />
+            <SecondaryRoleFormField form={form} />
             <StageNameFormField form={form} />
             <EmailFormField form={form} />
             <HeightFormField form={form} />
