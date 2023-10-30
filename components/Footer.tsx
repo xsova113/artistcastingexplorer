@@ -13,10 +13,13 @@ const Footer = () => {
   return (
     <Stack className="items-center bg-slate-50 shadow">
       <FlexBetween className="space-y-10 px-10 pt-10 max-md:flex-col max-md:text-center md:items-start">
-        <Stack className="gap-6 max-md:items-center md:w-1/5">
+        <Stack className="gap-6 max-md:items-center md:w-1/3">
           <Logo />
           <p className="text-sm text-muted-foreground">
-            Discover and Connect with Artists and Creators
+            Artist Casting Explorer is dedicated to enhancing the success of
+            Hollywood North by uniting talented individuals with creators who
+            craft entertainment that honors and pushes the boundaries of their
+            cultures.
           </p>
           <div className="flex gap-4 max-md:justify-center">
             <Link href={"#"}>

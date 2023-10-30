@@ -21,7 +21,7 @@ const UnionFormField = ({ form }: UnionFormFieldProps) => {
       name="union"
       render={({ field }) => (
         <FormItem className="pt-1 max-sm:w-full">
-          <FormLabel className="flex">Union Affiliation (optional)</FormLabel>
+          <FormLabel className="flex">Union Affiliation</FormLabel>
           <FormControl>
             <Input
               {...field}

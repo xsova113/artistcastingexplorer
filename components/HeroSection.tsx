@@ -28,7 +28,7 @@ const HeroSection = ({ image, title, description }: HeroSectionProps) => {
               visible: { opacity: 1, x: 0 },
             }}
             transition={{ duration: 0.5 }}
-            className="text-3xl capitalize text-white sm:text-4xl md:text-6xl"
+            className="mx-auto text-3xl font-medium capitalize text-white sm:text-4xl md:w-3/4 md:text-6xl md:leading-snug"
           >
             {title}
           </motion.h1>

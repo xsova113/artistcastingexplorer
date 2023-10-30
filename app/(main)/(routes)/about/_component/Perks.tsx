@@ -1,15 +1,32 @@
-import { Contact, Newspaper, Pyramid } from "lucide-react";
+import { Contact, Newspaper, Pen, Pyramid } from "lucide-react";
 import PerkItem from "./PerkItem";
+import { SignUpButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 const perks = [
+  {
+    icon: Pen,
+    title: "Sign Up",
+    description: (
+      <p className="w-full text-muted-foreground">
+        FREE{" "}
+        <SignUpButton>
+          <span className="cursor-pointer underline">SIGN-UP</span>
+        </SignUpButton>{" "}
+        to connect and collaborate with your favorite talents.
+      </p>
+    ),
+  },
   {
     icon: Newspaper,
     title: "Newsletter",
     description: (
       <p className="w-full text-muted-foreground">
-        <span className="font-semibold">FREE SIGN UP</span> for the weekly
-        newsletter, which features the latest activity news and interviews with
-        talents registered on this website.
+        <Link href={"/subscribe"} className="font-semibold underline">
+          SUBSCRIBE
+        </Link>{" "}
+        for the newsletter, which features the latest activity news and
+        interviews with talents registered on this website.
       </p>
     ),
   },

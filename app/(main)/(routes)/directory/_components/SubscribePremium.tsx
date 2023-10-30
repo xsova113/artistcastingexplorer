@@ -43,7 +43,8 @@ const SubscribePremium = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-white/80"
         >
-          Nulla voluptate quis do dolor nulla mollit sunt tempor.
+          We provide a range of premium features designed to enhance our
+          users&apos; experience and efficiency on this website.
         </motion.p>
         <motion.div
           initial="hidden"

@@ -109,8 +109,8 @@ const DirectoryPage = () => {
         image={
           "https://castingjapanese.ca/wp-content/uploads/2023/09/home-new-bg-free-img.jpg"
         }
-        title={"Discover Top Japanese Talents"}
-        description="Your Ultimate Resource for Hiring Success!"
+        title={"Discover a wide range of Artists and Creators"}
+        description="Your Ultimate Resource for Success!"
       />
       <Stack className="mx-auto">
         <h1 className="mt-24 text-3xl font-semibold lg:text-4xl">Talents</h1>

@@ -70,8 +70,7 @@ const HeroSection = () => {
             className="w-2/3 self-center text-primary-foreground/80"
           >
             Casting Japanese is a general information website dedicated to
-            artists and creators in entertainment industry geographically
-            located in Canada and Japan
+            artists and creators geographically located in Canada and Japan
           </motion.h2>
         </Stack>
       </ParallaxBannerLayer>

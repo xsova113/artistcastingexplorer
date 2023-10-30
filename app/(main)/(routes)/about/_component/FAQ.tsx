@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Link from "next/link";
 
 export default function FAQ() {
   return (
@@ -24,20 +25,50 @@ export default function FAQ() {
           <AccordionTrigger>
             Is there a requirement to sign up for a talent profile?
           </AccordionTrigger>
-          <AccordionContent>Answer goes here...</AccordionContent>
+          <AccordionContent>
+            Yes. Please click{" "}
+            <Link href={"/subscribe"} className="underline">
+              here
+            </Link>{" "}
+            and get started.
+          </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
           <AccordionTrigger>
             Do I need to pay to sign up as an artist?
           </AccordionTrigger>
           <AccordionContent>
-            No. We are a non-profit organization and we do not charge any fee
-            for user or artists to sign up. components&apos; aesthetic.
+            No, there are absolutely no charges for profile publication.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
-          <AccordionTrigger>Another question</AccordionTrigger>
-          <AccordionContent>Another answer.</AccordionContent>
+          <AccordionTrigger>
+            Is it permissible to repost information from this website on other
+            websites?
+          </AccordionTrigger>
+          <AccordionContent>
+            The profiles and event information featured here are sourced
+            directly from the artists themselves. Please make sure to contact
+            the individuals directly. For inquiries regarding the republication
+            of interview articles, please reach out to this email address at{" "}
+            <a
+              href="mailto:info@artistcastingexplorer.com"
+              className="text-blue-600"
+            >
+              info@artistcastingexplorer.com
+            </a>
+            .
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-4">
+          <AccordionTrigger>How can I unsubscribe?</AccordionTrigger>
+          <AccordionContent>
+            You can unsubscribe and manage your subscription in{" "}
+            <Link href={"/settings"} className="underline">
+              Settings
+            </Link>{" "}
+            page.
+          </AccordionContent>
         </AccordionItem>
       </Accordion>
     </div>
