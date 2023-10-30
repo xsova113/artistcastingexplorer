@@ -16,6 +16,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useContactModalStore } from "@/hooks/useContactModalStore";
 import useSignInAlertStore from "@/hooks/useSignInAlertStore";
+import { usePathname } from "next/navigation";
 
 interface ProfileHeaderProps {
   talentUser: User;
@@ -26,6 +27,7 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
   const { userId, orgRole, isSignedIn } = useAuth();
   const { setOpen, setTalent } = useContactModalStore();
   const { onOpen } = useSignInAlertStore();
+  const pathname = usePathname();
 
   return (
     <div className="flex items-start gap-4">
@@ -39,7 +41,12 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
       </div>
       <Stack className="gap-4">
         <h1 className="items- flex flex-col gap-x-4 gap-y-1 text-2xl font-semibold md:flex-row">
-          {talent.firstName} {talent.lastName}
+          {(pathname === "/profileReview" || !talent.stageName) && (
+            <span>
+              {talent.firstName} {talent.lastName}
+            </span>
+          )}
+          {talent.stageName && <span>{talent.stageName}</span>}
           {(orgRole === "admin" || userId === talentUser.id) && (
             <Badge
               className={cn(
@@ -81,10 +88,6 @@ const ProfileHeader = ({ talentUser, talent }: ProfileHeaderProps) => {
           </h2>
           <h3 className="flex gap-3 capitalize ">
             {!talent.gender ? null : talent.gender?.toLocaleLowerCase()}
-            <span className={cn("font-medium", !talent.stageName && "hidden")}>
-              |
-            </span>
-            {talent.stageName ? talent.stageName : null}
             <span
               className={cn(
                 "font-medium",

@@ -16,6 +16,7 @@ interface TalentReviewSectionProps {
 }
 
 const TalentReviewSection = ({ filteredTalents }: TalentReviewSectionProps) => {
+  const [isMounted, setIsMounted] = useState(false);
   const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -46,6 +47,12 @@ const TalentReviewSection = ({ filteredTalents }: TalentReviewSectionProps) => {
     setCurrentPage(selectedPage.selected);
   };
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
   return (
     <Stack className="mt-14">
       <div className="flex w-fit items-center gap-1">
@@ -69,7 +76,7 @@ const TalentReviewSection = ({ filteredTalents }: TalentReviewSectionProps) => {
           Bulk Reject
         </Button>
       </div>
-      <div className="mt-6 grid grid-cols-12 gap-3 md:gap-8 mb-12">
+      <div className="mb-12 mt-6 grid grid-cols-12 gap-3 md:gap-8">
         {subset.map((talent) => (
           <TalentReviewCard
             key={talent.id}
