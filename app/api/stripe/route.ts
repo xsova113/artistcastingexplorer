@@ -49,7 +49,7 @@ export async function GET() {
               name: "Premium Subscription",
               description: "Premium feature includes filter & sorting",
             },
-            unit_amount: 0,
+            unit_amount: 500,
             recurring: {
               interval: "year",
             },

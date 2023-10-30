@@ -19,8 +19,8 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
   if (!talent) notFound();
 
   const talentUser = await clerkClient.users.getUser(talent.userId);
-  const images = talent.images.map((image) => image.url)
-  const videos = talent.videos.map((video) => video.url)
+  const images = talent.images.map((image) => image.url);
+  const videos = talent.videos.map((video) => video.url);
 
   if (
     talent.isApproved === false &&
@@ -31,8 +31,8 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
   }
 
   return (
-    <section className="mx-auto my-20 flex max-w-screen-xl">
-      <Stack className="px-6 md:px-20 w-full">
+    <section className="mx-auto my-20 max-w-screen-xl">
+      <Stack className="px-6 md:px-20">
         <ProfileHeader talentUser={talentUser} talent={talent} />
         <Separator className="mt-8" />
         <div className="mt-10 flex flex-col-reverse gap-x-4 gap-y-4 md:flex-row lg:mt-20">
