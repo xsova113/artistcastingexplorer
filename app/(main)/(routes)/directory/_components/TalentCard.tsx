@@ -35,6 +35,7 @@ import { useAuth } from "@clerk/nextjs";
 
 interface TalentCardProps {
   name: string;
+  stageName: string | null;
   title: string;
   location: Location;
   ageMin: number | null;
@@ -61,6 +62,7 @@ const TalentCard = ({
   location,
   name,
   title,
+  stageName,
   id,
   data,
   isSaving,
@@ -159,7 +161,9 @@ const TalentCard = ({
         </div>
 
         <CardHeader className="p-2">
-          <CardTitle className="text-md sm:text-lg">{name}</CardTitle>
+          <CardTitle className="text-md sm:text-lg">
+            {stageName ? stageName : name}
+          </CardTitle>
           <CardDescription className="capitalize">
             {title.toLowerCase().replaceAll("_", " ")}
           </CardDescription>

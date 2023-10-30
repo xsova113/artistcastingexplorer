@@ -120,6 +120,7 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
         >
           {subset.map((item) => (
             <TalentCard
+              stageName={item.stageName}
               key={item.id}
               id={item.id}
               name={item.firstName}

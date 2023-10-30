@@ -34,6 +34,7 @@ const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
               key={item.id}
               id={item.id}
               name={item.firstName}
+              stageName={item.stageName}
               title={item.performerType.role}
               location={item.location}
               ageMin={item.ageMin}
