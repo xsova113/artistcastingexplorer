@@ -33,7 +33,7 @@ export async function GET() {
       return new NextResponse(JSON.stringify({ url: stripeSession.url }));
     }
 
-    // if userSubscription does not exist in prisma then create stripe checkout session for subscription
+    // If userSubscription does not exist in prisma then create stripe checkout session for subscription
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: settingsUrl,
       cancel_url: settingsUrl,
