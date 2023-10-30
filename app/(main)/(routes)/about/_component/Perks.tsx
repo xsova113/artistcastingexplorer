@@ -10,7 +10,7 @@ const perks = [
     description: (
       <p className="w-full text-muted-foreground">
         FREE{" "}
-        <SignUpButton>
+        <SignUpButton mode="modal">
           <span className="cursor-pointer underline">SIGN-UP</span>
         </SignUpButton>{" "}
         to connect and collaborate with your favorite talents.

@@ -16,7 +16,7 @@ const ToolTIp = ({
     <TooltipProvider>
       <Tooltip delayDuration={500}>
         <TooltipTrigger>{children}</TooltipTrigger>
-        <TooltipContent>
+        <TooltipContent side="top">
           <p>{description}</p>
         </TooltipContent>
       </Tooltip>
