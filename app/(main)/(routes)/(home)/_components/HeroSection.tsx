@@ -69,7 +69,7 @@ const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="w-2/3 self-center text-primary-foreground/80"
           >
-            Casting Japanese is a general information website dedicated to
+            Artist Casting Explorer is a general information website dedicated to
             artists and creators geographically located in Canada and Japan
           </motion.h2>
         </Stack>
