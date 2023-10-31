@@ -36,7 +36,7 @@ const CreditSection = ({ talent }: CreditSectioinProps) => {
       <AccordionItem value="credit" className="border-none">
         <AccordionTrigger className="hover:no-underline">
           <FlexBetween className="mr-3">
-            <div className="flex items-center ">
+            <div className="flex items-center">
               <h1 className="text-2xl font-semibold">Credits</h1>
               <span className="px-2 text-xl font-bold text-muted-foreground">
                 •

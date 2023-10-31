@@ -22,7 +22,7 @@ const CreditAccordian = ({ data, talent }: CreditAccordianProps) => {
       >
         <AccordionTrigger className="hover:no-underline">
           <div className="mr-8 flex w-full items-baseline justify-between">
-            <span className="font-semibold">{data.productionTitle}</span>
+            <span className="font-semibold text-base capitalize">{data.productionTitle}</span>
             <span className="text-sm text-muted-foreground">
               {data.yearOfRelease}
             </span>

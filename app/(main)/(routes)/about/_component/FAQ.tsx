@@ -20,7 +20,7 @@ export default function FAQ() {
         </p>
       </div>
 
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion type="single" collapsible className="w-full text-start items-start">
         <AccordionItem value="item-1">
           <AccordionTrigger>
             Is there a requirement to sign up for a talent profile?
