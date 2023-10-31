@@ -2,7 +2,7 @@ import { SignUpButton } from "@clerk/nextjs";
 
 const AgentSteps = () => {
   return (
-    <div className="flex flex-col gap-y-4 rounded-lg bg-secondary p-4 sm:w-1/2">
+    <div className="flex flex-col gap-y-4 rounded-lg bg-secondary p-4">
       <div className="flex flex-col gap-y-2">
         <h1 className="text-lg font-semibold">For Casting Agent</h1>
         <p className="text-sm text-muted-foreground">

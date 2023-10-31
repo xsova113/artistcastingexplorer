@@ -48,7 +48,7 @@ const PremiumCard = ({ isPremium }: { isPremium: boolean }) => {
           {isPremium ? (
             "Subscribed"
           ) : (
-            <div>
+            <div> 
               $29 /<span className="text-lg">yr</span>
             </div>
           )}

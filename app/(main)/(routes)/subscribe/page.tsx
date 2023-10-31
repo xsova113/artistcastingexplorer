@@ -17,7 +17,7 @@ const SubscribePage = async () => {
         </p>
         <EasySteps />
         <div
-          className="flex flex-col gap-4 gap-y-8 lg:flex-row"
+          className="grid grid-cols-1 gap-4 gap-y-8 lg:grid-cols-2"
           id="newsletter"
         >
           <FreePlanCard />

@@ -4,7 +4,7 @@ import AgentSteps from "./AgentSteps";
 
 const EasySteps = () => {
   return (
-    <section className="mb-10 flex flex-col sm:gap-20 gap-10 sm:flex-row">
+    <section className="mb-10 grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-20">
       <AgentSteps />
       <ArtistSteps />
     </section>
