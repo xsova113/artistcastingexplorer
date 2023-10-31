@@ -60,7 +60,7 @@ const HeroSection = () => {
               </SignUpButton>
             )}
             <Link
-              href={""}
+              href={"/contact"}
               className={cn(
                 buttonVariants({
                   variant: "outline",

@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormEvent } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
-import { Facebook, Instagram, Youtube } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone, Youtube } from "lucide-react";
 import Link from "next/link";
 import { FaXTwitter } from "react-icons/fa6";
 
@@ -197,8 +197,16 @@ const ContactPage = () => {
           <Stack className="gap-10">
             <Stack className="gap-2">
               <h3 className="text-lg font-semibold">Email Us</h3>
-              <span className="text-muted-foreground">
+              <span className="flex items-center gap-2 text-muted-foreground">
+                <Mail size={18} />
                 info@artistcastingexplorer.com
+              </span>
+            </Stack>
+            <Stack className="gap-2">
+              <h3 className="text-lg font-semibold">Call Us</h3>
+              <span className="flex items-center gap-2 text-muted-foreground">
+                <Phone size={18} />
+                +1-788-681-6481
               </span>
             </Stack>
             <Stack className="gap-2">
