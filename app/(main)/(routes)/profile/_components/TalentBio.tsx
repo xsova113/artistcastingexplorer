@@ -82,7 +82,12 @@ const TalentBio = ({ talent }: TalentBio) => {
 
       <Stack className="gap-4">
         <h3 className="text-lg font-medium">About me</h3>
-        <pre className={cn("text-muted-foreground", font.className)}>
+        <pre
+          className={cn(
+            "whitespace-pre-wrap break-words text-muted-foreground",
+            font.className,
+          )}
+        >
           {talent.bio}
         </pre>
       </Stack>

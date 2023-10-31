@@ -26,7 +26,7 @@ const BioFormField = ({ form }: BioFormFieldProps) => {
             <Textarea
               {...field}
               placeholder="Tell us about yourself, what motivates you, and what you have accomplished..."
-              className="rounded-lg border"
+              className="rounded-lg"
               minLength={150}
               rows={6}
               disabled={form.formState.isSubmitting}

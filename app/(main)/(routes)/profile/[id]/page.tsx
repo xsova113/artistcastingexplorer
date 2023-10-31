@@ -37,7 +37,7 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
         <Separator className="mt-8" />
         <div className="mt-10 flex flex-col-reverse gap-x-4 gap-y-4 md:flex-row lg:mt-20">
           <TalentMedia videos={videos} images={images} />
-          <div className="w-full md:basis-[60%]">
+          <div className="w-full md:max-w-[60%]">
             <TalentBio talent={talent} />
             <CreditSection talent={talent} />
           </div>
