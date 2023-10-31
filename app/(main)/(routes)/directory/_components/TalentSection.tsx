@@ -34,9 +34,7 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
   const endIndex = startIndex + itemsPerPage;
   const subset = talents.slice(startIndex, endIndex);
 
-  const handlePageChange = (selectedPage: {
-    selected: SetStateAction<number>;
-  }) => {
+  const handlePageChange = (selectedPage: { selected: number }) => {
     setCurrentPage(selectedPage.selected);
   };
 

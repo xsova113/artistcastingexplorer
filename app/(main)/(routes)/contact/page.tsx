@@ -197,10 +197,13 @@ const ContactPage = () => {
           <Stack className="gap-10">
             <Stack className="gap-2">
               <h3 className="text-lg font-semibold">Email Us</h3>
-              <span className="flex items-center gap-2 text-muted-foreground">
+              <a
+                href="mailto:info@artistcastingexplorer.com"
+                className="flex items-center gap-2 text-muted-foreground"
+              >
                 <Mail size={18} />
                 info@artistcastingexplorer.com
-              </span>
+              </a>
             </Stack>
             <Stack className="gap-2">
               <h3 className="text-lg font-semibold">Call Us</h3>
