@@ -1,6 +1,8 @@
 "use client";
 
 import Stack from "@/components/Stack";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { SignUpButton, useAuth } from "@clerk/nextjs";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -57,6 +59,19 @@ const HeroSection = () => {
                 </button>
               </SignUpButton>
             )}
+            <Link
+              href={""}
+              className={cn(
+                buttonVariants({
+                  variant: "outline",
+                  className:
+                    "ml-4 cursor-pointer rounded-full bg-transparent px-10 uppercase text-white",
+                }),
+                "rounded-full",
+              )}
+            >
+              Contact
+            </Link>
           </motion.div>
 
           <motion.h2
@@ -69,8 +84,8 @@ const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="w-2/3 self-center text-primary-foreground/80"
           >
-            Artist Casting Explorer is a general information website dedicated to
-            artists and creators geographically located in Canada and Japan
+            Artist Casting Explorer is a general information website dedicated
+            to artists and creators geographically located in Canada and Japan
           </motion.h2>
         </Stack>
       </ParallaxBannerLayer>
