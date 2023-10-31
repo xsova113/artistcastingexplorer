@@ -18,7 +18,7 @@ const TalentFormPage = async () => {
       performerType: true,
       skills: true,
       videos: true,
-      credits: true
+      credits: true,
     },
   });
 

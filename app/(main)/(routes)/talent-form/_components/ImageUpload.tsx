@@ -47,6 +47,7 @@ const ImageUpload = ({ onChange, onRemove, values }: ImageUploadProps) => {
                 }
                 variant={"destructive"}
                 size={"icon"}
+                disabled={values.length <= 1}
               >
                 <Trash className="h-4 w-4" />
               </Button>
