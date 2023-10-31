@@ -31,7 +31,10 @@ export const talentFormSchema = z.object({
   language: z.nativeEnum(Language),
   JapaneseLanguage: z.nativeEnum(JapaneseLevel),
   bio: z.string().optional(),
-  images: z.object({ url: z.string(), fileKey: z.string() }).array(),
+  images: z
+    .object({ url: z.string(), fileKey: z.string() })
+    .array()
+    .min(1, { message: "You need to have at least one image" }),
   videos: z
     .object({
       url: z.string(),

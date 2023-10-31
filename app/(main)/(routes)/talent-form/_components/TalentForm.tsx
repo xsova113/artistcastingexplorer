@@ -130,7 +130,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
   const addedVideos = videos?.filter(
     (v) => !initialData?.videos?.map((v) => v.fileKey).includes(v.fileKey),
   );
-  const addedImages = images.filter(
+  const addedImages = images?.filter(
     (image) =>
       !initialData?.images
         .map((image) => image.fileKey)

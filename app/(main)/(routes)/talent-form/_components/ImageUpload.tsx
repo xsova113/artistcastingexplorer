@@ -34,7 +34,7 @@ const ImageUpload = ({ onChange, onRemove, values }: ImageUploadProps) => {
   return (
     <div className="mb-5">
       <div className="flex flex-wrap gap-4">
-        {values.map((item) => (
+        {values?.map((item) => (
           <div
             key={item.url}
             className="relative h-[200px] w-[200px] overflow-hidden rounded-md"
