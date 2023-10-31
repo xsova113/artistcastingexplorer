@@ -109,11 +109,12 @@ const TalentBio = ({ talent }: TalentBio) => {
 
       <Separator className="my-5" />
       <h1 className="mb-4 text-lg font-medium">Agency</h1>
-      {talent.agency?.split(",").map((item) => (
-        <p key={item} className="text-muted-foreground">
-          - {item}
-        </p>
-      ))}
+      {talent.agency &&
+        talent.agency?.split(",").map((item) => (
+          <p key={item} className="text-muted-foreground">
+            - {item}
+          </p>
+        ))}
 
       <Separator className="my-5" />
       <h1 className="mb-4 text-lg font-medium">Union Affiliation</h1>
