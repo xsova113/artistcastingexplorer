@@ -8,6 +8,7 @@ import { ElementRef, useEffect, useRef, useState } from "react";
 import { Post } from "@/types/post";
 import axios from "axios";
 import { Category, Slug } from "@/types/category";
+import { cn } from "@/lib/utils";
 
 const PostCarousel = ({ categorySlug }: { categorySlug: Slug }) => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -60,7 +61,10 @@ const PostCarousel = ({ categorySlug }: { categorySlug: Slug }) => {
 
       <div className="relative px-8">
         <ChevronLeft
-          className="absolute left-0 top-1/2 hover:cursor-pointer"
+          className={cn(
+            "absolute left-0 top-1/2 hover:cursor-pointer",
+            !filteredPosts.length && "hidden",
+          )}
           onClick={() =>
             ref.current?.scrollBy({ left: -150, behavior: "smooth" })
           }
@@ -80,31 +84,12 @@ const PostCarousel = ({ categorySlug }: { categorySlug: Slug }) => {
               postId={post.id}
             />
           ))}
-          {filteredPosts.map((post) => (
-            <PostCard
-              authorId={post.author}
-              content={post.uagb_excerpt}
-              date={post.date}
-              title={post.title.rendered}
-              featuredImage={post.uagb_featured_image_src.full[0]}
-              key={post.id}
-              postId={post.id}
-            />
-          ))}
-          {filteredPosts.map((post) => (
-            <PostCard
-              authorId={post.author}
-              content={post.uagb_excerpt}
-              date={post.date}
-              title={post.title.rendered}
-              featuredImage={post.uagb_featured_image_src.full[0]}
-              key={post.id}
-              postId={post.id}
-            />
-          ))}
         </div>
         <ChevronRight
-          className="absolute right-0 top-1/2 hover:cursor-pointer"
+          className={cn(
+            "absolute right-0 top-1/2 hover:cursor-pointer",
+            !filteredPosts.length && "hidden",
+          )}
           onClick={() =>
             ref.current?.scrollBy({ left: 150, behavior: "smooth" })
           }

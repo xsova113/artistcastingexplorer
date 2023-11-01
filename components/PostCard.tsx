@@ -11,6 +11,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery } from "react-query";
 
@@ -44,9 +45,12 @@ const PostCard = ({
   const { data: author } = useQuery("author", fetchAuthor);
 
   return (
-    <Card className="mb-4 h-[560px] min-w-[340px]">
+    <Card className="mb-4 h-[540px] min-w-[340px]">
       <CardHeader>
-        <div className="relative mb-2 h-[280px] w-full">
+        <div
+          onClick={() => router.push(`/news/${postId}`)}
+          className="relative mb-2 h-[280px] w-full cursor-pointer"
+        >
           {featuredImage && (
             <Image
               src={featuredImage}
