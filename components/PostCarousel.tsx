@@ -1,8 +1,6 @@
 "use client";
 
-import useMediaQuery from "@/hooks/useMediaQuery";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Slider from "react-slick";
 import PostCard from "./PostCard";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { Post } from "@/types/post";
@@ -14,9 +12,11 @@ const PostCarousel = ({ categorySlug }: { categorySlug: Slug }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const ref = useRef<ElementRef<"div">>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchPosts = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         "https://castingjapanese.ca/wp-json/wp/v2/posts",
       );
@@ -36,6 +36,8 @@ const PostCarousel = ({ categorySlug }: { categorySlug: Slug }) => {
       setCategories(response.data);
     } catch (error) {
       console.log("Error: " + error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -59,42 +61,42 @@ const PostCarousel = ({ categorySlug }: { categorySlug: Slug }) => {
         Related Articles
       </h1>
 
-      <div className="relative px-8">
-        <ChevronLeft
-          className={cn(
-            "absolute left-0 top-1/2 hover:cursor-pointer",
-            !filteredPosts.length && "hidden",
-          )}
-          onClick={() =>
-            ref.current?.scrollBy({ left: -150, behavior: "smooth" })
-          }
-        />
-        <div
-          ref={ref}
-          className=" flex flex-col gap-x-6 overflow-x-scroll md:flex-row"
-        >
-          {filteredPosts.map((post) => (
-            <PostCard
-              authorId={post.author}
-              content={post.uagb_excerpt}
-              date={post.date}
-              title={post.title.rendered}
-              featuredImage={post.uagb_featured_image_src.full[0]}
-              key={post.id}
-              postId={post.id}
-            />
-          ))}
+      {filteredPosts.length < 1 ? (
+        <div className="mx-auto my-20 text-lg font-medium">
+          {isLoading ? "Loading..." : "No related posts..."}
         </div>
-        <ChevronRight
-          className={cn(
-            "absolute right-0 top-1/2 hover:cursor-pointer",
-            !filteredPosts.length && "hidden",
-          )}
-          onClick={() =>
-            ref.current?.scrollBy({ left: 150, behavior: "smooth" })
-          }
-        />
-      </div>
+      ) : (
+        <div className="relative px-8">
+          <ChevronLeft
+            className={cn("absolute left-0 top-1/2 hover:cursor-pointer")}
+            onClick={() =>
+              ref.current?.scrollBy({ left: -150, behavior: "smooth" })
+            }
+          />
+          <div
+            ref={ref}
+            className=" flex flex-col gap-x-6 overflow-x-scroll md:flex-row"
+          >
+            {filteredPosts.map((post) => (
+              <PostCard
+                authorId={post.author}
+                content={post.uagb_excerpt}
+                date={post.date}
+                title={post.title.rendered}
+                featuredImage={post.uagb_featured_image_src.full[0]}
+                key={post.id}
+                postId={post.id}
+              />
+            ))}
+          </div>
+          <ChevronRight
+            className={cn("absolute right-0 top-1/2 hover:cursor-pointer")}
+            onClick={() =>
+              ref.current?.scrollBy({ left: 150, behavior: "smooth" })
+            }
+          />
+        </div>
+      )}
     </section>
   );
 };

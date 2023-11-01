@@ -1,7 +1,7 @@
 "use client";
 
 import Stack from "@/components/Stack";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SignUpButton, useAuth } from "@clerk/nextjs";
 import { motion } from "framer-motion";
