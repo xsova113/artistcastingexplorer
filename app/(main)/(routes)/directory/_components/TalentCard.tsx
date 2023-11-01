@@ -32,6 +32,7 @@ import { fetchSavedByUser } from "@/actions/fetchSavedByUser";
 import { useContactModalStore } from "@/hooks/useContactModalStore";
 import useSignInAlertStore from "@/hooks/useSignInAlertStore";
 import { useAuth } from "@clerk/nextjs";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 interface TalentCardProps {
   name: string;
@@ -72,6 +73,7 @@ const TalentCard = ({
   email,
   selectedTalentId,
 }: TalentCardProps) => {
+  const isLargeScreen = useMediaQuery("(min-width: 640px)");
   const [loading, setLoading] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [savedByUsers, setSavedByUsers] = useState<SavedByUser[]>();
@@ -124,7 +126,11 @@ const TalentCard = ({
   if (!isMounted) return null;
 
   return (
-    <Card className={cn("w-[165px] drop-shadow transition-all sm:w-[230px]")}>
+    <Card
+      className={cn(
+        "w-[165px] overflow-hidden drop-shadow transition-all sm:w-[230px]",
+      )}
+    >
       <div
         className="w-full cursor-pointer"
         onClick={() => {
@@ -176,9 +182,14 @@ const TalentCard = ({
           </p>
         </CardContent>
       </div>
-      <CardFooter className="flex flex-col items-start justify-center bg-secondary p-2 md:flex-row-reverse md:items-center md:justify-end">
+      <CardFooter
+        className={cn(
+          "flex flex-col items-start justify-center bg-secondary p-2",
+          isLargeScreen && "flex-row-reverse items-center justify-end",
+        )}
+      >
         <button
-          className="px-2 max-md:pb-2 md:ml-auto"
+          className={cn("px-2 max-sm:pb-2", isLargeScreen && "ml-auto")}
           onClick={onSave}
           disabled={loading || isSaving}
         >
