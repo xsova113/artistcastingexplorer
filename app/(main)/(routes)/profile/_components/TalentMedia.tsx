@@ -67,7 +67,7 @@ const TalentMedia = ({ images, talent }: TalentMediaProps) => {
               .map((video) => (
                 <div
                   key={video.url}
-                  className="flex min-w-[340px] items-center rounded-md border-l-2 border-primary bg-primary-foreground p-2 transition hover:scale-105"
+                  className="flex items-center rounded-md border-l-2 border-primary bg-primary-foreground p-2 transition hover:scale-105"
                 >
                   <Link
                     href={video.url}
