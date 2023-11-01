@@ -61,7 +61,7 @@ const TalentDetailSheet = ({
           <div className="mt-10 flex flex-col-reverse gap-x-4 gap-y-6 md:flex-row lg:mt-20">
             <TalentMedia
               images={talent.images.map((image) => image.url)}
-              videos={talent.videos.map((video) => video.url)}
+              talent={talent}
             />
             <div className="w-full md:w-[75%]">
               <TalentBio talent={talent} />

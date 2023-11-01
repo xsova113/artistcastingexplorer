@@ -69,18 +69,18 @@ export const updateTalent = async (
               })),
             },
           },
-          videos:
-            !values.videos || values.videos.length === 0
-              ? {}
-              : {
-                  createMany: {
-                    data: values.videos.map((video) => ({
-                      url: video.url,
-                      fileKey: video.fileKey,
-                      name: video.name,
-                    })),
-                  },
-                },
+          // videos:
+          //   !values.videos || values.videos.length === 0
+          //     ? {}
+          //     : {
+          //         createMany: {
+          //           data: values.videos.map((video) => ({
+          //             url: video.url,
+          //             fileKey: video.fileKey,
+          //             name: video.name,
+          //           })),
+          //         },
+          //       },
           skills: {
             createMany: { data: values.skills },
           },

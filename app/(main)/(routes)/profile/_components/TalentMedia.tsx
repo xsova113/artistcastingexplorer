@@ -12,11 +12,11 @@ import { compareAsc } from "date-fns";
 
 interface TalentMediaProps {
   images: string[];
-  videos: string[];
+  // videos: string[];
   talent: TalentProfileType;
 }
 
-const TalentMedia = ({ images, videos, talent }: TalentMediaProps) => {
+const TalentMedia = ({ images, talent }: TalentMediaProps) => {
   const { onOpen, setMedia } = useLightBoxStore();
 
   return (
@@ -58,35 +58,34 @@ const TalentMedia = ({ images, videos, talent }: TalentMediaProps) => {
           </VideoFormDialog>
         </div>
 
-        {videos.length > 0 && (
-          <Stack className="mt-6">
-            <div className="grid grid-cols-1 gap-2">
-              {talent.videos
-                .sort((a, b) =>
-                  compareAsc(new Date(a.createdAt), new Date(b.createdAt)),
-                )
-                .map((video) => (
-                  <div
-                    key={video.url}
-                    className="flex min-w-[340px] items-center rounded-md border-l-2 border-primary bg-primary-foreground p-2 transition hover:scale-105"
+        <Stack className="mt-6">
+          <div className="grid grid-cols-1 gap-2">
+            {talent.videos
+              .sort((a, b) =>
+                compareAsc(new Date(a.createdAt), new Date(b.createdAt)),
+              )
+              .map((video) => (
+                <div
+                  key={video.url}
+                  className="flex min-w-[340px] items-center rounded-md border-l-2 border-primary bg-primary-foreground p-2 transition hover:scale-105"
+                >
+                  <Link
+                    href={video.url}
+                    target="_blank"
+                    className="w-full hover:cursor-pointer"
                   >
-                    <Link
-                      href={video.url}
-                      target="_blank"
-                      className="w-full hover:cursor-pointer"
-                    >
-                      <span className="font-semibold">{video.name}</span>{" "}
-                    </Link>
-                    <VideoFormDialog
-                      talent={talent}
-                      initialData={video}
-                      className="ml-auto"
-                    >
-                      <span>Edit</span>
-                    </VideoFormDialog>
-                  </div>
-                ))}
-              {/* {videos.map((video) => (
+                    <span className="font-semibold">{video.name}</span>{" "}
+                  </Link>
+                  <VideoFormDialog
+                    talent={talent}
+                    initialData={video}
+                    className="ml-auto"
+                  >
+                    <span>Edit</span>
+                  </VideoFormDialog>
+                </div>
+              ))}
+            {/* {videos.map((video) => (
               <div key={video}>
                 <div
                   className="relative mt-4 h-20 w-20 cursor-pointer overflow-hidden rounded-md transition hover:opacity-70"
@@ -100,9 +99,8 @@ const TalentMedia = ({ images, videos, talent }: TalentMediaProps) => {
                 </div>
               </div>
             ))} */}
-            </div>
-          </Stack>
-        )}
+          </div>
+        </Stack>
       </div>
 
       <MediaLightBox />

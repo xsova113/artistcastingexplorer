@@ -20,7 +20,7 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
 
   const talentUser = await clerkClient.users.getUser(talent.userId);
   const images = talent.images.map((image) => image.url);
-  const videos = talent.videos.map((video) => video.url);
+  // const videos = talent.videos.map((video) => video.url);
 
   if (
     talent.isApproved === false &&
@@ -36,7 +36,7 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
         <ProfileHeader talentUser={talentUser} talent={talent} />
         <Separator className="mt-8" />
         <div className="mt-10 flex flex-col-reverse gap-x-4 gap-y-4 md:flex-row lg:mt-20">
-          <TalentMedia videos={videos} images={images} talent={talent} />
+          <TalentMedia images={images} talent={talent} />
           <div className="w-full md:max-w-[60%]">
             <TalentBio talent={talent} />
             <CreditSection talent={talent} />
