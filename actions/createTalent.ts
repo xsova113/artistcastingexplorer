@@ -42,7 +42,7 @@ export const createTalent = async (
           tiktok: values.tiktok,
           website: values.website,
           skills:
-            !values.skills || values.videos?.length === 0
+            !values.skills || values.skills?.length === 0
               ? {}
               : { createMany: { data: values.skills } },
           middleName: values.middleName,
@@ -56,18 +56,19 @@ export const createTalent = async (
               })),
             },
           },
-          videos:
-            !values.videos || values.videos.length === 0
-              ? {}
-              : {
-                  createMany: {
-                    data: values.videos.map((video) => ({
-                      url: video.url,
-                      fileKey: video.fileKey,
-                      name: video.name,
-                    })),
-                  },
-                },
+          videos: {},
+          // videos:
+          //   !values.videos || values.videos.length === 0
+          //     ? {}
+          //     : {
+          //         createMany: {
+          //           data: values.videos.map((video) => ({
+          //             url: video.url,
+          //             fileKey: video.fileKey,
+          //             name: video.name,
+          //           })),
+          //         },
+          //       },
           language: values.language,
           japaneseLevel: values.JapaneseLanguage,
           credits: {},

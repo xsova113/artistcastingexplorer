@@ -103,11 +103,14 @@ model Location {
 enum Role {
   ACTOR
   ACTRESS
+  DIRECTOR
   COMEDIAN
   CREATIVE_CREW
   DANCER
   IDOL
   MASTER_OF_CEREMONIES
+  DRAG_QUEEN
+  IMPROVISOR
   MODEL
   MUSICIAN
   SINGER
@@ -162,10 +165,10 @@ model Image {
 }
 
 model Video {
-  id      String  @id @default(uuid())
-  url     String
-  fileKey String
-  name    String?
+  id   String @id @default(uuid())
+  url  String
+  // fileKey String?
+  name String
 
   talentProfile   TalentProfile @relation(fields: [talentProfileId], references: [id], onDelete: Cascade)
   talentProfileId String

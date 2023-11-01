@@ -44,7 +44,7 @@ const PostCard = ({
   const { data: author } = useQuery("author", fetchAuthor);
 
   return (
-    <Card className="mb-4 h-[560px] md:mx-4">
+    <Card className="mb-4 h-[560px] min-w-[340px]">
       <CardHeader>
         <div className="relative mb-2 h-[280px] w-full">
           {featuredImage && (

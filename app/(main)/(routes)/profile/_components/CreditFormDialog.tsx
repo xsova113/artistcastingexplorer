@@ -23,11 +23,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Credit, TalentProfile } from "@prisma/client";
-import { createCredit, updateCredit } from "@/actions/creditAction";
+import {
+  createCredit,
+  deleteCredit,
+  updateCredit,
+} from "@/actions/creditAction";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { Trash } from "lucide-react";
 
 interface CreditFormDialogProps {
   initialData?: Credit;
@@ -77,7 +82,6 @@ const CreditFormDialog = ({
 
   const onSubmit = async (values: z.infer<typeof CreditFormSchema>) => {
     try {
-      toast.loading("Submitting...");
       if (userId !== talent.userId)
         return toast.error("You are not authorized to submit this form");
 
@@ -97,6 +101,16 @@ const CreditFormDialog = ({
     } finally {
       if (!initialData) form.reset();
     }
+  };
+
+  const onDelete = (initialData: Credit) => {
+    const promise = deleteCredit(initialData.id);
+
+    toast.promise(promise, {
+      success: "Credit deleted successfully",
+      loading: "Deleting...",
+      error: "Failed to delete credit",
+    });
   };
 
   return (
@@ -214,9 +228,22 @@ const CreditFormDialog = ({
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isLoading}>
-              {initialData ? "Save" : "Create"}
-            </Button>
+            <div className="flex gap-2">
+              <Button type="submit" disabled={isLoading}>
+                {initialData ? "Save" : "Create"}
+              </Button>
+
+              {initialData ? (
+                <Button
+                  className="flex items-center gap-2"
+                  variant={"destructive"}
+                  disabled={isLoading}
+                  onClick={() => onDelete(initialData)}
+                >
+                  <Trash size={18} />
+                </Button>
+              ) : null}
+            </div>
           </form>
         </Form>
       </DialogContent>

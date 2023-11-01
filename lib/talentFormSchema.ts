@@ -35,14 +35,14 @@ export const talentFormSchema = z.object({
     .object({ url: z.string(), fileKey: z.string() })
     .array()
     .min(1, { message: "You need to have at least one image" }),
-  videos: z
-    .object({
-      url: z.string(),
-      fileKey: z.string(),
-      name: z.string().nullable(),
-    })
-    .array()
-    .optional(),
+  // videos: z
+  //   .object({
+  //     url: z.string(),
+  //     fileKey: z.string().nullable(),
+  //     name: z.string(),
+  //   })
+  //   .array()
+  //   .optional(),
   city: z.nativeEnum(City),
   province: z.nativeEnum(Province).optional(),
   agency: z.string().optional(),

@@ -83,7 +83,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           ageMin: initialData.ageMin || undefined,
           bio: initialData.bio || undefined,
           images: initialData.images,
-          videos: initialData.videos,
+          // videos: initialData.videos,
           skills: initialData.skills,
           height: initialData.height || undefined,
           gender: initialData.gender || undefined,
@@ -114,7 +114,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           email: "",
           skills: [],
           images: [],
-          videos: [],
+          // videos: [],
           middleName: "",
           stageName: "",
           termAcceptance: false,
@@ -126,10 +126,10 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
   const termsValue = form.watch("termAcceptance");
   const ageCheck = form.watch("ageCheck");
   const images = form.watch("images");
-  const videos = form.watch("videos");
-  const addedVideos = videos?.filter(
-    (v) => !initialData?.videos?.map((v) => v.fileKey).includes(v.fileKey),
-  );
+  // const videos = form.watch("videos");
+  // const addedVideos = videos?.filter(
+  //   (v) => !initialData?.videos?.map((v) => v.fileKey).includes(v.fileKey),
+  // );
   const addedImages = images?.filter(
     (image) =>
       !initialData?.images
@@ -175,9 +175,9 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
       if (event.key === "Escape") {
         event.preventDefault();
 
-        if (addedVideos) {
-          await removeFile(addedVideos.map((v) => v.fileKey));
-        }
+        // if (addedVideos) {
+        //   await removeFile(addedVideos.map((v) => v.fileKey));
+        // }
         if (addedImages) {
           await removeFile(addedImages.map((image) => image.fileKey));
         }
@@ -189,7 +189,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
     return () => {
       document.removeEventListener("keydown", keyDownHandler);
     };
-  }, [addedImages, addedVideos]);
+  }, [addedImages]);
 
   if (!user || !user.id) return;
 
@@ -203,9 +203,9 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
           <AlertDialogCancel
             className="absolute right-0 top-0 border-0 p-2"
             onClick={async () => {
-              if (addedVideos) {
-                await removeFile(addedVideos.map((v) => v.fileKey));
-              }
+              // if (addedVideos) {
+              //   await removeFile(addedVideos.map((v) => v.fileKey));
+              // }
 
               if (addedImages) {
                 await removeFile(addedImages.map((image) => image.fileKey));
@@ -273,11 +273,11 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
                 setFilesToDelete={setFilesToDelete}
                 filesToDelete={filesToDelete}
               />
-              <VideoFormField
+              {/* <VideoFormField
                 form={form}
                 setFilesToDelete={setFilesToDelete}
                 filesToDelete={filesToDelete}
-              />
+              /> */}
               <BioFormField form={form} />
             </Stack>
             <div className="flex flex-wrap gap-4">
@@ -314,9 +314,9 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             </AlertDialogAction>
             <AlertDialogCancel
               onClick={async () => {
-                if (addedVideos) {
-                  await removeFile(addedVideos.map((v) => v.fileKey));
-                }
+                // if (addedVideos) {
+                //   await removeFile(addedVideos.map((v) => v.fileKey));
+                // }
 
                 if (addedImages) {
                   await removeFile(addedImages.map((image) => image.fileKey));

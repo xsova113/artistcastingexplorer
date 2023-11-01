@@ -60,3 +60,21 @@ export const updateCredit = async ({
     console.log("Failed to update credit", error);
   }
 };
+
+export const deleteCredit = async (id: string) => {
+  const { userId } = auth();
+
+  if (!userId) return console.log("User ID is missing.");
+
+  try {
+    const credit = await prisma.credit.delete({
+      where: {
+        id,
+      },
+    });
+
+    return credit;
+  } catch (error) {
+    console.log("Failed to delete credit", error);
+  }
+};

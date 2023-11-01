@@ -19,7 +19,14 @@ const ProfileReviewPage = async ({ searchParams }: ProfileReviewPageProps) => {
   if (!user && orgRole !== "admin") redirect("/");
 
   if (!talents || talents.length === 0)
-    return <div className="py-20 text-center">No talents found...</div>;
+    return (
+      <div className="mx-auto max-w-screen-lg py-20">
+        <FilterReview />
+        <span className="my-20 flex justify-center text-lg font-medium">
+          No talents found...
+        </span>
+      </div>
+    );
 
   const filteredTalents = fetchFilteredTalents(talents, searchParams);
 
