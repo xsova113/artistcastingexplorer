@@ -21,10 +21,12 @@ const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
 
   return (
     <Stack className="my-28 w-full items-center gap-8">
-      <h1 className="text-2xl font-semibold capitalize lg:text-4xl">
-        Discover Artists and Creators
-      </h1>
-      <p className="text-center">You can find latest profiles here</p>
+      <div className="flex flex-col gap-y-2">
+        <h1 className="text-2xl font-semibold capitalize lg:text-4xl">
+          Discover Artists and Creators
+        </h1>
+        <p className="text-center">You can find latest profiles here</p>
+      </div>
 
       <div className="flex flex-wrap justify-center gap-4 transition-all md:gap-8">
         {approvedTalents
