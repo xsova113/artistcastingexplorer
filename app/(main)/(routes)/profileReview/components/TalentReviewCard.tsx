@@ -54,7 +54,7 @@ const TalentReviewCard = ({
           }
           alt={"image"}
           fill
-          className="rounded-t-lg object-cover"
+          className="rounded-t-lg object-contain"
         />
         <Checkbox
           className="absolute right-0 m-2 bg-white"

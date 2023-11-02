@@ -27,7 +27,7 @@ const TalentMedia = ({ images, talent }: TalentMediaProps) => {
           src={images[0]}
           alt={"Main talent image"}
           fill
-          className="object-cover"
+          className="object-contain"
         />
       </div>
       <div className="grid grid-cols-3 gap-4 lg:grid-cols-4">
@@ -44,7 +44,7 @@ const TalentMedia = ({ images, talent }: TalentMediaProps) => {
               src={image}
               alt={"Image"}
               fill
-              className="object-cover"
+              className="object-contain"
               priority
             />
           </div>
