@@ -137,7 +137,7 @@ const TalentCard = ({
           router.push(`/profile/${id}`);
         }}
       >
-        <div className="relative h-[130px] w-full sm:h-[150px]">
+        <div className="relative h-[130px] w-full sm:h-[150px] bg-primary-foreground">
           <Image
             src={image}
             alt={"image"}
