@@ -1,6 +1,5 @@
 "use client";
 
-import ToolTIp from "@/components/ToolTIp";
 import {
   Select,
   SelectContent,
@@ -11,7 +10,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSortStore } from "@/hooks/useSortStore";
+import checkTalent from "@/lib/checkTalent";
 import { checkSubscription } from "@/lib/subscription";
+import { TalentProfile } from "@prisma/client";
+import { Star } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export type OrderBy = "recently_updated" | "name-a" | "name-z";
@@ -19,6 +22,12 @@ export type OrderBy = "recently_updated" | "name-a" | "name-z";
 const SortForm = () => {
   const { setOrderBy } = useSortStore();
   const [isPremium, setIsPremium] = useState(false);
+  const [talent, setTalent] = useState<TalentProfile>();
+
+  const getTalent = async () => {
+    const talent = await checkTalent();
+    setTalent(talent);
+  };
 
   const checkIsPremium = async () => {
     const response = await checkSubscription();
@@ -31,29 +40,31 @@ const SortForm = () => {
 
   useEffect(() => {
     checkIsPremium();
+    getTalent();
   }, []);
 
   return (
-    <Select
-      onValueChange={(value: OrderBy) => onSelect(value)}
-      disabled={!isPremium}
-    >
+    <Select onValueChange={(value: OrderBy) => onSelect(value)}>
       <SelectTrigger className="h-8 w-[180px]">
-        {isPremium ? (
-          <SelectValue placeholder={"Order By"} />
-        ) : (
-          <ToolTIp description={"Please subscribe to premium for this feature"}>
-            <SelectValue placeholder={"Order By"} />
-          </ToolTIp>
-        )}
+        <SelectValue placeholder={"Order By"} />
       </SelectTrigger>
       <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Sort By</SelectLabel>
-          <SelectItem value="recently_updated">Recently Updated</SelectItem>
-          <SelectItem value="name-a">Name: A - Z</SelectItem>
-          <SelectItem value="name-z">Name: Z - A</SelectItem>
-        </SelectGroup>
+        {isPremium || talent?.isApproved ? (
+          <SelectGroup>
+            <SelectLabel>Sort By</SelectLabel>
+            <SelectItem value="recently_updated">Recently Updated</SelectItem>
+            <SelectItem value="name-a">Name: A - Z</SelectItem>
+            <SelectItem value="name-z">Name: Z - A</SelectItem>
+          </SelectGroup>
+        ) : (
+          <Link
+            href={"/subscribe"}
+            className="flex items-center gap-1 px-2 text-sm hover:bg-primary-foreground"
+          >
+            <Star size={16} />
+            Premium Fefature
+          </Link>
+        )}
       </SelectContent>
     </Select>
   );

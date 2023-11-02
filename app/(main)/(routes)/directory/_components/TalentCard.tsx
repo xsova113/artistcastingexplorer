@@ -142,7 +142,7 @@ const TalentCard = ({
             src={image}
             alt={"image"}
             fill
-            className="rounded-t-lg object-cover"
+            className="rounded-t-lg object-scale-down"
           />
           {!discoverSection && (
             <Checkbox
