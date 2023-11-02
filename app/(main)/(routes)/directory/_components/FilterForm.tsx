@@ -58,11 +58,9 @@ const FilterForm = () => {
   const onSubmit = (values: z.infer<typeof filterFormSchema>) => {
     if (
       !isPremium &&
-      (talent?.isApproved === false ||
-        talent?.isApproved === null ||
-        !talent ||
-        orgRole !== "admin")
-    )
+      orgRole !== "admin" &&
+      (talent?.isApproved === false || talent?.isApproved === null || !talent)
+    ) {
       return toast({
         title: "Premium feature",
         description: "Subscribe to premium plan for this feature.",
@@ -75,6 +73,7 @@ const FilterForm = () => {
           </ToastAction>
         ),
       });
+    }
 
     const query = {
       gender: values.gender,
