@@ -22,7 +22,7 @@ const TalentMedia = ({ images, talent }: TalentMediaProps) => {
   return (
     <Stack className="basis-full rounded-lg p-2 md:basis-[40%]">
       <h1 className="mb-6 text-2xl font-semibold">Media</h1>
-      <div className="relative h-[400px] w-full overflow-hidden rounded border bg-primary-foreground">
+      <div className="relative h-[400px] w-full overflow-hidden rounded bg-primary-foreground">
         <Image
           src={images[0]}
           alt={"Main talent image"}
@@ -34,7 +34,7 @@ const TalentMedia = ({ images, talent }: TalentMediaProps) => {
         {images.map((image) => (
           <div
             key={image}
-            className="relative border bg-primary-foreground mt-4 h-20 w-20 cursor-pointer overflow-hidden rounded-md transition hover:opacity-70"
+            className="relative mt-4 h-20 w-20 cursor-pointer overflow-hidden rounded-md border bg-primary-foreground transition hover:opacity-70"
             onClick={() => {
               setMedia(image);
               onOpen();
