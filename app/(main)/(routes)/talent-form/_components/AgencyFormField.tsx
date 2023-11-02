@@ -1,5 +1,6 @@
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,12 +21,17 @@ const AgencyFormField = ({ form }: AgencyFormFieldProps) => {
       control={form.control}
       name="agency"
       render={({ field }) => (
-        <FormItem className="bg-secondary max-sm:w-full px-3 pb-3 pt-1 rounded-lg">
+        <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1 max-sm:w-full">
           <FormLabel className="flex">Agency</FormLabel>
           <FormControl>
-            <Input {...field} placeholder="Agency" disabled={form.formState.isSubmitting} />
+            <Input
+              {...field}
+              placeholder="Agency1, Agency2"
+              disabled={form.formState.isSubmitting}
+            />
           </FormControl>
           <FormMessage />
+          <FormDescription className="mr-auto flex">Separete each by comma</FormDescription>
         </FormItem>
       )}
     />
