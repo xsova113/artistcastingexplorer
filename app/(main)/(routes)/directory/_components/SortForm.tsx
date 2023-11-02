@@ -12,6 +12,7 @@ import {
 import { useSortStore } from "@/hooks/useSortStore";
 import checkTalent from "@/lib/checkTalent";
 import { checkSubscription } from "@/lib/subscription";
+import { useAuth } from "@clerk/nextjs";
 import { TalentProfile } from "@prisma/client";
 import { Star } from "lucide-react";
 import Link from "next/link";
@@ -23,6 +24,7 @@ const SortForm = () => {
   const { setOrderBy } = useSortStore();
   const [isPremium, setIsPremium] = useState(false);
   const [talent, setTalent] = useState<TalentProfile>();
+  const { orgRole } = useAuth();
 
   const getTalent = async () => {
     const talent = await checkTalent();
@@ -49,7 +51,7 @@ const SortForm = () => {
         <SelectValue placeholder={"Order By"} />
       </SelectTrigger>
       <SelectContent>
-        {isPremium || talent?.isApproved ? (
+        {isPremium || talent?.isApproved || orgRole === "admin" ? (
           <SelectGroup>
             <SelectLabel>Sort By</SelectLabel>
             <SelectItem value="recently_updated">Recently Updated</SelectItem>

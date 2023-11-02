@@ -23,12 +23,14 @@ import CreateSavedFilterModal from "@/components/modals/CreateSavedFilterModal";
 import checkTalent from "@/lib/checkTalent";
 import { TalentProfile } from "@prisma/client";
 import { toast } from "@/components/ui/use-toast";
+import { useAuth } from "@clerk/nextjs";
 
 const FilterForm = () => {
   const router = useRouter();
   const orderBy = useSortStore((state) => state.orderBy);
   const [isPremium, setIsPremium] = useState(false);
   const [talent, setTalent] = useState<TalentProfile>();
+  const { orgRole } = useAuth();
 
   const checkIsPremium = async () => {
     const response = await checkSubscription();
@@ -56,7 +58,10 @@ const FilterForm = () => {
   const onSubmit = (values: z.infer<typeof filterFormSchema>) => {
     if (
       !isPremium &&
-      (talent?.isApproved === false || talent?.isApproved === null || !talent)
+      (talent?.isApproved === false ||
+        talent?.isApproved === null ||
+        !talent ||
+        orgRole !== "admin")
     )
       return toast({
         title: "Premium feature",
