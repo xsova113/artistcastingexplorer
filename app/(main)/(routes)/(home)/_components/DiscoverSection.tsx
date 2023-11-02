@@ -33,7 +33,7 @@ const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
             <TalentCard
               key={item.id}
               id={item.id}
-              name={item.firstName}
+              name={item.firstName + " " + item.lastName}
               stageName={item.stageName}
               title={item.performerType.role}
               location={item.location}

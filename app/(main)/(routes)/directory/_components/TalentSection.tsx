@@ -121,7 +121,7 @@ const TalentSection = ({ talents }: TalentSectionProps) => {
               stageName={item.stageName}
               key={item.id}
               id={item.id}
-              name={item.firstName}
+              name={item.firstName + " " + item.lastName}
               title={item.performerType.role}
               location={item.location}
               ageMin={item.ageMin}
