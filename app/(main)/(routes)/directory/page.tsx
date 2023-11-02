@@ -91,6 +91,9 @@ const DirectoryPage = () => {
                   .includes(searchParams.get("keyword")!.toLowerCase()) ||
                 talent.lastName
                   .toLowerCase()
+                  .includes(searchParams.get("keyword")!.toLowerCase()) ||
+                talent.stageName
+                  ?.toLowerCase()
                   .includes(searchParams.get("keyword")!.toLowerCase())),
         )
         .sort(
