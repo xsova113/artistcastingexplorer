@@ -9,6 +9,7 @@ import VideoFormDialog from "./VideoFormDialog";
 import { TalentProfileType } from "@/types/talentProfileType";
 import Link from "next/link";
 import { compareAsc } from "date-fns";
+import { cn } from "@/lib/utils";
 
 interface TalentMediaProps {
   images: string[];
@@ -52,8 +53,13 @@ const TalentMedia = ({ images, talent }: TalentMediaProps) => {
       </div>
       <div className="mt-4 w-full">
         <div className="grid grid-cols-2 items-center">
-          <h1 className="text-lg font-semibold">Videos</h1>
-          <VideoFormDialog talent={talent} className="ml-auto w-fit">
+          {talent.videos.length >= 1 && (
+            <h1 className="text-lg font-semibold">Videos</h1>
+          )}
+          <VideoFormDialog
+            talent={talent}
+            className={cn("w-fit", talent.videos.length > 0 && "ml-auto")}
+          >
             <Plus size={16} className="mr-1" /> Add Video
           </VideoFormDialog>
         </div>
