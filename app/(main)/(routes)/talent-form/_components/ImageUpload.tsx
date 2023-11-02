@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import "@uploadthing/react/styles.css";
+import { toast } from "sonner";
 
 interface ImageUploadProps {
   disabled?: boolean;
@@ -24,7 +25,7 @@ const ImageUpload = ({ onChange, onRemove, values }: ImageUploadProps) => {
   }, []);
 
   const onUpload = (result: { url: string; fileKey: string }[] | undefined) => {
-    if (!result) return console.log("No image uploaded");
+    if (!result) return toast.error("No image uploaded");
 
     onChange([...values, ...result]);
   };
@@ -70,6 +71,9 @@ const ImageUpload = ({ onChange, onRemove, values }: ImageUploadProps) => {
               endpoint="imageUploader"
               onClientUploadComplete={(res) => {
                 onUpload(res);
+              }}
+              onUploadError={(error) => {
+                toast.error(error.message);
               }}
             />
           </>
