@@ -221,7 +221,13 @@ const ContactPage = () => {
                     size={18}
                   />
                 </Link>
-                <Link href={"#"} className="rounded-full bg-primary p-2">
+                <Link
+                  target="_blank"
+                  href={
+                    "https://www.instagram.com/artistcastingexplorer_?igshid=OGQ5ZDc2ODk2ZA%3D%3D"
+                  }
+                  className="rounded-full bg-primary p-2"
+                >
                   <Instagram
                     className="fill-white text-primary transition hover:scale-[135%]"
                     size={18}

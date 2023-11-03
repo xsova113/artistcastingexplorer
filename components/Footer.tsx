@@ -25,7 +25,12 @@ const Footer = () => {
             <Link href={"#"}>
               <Facebook className="transition hover:-translate-y-1" />
             </Link>
-            <Link href={"#"}>
+            <Link
+              target="_blank"
+              href={
+                "https://www.instagram.com/artistcastingexplorer_?igshid=OGQ5ZDc2ODk2ZA%3D%3D"
+              }
+            >
               <Instagram className="transition hover:-translate-y-1" />
             </Link>
             <Link href={"#"}>
