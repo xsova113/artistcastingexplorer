@@ -56,7 +56,7 @@ const PostCarousel = ({ categorySlug }: { categorySlug: Slug }) => {
   }, []);
 
   return (
-    <section className="mb-20 flex w-full flex-col">
+    <section className="my-20 flex w-full flex-col">
       <h1 className="mb-10 self-center text-3xl font-semibold md:text-4xl">
         Related Articles
       </h1>

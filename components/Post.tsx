@@ -91,7 +91,6 @@ const Post = ({ postId }: NewPostProps) => {
             }}
             className="mb-24 text-muted-foreground"
           />
-          {/* <iframe src={post.link} className="min-h-screen min-w-full" /> */}
           <DisqusComments post={post} />
         </section>
       )}
