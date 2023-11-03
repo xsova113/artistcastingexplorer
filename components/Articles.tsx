@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useState, useEffect, SetStateAction } from "react";
+import { useState, useEffect, SetStateAction, useCallback } from "react";
 import ReactPaginate from "react-paginate";
 import ArticleCard from "./ArticleCard";
 import { Post } from "@/types/post";
@@ -84,10 +84,10 @@ const Articles = ({
         {subset.map((post) => (
           <ArticleCard
             key={post.id}
-            content={post.uagb_excerpt}
-            author={post.uagb_author_info.display_name}
-            image={post.uagb_featured_image_src.full[0]}
+            // content={post.uagb_excerpt}
+            // image={post.uagb_featured_image_src.full[0]}
             postId={post.id}
+            authorId={post?.author}
             title={post.title.rendered}
             path={path}
             date={post.date}

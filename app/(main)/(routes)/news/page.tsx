@@ -6,7 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Post } from "@/types/post";
 import axios from "axios";
 import Archive from "./components/Archive";
-import {  Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Category } from "@/types/category";
 
 const NewsPage = () => {

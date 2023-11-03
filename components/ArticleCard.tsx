@@ -2,17 +2,19 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { WPUser } from "@/types/wpUser";
+import axios from "axios";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface ArticleCardProps {
   title: string;
-  author?: string;
   image?: string;
   postId: number;
+  authorId: number;
   path: "news" | "interviews";
   date: string;
   content?: string;
@@ -20,14 +22,29 @@ interface ArticleCardProps {
 
 const ArticleCard = ({
   title,
-  author,
   image,
   postId,
   path,
+  authorId,
   content,
   date,
 }: ArticleCardProps) => {
   const [isMounted, setIsMounted] = useState(false);
+  const [author, setAuthor] = useState<WPUser>();
+
+  const fetchAuthor = useCallback(async () => {
+    if (!authorId) return;
+
+    const response = await axios.get(
+      `https://castingjapanese.ca/wp-json/wp/v2/users/${authorId}`,
+    );
+    setAuthor(response.data);
+    return response.data;
+  }, [authorId]);
+
+  useEffect(() => {
+    fetchAuthor();
+  }, [fetchAuthor]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -57,7 +74,7 @@ const ArticleCard = ({
             <CardContent className="space-y-3 pb-4 text-muted">
               <p className="line-clamp-3 text-sm text-muted">{content}</p>
               <div className="flex items-center justify-between">
-                <p className="text-sm">{author}</p>
+                <p className="text-sm w-fit">{author?.name}</p>
                 <span className="text-xs">
                   {format(new Date(date), "MMMM dd, yyyy")}
                 </span>
