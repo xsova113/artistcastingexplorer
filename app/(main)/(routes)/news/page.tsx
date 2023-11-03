@@ -6,7 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Post } from "@/types/post";
 import axios from "axios";
 import Archive from "./components/Archive";
-import { Loader2 } from "lucide-react";
+import {  Loader2 } from "lucide-react";
 import { Category } from "@/types/category";
 
 const NewsPage = () => {
@@ -46,9 +46,7 @@ const NewsPage = () => {
     }
   }, []);
 
-  const newsCategory = categories.find(
-    (category) => category.slug === "uncategorized",
-  );
+  const newsCategory = categories.find((category) => category.slug === "news");
 
   useMemo(() => {
     const filteredPosts = posts.filter(
@@ -75,7 +73,6 @@ const NewsPage = () => {
           <h1 className="mx-auto mb-10 text-3xl font-semibold">Recent News</h1>
           {isLoading && (
             <div className="flex w-full items-center justify-center gap-4 pb-8 text-2xl">
-              Loading...
               <Loader2 className="animate-spin" size={50} />
             </div>
           )}

@@ -100,7 +100,6 @@ const InterviewPage = () => {
           </h1>
           {isLoading && (
             <div className="flex w-full items-center justify-center gap-4 pb-8 text-2xl">
-              Loading...
               <Loader2 className="animate-spin" size={50} />
             </div>
           )}
