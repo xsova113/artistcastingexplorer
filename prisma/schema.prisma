@@ -51,6 +51,16 @@ model TalentProfile {
   updatedAt DateTime @updatedAt
 }
 
+model Post {
+  id      String @id @default(cuid())
+  userId  String
+  title   String
+  content Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model SavedByUser {
   id     String @id @default(uuid())
   userId String

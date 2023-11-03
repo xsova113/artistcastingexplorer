@@ -13,6 +13,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
+import { compareDesc } from "date-fns";
 
 interface CreditSectioinProps {
   talent: TalentProfileType;
@@ -58,9 +59,16 @@ const CreditSection = ({ talent }: CreditSectioinProps) => {
           )}
 
           <div className="mt-6 flex flex-col gap-3">
-            {talent.credits.map((item) => (
-              <CreditAccordian key={item.id} talent={talent} data={item} />
-            ))}
+            {talent.credits
+              .sort((a, b) =>
+                compareDesc(
+                  new Date(a.yearOfRelease),
+                  new Date(b.yearOfRelease),
+                ),
+              )
+              .map((item) => (
+                <CreditAccordian key={item.id} talent={talent} data={item} />
+              ))}
           </div>
         </AccordionContent>
       </AccordionItem>
