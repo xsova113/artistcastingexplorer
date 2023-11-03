@@ -80,10 +80,10 @@ const PostCarousel = ({ categorySlug }: { categorySlug: Slug }) => {
             {filteredPosts.map((post) => (
               <PostCard
                 authorId={post.author}
-                content={post.uagb_excerpt}
+                content={post.excerpt.rendered}
                 date={post.date}
                 title={post.title.rendered}
-                featuredImage={post.uagb_featured_image_src.full[0]}
+                featuredImage={post.yoast_head_json.og_image[0].url}
                 key={post.id}
                 postId={post.id}
               />

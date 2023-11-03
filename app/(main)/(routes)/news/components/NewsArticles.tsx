@@ -48,10 +48,10 @@ const NewsArticles = ({ filteredPosts, isLoading }: NewsArticlesProps) => {
           {subset.map((post) => (
             <ArticleCard
               key={post.id}
-              author={post.uagb_author_info.display_name}
-              image={post.uagb_featured_image_src.medium[0]}
+              image={post.yoast_head_json.og_image[0].url}
               postId={post.id}
               title={post.title.rendered}
+              authorId={post.author}
             />
           ))}
         </div>
