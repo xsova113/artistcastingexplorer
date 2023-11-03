@@ -84,8 +84,8 @@ const Articles = ({
         {subset.map((post) => (
           <ArticleCard
             key={post.id}
-            // content={post.uagb_excerpt}
-            // image={post.uagb_featured_image_src.full[0]}
+            content={post.excerpt.rendered}
+            image={post.yoast_head_json.og_image[0].url}
             postId={post.id}
             authorId={post?.author}
             title={post.title.rendered}

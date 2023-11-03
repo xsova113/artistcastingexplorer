@@ -48,11 +48,11 @@ const NewSection = async () => {
               key={post.id}
               authorId={post.author}
               title={post.title.rendered}
-              // image={post.uagb_featured_image_src.large[0]}
+              image={post.yoast_head_json.og_image[0].url}
               postId={post.id}
               path={"news"}
               date={post.date}
-              // content={post}
+              content={post.excerpt.rendered}
             />
           ))}
         </div>
