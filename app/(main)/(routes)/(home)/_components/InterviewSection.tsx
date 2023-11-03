@@ -45,12 +45,12 @@ const InterviewSection = async () => {
             <ArticleCard
               key={post.id}
               title={post.title.rendered}
-              author={post.uagb_author_info.display_name}
-              image={post.uagb_featured_image_src.full[0]}
+              // author={post.uagb_author_info?.display_name}
+              // image={post.uagb_featured_image_src?.full[0]}
               postId={post.id}
               path={"interviews"}
               date={post.date}
-              content={post.uagb_excerpt}
+              // content={post.uagb_excerpt}
             />
           ))}
         </div>

@@ -10,12 +10,12 @@ import { useEffect, useState } from "react";
 
 interface ArticleCardProps {
   title: string;
-  author: string;
-  image: string;
+  author?: string;
+  image?: string;
   postId: number;
   path: "news" | "interviews";
   date: string;
-  content: string;
+  content?: string;
 }
 
 const ArticleCard = ({
@@ -43,7 +43,7 @@ const ArticleCard = ({
             className={cn("absolute -z-50 h-full w-full", !image && "hidden")}
           >
             <Image
-              src={image}
+              src={image || "/placeholder.png"}
               alt={"featured image"}
               fill
               className="object-cover"
