@@ -48,7 +48,9 @@ const Post = ({ postId }: NewPostProps) => {
   }, [fetchAuthor]);
 
   return (
-    <section className="items-center py-20">
+    <section
+    // className="items-center py-20"
+    >
       <YProgressBar />
       {postError ? (
         <span>Oh no, there was an error</span>
@@ -81,13 +83,15 @@ const Post = ({ postId }: NewPostProps) => {
           </Stack>
 
           <article
-            dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+            dangerouslySetInnerHTML={{
+              __html: post.content.rendered.replaceAll(
+                "wp-block-columns-is-layout-flex",
+                "md:flex-row flex-col flex mt-4 gap-10",
+              ),
+            }}
             className="mb-24"
           />
-          {/* <iframe
-            src={post.link}
-            className="min-h-screen w-full"
-          /> */}
+          {/* <iframe src={post.link} className="min-h-screen min-w-full" /> */}
           <DisqusComments post={post} />
         </section>
       )}
