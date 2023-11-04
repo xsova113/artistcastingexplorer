@@ -60,7 +60,7 @@ const Post = ({ postId }: NewPostProps) => {
           <Loader2 className="animate-spin" size={50} />
         </div>
       ) : (
-        <section>
+        <section className="pt-16">
           <Stack>
             <h1 className="mb-4 self-start text-4xl font-medium md:mb-12 md:text-6xl">
               {post?.title.rendered}
