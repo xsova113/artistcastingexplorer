@@ -14,6 +14,7 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "../app/api/uploadthing/core";
 import { Toaster } from "sonner";
 import ContactModalProvider from "@/components/providers/ContactModalProvider";
+import { cn } from "@/lib/utils";
 
 const font = Raleway({
   subsets: ["latin"],
@@ -54,7 +55,7 @@ export default function RootLayout({
           />
         </head>
 
-        <body className={font.className}>
+        <body className={cn(font.className, "overflow-x-clip")}>
           <ReactQueryProvider>
             <RParallaxProvider>
               <SignInAlertModal />

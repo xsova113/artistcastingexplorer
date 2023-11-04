@@ -9,7 +9,7 @@ const HomePage = async () => {
   const talents = await getTalents();
 
   return (
-    <main className="overflow-x-hidden w-full">
+    <main>
       <HeroSection />
       <ServiceSection />
       <DiscoverSection talents={talents} />
