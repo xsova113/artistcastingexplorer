@@ -9,7 +9,7 @@ const HomePage = async () => {
   const talents = await getTalents();
 
   return (
-    <main className="overflow-x-clip">
+    <main>
       <HeroSection />
       <ServiceSection />
       <DiscoverSection talents={talents} />
