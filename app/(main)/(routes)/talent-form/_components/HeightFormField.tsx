@@ -27,9 +27,9 @@ const HeightFormField = ({ form }: HeightFormFieldProps) => {
             <PatternFormat
               format="#'##"
               {...field}
-              // placeholder=""
+              placeholder="5'9"
               disabled={form.formState.isSubmitting}
-              className="focus-visible:border-transparent p-1.5 rounded-md"
+              customInput={Input}
             />
           </FormControl>
           <FormMessage />

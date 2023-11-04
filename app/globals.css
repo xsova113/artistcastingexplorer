@@ -2,12 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, :root {
-  @apply h-full scroll-smooth
+html,
+body,
+:root {
+  @apply h-full scroll-smooth;
 }
 
 .textGradient {
-  @apply bg-gradient-to-r from-blue-500 via-violet-400 to-primary bg-clip-text text-transparent
+  @apply bg-gradient-to-r from-blue-500 via-violet-400 to-primary bg-clip-text text-transparent;
 }
 
 @layer base {
@@ -91,8 +93,8 @@ html, body, :root {
 }
 
 #range-slider .range-slider__range[data-active],
-#range-slider .range-slider__thumb[data-active]~.range-slider__range {
-  animation: move-bg .75s infinite linear;
+#range-slider .range-slider__thumb[data-active] ~ .range-slider__range {
+  animation: move-bg 0.75s infinite linear;
 }
 
 @keyframes move-bg {
@@ -116,3 +118,4 @@ html, body, :root {
     background-position: 50% 0;
   }
 }
+

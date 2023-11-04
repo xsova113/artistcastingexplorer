@@ -1,6 +1,6 @@
 import Stack from "@/components/Stack";
 import { Separator } from "@/components/ui/separator";
-import { cmToInFt, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { Raleway } from "next/font/google";
 
@@ -14,8 +14,6 @@ const font = Raleway({
 });
 
 const TalentBio = ({ talent }: TalentBio) => {
-  // const height = cmToInFt(Number(talent.height));
-
   return (
     <div className="rounded-lg border p-3 shadow">
       <h1 className="mb-6 text-2xl font-semibold">Biography</h1>
@@ -70,10 +68,7 @@ const TalentBio = ({ talent }: TalentBio) => {
           {talent.height && (
             <li className="capitalize">
               <span className="">Height:</span>{" "}
-              <span className="text-muted-foreground">
-                {/* {height.feet}&apos;{height.inches} */}
-                {talent.height}
-              </span>
+              <span className="text-muted-foreground">{talent.height}</span>
             </li>
           )}
         </div>
