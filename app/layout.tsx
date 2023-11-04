@@ -55,7 +55,7 @@ export default function RootLayout({
           />
         </head>
 
-        <body className={cn(font.className, "overflow-x-clip")}>
+        <body className={font.className}>
           <ReactQueryProvider>
             <RParallaxProvider>
               <SignInAlertModal />
