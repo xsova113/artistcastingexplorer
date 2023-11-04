@@ -18,6 +18,7 @@ const InterviewPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
 
   // Get all posts
   const fetchPosts = async () => {
@@ -82,6 +83,7 @@ const InterviewPage = () => {
         ),
       );
       setFilteredPosts(filteredPosts);
+      setCurrentPage(0);
     },
     [categories, posts],
   );
@@ -104,6 +106,8 @@ const InterviewPage = () => {
             </div>
           )}
           <Articles
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
             path="interviews"
             filteredPosts={filteredPosts}
             isLoading={isLoading}
@@ -114,7 +118,10 @@ const InterviewPage = () => {
           />
         </div>
 
-        <InterviewArchive categories={categories} handleClick={handleClick} />
+        <InterviewArchive
+          categories={categories}
+          handleClick={handleClick}
+        />
       </div>
     </section>
   );

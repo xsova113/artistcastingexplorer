@@ -14,6 +14,7 @@ const NewsPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const fetchPosts = async () => {
     try {
@@ -78,6 +79,8 @@ const NewsPage = () => {
           )}
           {/* @ts-ignore */}
           <Articles
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
             filteredPosts={filteredPosts}
             path={"news"}
             isLoading={isLoading}
@@ -86,7 +89,11 @@ const NewsPage = () => {
           />
         </div>
 
-        <Archive posts={posts} setFilteredPosts={setFilteredPosts} />
+        <Archive
+          setCurrentPage={setCurrentPage}
+          posts={posts}
+          setFilteredPosts={setFilteredPosts}
+        />
       </div>
     </section>
   );

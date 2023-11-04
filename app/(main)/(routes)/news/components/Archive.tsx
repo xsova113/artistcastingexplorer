@@ -16,18 +16,21 @@ interface ArchiveProps {
   setFilteredPosts: (value: Post[]) => void;
   isMobile?: boolean;
   posts: Post[];
+  setCurrentPage: (value: any) => void;
 }
 
 const Archive = ({
   setFilteredPosts,
   isMobile,
-  posts
+  posts,
+  setCurrentPage,
 }: ArchiveProps) => {
   const [groupedByDateItems, setGroupedByDateItems] = useState<any>();
 
   const handleClick = (posts: any, monthYear: string) => {
     const archivedPosts = posts.map((item: any) => item[monthYear])[0];
     setFilteredPosts(archivedPosts);
+    setCurrentPage(0);
   };
 
   useMemo(() => {
@@ -73,7 +76,7 @@ const Archive = ({
   return (
     <div
       className={cn(
-        "flex-col md:pt-16 md:ml-auto md:flex md:pr-10",
+        "flex-col md:ml-auto md:flex md:pr-10 md:pt-16",
         isMobile ? "block" : "hidden",
       )}
     >

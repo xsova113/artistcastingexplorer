@@ -20,6 +20,8 @@ interface ArticlesProps {
   categories: Category[];
   handleClick: (value: string) => void;
   isLoading: boolean;
+  currentPage: number;
+  setCurrentPage: (value: any) => void;
 }
 
 const Articles = ({
@@ -30,11 +32,12 @@ const Articles = ({
   categories,
   handleClick,
   isLoading,
+  currentPage,
+  setCurrentPage,
 }: ArticlesProps) => {
   const pathname = usePathname();
   const isLargeScreen = useMediaQuery("(min-width: 745px)");
   const itemsPerPage = 2;
-  const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const pageCount = Math.ceil((filteredPosts?.length || 0) / itemsPerPage);
 
@@ -66,12 +69,15 @@ const Articles = ({
         <MobileArchive>
           {pathname === "/news" ? (
             <Archive
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
               posts={posts}
               setFilteredPosts={setFilteredPosts}
               isMobile
             />
           ) : (
             <InterviewArchive
+              setCurrentPage={setCurrentPage}
               categories={categories}
               handleClick={handleClick}
               isMobile
