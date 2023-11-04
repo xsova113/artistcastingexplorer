@@ -42,7 +42,7 @@ const NewSection = async () => {
       {!posts || posts.length === 0 ? (
         <p>Cannot load...</p>
       ) : (
-        <div className="flex flex-col justify-center gap-4 lg:flex-row">
+        <div className="grid grid-cols-1 justify-center gap-4 lg:grid-cols-3">
           {latestNewsPosts.slice(0, 3).map((post: Post) => (
             <ArticleCard
               key={post.id}
