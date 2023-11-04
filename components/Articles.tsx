@@ -32,8 +32,8 @@ const Articles = ({
   isLoading,
 }: ArticlesProps) => {
   const pathname = usePathname();
-  const isLargeScreen = useMediaQuery("(min-width: 890)");
-  const itemsPerPage = isLargeScreen ? 2 : 2;
+  const isLargeScreen = useMediaQuery("(min-width: 745px)");
+  const itemsPerPage = 2;
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const pageCount = Math.ceil((filteredPosts?.length || 0) / itemsPerPage);
@@ -61,7 +61,7 @@ const Articles = ({
     );
 
   return (
-    <div className="flex flex-col px-10 w-full">
+    <div className="flex w-full flex-col px-10">
       {!isLargeScreen && (
         <MobileArchive>
           {pathname === "/news" ? (
@@ -80,7 +80,7 @@ const Articles = ({
         </MobileArchive>
       )}
 
-      <div className="flex flex-wrap lg:flex-nowrap justify-center gap-4 pb-12">
+      <div className="flex flex-wrap justify-center gap-4 pb-12 lg:flex-nowrap">
         {subset.map((post) => (
           <ArticleCard
             key={post.id}
