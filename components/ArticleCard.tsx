@@ -53,8 +53,8 @@ const ArticleCard = ({
   if (!isMounted) return null;
 
   return (
-    <Link href={`/${path}/${postId}`}>
-      <Card className="flex h-[400px] w-[330px] flex-col overflow-clip rounded-2xl border-none shadow-none drop-shadow">
+    <Link href={`/${path}/${postId}`} className="overflow-clip rounded-2xl">
+      <Card className="flex h-[400px] w-[330px] flex-col border-none shadow-none drop-shadow">
         <div className="flex h-full flex-col bg-gradient-to-b from-transparent to-black">
           <div
             className={cn("absolute -z-50 h-full w-full", !image && "hidden")}
