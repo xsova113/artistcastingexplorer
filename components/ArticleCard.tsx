@@ -72,11 +72,10 @@ const ArticleCard = ({
               <CardTitle className="line-clamp-2 text-lg">{title}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 pb-4 text-muted">
-              {/* <p className="line-clamp-3 text-sm text-muted">{content}</p> */}
-              <div
+              {/* <div
                 className="line-clamp-3 text-sm text-muted"
                 dangerouslySetInnerHTML={{ __html: content || "" }}
-              />
+              /> */}
               <div className="flex items-center justify-between">
                 <p className="w-fit text-sm">{author?.name}</p>
                 <span className="text-xs">
