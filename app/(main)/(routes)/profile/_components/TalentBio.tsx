@@ -14,7 +14,7 @@ const font = Raleway({
 });
 
 const TalentBio = ({ talent }: TalentBio) => {
-  const height = cmToInFt(Number(talent.height));
+  // const height = cmToInFt(Number(talent.height));
 
   return (
     <div className="rounded-lg border p-3 shadow">
@@ -71,7 +71,8 @@ const TalentBio = ({ talent }: TalentBio) => {
             <li className="capitalize">
               <span className="">Height:</span>{" "}
               <span className="text-muted-foreground">
-                {height.feet}&apos;{height.inches}
+                {/* {height.feet}&apos;{height.inches} */}
+                {talent.height}
               </span>
             </li>
           )}
