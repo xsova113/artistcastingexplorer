@@ -69,7 +69,6 @@ const Articles = ({
         <MobileArchive>
           {pathname === "/news" ? (
             <Archive
-              currentPage={currentPage}
               setCurrentPage={setCurrentPage}
               posts={posts}
               setFilteredPosts={setFilteredPosts}
@@ -77,7 +76,6 @@ const Articles = ({
             />
           ) : (
             <InterviewArchive
-              setCurrentPage={setCurrentPage}
               categories={categories}
               handleClick={handleClick}
               isMobile
