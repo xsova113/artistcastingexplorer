@@ -53,7 +53,10 @@ const ArticleCard = ({
   if (!isMounted) return null;
 
   return (
-    <Link href={`/${path}/${postId}`} className="rounded-2xl">
+    <Link
+      href={`/${path}/${postId}`}
+      className="rounded-2xl max-lg:overflow-hidden"
+    >
       <Card className="flex h-[400px] w-[330px] flex-col overflow-clip border-none shadow-none drop-shadow">
         <div className="flex h-full flex-col bg-gradient-to-b from-transparent to-black">
           <div
