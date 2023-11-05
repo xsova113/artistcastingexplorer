@@ -61,7 +61,7 @@ const NewSection = async () => {
         href="/news"
         className={buttonVariants({
           className:
-            "bg-secondary-foreground px-8 hover:bg-secondary-foreground/80",
+            "bg-secondary-foreground z-50 px-8 hover:bg-secondary-foreground/80",
         })}
       >
         View All

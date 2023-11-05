@@ -59,7 +59,7 @@ const InterviewSection = async () => {
         href="/interviews"
         className={buttonVariants({
           className:
-            "bg-secondary-foreground px-8 hover:bg-secondary-foreground/80",
+            "z-50 bg-secondary-foreground px-8 hover:bg-secondary-foreground/80",
         })}
       >
         View All
