@@ -55,7 +55,7 @@ const ArticleCard = ({
   return (
     <Link
       href={`/${path}/${postId}`}
-      className="rounded-2xl max-lg:overflow-clip"
+      className="rounded-2xl bg-red-500 max-lg:overflow-clip"
     >
       <Card className="flex h-[400px] w-[330px] flex-col overflow-clip border-none shadow-none drop-shadow">
         <div className="flex h-full flex-col bg-gradient-to-b from-transparent to-black">
