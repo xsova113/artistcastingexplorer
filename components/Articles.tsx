@@ -84,7 +84,7 @@ const Articles = ({
         </MobileArchive>
       )}
 
-      <div className="flex flex-wrap justify-center gap-4 pb-12 lg:flex-nowrap">
+      <div className="flex justify-center gap-4 max-md:flex-wrap pb-12 ">
         {subset.map((post) => (
           <ArticleCard
             key={post.id}
