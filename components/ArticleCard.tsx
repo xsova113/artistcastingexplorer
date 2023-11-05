@@ -57,7 +57,7 @@ const ArticleCard = ({
       <Card className="flex h-[400px] w-[330px] flex-col overflow-clip rounded-2xl border-none shadow-none drop-shadow max-lg:overflow-clip">
         <div className="flex h-full flex-col bg-gradient-to-b from-transparent to-black">
           <div
-            className={cn("absolute -z-50 h-full w-full", !image && "hidden")}
+            className={cn("absolute overflow-clip -z-50 h-full w-full", !image && "hidden")}
           >
             <Image
               src={image || "/placeholder.png"}
