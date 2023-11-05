@@ -53,7 +53,6 @@ const ArticleCard = ({
   if (!isMounted) return null;
 
   return (
-    <div className="overflow-y-clip">
       <Link
         href={`/${path}/${postId}`}
         className="rounded-2xl max-lg:overflow-clip"
@@ -97,7 +96,6 @@ const ArticleCard = ({
           </div>
         </Card>
       </Link>
-    </div>
   );
 };
 
