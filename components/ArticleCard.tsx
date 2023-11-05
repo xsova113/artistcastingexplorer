@@ -53,7 +53,7 @@ const ArticleCard = ({
   if (!isMounted) return null;
 
   return (
-    <Link href={`/${path}/${postId}`} className="overflow-y-clip">
+    // <Link href={`/${path}/${postId}`} className="overflow-y-clip">
       <Card className="flex h-[400px] w-[330px] flex-col overflow-clip rounded-2xl border-none shadow-none drop-shadow max-lg:overflow-clip">
 
         <div className="flex h-full flex-col bg-gradient-to-b from-transparent to-black">
@@ -93,7 +93,7 @@ const ArticleCard = ({
           </div>
         </div>
       </Card>
-      </Link>
+      // </Link>
   );
 };
 
