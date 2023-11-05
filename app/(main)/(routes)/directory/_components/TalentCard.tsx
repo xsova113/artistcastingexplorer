@@ -132,56 +132,51 @@ const TalentCard = ({
       )}
     >
       <div
-        className="w-full cursor-pointer"
+        role="link"
         onClick={() => {
           router.push(`/profile/${id}`);
         }}
+        className="relative h-[130px] w-full cursor-pointer bg-primary-foreground sm:h-[150px]"
       >
-        <div className="relative h-[130px] w-full sm:h-[150px] bg-primary-foreground">
-          <Image
-            src={image}
-            alt={"image"}
-            fill
-            className="rounded-t-lg object-scale-down"
+        <Image
+          src={image}
+          alt={"image"}
+          fill
+          className="rounded-t-lg object-scale-down"
+        />
+        {!discoverSection && (
+          <Checkbox
+            className="absolute right-0 m-2 bg-white"
+            checked={selectedTalentId?.includes(data.id)}
+            onCheckedChange={(checked) => {
+              return checked
+                ? setSelectedTalentId((prev: string[]) => [...prev, data.id, ,])
+                : setSelectedTalentId(
+                    selectedTalentId?.filter((value) => value !== data.id),
+                  );
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           />
-          {!discoverSection && (
-            <Checkbox
-              className="absolute right-0 m-2 bg-white"
-              checked={selectedTalentId?.includes(data.id)}
-              onCheckedChange={(checked) => {
-                return checked
-                  ? setSelectedTalentId((prev: string[]) => [
-                      ...prev,
-                      data.id,
-                      ,
-                    ])
-                  : setSelectedTalentId(
-                      selectedTalentId?.filter((value) => value !== data.id),
-                    );
-              }}
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            />
-          )}
-        </div>
-
-        <CardHeader className="p-2">
-          <CardTitle className="text-md sm:text-lg">
-            {stageName ? stageName : name}
-          </CardTitle>
-          <CardDescription className="capitalize">
-            {title.toLowerCase().replaceAll("_", " ")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="px-2 py-1 max-sm:text-xs">
-          <p className="capitalize">
-            {location?.city !== "OTHER_PROVINCE"
-              ? location.city.toLocaleLowerCase().replaceAll("_", " ")
-              : location.province?.toLocaleLowerCase().replaceAll("_", " ")}
-          </p>
-        </CardContent>
+        )}
       </div>
+
+      <CardHeader className="p-2">
+        <CardTitle className="text-md sm:text-lg">
+          {stageName ? stageName : name}
+        </CardTitle>
+        <CardDescription className="capitalize">
+          {title.toLowerCase().replaceAll("_", " ")}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="px-2 py-1 max-sm:text-xs">
+        <p className="capitalize">
+          {location?.city !== "OTHER_PROVINCE"
+            ? location.city.toLocaleLowerCase().replaceAll("_", " ")
+            : location.province?.toLocaleLowerCase().replaceAll("_", " ")}
+        </p>
+      </CardContent>
       <CardFooter
         className={cn(
           "flex flex-col items-start justify-center bg-secondary p-2",
