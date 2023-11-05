@@ -109,6 +109,7 @@ const Articles = ({
           containerClassName={"flex items-center justify-center gap-10"}
           activeClassName="bg-secondary py-1 border px-2 rounded"
           disabledClassName="opacity-40"
+          className="z-50"
         />
       )}
     </div>
