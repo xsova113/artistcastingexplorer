@@ -84,6 +84,9 @@ const ImageUpload = ({ onChange, onRemove, values }: ImageUploadProps) => {
               onClientUploadComplete={(res) => {
                 onUpload(res);
               }}
+              onUploadError={(error) => {
+                toast.error(error.message);
+              }}
             />
           </>
         )}

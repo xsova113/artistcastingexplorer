@@ -89,7 +89,7 @@ const Post = ({ postId }: NewPostProps) => {
                 "md:flex-row flex-col flex mt-4 gap-10",
               ),
             }}
-            className="mb-24 text-muted-foreground"
+            className="mb-24 text-muted-foreground overflow-x-clip"
           />
           <DisqusComments post={post} />
         </section>
