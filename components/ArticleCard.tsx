@@ -53,49 +53,46 @@ const ArticleCard = ({
   if (!isMounted) return null;
 
   return (
-      <Link
-        href={`/${path}/${postId}`}
-        className="rounded-2xl max-lg:overflow-clip"
-      >
-        <Card className="flex h-[400px] w-[330px] flex-col overflow-clip border-none shadow-none drop-shadow">
-          <div className="flex h-full flex-col bg-gradient-to-b from-transparent to-black">
-            <div
-              className={cn("absolute -z-50 h-full w-full", !image && "hidden")}
-            >
-              <Image
-                src={image || "/placeholder.png"}
-                alt={"featured image"}
-                fill
-                className="object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div className="mt-auto">
-              <CardHeader className="pb-2 text-white">
-                <CardTitle className="line-clamp-2 text-lg">{title}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3 pb-4 text-muted">
-                {/* <div
+    <Card className="flex h-[400px] w-[330px] flex-col overflow-clip rounded-2xl border-none shadow-none drop-shadow max-lg:overflow-clip">
+      <Link href={`/${path}/${postId}`}>
+        <div className="flex h-full flex-col bg-gradient-to-b from-transparent to-black">
+          <div
+            className={cn("absolute -z-50 h-full w-full", !image && "hidden")}
+          >
+            <Image
+              src={image || "/placeholder.png"}
+              alt={"featured image"}
+              fill
+              className="object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div className="mt-auto">
+            <CardHeader className="pb-2 text-white">
+              <CardTitle className="line-clamp-2 text-lg">{title}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 pb-4 text-muted">
+              {/* <div
                 className="line-clamp-3 text-sm text-muted"
                 dangerouslySetInnerHTML={{ __html: content || "" }}
               /> */}
-                <div className="flex items-center justify-between">
-                  <p className="w-fit text-sm">{author?.name}</p>
-                  <span className="text-xs">
-                    {format(new Date(date), "MMMM dd, yyyy")}
-                  </span>
-                </div>
-                <Link
-                  href={`/${path}/${postId}`}
-                  className="flex items-center text-sm font-bold text-white underline-offset-4 hover:underline"
-                >
-                  Read More <ChevronRight className="ml-2" size={18} />
-                </Link>
-              </CardContent>
-            </div>
+              <div className="flex items-center justify-between">
+                <p className="w-fit text-sm">{author?.name}</p>
+                <span className="text-xs">
+                  {format(new Date(date), "MMMM dd, yyyy")}
+                </span>
+              </div>
+              <Link
+                href={`/${path}/${postId}`}
+                className="flex items-center text-sm font-bold text-white underline-offset-4 hover:underline"
+              >
+                Read More <ChevronRight className="ml-2" size={18} />
+              </Link>
+            </CardContent>
           </div>
-        </Card>
+        </div>
       </Link>
+    </Card>
   );
 };
 
