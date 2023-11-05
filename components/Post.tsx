@@ -48,9 +48,7 @@ const Post = ({ postId }: NewPostProps) => {
   }, [fetchAuthor]);
 
   return (
-    <section
-    // className="items-center py-20"
-    >
+    <section className="items-center py-20">
       <YProgressBar />
       {postError ? (
         <span>Oh no, there was an error</span>
@@ -60,7 +58,7 @@ const Post = ({ postId }: NewPostProps) => {
           <Loader2 className="animate-spin" size={50} />
         </div>
       ) : (
-        <section className="pt-16">
+        <section>
           <Stack>
             <h1 className="mb-4 self-start text-4xl font-medium md:mb-12 md:text-6xl">
               {post?.title.rendered}
@@ -89,7 +87,7 @@ const Post = ({ postId }: NewPostProps) => {
                 "md:flex-row flex-col flex mt-4 gap-10",
               ),
             }}
-            className="mb-24 text-muted-foreground overflow-x-clip"
+            className="mb-24 text-muted-foreground"
           />
           <DisqusComments post={post} />
         </section>
