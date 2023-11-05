@@ -64,7 +64,7 @@ const Articles = ({
     );
 
   return (
-    <div className="flex w-full overflow-x-clip flex-col px-10">
+    <div className="flex w-full flex-col px-10">
       {!isLargeScreen && (
         <MobileArchive>
           {pathname === "/news" ? (
