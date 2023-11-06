@@ -3,10 +3,15 @@ import { MetadataRoute } from "next";
 const URL = "https://www.artistcastingexplorer.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = [].map(({ id, date, slug }) => ({
-    url: `${URL}/${slug}/${id}`,
+  const newsPosts = [].map(({ id, date }) => ({
+    url: `${URL}/news/${id}`,
     lastModified: date,
   }));
 
-  return [...posts];
+  const interviewsPosts = [].map(({ id, date }) => ({
+    url: `${URL}/interviews/${id}`,
+    lastModified: date,
+  }));
+
+  return [...newsPosts, ...interviewsPosts];
 }
