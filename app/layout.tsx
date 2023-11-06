@@ -15,6 +15,7 @@ import { ourFileRouter } from "../app/api/uploadthing/core";
 import { Toaster } from "sonner";
 import ContactModalProvider from "@/components/providers/ContactModalProvider";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 
 const font = Raleway({
   subsets: ["latin"],
@@ -54,6 +55,22 @@ export default function RootLayout({
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
           />
         </head>
+
+        <Script
+          strategy="lazyOnload"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+        />
+
+        <Script strategy="lazyOnload">
+          {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+                    page_path: window.location.pathname,
+                    });
+                `}
+        </Script>
 
         <body className={font.className}>
           <ReactQueryProvider>
