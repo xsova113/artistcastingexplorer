@@ -14,7 +14,7 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "../app/api/uploadthing/core";
 import { Toaster } from "sonner";
 import ContactModalProvider from "@/components/providers/ContactModalProvider";
-import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/react";
 
 const font = Raleway({
   subsets: ["latin"],
@@ -72,6 +72,7 @@ export default function RootLayout({
               <ShadcnToaster />
             </RParallaxProvider>
           </ReactQueryProvider>
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
