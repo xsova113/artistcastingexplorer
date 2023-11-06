@@ -13,7 +13,7 @@ const FreePlanCard = () => {
   const converkitUrl = process.env.NEXT_PUBLIC_CONVERTKIT_URL as string;
 
   return (
-    <Card className="mb-4 h-[400px] flex-1 max-md:pb-8">
+    <Card className="mb-4 h-[430px] sm:h-[400px] flex-1 max-md:pb-8">
       <CardHeader className="text-center">
         <CardTitle className="text-3xl font-bold md:text-4xl">$0</CardTitle>
         <CardDescription>

@@ -64,11 +64,11 @@ const PremiumCard = ({ isPremium }: { isPremium: boolean }) => {
         <CardContent className="text-white">
           <ol className="space-y-4">
             <li className="flex items-center gap-2">
-              <Star />A filter and sort feature to quickly find talents in
+              <Star className="md:w-4 md:h-4 min-w-4 min-h-4" />A filter and sort feature to quickly find talents in
               Directory
             </li>
             <li className="flex items-center gap-2">
-              <Star />
+              <Star className="w-4 h-4" />
               Save filter for reusability
             </li>
           </ol>
