@@ -1,26 +1,24 @@
-import useFetchBlog from "@/hooks/useFetchBlog";
+import { Post } from "@/types/post";
+import axios from "axios";
 import { MetadataRoute } from "next";
-import { notFound } from "next/navigation";
 
 const URL = "https://www.artistcastingexplorer.com";
 
-// const news = async () => {
-//    const posts = (await axios.get("https://castingjapanese.ca/wp-json/wp/v2/posts")).data;
-//   return posts
-// };
+const news = async (): Promise<Post[]> => {
+  const posts = (
+    await axios.get("https://castingjapanese.ca/wp-json/wp/v2/posts")
+  ).data;
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const blogs = useFetchBlog();
-  if (!blogs?.length) notFound();
-  
-  const posts = blogs.map(({ id, slug, date }) => ({
-    url: `${URL}/${slug}/${id}`,
-  }));
+  return posts;
+};
 
-  //   const interviewsPosts = [].map(({ id, date }) => ({
-  //     url: `${URL}/interviews/${id}`,
-  //     lastModified: date,
-  //   }));
+export default async function sitemap() {
+  const posts = await news().then((data) =>
+    data.map(({ id, slug, date }) => ({
+      url: `${URL}/${slug}/${id}`,
+      lastModified: date,
+    })),
+  );
 
   return [...posts];
 }
