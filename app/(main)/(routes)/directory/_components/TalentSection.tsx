@@ -18,16 +18,27 @@ import { removeTalentByUser } from "@/actions/removeTalentByUser";
 
 interface TalentSectionProps {
   talents: TalentProfileType[];
+  talentCount: number | undefined;
+  itemsPerPage: number;
+  setItemsPerPage: (value: number) => void;
+  currentPage: number;
+  setCurrentPage: (value: number) => void;
 }
 
-const TalentSection = ({ talents }: TalentSectionProps) => {
+const TalentSection = ({
+  talents,
+  itemsPerPage,
+  setItemsPerPage,
+  currentPage,
+  setCurrentPage,
+  talentCount,
+}: TalentSectionProps) => {
   const { userId } = useAuth();
   const [isSaving, setIsSaving] = useState(false);
   const [selectedTalentId, setSelectedTalentId] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(12);
-  const pageCount = Math.ceil(talents.length / itemsPerPage);
+  // const [itemsPerPage, setItemsPerPage] = useState(12);
+  const pageCount = Math.ceil((talentCount || 0) / itemsPerPage);
   const router = useRouter();
 
   const startIndex = currentPage * itemsPerPage;

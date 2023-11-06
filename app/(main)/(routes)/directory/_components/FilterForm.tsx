@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { GenderSelect } from "./GenderSelect";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
-import { FormEvent, useEffect, useState } from "react";
+import { ElementRef, FormEvent, useEffect, useRef, useState } from "react";
 import { AgeSelect } from "./AgeSelect";
 import { filterFormSchema } from "@/lib/filterFormSchema";
 import { LocationSelect } from "./LocationSelect";
@@ -86,7 +86,6 @@ const FilterForm = () => {
       name: values.name,
       role: values.role,
       keyword: values.keyword,
-      order_by: orderBy,
     };
 
     const url = qs.stringifyUrl(
@@ -96,7 +95,6 @@ const FilterForm = () => {
       },
       { skipEmptyString: true, skipNull: true },
     );
-
     router.push(url, { scroll: false });
   };
 

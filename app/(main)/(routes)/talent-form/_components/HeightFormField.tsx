@@ -22,14 +22,20 @@ const HeightFormField = ({ form }: HeightFormFieldProps) => {
       name="height"
       render={({ field }) => (
         <FormItem className="rounded-lg bg-secondary px-3 pb-3 pt-1 max-sm:w-full">
-          <FormLabel className="flex">Height (imperial)</FormLabel>
+          <FormLabel className="flex">Height (cm)</FormLabel>
           <FormControl>
-            <PatternFormat
+            {/* <PatternFormat
               format="#'##"
               {...field}
               placeholder="5'9"
               disabled={form.formState.isSubmitting}
               customInput={Input}
+            /> */}
+            <Input
+              {...field}
+              placeholder="175"
+              type="number"
+              disabled={form.formState.isSubmitting}
             />
           </FormControl>
           <FormMessage />

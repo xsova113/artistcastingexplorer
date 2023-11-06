@@ -3,108 +3,59 @@
 import HeroSection from "@/components/HeroSection";
 import TalentSection from "./_components/TalentSection";
 import SubscribePremium from "./_components/SubscribePremium";
-import { getTalents } from "@/actions/getTalents";
+import { getApprovedTalents } from "@/actions/getTalents";
 import FilterAccordian from "./_components/FilterAccordian";
 import Stack from "@/components/Stack";
 import { useSortStore } from "@/hooks/useSortStore";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { BeatLoader } from "react-spinners";
 import { useQuery } from "react-query";
+import { useEffect, useState } from "react";
+import { City, GenderType, Province, Role } from "@prisma/client";
 
 const DirectoryPage = () => {
   const searchParams = useSearchParams();
   const { orderBy } = useSortStore();
-
-  const { data: talents, isLoading } = useQuery("talents", getTalents, {
-    keepPreviousData: true,
+  const [itemsPerPage, setItemsPerPage] = useState(12);
+  const [currentPage, setCurrentPage] = useState(0);
+  const { data: allTalents } = useQuery({
+    queryFn: () => getApprovedTalents({}),
   });
 
-  const approvedTalents = talents?.filter(
-    (talent) => talent.isApproved === true,
-  );
-
-  const filteredTalents = !searchParams
-    ? approvedTalents
-    : approvedTalents
-        ?.filter(
-          (talent) =>
-            (!searchParams.get("name")
-              ? true
-              : talent.lastName
-                  .toLowerCase()
-                  .replaceAll(" ", "")
-                  .includes(
-                    searchParams
-                      .get("name")!
-                      .toLowerCase()
-                      .replaceAll("%20", ""),
-                  ) ||
-                talent.firstName
-                  .toLowerCase()
-                  .replaceAll(" ", "")
-                  .includes(
-                    searchParams
-                      .get("name")!
-                      .toLowerCase()
-                      .replaceAll("%20", ""),
-                  )) &&
-            (!searchParams.get("ageMax") ||
-            !searchParams.get("ageMin") ||
-            !talent.ageMin ||
-            !talent.ageMax
-              ? true
-              : talent.ageMin <= Number(searchParams.get("ageMax")) &&
-                talent.ageMin >= Number(searchParams.get("ageMin"))) &&
-            (!searchParams.get("heightMax") || !searchParams.get("heightMin")
-              ? true
-              : Number(talent.height) < Number(searchParams.get("heightMax")) &&
-                Number(talent.height) >
-                  Number(searchParams.get("heightMin"))) &&
-            (!searchParams.get("city")
-              ? true
-              : talent.location.city?.toLowerCase() ===
-                searchParams.get("city")!.toLowerCase()) &&
-            (!searchParams.get("province")
-              ? true
-              : talent.location.province?.includes(
-                  searchParams.get("province")!,
-                )) &&
-            (!searchParams.get("role")
-              ? true
-              : talent.performerType.role === searchParams.get("role")) &&
-            (!searchParams.get("gender")
-              ? true
-              : talent.gender === searchParams.get("gender")) &&
-            (!searchParams.get("keyword")
-              ? true
-              : talent.skills
-                  .map((skill) => skill.skill?.toLowerCase())
-                  .includes(searchParams.get("keyword")!.toLowerCase()) ||
-                talent.location.city
-                  ?.toLowerCase()
-                  .includes(searchParams.get("keyword")!.toLowerCase()) ||
-                talent.firstName
-                  .toLowerCase()
-                  .includes(searchParams.get("keyword")!.toLowerCase()) ||
-                talent.performerType.role
-                  .toLowerCase()
-                  .includes(searchParams.get("keyword")!.toLowerCase()) ||
-                talent.lastName
-                  .toLowerCase()
-                  .includes(searchParams.get("keyword")!.toLowerCase()) ||
-                talent.stageName
-                  ?.toLowerCase()
-                  .includes(searchParams.get("keyword")!.toLowerCase())),
-        )
-        .sort(
-          orderBy === "name-a"
-            ? (a, b) => a.firstName.localeCompare(b.firstName)
-            : orderBy === "name-z"
-            ? (a, b) => b.firstName.localeCompare(a.firstName)
-            : () => {
-                return 0;
-              },
-        );
+  const { data: talents, isLoading } = useQuery({
+    queryKey: [
+      "talents",
+      currentPage,
+      orderBy,
+      searchParams.get("name"),
+      searchParams.get("gender"),
+      searchParams.get("ageMin"),
+      searchParams.get("ageMax"),
+      searchParams.get("heightMin"),
+      searchParams.get("heightMax"),
+      searchParams.get("city"),
+      searchParams.get("province"),
+      searchParams.get("role"),
+      searchParams.get("keyword"),
+    ],
+    queryFn: () =>
+      getApprovedTalents({
+        currentPage,
+        itemsPerPage,
+        name: searchParams.get("name")?.toString(),
+        ageMax: Number(searchParams.get("ageMax")),
+        ageMin: Number(searchParams.get("ageMin")),
+        role: searchParams.get("role") as Role,
+        city: searchParams.get("city") as City,
+        province: searchParams.get("province") as Province,
+        gender: searchParams.get("gender") as GenderType,
+        heightMax: Number(searchParams.get("heightMax")) || undefined,
+        heightMin: Number(searchParams.get("heightMin")) || undefined,
+        keyword: searchParams.get("keyword") || undefined,
+        orderBy,
+      }),
+    keepPreviousData: true,
+  });
 
   return (
     <div className="flex flex-col">
@@ -124,14 +75,20 @@ const DirectoryPage = () => {
         <span className="my-20 flex items-center justify-center gap-2 text-center text-lg">
           Loading <BeatLoader loading={isLoading} size={10} />
         </span>
-      ) : filteredTalents?.length === 0 || !filteredTalents ? (
+      ) : talents?.length === 0 || !talents ? (
         <span className="my-20 gap-2 text-center text-lg">
           No talents found...
         </span>
       ) : (
-        <TalentSection talents={filteredTalents} />
+        <TalentSection
+          talentCount={allTalents?.length}
+          itemsPerPage={itemsPerPage}
+          setItemsPerPage={setItemsPerPage}
+          talents={talents}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       )}
-
       <SubscribePremium />
     </div>
   );

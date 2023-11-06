@@ -25,7 +25,7 @@ export const talentFormSchema = z.object({
   skills: z.object({ skill: z.string().nullable() }).array(),
   ageMax: z.number().optional(),
   ageMin: z.number().optional(),
-  height: z.string().optional(),
+  height: z.number().optional(),
   hair: z.string().optional(),
   eye: z.string().optional(),
   language: z.nativeEnum(Language),
