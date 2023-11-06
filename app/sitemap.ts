@@ -14,8 +14,8 @@ const news = async (): Promise<Post[]> => {
 
 export default async function sitemap() {
   const posts = await news().then((data) =>
-    data.map(({ id, slug, date }) => ({
-      url: `${URL}/${slug}/${id}`,
+    data.map(({ id, date, categories }) => ({
+      url: `${URL}/${categories[0] === 1418 ? "news" : "interviews"}/${id}`,
       lastModified: date,
     })),
   );
