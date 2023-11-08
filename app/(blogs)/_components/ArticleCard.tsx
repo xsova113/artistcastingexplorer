@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface ArticleCardProps {
-  path: "news" | "interviews" | "news1";
+  path: "news" | "interviews" | "news1" | "interviews1";
   post: BlogPost;
 }
 
