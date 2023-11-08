@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { BlogPost } from "@/types/post";
-import Link from "next/link";
+import ArticleCard from "../_components/ArticleCard";
 
 const BlogPage = async () => {
   const posts: BlogPost[] = await client.fetch(
@@ -10,9 +10,10 @@ const BlogPage = async () => {
   return (
     <section className="max-w-screen-lg px-2.5 py-20 md:px-10">
       {posts.map((post) => (
-        <div key={post._id}>
-          <Link href={`/news1/${post.slug.current}`}>{post.slug.current}</Link>
-        </div>
+        // <div key={post._id}>
+        //   <Link href={`/news1/${post.slug.current}`}>{post.slug.current}</Link>
+        // </div>
+        <ArticleCard path="news1" post={post} key={post._id} />
       ))}
     </section>
   );

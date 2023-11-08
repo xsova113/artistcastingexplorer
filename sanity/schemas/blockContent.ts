@@ -19,6 +19,13 @@ export default defineType({
     defineArrayMember({
       title: "Block",
       type: "block",
+      of: [
+        {
+          type: "reference",
+          name: "gallery",
+          to: [{ type: "gallery" }],
+        },
+      ],
       // Styles let you define what blocks can be marked up as. The default
       // set corresponds with HTML tags, but you can set any title or value
       // you want, and decide how you want to deal with it where you want to

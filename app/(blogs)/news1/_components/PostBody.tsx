@@ -21,20 +21,18 @@ const PostBody = ({ post }: PostBodyProps) => {
 
   const ptComponents: PortableTextComponents = {
     types: {
-      image: ({ value }: { value: any }) => {
+      image: ({ value, isInline }) => {
         if (!value?.asset?._ref) {
           return null;
         }
         return (
-          <Image
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             alt={value.alt || ""}
             loading="lazy"
-            width={400}
-            height={350}
             src={urlForImage(value)
-              .width(320)
-              .height(240)
               .fit("max")
+              .width(isInline ? 100 : 800)
               .auto("format")
               .toString()}
             className="my-6"

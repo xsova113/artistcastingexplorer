@@ -2,8 +2,10 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { WPUser } from "@/types/wpUser";
-import axios from "axios";
+import { client } from "@/sanity/lib/client";
+import { urlForImage } from "@/sanity/lib/image";
+import { Author } from "@/types/author";
+import { BlogPost } from "@/types/post";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -11,62 +13,39 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 interface ArticleCardProps {
-  title: string;
-  image?: string;
-  postId: number | string;
-  authorId: number;
   path: "news" | "interviews" | "news1";
-  date: string;
-  content?: string;
+  post: BlogPost;
 }
 
-const ArticleCard = ({
-  title,
-  image,
-  postId,
-  path,
-  authorId,
-  content,
-  date,
-}: ArticleCardProps) => {
+const ArticleCard = ({ post, path }: ArticleCardProps) => {
   const [isMounted, setIsMounted] = useState(false);
-  const [author, setAuthor] = useState<WPUser>();
+  const [author, setAuthor] = useState<Author>();
 
   const fetchAuthor = useCallback(async () => {
-    if (!authorId) return;
-
-    const response = await axios.get(
-      `https://castingjapanese.ca/wp-json/wp/v2/users/${authorId}`,
+    const author = await client.fetch(
+      `*[_type == 'author' && _id == "${post.author?._ref}"][0]`,
     );
-    setAuthor(response.data);
-    return response.data;
-  }, [authorId]);
+
+    setAuthor(author);
+  }, [post.author?._ref]);
 
   useEffect(() => {
     fetchAuthor();
-  }, [fetchAuthor]);
-
-  useEffect(() => {
     setIsMounted(true);
-  }, []);
+  }, [fetchAuthor]);
 
   if (!isMounted) return null;
 
   return (
     <Link
-      href={`/${path}/${postId}`}
+      href={`/${path}/${post.slug.current}`}
       className="rounded-2xl max-lg:overflow-y-clip"
     >
       <Card className="flex h-[400px] w-[330px] flex-col overflow-clip rounded-2xl border-none shadow-none drop-shadow max-lg:overflow-clip">
         <div className="flex h-full flex-col bg-gradient-to-b from-transparent to-black">
-          <div
-            className={cn(
-              "absolute -z-50 h-full w-full max-lg:w-[330px]",
-              !image && "hidden",
-            )}
-          >
+          <div className={cn("absolute -z-50 h-full w-full max-lg:w-[330px]")}>
             <Image
-              src={image || "/placeholder.png"}
+              src={urlForImage(post.mainImage).toString()}
               alt={"featured image"}
               fill
               className="object-cover"
@@ -75,21 +54,19 @@ const ArticleCard = ({
           </div>
           <div className="mt-auto">
             <CardHeader className="pb-2 text-white">
-              <CardTitle className="line-clamp-2 text-lg">{title}</CardTitle>
+              <CardTitle className="line-clamp-2 text-lg">
+                {post.title}
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 pb-4 text-muted">
-              {/* <div
-                className="line-clamp-3 text-sm text-muted"
-                dangerouslySetInnerHTML={{ __html: content || "" }}
-              /> */}
               <div className="flex items-center justify-between">
                 <p className="w-fit text-sm">{author?.name}</p>
                 <span className="text-xs">
-                  {format(new Date(date), "MMMM dd, yyyy")}
+                  {format(new Date(post._createdAt), "MMMM dd, yyyy")}
                 </span>
               </div>
               <Link
-                href={`/${path}/${postId}`}
+                href={`/${path}/${post.slug.current}`}
                 className="flex items-center text-sm font-bold text-white underline-offset-4 hover:underline"
               >
                 Read More <ChevronRight className="ml-2" size={18} />
