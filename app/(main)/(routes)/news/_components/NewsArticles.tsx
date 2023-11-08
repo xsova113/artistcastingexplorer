@@ -4,10 +4,10 @@ import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import { useState, useEffect, SetStateAction } from "react";
 import ReactPaginate from "react-paginate";
 import ArticleCard from "./ArticleCard";
-import { BlogPost } from "@/types/post";
+import { Post } from "@/types/post";
 
 interface NewsArticlesProps {
-  filteredPosts: BlogPost[];
+  filteredPosts: Post[];
   isLoading: boolean;
 }
 
