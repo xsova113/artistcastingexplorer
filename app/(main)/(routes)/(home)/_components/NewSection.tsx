@@ -2,7 +2,7 @@ import ArticleCard from "@/components/ArticleCard";
 import Stack from "@/components/Stack";
 import { buttonVariants } from "@/components/ui/button";
 import { Category } from "@/types/category";
-import { Post } from "@/types/post";
+import { BlogPost } from "@/types/post";
 import axios from "axios";
 import { compareDesc } from "date-fns";
 import Link from "next/link";
@@ -20,11 +20,11 @@ const NewSection = async () => {
     (category: Category) => category.slug === "news",
   );
 
-  const newsPosts = posts.filter((post: Post) =>
+  const newsPosts = posts.filter((post: BlogPost) =>
     post.categories.includes(newsCategory.id),
   );
 
-  const latestNewsPosts = newsPosts.sort((a: Post, b: Post) =>
+  const latestNewsPosts = newsPosts.sort((a: BlogPost, b: BlogPost) =>
     compareDesc(new Date(a.date), new Date(b.date)),
   );
 
@@ -43,7 +43,7 @@ const NewSection = async () => {
         <p>Cannot load...</p>
       ) : (
         <div className="grid grid-cols-1 justify-center gap-4 lg:grid-cols-3">
-          {latestNewsPosts.slice(0, 3).map((post: Post) => (
+          {latestNewsPosts.slice(0, 3).map((post: BlogPost) => (
             <ArticleCard
               key={post.id}
               authorId={post.author}

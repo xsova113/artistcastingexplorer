@@ -1,6 +1,6 @@
 import PostCarousel from "@/components/PostCarousel";
-import Post from "@/components/Post";
 import NewsletterSection from "@/components/NewsletterSection";
+import Post from "@/components/Post";
 
 interface NewsPostPageProps {
   params: { postId: string };

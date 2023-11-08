@@ -3,10 +3,10 @@
 import HeroSection from "@/components/HeroSection";
 import Articles from "../../../../components/Articles";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Post } from "@/types/post";
+import { BlogPost } from "@/types/post";
 import { Category } from "@/types/category";
 import axios from "axios";
-import InterviewArchive from "../news/components/InterviewArchive";
+import InterviewArchive from "../news/_components/InterviewArchive";
 import { Loader2 } from "lucide-react";
 
 // TODO: Add categories / subcategories as Title type
@@ -15,9 +15,9 @@ type Title = "actors" | "model" | "singer" | "musician" | "interview";
 
 const InterviewPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
 
   // Get all posts

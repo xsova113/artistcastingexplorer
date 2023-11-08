@@ -1,5 +1,5 @@
 import PostCarousel from "@/components/PostCarousel";
-import Post from "@/components/Post";
+import BlogPost from "@/components/Post";
 import NewsletterSection from "@/components/NewsletterSection";
 
 interface NewsPostPageProps {

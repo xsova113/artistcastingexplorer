@@ -1,11 +1,11 @@
 "use client";
 
-import { Post } from "@/types/post";
+import { BlogPost } from "@/types/post";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 const useFetchBlog = () => {
-  const [blogs, setBlogs] = useState<Post[]>();
+  const [blogs, setBlogs] = useState<BlogPost[]>();
 
   const fetchBlogs = async () => {
     await axios

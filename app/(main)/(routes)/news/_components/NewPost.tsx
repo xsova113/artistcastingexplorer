@@ -1,6 +1,6 @@
 "use client";
 
-import { Post } from "@/types/post";
+import { BlogPost } from "@/types/post";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -10,7 +10,7 @@ interface NewPostProps {
 }
 
 const NewPost = ({ postId }: NewPostProps) => {
-  const [post, setPost] = useState<Post>();
+  const [post, setPost] = useState<BlogPost>();
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchPost = useCallback(async () => {

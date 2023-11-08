@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,7 +38,7 @@ const SocialDropdown = () => {
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link
-            href={`https://twitter.com/intent/tweet?text=hahahahaha&url=${window.location.href}`}
+            href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
             className="flex items-center gap-2"
             target="_blank"
           >
