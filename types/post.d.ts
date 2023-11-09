@@ -8,29 +8,9 @@ export type Post = {
   content: { rendered: string };
   date: string;
   yoast_head_json: { og_image: [{ url: string }] };
-  // uagb_excerpt: string;
-  // uagb_author_info: { display_name: string };
-  // uagb_featured_image_src: {
-  //   full: string[];
-  //   thumbnail: string[];
-  //   medium: string[];
-  //   large: string[];
-  // };
   link: string;
   slug: string;
 };
-
-// To parse this data:
-//
-//   import { Convert, BlogPost } from "./file";
-//
-//   const blogPost = Convert.toBlogPost(json);
-
-// To parse this data:
-//
-//   import { Convert, BlogPost } from "./file";
-//
-//   const blogPost = Convert.toBlogPost(json);
 
 export type BlogPost = {
   _createdAt: Date;
