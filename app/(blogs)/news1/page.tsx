@@ -3,8 +3,6 @@ import { BlogPost } from "@/types/post";
 import ArticleCard from "../_components/ArticleCard";
 import Archive from "../_components/Archive";
 
-export const revalidate = 0;
-
 const BlogPage = async () => {
   const posts: BlogPost[] = await client.fetch(
     `*[_type == 'post' && categories[] -> title match "news"]`,
