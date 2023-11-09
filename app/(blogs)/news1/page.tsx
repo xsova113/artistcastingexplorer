@@ -2,14 +2,35 @@ import { client } from "@/sanity/lib/client";
 import { BlogPost } from "@/types/post";
 import ArticleCard from "../_components/ArticleCard";
 import Archive from "../_components/Archive";
+import MainPostCard from "../_components/MainPostCard";
+import { Separator } from "@/components/ui/separator";
+import dayjs from "dayjs";
 
-const BlogPage = async () => {
+const currentYear = new Date().getFullYear();
+
+const BlogPage = async ({
+  searchParams,
+}: {
+  searchParams: { month: string };
+}) => {
   const posts: BlogPost[] = await client.fetch(
-    `*[_type == 'post' && categories[] -> title match "news"]`,
+    `*[_type == 'post' && categories[] -> title match "news"] | order(_createdAt desc)`,
+  );
+  const latestPost: BlogPost = await client.fetch(
+    `*[_type == 'post' && categories[] -> title match "news"] | order(_createdAt desc)[0]`,
   );
 
+  const filteredPosts = !searchParams.month
+    ? posts
+    : posts.filter((post) =>
+        dayjs(post._createdAt).isSame(
+          `${currentYear}-${searchParams.month}`,
+          "month",
+        ),
+      );
+
   return (
-    <section className="max-w-screen-lg px-2.5 py-20 md:px-10">
+    <section className="mx-auto max-w-screen-lg px-2.5 py-20 md:px-10">
       <div className="mb-12 flex flex-col gap-y-4">
         <h1 className="text-4xl font-semibold md:text-5xl">
           News and Upcoming Events
@@ -18,18 +39,24 @@ const BlogPage = async () => {
           Explore here for details on artist appearances and more
         </h3>
       </div>
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {posts.map((post) => (
-          // <div key={post._id}>
-          //   <Link href={`/news1/${post.slug.current}`}>{post.slug.current}</Link>
-          // </div>
-          <ArticleCard path="news1" post={post} key={post._id} />
-        ))}
-      </div>
+      <div className="flex flex-col gap-y-8">
+        <MainPostCard path="news1" post={latestPost} />
 
-      <div className="mt-20 flex flex-col items-center gap-y-6">
-        <h1 className="text-3xl font-semibold">Related Articles</h1>
-        <Archive posts={posts} />
+        <div id="articles" className="flex gap-2">
+          <div className="flex flex-col gap-y-6">
+            <h2 className="text-3xl font-semibold">Latest News</h2>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {filteredPosts.map((post) => (
+                <ArticleCard path="news1" post={post} key={post._id} />
+              ))}
+            </div>
+          </div>
+
+          <div className="ml-auto flex max-sm:hidden">
+            <Separator className="mx-4 mt-16 h-4/5" orientation="vertical" />
+            <Archive posts={posts} />
+          </div>
+        </div>
       </div>
     </section>
   );

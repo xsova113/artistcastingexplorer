@@ -20,7 +20,6 @@ export type Post = {
   slug: string;
 };
 
-
 // To parse this data:
 //
 //   import { Convert, BlogPost } from "./file";
@@ -35,70 +34,71 @@ export type Post = {
 
 export type BlogPost = {
   _createdAt: Date;
-  _rev:       string;
+  _rev: string;
   categories: Category[];
-  body:       Body[];
-  title:      string;
-  mainImage:  MainImage;
-  _type:      string;
-  _id:        string;
+  body: Body[];
+  title: string;
+  description: string;
+  mainImage: MainImage;
+  _type: string;
+  _id: string;
   _updatedAt: Date;
-  slug:       Slug;
-  author:     Author;
-}
+  slug: Slug;
+  author: Author;
+};
 
 export type Author = {
-  _ref:  string;
+  _ref: string;
   _type: string;
-}
+};
 
 export type Body = {
   markDefs?: MarkDef[];
   children?: Child[];
-  _type:     string;
-  style?:    string;
-  _key:      string;
-  url?:      string;
-  asset?:    Author;
-}
+  _type: string;
+  style?: string;
+  _key: string;
+  url?: string;
+  asset?: Author;
+};
 
 export type Child = {
   marks: string[];
-  text:  string;
-  _key:  string;
+  text: string;
+  _key: string;
   _type: string;
-}
+};
 
 export type MarkDef = {
-  _key:  string;
+  _key: string;
   _type: string;
-  href:  string;
-}
+  href: string;
+};
 
 export type Category = {
-  _key:  string;
-  _ref:  string;
+  _key: string;
+  _ref: string;
   _type: string;
-}
+};
 
 export type MainImage = {
   _type: string;
-  alt:   string;
+  alt: string;
   asset: Author;
-}
+};
 
 export type Slug = {
   current: string;
-  _type:   string;
-}
+  _type: string;
+};
 
 // Converts JSON strings to/from your types
 export class Convert {
   public static toBlogPost(json: string): BlogPost {
-      return JSON.parse(json);
+    return JSON.parse(json);
   }
 
   public static blogPostToJson(value: BlogPost): string {
-      return JSON.stringify(value);
+    return JSON.stringify(value);
   }
 }

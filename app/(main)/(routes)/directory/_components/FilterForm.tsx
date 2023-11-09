@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { GenderSelect } from "./GenderSelect";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
-import { ElementRef, FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { AgeSelect } from "./AgeSelect";
 import { filterFormSchema } from "@/lib/filterFormSchema";
 import { LocationSelect } from "./LocationSelect";
