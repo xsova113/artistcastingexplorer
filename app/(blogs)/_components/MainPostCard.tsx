@@ -1,3 +1,5 @@
+"use client";
+
 import ProfileAvatar from "@/components/ProfileAvatar";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/image";
@@ -7,15 +9,28 @@ import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
 
 interface MainPostCardProps {
   path: "news" | "interviews" | "news1" | "interviews1";
   post: BlogPost;
 }
-const MainPostCard = async ({ path, post }: MainPostCardProps) => {
-  const author: Author = await client.fetch(
-    `*[_type == 'author' && _id == "${post.author._ref}"][0]`,
-  );
+const MainPostCard = ({ path, post }: MainPostCardProps) => {
+  const [isMounted, setIsMounted] = useState(false);
+  const [author, setAuthor] = useState<Author>();
+
+  const fetchAuthor = useCallback(async () => {
+    await client
+      .fetch(`*[_type == 'author' && _id == "${post.author._ref}"][0]`)
+      .then((res) => setAuthor(res));
+  }, [post.author._ref]);
+
+  useEffect(() => {
+    fetchAuthor();
+    setIsMounted(true);
+  }, [fetchAuthor]);
+
+  if (!isMounted) return null;
 
   return (
     <Link
@@ -33,10 +48,13 @@ const MainPostCard = async ({ path, post }: MainPostCardProps) => {
       </div>
       <div className="flex basis-1/2 flex-col gap-y-4 p-4 md:px-10">
         <div className="flex items-center gap-2">
-          <ProfileAvatar
-            image={urlForImage(author.image).toString()}
-            className="ring"
-          />
+          {author?.image && (
+            <ProfileAvatar
+              image={urlForImage(author.image).toString()}
+              className="ring"
+            />
+          )}
+
           <div className="flex flex-col">
             <h3 className="text-sm text-muted-foreground">{author?.name}</h3>
           </div>

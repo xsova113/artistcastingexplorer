@@ -30,7 +30,7 @@ const BlogPage = async ({
       </div>
 
       <div className="flex flex-col gap-y-8">
-        <MainPostCard path="interviews1" post={posts[0]} />
+        <MainPostCard path="interviews1" post={posts[0]} /> 
 
         <div className="flex gap-2">
           <LatestArticles posts={posts} categories={categories} />

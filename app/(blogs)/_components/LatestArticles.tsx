@@ -18,6 +18,7 @@ interface LatestArticlesProps {
 }
 
 const LatestArticles = ({ posts, categories }: LatestArticlesProps) => {
+  const [isMounted, setIsMounted] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
   const isLargeScreen = useMediaQuery("(min-width: 640px)");
@@ -48,7 +49,10 @@ const LatestArticles = ({ posts, categories }: LatestArticlesProps) => {
 
   useEffect(() => {
     setTotalPages(Math.ceil(posts?.length / itemsPerPage));
+    setIsMounted(true);
   }, [itemsPerPage, posts?.length]);
+
+  if (!isMounted) return null;
 
   if (!posts || !posts.length)
     return (
@@ -56,8 +60,9 @@ const LatestArticles = ({ posts, categories }: LatestArticlesProps) => {
         No articles found...
       </div>
     );
+
   return (
-    <div className="flex flex-col max-sm:items-center gap-y-6">
+    <div className="flex flex-col gap-y-6 max-sm:items-center">
       <h2 className="text-2xl font-semibold">Latest Articles</h2>
 
       {!isLargeScreen && (
@@ -65,10 +70,7 @@ const LatestArticles = ({ posts, categories }: LatestArticlesProps) => {
           {pathname === "/news1" ? (
             <Archive posts={posts} isMobile />
           ) : (
-            <InterviewArchive
-              isMobile
-              categories={categories}
-            />
+            <InterviewArchive isMobile categories={categories} />
           )}
         </MobileArchive>
       )}
