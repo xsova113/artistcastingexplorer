@@ -9,7 +9,7 @@ import MobileArchive from "@/app/(main)/(routes)/news/_components/MobileArchive"
 import Archive from "@/app/(main)/(routes)/news/_components/Archive";
 import { usePathname } from "next/navigation";
 import InterviewArchive from "@/app/(main)/(routes)/news/_components/InterviewArchive";
-import { Category } from "@/types/category";
+import { Category_old } from "@/types/category";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 interface ArticlesProps {
@@ -17,7 +17,7 @@ interface ArticlesProps {
   path: "news" | "interviews";
   posts: Post[];
   setFilteredPosts: (value: Post[]) => void;
-  categories: Category[];
+  categories: Category_old[];
   handleClick: (value: string) => void;
   isLoading: boolean;
   currentPage: number;

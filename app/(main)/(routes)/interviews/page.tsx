@@ -4,7 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import Articles from "../../../../components/Articles";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Post } from "@/types/post";
-import { Category } from "@/types/category";
+import { Category_old } from "@/types/category";
 import axios from "axios";
 import InterviewArchive from "../news/_components/InterviewArchive";
 import { Loader2 } from "lucide-react";
@@ -12,7 +12,7 @@ import { Loader2 } from "lucide-react";
 const InterviewPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category_old[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
 

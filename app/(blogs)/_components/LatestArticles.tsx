@@ -1,6 +1,6 @@
 "use client";
 
-import { BlogPost, Category } from "@/types/post";
+import { BlogPost } from "@/types/post";
 import ArticleCard from "./ArticleCard";
 import ReactPaginate from "react-paginate";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -11,6 +11,7 @@ import Archive from "./Archive";
 import qs from "query-string";
 import MobileArchive from "./MobileArchive";
 import InterviewArchive from "./InterviewArchive";
+import { Category } from "@/types/category";
 
 interface LatestArticlesProps {
   posts: BlogPost[];
@@ -23,7 +24,7 @@ const LatestArticles = ({ posts, categories }: LatestArticlesProps) => {
   const router = useRouter();
   const isLargeScreen = useMediaQuery("(min-width: 640px)");
   const pathname = usePathname();
-  const itemsPerPage = 2;
+  const itemsPerPage = 6;
   const [totalPages, setTotalPages] = useState(0);
   const pageCount = Math.ceil((posts?.length || 0) / itemsPerPage);
   const startIndex = Number(searchParams.get("currentPage")) * itemsPerPage;

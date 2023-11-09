@@ -3,8 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import qs from "query-string";
-import { BlogPost, Category } from "@/types/post";
 import { useRouter } from "next/navigation";
+import { Category } from "@/types/category";
 
 interface InterviewArchiveProps {
   categories?: Category[];
@@ -20,6 +20,7 @@ const InterviewArchive = ({ categories, isMobile }: InterviewArchiveProps) => {
         url: window.location.href,
         query: {
           category,
+          currentPage: 0
         },
       },
       { skipNull: true, skipEmptyString: true },
@@ -43,7 +44,7 @@ const InterviewArchive = ({ categories, isMobile }: InterviewArchiveProps) => {
         <div className="flex flex-wrap items-start max-sm:gap-4 md:flex-col">
           {categories ? (
             categories
-              .filter((category) => category.title)
+              .filter((category) => category.title !== "news")
               .sort((a, b) => (a.title > b.title ? 1 : -1))
               .map((category) => (
                 <Button

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import FlexBetween from "@/components/FlexBetween";
 import ProfileAvatar from "@/components/ProfileAvatar";
@@ -10,6 +10,7 @@ import { BlogPost } from "@/types/post";
 import dayjs from "dayjs";
 import PostBody from "./PostBody";
 import DisqusComments from "@/components/DisqusComments";
+import RelatedArtists from "./RelatedArtists";
 
 interface PostProps {
   post: BlogPost;
@@ -21,7 +22,7 @@ const Post = ({ author, post }: PostProps) => {
     <div className="flex flex-col">
       <div className="mb-8 flex flex-col gap-y-8">
         <h1 className="text-4xl font-bold md:text-5xl">{post.title}</h1>
-        <Stack>
+        <Stack className="gap-2">
           <FlexBetween>
             <span className="text-muted-foreground">
               {dayjs(post._createdAt).format("MMM DD, YYYY")}
@@ -37,7 +38,10 @@ const Post = ({ author, post }: PostProps) => {
         </Stack>
       </div>
       <PostBody post={post} author={author} />
+      <RelatedArtists post={post} />
+      <div className="mt-32" />
       <DisqusComments post={post} />
+      <div className="mb-20" />
     </div>
   );
 };

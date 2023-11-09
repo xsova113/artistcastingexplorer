@@ -61,6 +61,12 @@ export default defineType({
       title: "Body",
       type: "blockContent",
     }),
+    defineField({
+      name: "relatedArtists",
+      title: "Related Artists",
+      type: "array",
+      of: [{ type: "reference", to: { type: "relatedArtist" } }],
+    }),
   ],
 
   preview: {

@@ -12,77 +12,90 @@ export type Post = {
   slug: string;
 };
 
+export type RelatedArtist = {
+  _ref:                 string;
+  _type:                string;
+  _strengthenOnPublish: StrengthenOnPublish;
+  _key:                 string;
+  _weak:                boolean;
+}
+
+export type StrengthenOnPublish = {
+  type:     string;
+  template: Template;
+}
+
+export type Template = {
+  id: string;
+}
+
 export type BlogPost = {
-  _createdAt: Date;
-  _rev: string;
-  categories: Category[];
-  body: Body[];
-  title: string;
-  description: string;
-  mainImage: MainImage;
-  _type: string;
-  _id: string;
-  _updatedAt: Date;
-  slug: Slug;
-  author: Author;
-};
+  author:         Author;
+  _type:          string;
+  description:    string;
+  body:           Body[];
+  mainImage:      MainImage;
+  slug:           Slug;
+  _rev:           string;
+  title:          string;
+  _createdAt:     Date;
+  _id:            string;
+  categories:     Category[];
+  relatedArtists: RelatedArtist[];
+  _updatedAt:     Date;
+}
 
 export type Author = {
-  _ref: string;
+  _ref:  string;
   _type: string;
-};
+}
 
 export type Body = {
-  markDefs?: MarkDef[];
+  _type:     string;
+  _key:      string;
+  url?:      string;
+  markDefs?: any[];
   children?: Child[];
-  _type: string;
-  style?: string;
-  _key: string;
-  url?: string;
-  asset?: Author;
-};
+  style?:    string;
+}
 
 export type Child = {
-  marks: string[];
-  text: string;
-  _key: string;
   _type: string;
-};
-
-export type MarkDef = {
-  _key: string;
-  _type: string;
-  href: string;
-};
+  marks: any[];
+  text:  string;
+  _key:  string;
+}
 
 export type Category = {
-  description: string;
-  _id: string;
-  title: string;
-  _updatedAt: Date;
-  _createdAt: Date;
-  _rev: string;
   _type: string;
-};
+  _key:  string;
+  _ref:  string;
+}
 
 export type MainImage = {
-  _type: string;
-  alt: string;
   asset: Author;
-};
+  _type: string;
+  alt:   string;
+}
+
+export type RelatedArtist = {
+  _weak:                boolean;
+  _ref:                 string;
+  _type:                string;
+  _strengthenOnPublish: StrengthenOnPublish;
+  _key:                 string;
+}
+
+export type StrengthenOnPublish = {
+  template: Template;
+  type:     string;
+}
+
+export type Template = {
+  id: string;
+}
 
 export type Slug = {
   current: string;
-  _type: string;
-};
-
-// Converts JSON strings to/from your types
-export class Convert {
-  public static toBlogPost(json: string): BlogPost {
-    return JSON.parse(json);
-  }
-
-  public static blogPostToJson(value: BlogPost): string {
-    return JSON.stringify(value);
-  }
+  _type:   string;
 }

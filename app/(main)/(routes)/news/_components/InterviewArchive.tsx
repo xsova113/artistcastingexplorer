@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Category } from "@/types/category";
+import { Category_old } from "@/types/category";
 
 interface InterviewArchiveProps {
-  categories: Category[];
+  categories: Category_old[];
   handleClick: (value: string) => void;
   isMobile?: boolean;
 }

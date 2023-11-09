@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
-import { BlogPost, Category } from "@/types/post";
+import { BlogPost } from "@/types/post";
+import { Category } from "@/types/category";
 import MainPostCard from "../_components/MainPostCard";
 import { Separator } from "@/components/ui/separator";
 import LatestArticles from "../_components/LatestArticles";
@@ -30,7 +31,7 @@ const BlogPage = async ({
       </div>
 
       <div className="flex flex-col gap-y-8">
-        <MainPostCard path="interviews1" post={posts[0]} /> 
+        <MainPostCard path="interviews1" post={posts[0]} />
 
         <div className="flex gap-2">
           <LatestArticles posts={posts} categories={categories} />

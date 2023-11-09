@@ -7,13 +7,13 @@ import { Post } from "@/types/post";
 import axios from "axios";
 import Archive from "./_components/Archive";
 import { Loader2 } from "lucide-react";
-import { Category } from "@/types/category";
+import { Category_old } from "@/types/category";
 
 const NewsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category_old[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
 
   const fetchPosts = async () => {

@@ -5,12 +5,12 @@ import PostCard from "./PostCard";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { Post } from "@/types/post";
 import axios from "axios";
-import { Category, Slug } from "@/types/category";
+import { Category_old, Slug } from "@/types/category";
 import { cn } from "@/lib/utils";
 
 const PostCarousel = ({ categorySlug }: { categorySlug: Slug }) => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category_old[]>([]);
   const ref = useRef<ElementRef<"div">>(null);
   const [isLoading, setIsLoading] = useState(false);
 

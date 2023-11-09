@@ -1,7 +1,7 @@
 import ArticleCard from "@/components/ArticleCard";
 import Stack from "@/components/Stack";
 import { buttonVariants } from "@/components/ui/button";
-import { Category } from "@/types/category";
+import { Category_old } from "@/types/category";
 import { Post } from "@/types/post";
 import axios from "axios";
 import { compareDesc } from "date-fns";
@@ -16,8 +16,8 @@ const InterviewSection = async () => {
     "https://castingjapanese.ca/wp-json/wp/v2/categories",
   );
 
-  const interviewCategory: Category = categories.find(
-    (category: Category) => category.slug === "interview",
+  const interviewCategory: Category_old = categories.find(
+    (category: Category_old) => category.slug === "interview",
   );
 
   const interviewPosts = posts.filter((post: Post) =>
