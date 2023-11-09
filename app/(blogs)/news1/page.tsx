@@ -42,7 +42,7 @@ const BlogPage = async ({
       <div className="flex flex-col gap-y-8">
         <MainPostCard path="news1" post={latestPost} />
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 justify-center">
           <LatestArticles posts={filteredPosts} />
 
           <div className="ml-auto flex max-sm:hidden">
