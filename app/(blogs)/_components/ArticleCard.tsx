@@ -1,29 +1,41 @@
-// "use client";
+"use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/image";
+import { Author } from "@/types/author";
 import { BlogPost } from "@/types/post";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
 
 interface ArticleCardProps {
   path: "news" | "interviews" | "news1" | "interviews1";
   post: BlogPost;
 }
 
-const ArticleCard = async ({ post, path }: ArticleCardProps) => {
-  const author = await client.fetch(
-    `*[_type == 'author' && _id == "${post.author._ref}"][0]`,
+const ArticleCard = ({ post, path }: ArticleCardProps) => {
+  const [author, setAuthor] = useState<Author>();
+
+  const fetchAuthor = useCallback(
+    async () =>
+      await client
+        .fetch(`*[_type == 'author' && _id == "${post.author._ref}"][0]`)
+        .then((res) => setAuthor(res)),
+    [post.author._ref],
   );
+
+  useEffect(() => {
+    fetchAuthor();
+  }, [fetchAuthor]);
 
   return (
     <Link
       href={`/${path}/${post.slug.current}`}
-      className="rounded-2xl max-lg:overflow-y-clip max-w-[330px] border shadow"
+      className="max-w-[330px] rounded-2xl border shadow max-lg:overflow-y-clip"
     >
       <Card className="flex h-[350px] w-[310px] flex-col overflow-clip rounded-2xl border-none shadow-none drop-shadow max-lg:overflow-clip">
         <div className="flex h-full flex-col bg-gradient-to-b from-transparent to-black">
@@ -44,7 +56,7 @@ const ArticleCard = async ({ post, path }: ArticleCardProps) => {
             </CardHeader>
             <CardContent className="space-y-3 pb-4 text-muted">
               <div className="flex items-center justify-between">
-                <p className="w-fit text-sm">{author.name}</p>
+                <p className="w-fit text-sm">{author?.name}</p>
                 <span className="text-xs">
                   {format(new Date(post._createdAt), "MMMM dd, yyyy")}
                 </span>

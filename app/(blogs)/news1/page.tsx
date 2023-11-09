@@ -1,10 +1,10 @@
 import { client } from "@/sanity/lib/client";
 import { BlogPost } from "@/types/post";
-import ArticleCard from "../_components/ArticleCard";
 import Archive from "../_components/Archive";
 import MainPostCard from "../_components/MainPostCard";
 import { Separator } from "@/components/ui/separator";
 import dayjs from "dayjs";
+import LatestArticles from "../_components/LatestArticles";
 
 const currentYear = new Date().getFullYear();
 
@@ -42,15 +42,8 @@ const BlogPage = async ({
       <div className="flex flex-col gap-y-8">
         <MainPostCard path="news1" post={latestPost} />
 
-        <div id="articles" className="flex gap-2">
-          <div className="flex flex-col gap-y-6">
-            <h2 className="text-3xl font-semibold">Latest News</h2>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              {filteredPosts.map((post) => (
-                <ArticleCard path="news1" post={post} key={post._id} />
-              ))}
-            </div>
-          </div>
+        <div className="flex gap-2">
+          <LatestArticles posts={filteredPosts} />
 
           <div className="ml-auto flex max-sm:hidden">
             <Separator className="mx-4 mt-16 h-4/5" orientation="vertical" />

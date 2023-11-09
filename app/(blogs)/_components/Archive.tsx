@@ -40,7 +40,7 @@ const Archive = ({ isMobile, posts }: ArchiveProps) => {
   };
 
   return (
-    <div className={cn("flex-col md:ml-auto md:flex md:pr-10 md:pt-16")}>
+    <div className={cn("flex-col sm:ml-auto sm:flex sm:pr-10 sm:pt-16")}>
       <h2 className="text-lg font-semibold underline underline-offset-4">
         Archives
       </h2>
@@ -50,7 +50,7 @@ const Archive = ({ isMobile, posts }: ArchiveProps) => {
           <Button
             onClick={() => handleClick({ month: currentMonth })}
             variant={"link"}
-            className="p-0 font-semibold text-muted-foreground"
+            className="p-0 font-semibold text-xs text-muted-foreground"
           >
             {dayjs(currentMonth.toString()).format("MMMM")} (
             {filteredPosts({ month: currentMonth }).length})
@@ -58,7 +58,7 @@ const Archive = ({ isMobile, posts }: ArchiveProps) => {
           <Button
             onClick={() => handleClick({ month: currentMonth - 1 })}
             variant={"link"}
-            className="p-0 font-semibold text-muted-foreground"
+            className="p-0 font-semibold text-xs text-muted-foreground"
           >
             {dayjs((currentMonth - 1).toString()).format("MMMM")} (
             {filteredPosts({ month: currentMonth - 1 }).length})
@@ -66,7 +66,7 @@ const Archive = ({ isMobile, posts }: ArchiveProps) => {
           <Button
             onClick={() => handleClick({ month: currentMonth - 2 })}
             variant={"link"}
-            className="p-0 font-semibold text-muted-foreground"
+            className="p-0 font-semibold text-xs text-muted-foreground"
           >
             {dayjs((currentMonth - 2).toString()).format("MMMM")} (
             {filteredPosts({ month: currentMonth - 2 }).length})
@@ -74,7 +74,7 @@ const Archive = ({ isMobile, posts }: ArchiveProps) => {
           <Button
             onClick={() => handleClick({ month: currentMonth - 3 })}
             variant={"link"}
-            className="p-0 font-semibold text-muted-foreground"
+            className="p-0 font-semibold text-xs text-muted-foreground"
           >
             {dayjs((currentMonth - 3).toString()).format("MMMM")} (
             {filteredPosts({ month: currentMonth - 3 }).length})
