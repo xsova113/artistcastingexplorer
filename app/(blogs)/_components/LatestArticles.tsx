@@ -66,8 +66,8 @@ const LatestArticles = ({ posts, categories }: LatestArticlesProps) => {
             <Archive posts={posts} isMobile />
           ) : (
             <InterviewArchive
-              categories={categories}
               isMobile
+              categories={categories}
             />
           )}
         </MobileArchive>

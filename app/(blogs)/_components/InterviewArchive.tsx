@@ -7,7 +7,7 @@ import { BlogPost, Category } from "@/types/post";
 import { useRouter } from "next/navigation";
 
 interface InterviewArchiveProps {
-  categories: Category[];
+  categories?: Category[];
   isMobile?: boolean;
 }
 
@@ -26,7 +26,7 @@ const InterviewArchive = ({ categories, isMobile }: InterviewArchiveProps) => {
     );
 
     router.push(url, { scroll: false });
-    router.refresh()
+    router.refresh();
   };
 
   return (
@@ -41,19 +41,23 @@ const InterviewArchive = ({ categories, isMobile }: InterviewArchiveProps) => {
       </h2>
       <article className="mt-6 flex flex-col items-center gap-x-4 md:items-start">
         <div className="flex flex-wrap items-start max-sm:gap-4 md:flex-col">
-          {categories
-            .filter((category) => category.title)
-            .sort((a, b) => (a.title > b.title ? 1 : -1))
-            .map((category) => (
-              <Button
-                key={category._id}
-                onClick={() => handleClick(category.title)}
-                variant={"link"}
-                className="p-0 font-semibold text-muted-foreground"
-              >
-                {category.title}
-              </Button>
-            ))}
+          {categories ? (
+            categories
+              .filter((category) => category.title)
+              .sort((a, b) => (a.title > b.title ? 1 : -1))
+              .map((category) => (
+                <Button
+                  key={category._id}
+                  onClick={() => handleClick(category.title)}
+                  variant={"link"}
+                  className="p-0 font-semibold text-muted-foreground"
+                >
+                  {category.title}
+                </Button>
+              ))
+          ) : (
+            <div className="py-10 text-muted-foreground">No categories...</div>
+          )}
         </div>
       </article>
     </div>
