@@ -26,7 +26,7 @@ const PostPage = async ({ params }: PostPageProps) => {
   if (!post) notFound();
 
   return (
-    <div className="mx-auto max-w-screen-lg px-2.5 py-20 md:px-10">
+    <>
       <YProgressBar />
 
       <div className="flex flex-col">
@@ -49,7 +49,7 @@ const PostPage = async ({ params }: PostPageProps) => {
         </div>
         <PostBody post={post} author={author} />
       </div>
-    </div>
+    </>
   );
 };
 

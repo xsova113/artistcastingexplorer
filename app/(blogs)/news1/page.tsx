@@ -30,7 +30,7 @@ const BlogPage = async ({
       );
 
   return (
-    <section className="mx-auto max-w-screen-lg px-2.5 py-20 md:px-10">
+    <section>
       <div className="mb-12 flex flex-col gap-y-4">
         <h1 className="text-4xl font-semibold md:text-5xl">
           News and Upcoming Events
@@ -43,7 +43,7 @@ const BlogPage = async ({
         <MainPostCard path="news1" post={latestPost} />
 
         <div className="flex justify-center gap-2">
-          <LatestArticles posts={filteredPosts}/>
+          <LatestArticles posts={filteredPosts} />
 
           <div className="ml-auto flex max-sm:hidden">
             <Separator className="mx-4 mt-16 h-4/5" orientation="vertical" />

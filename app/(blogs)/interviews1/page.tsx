@@ -19,7 +19,7 @@ const BlogPage = async ({
   const categories: Category[] = await client.fetch(`*[_type == 'category']`);
 
   return (
-    <section className="mx-auto max-w-screen-lg px-2.5 py-20 md:px-10">
+    <section>
       <div className="mb-12 flex flex-col gap-y-4">
         <h1 className="text-4xl font-semibold md:text-5xl">
           Interview Articles
