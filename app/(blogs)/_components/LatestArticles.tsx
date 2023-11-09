@@ -1,6 +1,6 @@
 "use client";
 
-import { BlogPost } from "@/types/post";
+import { BlogPost, Category } from "@/types/post";
 import ArticleCard from "./ArticleCard";
 import ReactPaginate from "react-paginate";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -8,15 +8,16 @@ import { SetStateAction, useEffect, useState } from "react";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Archive from "./Archive";
-import InterviewArchive from "@/app/(main)/(routes)/news/_components/InterviewArchive";
 import qs from "query-string";
 import MobileArchive from "./MobileArchive";
+import InterviewArchive from "./InterviewArchive";
 
 interface LatestArticlesProps {
   posts: BlogPost[];
+  categories?: Category[];
 }
 
-const LatestArticles = ({ posts }: LatestArticlesProps) => {
+const LatestArticles = ({ posts, categories }: LatestArticlesProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const isLargeScreen = useMediaQuery("(min-width: 640px)");
@@ -24,7 +25,6 @@ const LatestArticles = ({ posts }: LatestArticlesProps) => {
   const itemsPerPage = 2;
   const [totalPages, setTotalPages] = useState(0);
   const pageCount = Math.ceil((posts?.length || 0) / itemsPerPage);
-
   const startIndex = Number(searchParams.get("currentPage")) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
@@ -65,12 +65,10 @@ const LatestArticles = ({ posts }: LatestArticlesProps) => {
           {pathname === "/news1" ? (
             <Archive posts={posts} isMobile />
           ) : (
-            // <InterviewArchive
-            //   categories={categories}
-            //   handleClick={handleClick}
-            //   isMobile
-            // />
-            <></>
+            <InterviewArchive
+              categories={categories}
+              isMobile
+            />
           )}
         </MobileArchive>
       )}

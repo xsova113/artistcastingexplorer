@@ -55,7 +55,7 @@ const ArticleCard = ({ post, path }: ArticleCardProps) => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 pb-4 text-muted">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between max-md:w-[220px]">
                 <p className="w-fit text-sm">{author?.name}</p>
                 <span className="text-xs">
                   {format(new Date(post._createdAt), "MMMM dd, yyyy")}

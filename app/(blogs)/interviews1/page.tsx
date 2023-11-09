@@ -1,14 +1,22 @@
 import { client } from "@/sanity/lib/client";
-import { BlogPost } from "@/types/post";
+import { BlogPost, Category } from "@/types/post";
 import MainPostCard from "../_components/MainPostCard";
 import { Separator } from "@/components/ui/separator";
-import Archive from "../_components/Archive";
 import LatestArticles from "../_components/LatestArticles";
+import InterviewArchive from "../_components/InterviewArchive";
 
-const BlogPage = async () => {
+const BlogPage = async ({
+  searchParams,
+}: {
+  searchParams: { category: string };
+}) => {
   const posts: BlogPost[] = await client.fetch(
-    `*[_type == 'post' && categories[] -> title match "interviews"]`,
+    searchParams.category
+      ? `*[_type == 'post' && categories[] -> title match "${searchParams.category}" ]`
+      : `*[_type == 'post' && categories[] -> title match "interviews" ]`,
   );
+
+  const categories: Category[] = await client.fetch(`*[_type == 'category']`);
 
   return (
     <section className="mx-auto max-w-screen-lg px-2.5 py-20 md:px-10">
@@ -25,18 +33,14 @@ const BlogPage = async () => {
         <MainPostCard path="interviews1" post={posts[0]} />
 
         <div className="flex gap-2">
-          <LatestArticles posts={posts} />
+          <LatestArticles posts={posts} categories={categories} />
 
-          <div className="ml-auto flex">
+          <div className="ml-auto flex max-sm:hidden">
             <Separator className="mx-4 mt-16 h-4/5" orientation="vertical" />
-            <Archive posts={posts} />
+            <InterviewArchive categories={categories} />
           </div>
         </div>
       </div>
-
-      {/* <div className="mt-20 flex flex-col items-center gap-y-6">
-        <h1 className="text-3xl font-semibold">Related Articles</h1>
-      </div> */}
     </section>
   );
 };

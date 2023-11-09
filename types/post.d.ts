@@ -76,8 +76,12 @@ export type MarkDef = {
 };
 
 export type Category = {
-  _key: string;
-  _ref: string;
+  description: string;
+  _id: string;
+  title: string;
+  _updatedAt: Date;
+  _createdAt: Date;
+  _rev: string;
   _type: string;
 };
 
