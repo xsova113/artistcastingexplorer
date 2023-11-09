@@ -44,6 +44,7 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@sanity/block-content-to-react": "^3.0.0",
+    "@sanity/cli": "",
     "@sanity/image-url": "^1.0.2",
     "@sanity/ui": "^1.9.0",
     "@sanity/vision": "^3.19.1",
