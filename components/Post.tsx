@@ -12,7 +12,6 @@ import { useQuery } from "react-query";
 import { WPUser } from "@/types/wpUser";
 import { Post } from "@/types/post";
 import { useCallback, useEffect, useState } from "react";
-import DisqusComments from "./DisqusComments";
 
 interface NewPostProps {
   postId: string;
@@ -89,7 +88,6 @@ const Post = ({ postId }: NewPostProps) => {
             }}
             className="mb-24 text-muted-foreground"
           />
-          <DisqusComments post={post} />
         </section>
       )}
     </section>
