@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { urlForImage } from "@/sanity/lib/image";
 import Image from "next/image";
 import useMediaQuery from "@/hooks/useMediaQuery";
-import { Raleway } from "next/font/google";
 
 interface PostBodyProps {
   post: BlogPost;
@@ -21,7 +20,7 @@ const PostBody = ({ post }: PostBodyProps) => {
 
   const ptComponents: PortableTextComponents = {
     types: {
-      image: ({ value, isInline }) => {
+      image: ({ value }) => {
         if (!value?.asset?._ref) {
           return null;
         }
@@ -32,7 +31,8 @@ const PostBody = ({ post }: PostBodyProps) => {
             loading="lazy"
             src={urlForImage(value)
               .fit("max")
-              .width(isInline ? 100 : 800)
+              .width(650)
+              .height(400)
               .auto("format")
               .toString()}
             className="my-6"
@@ -44,8 +44,8 @@ const PostBody = ({ post }: PostBodyProps) => {
         return (
           <ReactPlayer
             url={url}
-            height={isLargeScreen ? 315 : 250}
-            width={isLargeScreen ? 500 : 360}
+            height={isLargeScreen ? 340 : 250}
+            width={isLargeScreen ? 640 : 375}
           />
         );
       },
@@ -71,6 +71,16 @@ const PostBody = ({ post }: PostBodyProps) => {
       },
     },
     block: {
+      h1: ({ children }: any) => {
+        if (children.length === 1 && children[0] === "") {
+          return <br />;
+        }
+        return (
+          <h3 className="text-4xl font-semibold text-black md:text-5xl">
+            {children}
+          </h3>
+        );
+      },
       h2: ({ children }: any) => {
         if (children.length === 1 && children[0] === "") {
           return <br />;
@@ -79,6 +89,26 @@ const PostBody = ({ post }: PostBodyProps) => {
           <h2 className="text-3xl font-bold text-black md:text-4xl">
             {children}
           </h2>
+        );
+      },
+      h3: ({ children }: any) => {
+        if (children.length === 1 && children[0] === "") {
+          return <br />;
+        }
+        return (
+          <h3 className="text-xl font-semibold text-black md:text-2xl">
+            {children}
+          </h3>
+        );
+      },
+      h4: ({ children }: any) => {
+        if (children.length === 1 && children[0] === "") {
+          return <br />;
+        }
+        return (
+          <h4 className="text-lg font-semibold text-black md:text-xl">
+            {children}
+          </h4>
         );
       },
       normal: ({ children }: any) => {
