@@ -6,4 +6,7 @@ export type RelatedArtist = {
   _updatedAt: Date;
   profileUrl: string;
   _createdAt: Date;
+  imageUrl: string;
+  role: string;
+  location: string;
 };

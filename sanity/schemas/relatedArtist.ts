@@ -11,9 +11,24 @@ export default defineType({
       title: "Name",
     }),
     defineField({
+      name: "role",
+      type: "string",
+      title: "Role",
+    }),
+    defineField({
+      name: "location",
+      type: "string",
+      title: "Location",
+    }),
+    defineField({
       name: "profileUrl",
       type: "string",
       title: "Profile URL",
+    }),
+    defineField({
+      name: "imageUrl",
+      type: "string",
+      title: "Image URL",
     }),
   ],
 });
