@@ -1,14 +1,7 @@
 import { client } from "@/sanity/lib/client";
-import PostBody from "../../_components/PostBody";
 import { BlogPost } from "@/types/post";
 import { Author } from "@/types/author";
 import { notFound } from "next/navigation";
-import ProfileAvatar from "@/components/ProfileAvatar";
-import SocialDropdown from "@/components/SocialDropdown";
-import FlexBetween from "@/components/FlexBetween";
-import dayjs from "dayjs";
-import { urlForImage } from "@/sanity/lib/image";
-import Stack from "@/components/Stack";
 import YProgressBar from "@/components/YProgressBar";
 import Post from "../../_components/Post";
 import NewsletterSection from "@/components/NewsletterSection";

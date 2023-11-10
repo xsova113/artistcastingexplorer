@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import PostBody from "./PostBody";
 import DisqusComments from "@/components/DisqusComments";
 import RelatedArtists from "./RelatedArtists";
+import { useEffect, useState } from "react";
 
 interface PostProps {
   post: BlogPost;
@@ -18,6 +19,14 @@ interface PostProps {
 }
 
 const Post = ({ author, post }: PostProps) => {
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
   return (
     <div className="flex flex-col">
       <div className="mb-8 flex flex-col gap-y-8">
