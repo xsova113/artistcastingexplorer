@@ -28,7 +28,7 @@ import {
   AgeRangeFormField,
 } from ".";
 import LanguageFormField from "./LanguageFormField";
-import { EventHandler, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { User } from "@clerk/nextjs/server";
 import { getTalentUser } from "@/actions/getTalentUser";
 import TalentUserIdFormField from "./TalentUserIdFormField";
