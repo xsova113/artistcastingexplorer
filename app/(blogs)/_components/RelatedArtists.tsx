@@ -50,7 +50,7 @@ const RelatedArtists = ({ post }: RelatedArtistsProps) => {
                     className="bg-primary-foreground object-contain"
                   />
                 </div>
-                <div className="flex flex-col gap-y-2 p-4 text-sm">
+                <div className="flex flex-col p-4 text-sm">
                   <h3 className="text-lg font-semibold capitalize text-black">
                     {item.name}
                   </h3>
