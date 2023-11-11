@@ -5,6 +5,30 @@ import { notFound } from "next/navigation";
 import YProgressBar from "@/components/YProgressBar";
 import Post from "../../_components/Post";
 import NewsletterSection from "@/components/NewsletterSection";
+import { Metadata, ResolvingMetadata } from "next";
+import { urlForImage } from "@/sanity/lib/image";
+
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const post: BlogPost = await client.fetch(
+    `*[_type == 'post' && slug.current == '${params.slug}'][0]`,
+  );
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: post.title,
+    openGraph: {
+      images: [urlForImage(post.mainImage).toString(), ...previousImages],
+    },
+  };
+}
 
 interface PostPageProps {
   params: { slug: string };

@@ -30,11 +30,9 @@ const PostBody = ({ post }: PostBodyProps) => {
             loading="lazy"
             src={urlForImage(value)
               .fit("max")
-              .width(650)
-              .height(400)
               .auto("format")
               .toString()}
-            className="my-6"
+            className="my-6 h-[450px] w-[750px] md:object-contain object-cover"
           />
         );
       },

@@ -7,6 +7,32 @@ import TalentMedia from "../_components/TalentMedia";
 import TalentBio from "../_components/TalentBio";
 import { notFound, redirect } from "next/navigation";
 import CreditSection from "../_components/CreditSection";
+import { Metadata, ResolvingMetadata } from "next";
+
+type Props = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const previousImages = (await parent).openGraph?.images || [];
+  const talent = await getTalentProfile(params.id);
+
+  if (!talent)
+    return {
+      title: "Talent profile",
+    };
+
+  return {
+    title: talent?.firstName + " " + talent?.lastName,
+    openGraph: {
+      images: [talent.images[0].url, ...previousImages],
+    },
+  };
+}
 
 interface ProfilePageProps {
   params: { id: string };

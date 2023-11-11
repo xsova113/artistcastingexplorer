@@ -15,7 +15,6 @@ export const getDefaultDocumentNode = (S: any) => {
           meta_description: doc.meta_description ?? "",
           focus_synonyms: doc.focus_synonyms ?? [],
         }),
-        
       })
       .title("SEO"),
   ]);
