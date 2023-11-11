@@ -28,7 +28,7 @@ import {
   AgeRangeFormField,
 } from ".";
 import LanguageFormField from "./LanguageFormField";
-import { useCallback, useEffect, useState } from "react";
+import { EventHandler, useCallback, useEffect, useState } from "react";
 import { User } from "@clerk/nextjs/server";
 import { getTalentUser } from "@/actions/getTalentUser";
 import TalentUserIdFormField from "./TalentUserIdFormField";
@@ -302,7 +302,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
             >
               You have unsaved changes
             </span>
-            <AlertDialogAction
+            <Button
               disabled={
                 isSubmitting ||
                 (initialData ? false : !termsValue || !ageCheck) ||
@@ -311,7 +311,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
               type="submit"
             >
               Save changes
-            </AlertDialogAction>
+            </Button>
             <AlertDialogCancel
               onClick={async () => {
                 // if (addedVideos) {
