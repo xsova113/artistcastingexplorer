@@ -3,12 +3,12 @@ import { MetadataRoute } from "next";
 const url = "https://www.artistcastingexplorer.com";
 const pathnames = [
   "/",
-  "directory",
+  "/directory",
   "/news",
   "/interviews",
   "/subscribe",
-  "contact",
-  "about",
+  "/contact",
+  "/about",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
