@@ -35,7 +35,7 @@ const TalentReviewCard = ({
   return (
     <Card
       key={talent.id}
-      className="col-span-6 w-[165px] drop-shadow transition-all sm:w-[230px] md:col-span-4 lg:col-span-3 flex flex-col overflow-hidden"
+      className="col-span-6 flex w-[165px] flex-col overflow-hidden drop-shadow transition-all sm:w-[230px] md:col-span-4 lg:col-span-3"
     >
       <div
         onClick={() => setIsOpen(true)}
@@ -43,14 +43,14 @@ const TalentReviewCard = ({
       >
         <Image
           src={
-            talent.images.length > 0
-              ? talent.images.filter(
-                  (image) =>
-                    image.url.split(".").pop() === "jpg" ||
-                    image.url.split(".").pop() === "png" ||
-                    image.url.split(".").pop() === "jpeg",
-                )[0].url
-              : "/user_placeholder.jpg"
+            // talent.images.length > 0
+            //   ? talent.images.filter(
+            //       (image) =>
+            //         image.url.split(".").pop() === "jpg" ||
+            //         image.url.split(".").pop() === "png" ||
+            //         image.url.split(".").pop() === "jpeg",
+            //     )[0].url
+            talent.images[0].url || "/user_placeholder.jpg"
           }
           alt={"image"}
           fill

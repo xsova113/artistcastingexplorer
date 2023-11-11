@@ -34,6 +34,7 @@ const HeightFormField = ({ form }: HeightFormFieldProps) => {
             <Input
               {...field}
               placeholder="175"
+              onChange={(e) => field.onChange(Number(e.target.value))}
               type="number"
               disabled={form.formState.isSubmitting}
             />
