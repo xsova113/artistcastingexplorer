@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { client } from "@/sanity/lib/client";
 import { BlogPost } from "@/types/post";
 import { RelatedArtist } from "@/types/relatedArtist";
@@ -42,7 +43,12 @@ const RelatedArtists = ({ post }: RelatedArtistsProps) => {
                 key={item._id}
                 className="overflow-clip rounded-lg border"
               >
-                <div className="relative h-52 w-full">
+                <div
+                  className={cn(
+                    "relative h-52 w-full",
+                    !item.imageUrl && "hidden",
+                  )}
+                >
                   <Image
                     src={item.imageUrl}
                     alt={item.name}

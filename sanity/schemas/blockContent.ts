@@ -22,8 +22,8 @@ export default defineType({
       of: [
         {
           type: "reference",
-          name: "gallery",
-          to: [{ type: "gallery" }],
+          name: "inlineImage",
+          to: [{ type: "inlineImage" }],
         },
       ],
       // Styles let you define what blocks can be marked up as. The default
@@ -69,7 +69,7 @@ export default defineType({
     // as a block type.
     defineArrayMember({
       type: "image",
-      options: { hotspot: true, columns: 3 },
+      options: { hotspot: true, columns: 1 },
       fields: [
         {
           name: "alt",

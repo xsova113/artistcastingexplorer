@@ -20,7 +20,7 @@ interface PostProps {
 
 const Post = ({ author, post }: PostProps) => {
   const [isMounted, setIsMounted] = useState(false);
-  
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -39,7 +39,9 @@ const Post = ({ author, post }: PostProps) => {
             <SocialDropdown />
           </FlexBetween>
           <div className="mb-4 flex items-center gap-2">
-            <ProfileAvatar image={urlForImage(author.image).toString()} />
+            {author.image && (
+              <ProfileAvatar image={urlForImage(author.image).toString()} />
+            )}
             <div className="flex flex-col">
               <h3>{author.name}</h3>
             </div>

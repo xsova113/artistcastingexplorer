@@ -28,11 +28,8 @@ const PostBody = ({ post }: PostBodyProps) => {
           <img
             alt={value.alt || ""}
             loading="lazy"
-            src={urlForImage(value)
-              .fit("max")
-              .auto("format")
-              .toString()}
-            className="my-6 h-[450px] w-[750px] md:object-contain object-cover"
+            src={urlForImage(value).fit("max").auto("format").toString()}
+            className="my-6 h-[450px] w-[750px] object-cover md:object-contain"
           />
         );
       },
@@ -43,6 +40,20 @@ const PostBody = ({ post }: PostBodyProps) => {
             url={url}
             height={isLargeScreen ? 340 : 250}
             width={isLargeScreen ? 640 : 375}
+          />
+        );
+      },
+      inlineImage: ({ value }) => {
+        if (!value?.asset?._ref) {
+          return null;
+        }
+        return (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            alt={value.alt || ""}
+            loading="lazy"
+            src={urlForImage(value).fit("max").auto("format").toString()}
+            className="my-6 h-[450px] w-[750px] object-cover md:object-contain"
           />
         );
       },
@@ -115,7 +126,7 @@ const PostBody = ({ post }: PostBodyProps) => {
         return <p>{children}</p>;
       },
       blockquote: ({ children }) => (
-        <blockquote className="p-4 my-4 border-s-4 border-gray-300 bg-gray-50 dark:border-gray-500 dark:bg-gray-800">
+        <blockquote className="my-4 border-s-4 border-gray-300 bg-gray-50 p-4 dark:border-gray-500 dark:bg-gray-800">
           {children}
         </blockquote>
       ),
