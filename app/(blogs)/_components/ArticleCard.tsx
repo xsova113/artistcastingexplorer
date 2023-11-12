@@ -13,11 +13,12 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 interface ArticleCardProps {
-  path: "news" | "interviews"
+  path: "news" | "interviews";
   post: BlogPost;
 }
 
 const ArticleCard = ({ post, path }: ArticleCardProps) => {
+  const [isMounted, setIsMounted] = useState(false);
   const [author, setAuthor] = useState<Author>();
 
   const fetchAuthor = useCallback(
@@ -29,8 +30,11 @@ const ArticleCard = ({ post, path }: ArticleCardProps) => {
   );
 
   useEffect(() => {
+    setIsMounted(true);
     fetchAuthor();
   }, [fetchAuthor]);
+
+  if (!isMounted) return null;
 
   return (
     <Link

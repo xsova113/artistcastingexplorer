@@ -1,32 +1,16 @@
-import ArticleCard from "@/components/ArticleCard";
+import ArticleCard from "@/app/(blogs)/_components/ArticleCard";
 import Stack from "@/components/Stack";
 import { buttonVariants } from "@/components/ui/button";
-import { Category_old } from "@/types/category";
-import { Post } from "@/types/post";
-import axios from "axios";
-import { compareDesc } from "date-fns";
+import { client } from "@/sanity/lib/client";
+import { BlogPost } from "@/types/post";
 import Link from "next/link";
 
 const InterviewSection = async () => {
-  const { data: posts } = await axios.get(
-    "https://castingjapanese.ca/wp-json/wp/v2/posts",
+  const posts: BlogPost[] = await client.fetch(
+    `*[_type == 'post' && categories[] -> title match "interviews"] | order(publishedAt desc)`,
   );
 
-  const { data: categories } = await axios.get(
-    "https://castingjapanese.ca/wp-json/wp/v2/categories",
-  );
-
-  const interviewCategory: Category_old = categories.find(
-    (category: Category_old) => category.slug === "interview",
-  );
-
-  const interviewPosts = posts.filter((post: Post) =>
-    post.categories.includes(interviewCategory.id),
-  );
-
-  const latestInterviewPosts = interviewPosts.sort((a: Post, b: Post) =>
-    compareDesc(new Date(a.date), new Date(b.date)),
-  );
+  if (!posts.length || !posts) return null;
 
   return (
     <Stack className="mb-28 mt-10 w-full items-center gap-8">
@@ -41,17 +25,8 @@ const InterviewSection = async () => {
         <p>Cannot load...</p>
       ) : (
         <div className="grid grid-cols-1 justify-center gap-4 lg:grid-cols-3">
-          {latestInterviewPosts.slice(0, 3).map((post: Post) => (
-            <ArticleCard
-              key={post.id}
-              title={post.title.rendered}
-              image={post.yoast_head_json.og_image[0].url}
-              authorId={post.author}
-              postId={post.id}
-              path={"interviews"}
-              date={post.date}
-              content={post.excerpt.rendered}
-            />
+          {posts.slice(0, 3).map((post: BlogPost) => (
+            <ArticleCard key={post._id} path="interviews" post={post} />
           ))}
         </div>
       )}

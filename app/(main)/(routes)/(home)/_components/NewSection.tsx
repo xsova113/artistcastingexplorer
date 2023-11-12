@@ -1,31 +1,14 @@
-import ArticleCard from "@/components/ArticleCard";
+// import ArticleCard from "@/components/ArticleCard";
+import ArticleCard from "@/app/(blogs)/_components/ArticleCard";
 import Stack from "@/components/Stack";
 import { buttonVariants } from "@/components/ui/button";
-import { Category_old } from "@/types/category";
-import { Post } from "@/types/post";
-import axios from "axios";
-import { compareDesc } from "date-fns";
+import { client } from "@/sanity/lib/client";
+import { BlogPost } from "@/types/post";
 import Link from "next/link";
 
 const NewSection = async () => {
-  const { data: posts } = await axios.get(
-    "https://castingjapanese.ca/wp-json/wp/v2/posts",
-  );
-
-  const { data: categories } = await axios.get(
-    "https://castingjapanese.ca/wp-json/wp/v2/categories",
-  );
-
-  const newsCategory: Category_old = categories.find(
-    (category: Category_old) => category.slug === "news",
-  );
-
-  const newsPosts = posts.filter((post: Post) =>
-    post.categories.includes(newsCategory.id),
-  );
-
-  const latestNewsPosts = newsPosts.sort((a: Post, b: Post) =>
-    compareDesc(new Date(a.date), new Date(b.date)),
+  const posts: BlogPost[] = await client.fetch(
+    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)`,
   );
 
   return (
@@ -43,17 +26,8 @@ const NewSection = async () => {
         <p>Cannot load...</p>
       ) : (
         <div className="grid grid-cols-1 justify-center gap-4 lg:grid-cols-3">
-          {latestNewsPosts.slice(0, 3).map((post: Post) => (
-            <ArticleCard
-              key={post.id}
-              authorId={post.author}
-              title={post.title.rendered}
-              image={post.yoast_head_json.og_image[0].url}
-              postId={post.id}
-              path={"news"}
-              date={post.date}
-              content={post.excerpt.rendered}
-            />
+          {posts.slice(0, 3).map((post: BlogPost) => (
+            <ArticleCard key={post._id} path={"news"} post={post} />
           ))}
         </div>
       )}
@@ -61,7 +35,7 @@ const NewSection = async () => {
         href="/news"
         className={buttonVariants({
           className:
-            "bg-secondary-foreground z-50 px-8 hover:bg-secondary-foreground/80",
+            "z-50 bg-secondary-foreground px-8 hover:bg-secondary-foreground/80",
         })}
       >
         View All
