@@ -31,7 +31,7 @@ const AgencyFormField = ({ form }: AgencyFormFieldProps) => {
             />
           </FormControl>
           <FormMessage />
-          <FormDescription className="mr-auto flex">Separete each by comma</FormDescription>
+          <FormDescription className="mr-auto flex">Separate each by comma</FormDescription>
         </FormItem>
       )}
     />
