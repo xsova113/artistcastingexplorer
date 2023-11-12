@@ -39,18 +39,25 @@ const BlogPage = async ({
           Explore here for details on artist appearances and more
         </h3>
       </div>
-      <div className="flex flex-col gap-y-8">
-        <MainPostCard path="news" post={latestPost} />
 
-        <div className="flex justify-center gap-2">
-          <LatestArticles posts={filteredPosts} path="news" />
+      {!posts || !posts.length ? (
+        <div className="flex items-center justify-center py-24 text-lg">
+          No posts found.
+        </div>
+      ) : (
+        <div className="flex flex-col gap-y-8">
+          <MainPostCard path="news" post={latestPost} />
 
-          <div className="ml-auto flex max-sm:hidden">
-            <Separator className="mx-4 mt-16 h-4/5" orientation="vertical" />
-            <Archive posts={posts} />
+          <div className="flex justify-center gap-2">
+            <LatestArticles posts={filteredPosts} path="news" />
+
+            <div className="ml-auto flex max-sm:hidden">
+              <Separator className="mx-4 mt-16 h-4/5" orientation="vertical" />
+              <Archive posts={posts} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };
