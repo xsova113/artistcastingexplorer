@@ -1,3 +1,5 @@
+import { client } from "@/sanity/lib/client";
+import { BlogPost } from "@/types/post";
 import { MetadataRoute } from "next";
 
 const url = "https://www.artistcastingexplorer.com";
@@ -11,10 +13,17 @@ const pathnames = [
   "/about",
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts: BlogPost[] = await client.fetch(`*[_type == 'post']`);
   const routes = pathnames.map((route) => ({
     url: `${url}${route}`,
     lastModified: new Date(),
   }));
-  return [...routes];
+
+  const blogRoutes = posts.map((post) => ({
+    url: `${url}/${post.slug.current}`,
+    lastModified: new Date(),
+  }));
+
+  return [...routes, ...blogRoutes];
 }
