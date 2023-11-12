@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 interface ArticleCardProps {
-  path: "news" | "interviews" | "news1" | "interviews1";
+  path: "news" | "interviews"
   post: BlogPost;
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import HeroSection from "@/components/HeroSection";
-import Articles from "../../../../components/Articles";
+import Articles from "../Articles";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Post } from "@/types/post";
 import axios from "axios";

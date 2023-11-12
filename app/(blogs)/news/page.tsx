@@ -40,10 +40,10 @@ const BlogPage = async ({
         </h3>
       </div>
       <div className="flex flex-col gap-y-8">
-        <MainPostCard path="news1" post={latestPost} />
+        <MainPostCard path="news" post={latestPost} />
 
         <div className="flex justify-center gap-2">
-          <LatestArticles posts={filteredPosts} />
+          <LatestArticles posts={filteredPosts} path="news" />
 
           <div className="ml-auto flex max-sm:hidden">
             <Separator className="mx-4 mt-16 h-4/5" orientation="vertical" />

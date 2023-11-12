@@ -16,9 +16,10 @@ import { Category } from "@/types/category";
 interface LatestArticlesProps {
   posts: BlogPost[];
   categories?: Category[];
+  path: "news" | "interviews";
 }
 
-const LatestArticles = ({ posts, categories }: LatestArticlesProps) => {
+const LatestArticles = ({ posts, categories, path }: LatestArticlesProps) => {
   const [isMounted, setIsMounted] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -68,7 +69,7 @@ const LatestArticles = ({ posts, categories }: LatestArticlesProps) => {
 
       {!isLargeScreen && (
         <MobileArchive>
-          {pathname === "/news1" ? (
+          {pathname === "/news" ? (
             <Archive posts={posts} isMobile />
           ) : (
             <InterviewArchive isMobile categories={categories} />
@@ -78,7 +79,7 @@ const LatestArticles = ({ posts, categories }: LatestArticlesProps) => {
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {subset.map((post) => (
-          <ArticleCard path="news1" post={post} key={post._id} />
+          <ArticleCard path={path} post={post} key={post._id} />
         ))}
       </div>
 

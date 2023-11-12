@@ -5,10 +5,10 @@ import { useState, useEffect, SetStateAction, useCallback } from "react";
 import ReactPaginate from "react-paginate";
 import ArticleCard from "./ArticleCard";
 import { Post } from "@/types/post";
-import MobileArchive from "@/app/(main)/(routes)/news/_components/MobileArchive";
-import Archive from "@/app/(main)/(routes)/news/_components/Archive";
+import MobileArchive from "@/components/news/_components/MobileArchive";
+import Archive from "@/components/news/_components/Archive";
 import { usePathname } from "next/navigation";
-import InterviewArchive from "@/app/(main)/(routes)/news/_components/InterviewArchive";
+import InterviewArchive from "@/components/news/_components/InterviewArchive";
 import { Category_old } from "@/types/category";
 import useMediaQuery from "@/hooks/useMediaQuery";
 

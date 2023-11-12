@@ -19,6 +19,13 @@ const BlogPage = async ({
 
   const categories: Category[] = await client.fetch(`*[_type == 'category']`);
 
+  if (!posts || !posts.length)
+    return (
+      <div className="flex items-center justify-center py-24 text-lg">
+        No posts found.
+      </div>
+    );
+
   return (
     <section>
       <div className="mb-12 flex flex-col gap-y-4">
@@ -31,10 +38,14 @@ const BlogPage = async ({
       </div>
 
       <div className="flex flex-col gap-y-8">
-        <MainPostCard path="interviews1" post={posts[0]} />
+        <MainPostCard path="interviews" post={posts[0]} />
 
         <div className="flex gap-2">
-          <LatestArticles posts={posts} categories={categories} />
+          <LatestArticles
+            path="interviews"
+            posts={posts}
+            categories={categories}
+          />
 
           <div className="ml-auto flex max-sm:hidden">
             <Separator className="mx-4 mt-16 h-4/5" orientation="vertical" />
