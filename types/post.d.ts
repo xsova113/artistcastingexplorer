@@ -13,89 +13,90 @@ export type Post = {
 };
 
 export type RelatedArtist = {
-  _ref:                 string;
-  _type:                string;
+  _ref: string;
+  _type: string;
   _strengthenOnPublish: StrengthenOnPublish;
-  _key:                 string;
-  _weak:                boolean;
-}
+  _key: string;
+  _weak: boolean;
+};
 
 export type StrengthenOnPublish = {
-  type:     string;
+  type: string;
   template: Template;
-}
+};
 
 export type Template = {
   id: string;
-}
+};
 
 export type BlogPost = {
-  author:         Author;
-  _type:          string;
-  description:    string;
-  body:           Body[];
-  mainImage:      MainImage;
-  slug:           Slug;
-  _rev:           string;
-  title:          string;
-  _createdAt:     Date;
-  _id:            string;
-  categories:     Category[];
+  author: Author;
+  _type: string;
+  description: string;
+  body: Body[];
+  mainImage: MainImage;
+  slug: Slug;
+  _rev: string;
+  title: string;
+  _createdAt: Date;
+  _id: string;
+  categories: Category[];
   relatedArtists: RelatedArtist[];
-  _updatedAt:     Date;
-}
+  _updatedAt: Date;
+  publishedAt: Date;
+};
 
 export type Author = {
-  _ref:  string;
+  _ref: string;
   _type: string;
-}
+};
 
 export type Body = {
-  _type:     string;
-  _key:      string;
-  url?:      string;
+  _type: string;
+  _key: string;
+  url?: string;
   markDefs?: any[];
   children?: Child[];
-  style?:    string;
-}
+  style?: string;
+};
 
 export type Child = {
   _type: string;
   marks: any[];
-  text:  string;
-  _key:  string;
-}
+  text: string;
+  _key: string;
+};
 
 export type Category = {
   _type: string;
-  _key:  string;
-  _ref:  string;
-}
+  _key: string;
+  _ref: string;
+};
 
 export type MainImage = {
   asset: Author;
   _type: string;
-  alt:   string;
-}
+  alt: string;
+};
 
 export type RelatedArtist = {
-  _weak:                boolean;
-  _ref:                 string;
-  _type:                string;
+  _weak: boolean;
+  _ref: string;
+  _type: string;
   _strengthenOnPublish: StrengthenOnPublish;
-  _key:                 string;
-}
+  _key: string;
+};
 
 export type StrengthenOnPublish = {
   template: Template;
-  type:     string;
-}
+  type: string;
+};
 
 export type Template = {
   id: string;
-}
+};
 
 export type Slug = {
   current: string;
-  _type:   string;
-}
+  _type: string;
+};

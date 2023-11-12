@@ -71,7 +71,7 @@ const PostBody = ({ post }: PostBodyProps) => {
             href={value?.href}
             target={target}
             rel={target === "_blank" ? "_blank" : "noindex nofollow"}
-            className="underline"
+            className="underline text-black italic"
           >
             {children}
           </a>
@@ -123,7 +123,7 @@ const PostBody = ({ post }: PostBodyProps) => {
         if (children.length === 1 && children[0] === "") {
           return <br />;
         }
-        return <p>{children}</p>;
+        return <p className="text-muted-foreground">{children}</p>;
       },
       blockquote: ({ children }) => (
         <blockquote className="my-4 border-s-4 border-gray-300 bg-gray-50 p-4 dark:border-gray-500 dark:bg-gray-800">

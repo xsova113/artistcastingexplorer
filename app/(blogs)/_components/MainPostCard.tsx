@@ -60,12 +60,12 @@ const MainPostCard = ({ path, post }: MainPostCardProps) => {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-bold md:text-3xl">{post.title}</h1>
-          <p>{post.description}</p>
+          <h1 className="text-xl font-bold md:text-2xl">{post.title}</h1>
+          <p className="line-clamp-2">{post.description}</p>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-xs">
-            {format(new Date(post._createdAt), "MMMM dd, yyyy")}
+            {format(new Date(post.publishedAt), "MMMM dd, yyyy")}
           </span>
         </div>
         <Link

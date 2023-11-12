@@ -14,16 +14,16 @@ const BlogPage = async ({
   searchParams: { month: string };
 }) => {
   const posts: BlogPost[] = await client.fetch(
-    `*[_type == 'post' && categories[] -> title match "news"] | order(_createdAt desc)`,
+    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)`,
   );
   const latestPost: BlogPost = await client.fetch(
-    `*[_type == 'post' && categories[] -> title match "news"] | order(_createdAt desc)[0]`,
+    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)[0]`,
   );
 
   const filteredPosts = !searchParams.month
     ? posts
     : posts.filter((post) =>
-        dayjs(post._createdAt).isSame(
+        dayjs(post.publishedAt).isSame(
           `${currentYear}-${searchParams.month}`,
           "month",
         ),

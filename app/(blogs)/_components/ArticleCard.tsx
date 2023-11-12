@@ -58,7 +58,7 @@ const ArticleCard = ({ post, path }: ArticleCardProps) => {
               <div className="flex items-center justify-between max-md:w-[220px]">
                 <p className="w-fit text-sm">{author?.name}</p>
                 <span className="text-xs">
-                  {format(new Date(post._createdAt), "MMMM dd, yyyy")}
+                  {format(new Date(post.publishedAt), "MMMM dd, yyyy")}
                 </span>
               </div>
               <Link
