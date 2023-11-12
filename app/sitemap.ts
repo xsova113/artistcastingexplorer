@@ -18,11 +18,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = pathnames.map((route) => ({
     url: `${url}${route}`,
     lastModified: new Date(),
+    changeFrequency: "monthly",
   }));
 
   const blogRoutes = posts.map((post) => ({
     url: `${url}/${post.slug.current}`,
     lastModified: new Date(),
+    changeFrequency: "weekly",
   }));
 
   return [...routes, ...blogRoutes];
