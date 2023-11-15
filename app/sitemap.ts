@@ -14,7 +14,13 @@ const pathnames = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts: BlogPost[] = await client.fetch(`*[_type == 'post']`);
+  const newsPosts: BlogPost[] = await client.fetch(
+    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)`,
+  );
+
+  const interviewsPosts: BlogPost[] = await client.fetch(
+    `*[_type == 'post' && categories[] -> title match "interviews"] | order(publishedAt desc)`,
+  );
 
   const routes = pathnames.map((route) => ({
     url: `${url}${route}`,
@@ -22,11 +28,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "monthly",
   }));
 
-  const blogRoutes = posts.map((post) => ({
-    url: `${url}/${post.categories[0]}.${post.slug.current}`,
+  const newsRoutes = newsPosts.map((post) => ({
+    url: `${url}/news/${post.slug.current}`,
     lastModified: new Date(),
     changeFrequency: "weekly",
   }));
 
-  return [...routes, ...blogRoutes];
+  const interviewsRoutes = interviewsPosts.map((post) => ({
+    url: `${url}/interviews/${post.slug.current}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+  }));
+
+  return [...routes, ...newsRoutes, ...interviewsRoutes];
 }
