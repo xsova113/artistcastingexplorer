@@ -15,6 +15,7 @@ const pathnames = [
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts: BlogPost[] = await client.fetch(`*[_type == 'post']`);
+
   const routes = pathnames.map((route) => ({
     url: `${url}${route}`,
     lastModified: new Date(),
@@ -22,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const blogRoutes = posts.map((post) => ({
-    url: `${url}/${post.slug.current}`,
+    url: `${url}/${post.categories[0]}.${post.slug.current}`,
     lastModified: new Date(),
     changeFrequency: "weekly",
   }));
