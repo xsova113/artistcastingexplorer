@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import LatestArticles from "../_components/LatestArticles";
 
 const currentYear = new Date().getFullYear();
+export const revalidate = 0;
 
 const BlogPage = async ({
   searchParams,

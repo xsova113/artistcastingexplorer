@@ -6,6 +6,8 @@ import { Separator } from "@/components/ui/separator";
 import LatestArticles from "../_components/LatestArticles";
 import InterviewArchive from "../_components/InterviewArchive";
 
+export const revalidate = 0;
+
 const BlogPage = async ({
   searchParams,
 }: {
