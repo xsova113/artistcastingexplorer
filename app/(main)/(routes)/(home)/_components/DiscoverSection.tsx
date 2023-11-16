@@ -5,8 +5,9 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import TalentCard from "../../directory/_components/TalentCard";
 import { TalentProfileType } from "@/types/talentProfileType";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
+import Loading from "@/app/loading";
 
 interface DiscoverSectionProps {
   talents: TalentProfileType[] | undefined;
@@ -28,37 +29,40 @@ const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
         <p className="text-center">You can find latest profiles here</p>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-4 transition-all md:gap-8">
-        {approvedTalents
-          ?.slice(0, 4)
-          .map((item) => (
-            <TalentCard
-              key={item.id}
-              id={item.id}
-              name={item.firstName + " " + item.lastName}
-              stageName={item.stageName}
-              title={item.performerType.role}
-              location={item.location}
-              ageMin={item.ageMin}
-              ageMax={item.ageMax}
-              data={item}
-              selectedTalentId={selectedTalentId}
-              image={
-                item.images.filter(
-                  (image) =>
-                    image.url.split(".").pop() === "jpg" ||
-                    image.url.split(".").pop() === "png" ||
-                    image.url.split(".").pop() === "jpeg",
-                )[0].url
-              }
-              setSelectedTalentId={setSelectedTalentId}
-              userId={userId}
-              discoverSection
-              savedByUsers={item.savedByUsers}
-              email={item.email}
-            />
-          ))}
-      </div>
+      <Suspense fallback={<Loading />}>
+        <div className="flex flex-wrap justify-center gap-4 transition-all md:gap-8">
+          {approvedTalents
+            ?.slice(0, 4)
+            .map((item) => (
+              <TalentCard
+                key={item.id}
+                id={item.id}
+                name={item.firstName + " " + item.lastName}
+                stageName={item.stageName}
+                title={item.performerType.role}
+                location={item.location}
+                ageMin={item.ageMin}
+                ageMax={item.ageMax}
+                data={item}
+                selectedTalentId={selectedTalentId}
+                image={
+                  item.images.filter(
+                    (image) =>
+                      image.url.split(".").pop() === "jpg" ||
+                      image.url.split(".").pop() === "png" ||
+                      image.url.split(".").pop() === "jpeg",
+                  )[0].url
+                }
+                setSelectedTalentId={setSelectedTalentId}
+                userId={userId}
+                discoverSection
+                savedByUsers={item.savedByUsers}
+                email={item.email}
+              />
+            ))}
+        </div>
+      </Suspense>
+
       <Link
         href="/directory"
         className={buttonVariants({
