@@ -7,10 +7,10 @@ import { getApprovedTalents } from "@/actions/getTalents";
 import FilterAccordian from "./_components/FilterAccordian";
 import Stack from "@/components/Stack";
 import { useSortStore } from "@/hooks/useSortStore";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { BeatLoader } from "react-spinners";
 import { useQuery } from "react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { City, GenderType, Province, Role } from "@prisma/client";
 
 const DirectoryPage = () => {
