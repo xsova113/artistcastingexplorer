@@ -7,7 +7,6 @@ import dayjs from "dayjs";
 import LatestArticles from "../_components/LatestArticles";
 
 const currentYear = new Date().getFullYear();
-export const revalidate = 0;
 
 const BlogPage = async ({
   searchParams,
@@ -15,10 +14,10 @@ const BlogPage = async ({
   searchParams: { month: string };
 }) => {
   const posts: BlogPost[] = await client.fetch(
-    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)`,
+    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)`, {cache: 'no-store'}
   );
   const latestPost: BlogPost = await client.fetch(
-    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)[0]`,
+    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)[0]`, {cache: 'no-store'}
   );
 
   const filteredPosts = !searchParams.month

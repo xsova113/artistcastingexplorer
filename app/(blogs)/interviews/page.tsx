@@ -6,8 +6,6 @@ import { Separator } from "@/components/ui/separator";
 import LatestArticles from "../_components/LatestArticles";
 import InterviewArchive from "../_components/InterviewArchive";
 
-export const revalidate = 0;
-
 const BlogPage = async ({
   searchParams,
 }: {
@@ -17,9 +15,12 @@ const BlogPage = async ({
     searchParams.category
       ? `*[_type == 'post' && categories[] -> title match "${searchParams.category}" ]`
       : `*[_type == 'post' && categories[] -> title match "interviews" ]`,
+    { cache: "no-store" },
   );
 
-  const categories: Category[] = await client.fetch(`*[_type == 'category']`);
+  const categories: Category[] = await client.fetch(`*[_type == 'category']`, {
+    cache: "no-store",
+  });
 
   return (
     <section>

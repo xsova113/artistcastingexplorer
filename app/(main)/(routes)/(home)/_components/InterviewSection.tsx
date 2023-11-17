@@ -10,6 +10,7 @@ import { Suspense } from "react";
 const InterviewSection = async () => {
   const posts: BlogPost[] = await client.fetch(
     `*[_type == 'post' && categories[] -> title match "interviews"] | order(publishedAt desc)`,
+    { cache: "no-store" },
   );
 
   if (!posts.length || !posts) return null;
