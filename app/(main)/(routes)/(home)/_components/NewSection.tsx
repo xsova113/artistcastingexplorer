@@ -8,11 +8,10 @@ import { BlogPost } from "@/types/post";
 import Link from "next/link";
 import { Suspense } from "react";
 
-export const revalidate = 0;
-
 const NewSection = async () => {
   const posts: BlogPost[] = await client.fetch(
     `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)`,
+    { cache: "no-store" },
   );
 
   return (
