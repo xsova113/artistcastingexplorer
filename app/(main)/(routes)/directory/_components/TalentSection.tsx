@@ -96,7 +96,7 @@ const TalentSection = ({
         <Stack className="mb-4 gap-y-1">
           <div className="mt-8 flex w-fit items-center gap-1">
             <SortForm />
-            <Button
+            {/* <Button
               className="mx-auto min-w-fit text-xs"
               onClick={onBulkSave}
               disabled={isSaving || selectedTalentId.length === 0}
@@ -113,12 +113,12 @@ const TalentSection = ({
               variant={"outline"}
             >
               Bulk Unsave
-            </Button>
+            </Button> */}
+            <SelectItemsPerPage
+              setItemsPerPage={setItemsPerPage}
+              itemsPerPage={itemsPerPage}
+            />
           </div>
-          <SelectItemsPerPage
-            setItemsPerPage={setItemsPerPage}
-            itemsPerPage={itemsPerPage}
-          />
         </Stack>
 
         <div

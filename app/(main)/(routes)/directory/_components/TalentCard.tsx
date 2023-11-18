@@ -143,7 +143,7 @@ const TalentCard = ({
           fill
           className="rounded-t-lg object-scale-down"
         />
-        {!discoverSection && (
+        {/* {!discoverSection && (
           <Checkbox
             className="absolute right-0 m-2 bg-white"
             checked={selectedTalentId?.includes(data.id)}
@@ -158,7 +158,7 @@ const TalentCard = ({
               e.stopPropagation();
             }}
           />
-        )}
+        )} */}
       </div>
 
       <CardHeader className="p-2">
