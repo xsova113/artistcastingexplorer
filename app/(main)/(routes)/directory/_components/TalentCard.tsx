@@ -13,9 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
 import {
-  City,
   Location,
-  Province,
   SavedByUser,
   SavedTalent,
   UserSavedTalent,
@@ -104,6 +102,7 @@ const TalentCard = ({
       if (!selectedTalentId) return toast.error("No talents selected");
 
       if (!savedByUsers?.map((user) => user.userId).includes(userId)) {
+        setSavedByUsers(data.savedByUsers);
         const response = await saveTalentByUser({ talentIds: [data.id] });
         toast.success(response.message);
       } else {
