@@ -48,43 +48,43 @@ const TalentSection = ({
     setCurrentPage(selectedPage.selected);
   };
 
-  const onBulkSave = async () => {
-    try {
-      setIsSaving(true);
+  // const onBulkSave = async () => {
+  //   try {
+  //     setIsSaving(true);
 
-      if (!userId) {
-        return toast.error("Please login to save a talent.");
-      }
+  //     if (!userId) {
+  //       return toast.error("Please login to save a talent.");
+  //     }
 
-      const response = await saveTalentByUser({ talentIds: selectedTalentId });
-      toast.success(response.message);
-      router.refresh();
-    } catch (error: any) {
-      toast.error(error.message);
-    } finally {
-      setIsSaving(false);
-    }
-  };
+  //     const response = await saveTalentByUser({ talentIds: selectedTalentId });
+  //     toast.success(response.message);
+  //     router.refresh();
+  //   } catch (error: any) {
+  //     toast.error(error.message);
+  //   } finally {
+  //     setIsSaving(false);
+  //   }
+  // };
 
-  const onBulkRemove = async () => {
-    try {
-      setIsSaving(true);
+  // const onBulkRemove = async () => {
+  //   try {
+  //     setIsSaving(true);
 
-      if (!userId) {
-        return toast.error("Please login to save a talent.");
-      }
+  //     if (!userId) {
+  //       return toast.error("Please login to save a talent.");
+  //     }
 
-      const response = await removeTalentByUser({
-        talentIds: selectedTalentId,
-      });
-      toast.success(response.message);
-      router.refresh();
-    } catch (error: any) {
-      toast.error(error.message);
-    } finally {
-      setIsSaving(false);
-    }
-  };
+  //     const response = await removeTalentByUser({
+  //       talentIds: selectedTalentId,
+  //     });
+  //     toast.success(response.message);
+  //     router.refresh();
+  //   } catch (error: any) {
+  //     toast.error(error.message);
+  //   } finally {
+  //     setIsSaving(false);
+  //   }
+  // };
 
   useEffect(() => {
     setTotalPages(Math.ceil(talents.length / itemsPerPage));
