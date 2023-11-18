@@ -18,6 +18,8 @@ export const updateTalent = async (
         },
         data: {
           userId: userId,
+          ageMax: values.ageMax,
+          ageMin: values.ageMin,
           bio: values.bio,
           performerType: {
             update: {
