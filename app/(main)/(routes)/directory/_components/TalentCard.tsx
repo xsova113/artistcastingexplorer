@@ -79,6 +79,7 @@ const TalentCard = ({
   const { setTalent, setOpen } = useContactModalStore();
   const { onOpen } = useSignInAlertStore();
   const { isSignedIn } = useAuth();
+  const [selectSavedTalents, setSelectSavedTalents] = useState<string[]>([]);
 
   const fetchSavedTalents = useCallback(async () => {
     const savedByUser = await fetchSavedByUser(id);
@@ -102,10 +103,10 @@ const TalentCard = ({
       if (!selectedTalentId) return toast.error("No talents selected");
 
       if (!savedByUsers?.map((user) => user.userId).includes(userId)) {
-        const response = await saveTalentByUser({ talentIds: [data.id] });
+        const response = await saveTalentByUser({ talentIds: [id] });
         toast.success(response.message);
       } else {
-        const response = await removeTalentByUser({ talentIds: [data.id] });
+        const response = await removeTalentByUser({ talentIds: [id] });
         toast.success(response.message);
       }
 
@@ -148,9 +149,9 @@ const TalentCard = ({
             checked={selectedTalentId?.includes(data.id)}
             onCheckedChange={(checked) => {
               return checked
-                ? setSelectedTalentId((prev: string[]) => [...prev, data.id, ,])
+                ? setSelectedTalentId((prev: string[]) => [...prev, id, ,])
                 : setSelectedTalentId(
-                    selectedTalentId?.filter((value) => value !== data.id),
+                    selectedTalentId?.filter((value) => value !== id),
                   );
             }}
             onClick={(e) => {
@@ -184,7 +185,14 @@ const TalentCard = ({
         <button
           className={cn("px-2 max-sm:pb-2", isLargeScreen && "ml-auto")}
           onClick={() => {
-            setSelectedTalentId((cur: string[]) => [...cur, id]);
+            if (selectSavedTalents?.includes(id)) {
+              setSelectSavedTalents((cur: string[]) =>
+                cur.filter((value) => value !== id),
+              );
+            } else {
+              setSelectSavedTalents((cur: string[]) => [...cur, id]);
+            }
+
             onSave();
           }}
           disabled={loading || isSaving}
@@ -193,7 +201,7 @@ const TalentCard = ({
             size={20}
             className={cn(
               (savedByUsers?.map((user) => user.userId).includes(userId!) ||
-                selectedTalentId?.includes(id)) &&
+                selectSavedTalents?.includes(id)) &&
                 "fill-red-500 text-red-500",
               loading && "scale-75",
               "transition hover:opacity-50",
