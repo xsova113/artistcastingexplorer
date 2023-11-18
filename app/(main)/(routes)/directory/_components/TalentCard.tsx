@@ -93,14 +93,20 @@ const TalentCard = ({
   }, [fetchSavedTalents]);
 
   const onSave = async () => {
+    if (!userId) return toast.error("Please login to save a talent");
+
+    if (selectSavedTalents?.includes(id)) {
+      setSelectSavedTalents((cur: string[]) =>
+        cur.filter((value) => value !== id),
+      );
+    } else {
+      setSelectSavedTalents((cur: string[]) => [...cur, id]);
+    }
+
     try {
       setLoading(true);
 
-      if (!userId) {
-        return toast.error("Please login to save a talent");
-      }
-
-      if (!selectedTalentId) return toast.error("No talents selected");
+      // if (!selectedTalentId) return toast.error("No talents selected");
 
       if (!savedByUsers?.map((user) => user.userId).includes(userId)) {
         const response = await saveTalentByUser({ talentIds: [id] });
@@ -184,20 +190,7 @@ const TalentCard = ({
       >
         <button
           className={cn("px-2 max-sm:pb-2", isLargeScreen && "ml-auto")}
-          onClick={() => {
-            if (!userId) {
-              return toast.error("Please login to save a talent");
-            }
-            if (selectSavedTalents?.includes(id)) {
-              setSelectSavedTalents((cur: string[]) =>
-                cur.filter((value) => value !== id),
-              );
-            } else {
-              setSelectSavedTalents((cur: string[]) => [...cur, id]);
-            }
-
-            onSave();
-          }}
+          onClick={onSave}
           disabled={loading || isSaving}
         >
           <Heart
@@ -206,8 +199,6 @@ const TalentCard = ({
               (savedByUsers?.map((user) => user.userId).includes(userId!) ||
                 selectSavedTalents?.includes(id)) &&
                 "fill-red-500 text-red-500",
-              loading && "scale-75",
-              "transition hover:opacity-50",
             )}
           />
         </button>
