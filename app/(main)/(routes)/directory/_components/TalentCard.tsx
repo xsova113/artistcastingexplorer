@@ -185,7 +185,7 @@ const TalentCard = ({
           className={cn("px-2 max-sm:pb-2", isLargeScreen && "ml-auto")}
           onClick={() => {
             setSelectedTalentId((cur: string[]) => [...cur, id]);
-            onSave;
+            onSave();
           }}
           disabled={loading || isSaving}
         >
