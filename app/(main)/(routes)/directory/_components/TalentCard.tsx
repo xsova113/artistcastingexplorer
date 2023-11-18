@@ -102,7 +102,6 @@ const TalentCard = ({
       if (!selectedTalentId) return toast.error("No talents selected");
 
       if (!savedByUsers?.map((user) => user.userId).includes(userId)) {
-        setSavedByUsers(data.savedByUsers);
         const response = await saveTalentByUser({ talentIds: [data.id] });
         toast.success(response.message);
       } else {
@@ -192,7 +191,8 @@ const TalentCard = ({
           <Heart
             size={20}
             className={cn(
-              savedByUsers?.map((user) => user.userId).includes(userId!) &&
+              (savedByUsers?.map((user) => user.userId).includes(userId!) ||
+                selectedTalentId?.includes(id)) &&
                 "fill-red-500 text-red-500",
               loading && "scale-75",
               "transition hover:opacity-50",
