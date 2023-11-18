@@ -185,6 +185,9 @@ const TalentCard = ({
         <button
           className={cn("px-2 max-sm:pb-2", isLargeScreen && "ml-auto")}
           onClick={() => {
+            if (!userId) {
+              return toast.error("Please login to save a talent");
+            }
             if (selectSavedTalents?.includes(id)) {
               setSelectSavedTalents((cur: string[]) =>
                 cur.filter((value) => value !== id),
