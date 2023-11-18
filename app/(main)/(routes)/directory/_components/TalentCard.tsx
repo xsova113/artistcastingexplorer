@@ -91,6 +91,19 @@ const TalentCard = ({
     fetchSavedTalents();
   }, [fetchSavedTalents]);
 
+  const onSaveState = () => {
+    if (!userId) {
+      return toast.error("Please login to save a talent");
+    }
+
+    if (!selectedTalentId) return toast.error("No talents selected");
+
+    if (!savedByUsers?.map((user) => user.userId).includes(userId)) {
+      setSavedByUsers(data.savedByUsers);
+    } else {
+    }
+  };
+
   const onSave = async () => {
     try {
       setLoading(true);
@@ -184,7 +197,10 @@ const TalentCard = ({
       >
         <button
           className={cn("px-2 max-sm:pb-2", isLargeScreen && "ml-auto")}
-          onClick={onSave}
+          onClick={() => {
+            onSaveState;
+            onSave;
+          }}
           disabled={loading || isSaving}
         >
           <Heart

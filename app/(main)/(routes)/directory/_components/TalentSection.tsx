@@ -37,7 +37,6 @@ const TalentSection = ({
   const [isSaving, setIsSaving] = useState(false);
   const [selectedTalentId, setSelectedTalentId] = useState<string[]>([]);
   const [totalPages, setTotalPages] = useState(0);
-  // const [itemsPerPage, setItemsPerPage] = useState(12);
   const pageCount = Math.ceil((talentCount || 0) / itemsPerPage);
   const router = useRouter();
 
