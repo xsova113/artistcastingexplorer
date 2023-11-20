@@ -65,7 +65,10 @@ const MainPostCard = ({ path, post }: MainPostCardProps) => {
         </div>
         <div className="flex items-center justify-between">
           <span className="text-xs">
-            {format(new Date(post?.publishedAt), "MMMM dd, yyyy")}
+            {format(
+              new Date(post?.publishedAt ? post.publishedAt : post._createdAt),
+              "MMMM dd, yyyy",
+            )}
           </span>
         </div>
         <Link
