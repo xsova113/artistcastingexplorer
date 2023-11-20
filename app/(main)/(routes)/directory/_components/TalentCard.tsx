@@ -110,11 +110,9 @@ const TalentCard = ({
 
       if (!savedByUsers?.map((user) => user.userId).includes(userId)) {
         const response = await saveTalentByUser({ talentIds: [id] });
-        setSelectSavedTalents([]);
         toast.success(response.message);
       } else {
         const response = await removeTalentByUser({ talentIds: [id] });
-        setSelectSavedTalents([]);
         toast.success(response.message);
       }
 
@@ -123,6 +121,7 @@ const TalentCard = ({
       toast.error(error.message);
     } finally {
       setLoading(false);
+      setSelectSavedTalents([]);
     }
   };
 
