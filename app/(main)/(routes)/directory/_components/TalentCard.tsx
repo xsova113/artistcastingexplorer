@@ -121,7 +121,9 @@ const TalentCard = ({
       toast.error(error.message);
     } finally {
       setLoading(false);
-      setSelectSavedTalents([]);
+      setTimeout(() => {
+        setSelectSavedTalents([]);
+      });
     }
   };
 
