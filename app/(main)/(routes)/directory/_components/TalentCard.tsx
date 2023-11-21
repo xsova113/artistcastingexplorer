@@ -63,13 +63,9 @@ const TalentCard = ({
   title,
   stageName,
   id,
-  data,
   isSaving,
   userId,
-  setSelectedTalentId,
-  discoverSection,
   email,
-  selectedTalentId,
 }: TalentCardProps) => {
   const isLargeScreen = useMediaQuery("(min-width: 640px)");
   const [loading, setLoading] = useState(false);
@@ -123,7 +119,7 @@ const TalentCard = ({
       setLoading(false);
       setTimeout(() => {
         setSelectSavedTalents([]);
-      });
+      }, 1000);
     }
   };
 
