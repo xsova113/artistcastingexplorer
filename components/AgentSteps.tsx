@@ -1,6 +1,7 @@
 import { SignUpButton } from "@clerk/nextjs";
 
-const AgentSteps = () => {
+const AgentSteps = async () => {
+
   return (
     <div className="flex flex-col gap-y-4 rounded-lg bg-secondary p-4">
       <div className="flex flex-col gap-y-2">
@@ -13,7 +14,7 @@ const AgentSteps = () => {
       <ul className="space-y-4 text-sm">
         <li className="rounded border-l-2 border-primary bg-white p-2">
           1.{" "}
-          <SignUpButton mode="modal">
+          <SignUpButton mode="modal" afterSignUpUrl="/subscribe" >
             <span className="cursor-pointer underline">Sign-up</span>
           </SignUpButton>{" "}
           here for free!
