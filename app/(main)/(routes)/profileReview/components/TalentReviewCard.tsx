@@ -14,9 +14,14 @@ import { Button } from "@/components/ui/button";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { useReviewStore } from "@/hooks/useReviewStore";
 import { Badge } from "@/components/ui/badge";
-import TalentDetailSheet from "./TalentDetailSheet";
 import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
+import dynamic from "next/dynamic";
+import Loading from "@/app/loading";
+
+const TalentDetailSheet = dynamic(() => import("./TalentDetailSheet"), {
+  loading: () => <Loading />,
+});
 
 interface TalentReviewCard {
   talent: TalentProfileType;
