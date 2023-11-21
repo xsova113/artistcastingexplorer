@@ -1,7 +1,6 @@
 "use client";
 
 import HeroSection from "@/components/HeroSection";
-import TalentSection from "./_components/TalentSection";
 import SubscribePremium from "./_components/SubscribePremium";
 import { getApprovedTalents } from "@/actions/getTalents";
 import FilterAccordian from "./_components/FilterAccordian";
@@ -12,6 +11,9 @@ import { BeatLoader } from "react-spinners";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { City, GenderType, Province, Role } from "@prisma/client";
+import dynamic from "next/dynamic";
+
+const TalentSection = dynamic(() => import("./_components/TalentSection"));
 
 const DirectoryPage = () => {
   const searchParams = useSearchParams();
