@@ -3,8 +3,10 @@ import { BlogPost } from "@/types/post";
 import { Category } from "@/types/category";
 import MainPostCard from "../_components/MainPostCard";
 import { Separator } from "@/components/ui/separator";
-import LatestArticles from "../_components/LatestArticles";
 import InterviewArchive from "../_components/InterviewArchive";
+import dynamic from "next/dynamic";
+
+const LatestArticles = dynamic(() => import("../_components/LatestArticles"));
 
 export const revalidate = 0;
 

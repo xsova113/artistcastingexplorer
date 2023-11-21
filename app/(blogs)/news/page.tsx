@@ -4,11 +4,13 @@ import Archive from "../_components/Archive";
 import MainPostCard from "../_components/MainPostCard";
 import { Separator } from "@/components/ui/separator";
 import dayjs from "dayjs";
-import LatestArticles from "../_components/LatestArticles";
+import dynamic from "next/dynamic";
+
+const LatestArticles = dynamic(() => import("../_components/LatestArticles"));
 
 const currentYear = new Date().getFullYear();
 
-export const revalidate = 0
+export const revalidate = 0;
 
 const BlogPage = async ({
   searchParams,
@@ -16,10 +18,12 @@ const BlogPage = async ({
   searchParams: { month: string };
 }) => {
   const posts: BlogPost[] = await client.fetch(
-    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)`, {cache: 'no-store'}
+    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)`,
+    { cache: "no-store" },
   );
   const latestPost: BlogPost = await client.fetch(
-    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)[0]`, {cache: 'no-store'}
+    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)[0]`,
+    { cache: "no-store" },
   );
 
   const filteredPosts = !searchParams.month
