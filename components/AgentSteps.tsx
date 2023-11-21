@@ -16,10 +16,10 @@ const AgentSteps = async () => {
         <li className="rounded border-l-2 border-primary bg-white p-2">
           1.{" "}
           {userId ? (
-            <span className="cursor-pointer underline">Sign-up </span>
+            <span className="cursor-pointer underline">Sign-up</span>
           ) : (
             <SignUpButton mode="modal">
-              <span className="cursor-pointer underline">Sign-up </span>
+              <span className="cursor-pointer underline">Sign-up</span>
             </SignUpButton>
           )}
           here for free!
