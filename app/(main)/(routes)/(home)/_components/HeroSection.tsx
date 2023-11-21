@@ -14,7 +14,7 @@ const HeroSection = () => {
   return (
     <ParallaxBanner className="h-[500px] w-full lg:h-[600px]">
       <ParallaxBannerLayer
-        image="/hero.jpg"
+        image="/homeHero.jpg"
         speed={-15}
         className="opacity-50"
       />
