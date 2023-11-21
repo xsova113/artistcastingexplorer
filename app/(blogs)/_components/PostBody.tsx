@@ -62,6 +62,7 @@ const PostBody = ({ post }: PostBodyProps) => {
       em: ({ children }) => (
         <em className="font-semibold text-gray-600">{children}</em>
       ),
+      strong: ({ children }) => <b>{children}</b>,
       link: ({ value, children }) => {
         const target = (value?.href || "").startsWith("http")
           ? "_blank"
