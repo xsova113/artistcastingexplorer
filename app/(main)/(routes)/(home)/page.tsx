@@ -7,7 +7,7 @@ const DiscoverSection = dynamic(
   () => import("./_components/DiscoverSection"),
   {},
 );
-const NewSection = dynamic(() => import("./_components/NewSection"), {});
+const NewSection = dynamic(() => import("./_components/NewSection"));
 const InterviewSection = dynamic(
   () => import("./_components/InterviewSection"),
 );
