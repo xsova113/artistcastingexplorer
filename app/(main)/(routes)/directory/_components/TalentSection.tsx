@@ -151,7 +151,6 @@ const TalentSection = ({
               setIsSaving={setIsSaving}
               setSelectedTalentId={setSelectedTalentId}
               userId={userId}
-              savedByUsers={item.savedByUsers}
               email={item.email}
             />
           ))}
