@@ -148,22 +148,6 @@ const TalentCard = ({
           fill
           className="rounded-t-lg object-scale-down"
         />
-        {/* {!discoverSection && (
-          <Checkbox
-            className="absolute right-0 m-2 bg-white"
-            checked={selectedTalentId?.includes(data.id)}
-            onCheckedChange={(checked) => {
-              return checked
-                ? setSelectedTalentId((prev: string[]) => [...prev, id, ,])
-                : setSelectedTalentId(
-                    selectedTalentId?.filter((value) => value !== id),
-                  );
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          />
-        )} */}
       </div>
 
       <CardHeader className="p-2">
