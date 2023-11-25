@@ -72,7 +72,7 @@ const TalentCard = ({
   const { onOpen } = useSignInAlertStore();
   const { isSignedIn } = useAuth();
   const { data: likes } = useQuery({
-    queryKey: ["savedLikes", id],
+    // queryKey: ["savedLikes", id],
     queryFn: () => getLikes({ talentId: id }),
   });
   const [likesArray, setLikesArray] = useState<string[] | undefined>(likes);
@@ -87,7 +87,7 @@ const TalentCard = ({
       likesArray: string[];
     }) => onLike({ talentId, likesArray }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["savedLikes", id] });
+      // queryClient.invalidateQueries({ queryKey: ["savedLikes", id] });
     },
   });
 
