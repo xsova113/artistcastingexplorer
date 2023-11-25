@@ -5,7 +5,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import { MoreHorizontal, ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { removeLike } from "@/actions/likesAction";
-import { useAuth } from "@clerk/nextjs";
 
 export type SavedTalent = {
   id: string;

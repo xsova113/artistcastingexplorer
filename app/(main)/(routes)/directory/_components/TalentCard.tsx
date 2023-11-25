@@ -21,11 +21,8 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import { saveTalentByUser } from "./saveTalentByUser";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { removeTalentByUser } from "@/actions/removeTalentByUser";
-import { fetchSavedByUser } from "@/actions/fetchSavedByUser";
 import { useContactModalStore } from "@/hooks/useContactModalStore";
 import useSignInAlertStore from "@/hooks/useSignInAlertStore";
 import { useAuth } from "@clerk/nextjs";
@@ -51,7 +48,7 @@ interface TalentCardProps {
   selectedTalentId?: string[];
   savedByUsers?: SavedByUser[];
   email: string;
-  likes: string[];
+  // likes: string[];
 }
 
 export type UserSavedTalentType = UserSavedTalent & {
@@ -67,19 +64,19 @@ const TalentCard = ({
   id,
   isSaving,
   userId,
-  email,
-  likes,
+  email, // likes,
 }: TalentCardProps) => {
   const isLargeScreen = useMediaQuery("(min-width: 640px)");
-  // const [loading, setLoading] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  // const [savedByUsers, setSavedByUsers] = useState<SavedByUser[]>();
   const router = useRouter();
   const { setTalent, setOpen } = useContactModalStore();
   const { onOpen } = useSignInAlertStore();
   const { isSignedIn } = useAuth();
-  // const [selectSavedTalents, setSelectSavedTalents] = useState<string[]>([]);
-  const [likesArray, setLikesArray] = useState<string[]>(likes);
+  const { data: likes } = useQuery({
+    queryKey: ["savedLikes", id],
+    queryFn: () => getLikes({ talentId: id }),
+  });
+  const [likesArray, setLikesArray] = useState<string[] | undefined>(likes);
   const queryClient = useQueryClient();
 
   const { mutate: likeTalent, isLoading } = useMutation({
@@ -91,7 +88,7 @@ const TalentCard = ({
       likesArray: string[];
     }) => onLike({ talentId, likesArray }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["savedLikes"] });
+      queryClient.invalidateQueries({ queryKey: ["savedLikes", id] });
     },
   });
 
@@ -99,7 +96,7 @@ const TalentCard = ({
     if (!userId) return toast.error("You are not logged in.");
 
     try {
-      let newLikes = [...likesArray];
+      let newLikes = [...(likesArray || [])];
       const hasLiked = newLikes.includes(userId);
 
       if (hasLiked) {
@@ -218,7 +215,7 @@ const TalentCard = ({
             size={20}
             className={cn(
               userId
-                ? likesArray.includes(userId) && "fill-red-500 text-red-500"
+                ? likesArray?.includes(userId) && "fill-red-500 text-red-500"
                 : "",
             )}
           />
