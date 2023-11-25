@@ -148,10 +148,11 @@ const TalentCard = ({
           <Heart
             size={20}
             className={cn(
+              "transition",
               userId
                 ? likesArray?.includes(userId) && "fill-red-500 text-red-500"
                 : "",
-              { "scale-75 transition": isPending },
+              { "scale-75": isPending },
             )}
           />
         </button>
