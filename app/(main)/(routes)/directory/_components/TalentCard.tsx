@@ -75,20 +75,20 @@ const TalentCard = ({
   const [likesArray, setLikesArray] = useState<string[] | undefined>(likes);
   const queryClient = useQueryClient();
 
-  const { mutate: likeTalent, isLoading } = useMutation({
-    mutationFn: ({
-      talentId,
-      likesArray,
-    }: {
-      talentId: string;
-      likesArray: string[];
-    }) => onLike({ talentId, likesArray }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["savedLikes", id] });
-    },
-  });
+  // const { mutate: likeTalent, isLoading } = useMutation({
+  //   mutationFn: ({
+  //     talentId,
+  //     likesArray,
+  //   }: {
+  //     talentId: string;
+  //     likesArray: string[];
+  //   }) => onLike({ talentId, likesArray }),
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ["savedLikes", id] });
+  //   },
+  // });
 
-  const onSave = () => {
+  const onSave = async () => {
     if (!userId) return toast.error("You are not logged in.");
 
     try {
@@ -104,7 +104,7 @@ const TalentCard = ({
       }
 
       setLikesArray(newLikes);
-      likeTalent({ talentId: id, likesArray: newLikes });
+      await onLike({ talentId: id, likesArray: newLikes });
 
       router.refresh();
     } catch (error: any) {
@@ -163,7 +163,7 @@ const TalentCard = ({
         <button
           className={cn("px-2 max-sm:pb-2", isLargeScreen && "ml-auto")}
           onClick={onSave}
-          disabled={isLoading || isSaving}
+          // disabled={isLoading || isSaving}
         >
           <Heart
             size={20}
