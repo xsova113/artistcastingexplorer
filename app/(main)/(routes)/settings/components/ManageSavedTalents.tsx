@@ -4,11 +4,11 @@ import Stack from "@/components/Stack";
 import { DataTable } from "./DataTable";
 import { columns } from "./Columns";
 import prisma from "@/lib/client";
-import { auth } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 import { useQuery, useQueryClient } from "react-query";
 
 const ManageSavedTalents = () => {
-  const { userId } = auth();
+  const { userId } = useAuth();
   const queryClient = useQueryClient();
 
   const { data: savedTalents } = useQuery({
