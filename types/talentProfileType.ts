@@ -13,6 +13,6 @@ export type TalentProfileType = TalentProfile & {
   videos: Video[] | null;
   location: Location;
   performerType: PerformerType;
-  skills: Skill[] | null;
-  credits: Credit[] | null;
+  skills: Skill[]
+  credits: Credit[];
 };
