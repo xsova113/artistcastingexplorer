@@ -72,7 +72,7 @@ const TalentCard = ({
   const { onOpen } = useSignInAlertStore();
   const { isSignedIn } = useAuth();
   const { data: likes } = useQuery({
-    // queryKey: ["savedLikes", id],
+    queryKey: ["savedLikes", id],
     queryFn: () => getLikes({ talentId: id }),
   });
   const [likesArray, setLikesArray] = useState<string[] | undefined>(likes);
@@ -87,7 +87,7 @@ const TalentCard = ({
       likesArray: string[];
     }) => onLike({ talentId, likesArray }),
     onSuccess: () => {
-      // queryClient.invalidateQueries({ queryKey: ["savedLikes", id] });
+      queryClient.invalidateQueries({ queryKey: ["savedLikes", id] });
     },
   });
 
@@ -110,52 +110,6 @@ const TalentCard = ({
       toast.error(error.message);
     }
   };
-
-  // const fetchSavedTalents = useCallback(async () => {
-  //   const savedByUser = await fetchSavedByUser(id);
-  //   setSavedByUsers(savedByUser);
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [id, isSaving, loading]);
-
-  // useEffect(() => {
-  //   fetchSavedTalents();
-  // }, [fetchSavedTalents]);
-
-  // const onSave = async () => {
-  //   if (!userId) return toast.error("Please login to save a talent");
-
-  //   if (selectSavedTalents?.includes(id)) {
-  //     setSelectSavedTalents((cur: string[]) =>
-  //       cur.filter((value) => value !== id),
-  //     );
-  //   } else {
-  //     setSelectSavedTalents((cur: string[]) => [...cur, id]);
-  //   }
-
-  //   try {
-  //     setLoading(true);
-
-  //     // if (!selectedTalentId) return toast.error("No talents selected");
-
-  //     if (!savedByUsers?.map((user) => user.userId).includes(userId)) {
-  //       const response = await saveTalentByUser({ talentIds: [id] });
-  //       toast.success(response.message);
-  //     } else {
-  //       const response = await removeTalentByUser({ talentIds: [id] });
-  //       toast.success(response.message);
-  //     }
-
-  //     router.refresh();
-  //   } catch (error: any) {
-  //     toast.error(error.message);
-  //   } finally {
-  //     setLoading(false);
-  //     setTimeout(() => {
-  //       setSelectSavedTalents([]);
-  //     }, 1000);
-  //   }
-  // };
 
   useEffect(() => {
     setIsMounted(true);
