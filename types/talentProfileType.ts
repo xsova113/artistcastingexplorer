@@ -10,7 +10,7 @@ import {
 
 export type TalentProfileType = TalentProfile & {
   images: Image[];
-  videos: Video[] | null;
+  videos: Video[]
   location: Location;
   performerType: PerformerType;
   skills: Skill[]
