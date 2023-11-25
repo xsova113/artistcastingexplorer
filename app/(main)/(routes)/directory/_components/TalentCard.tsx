@@ -88,7 +88,7 @@ const TalentCard = ({
       likesArray: string[];
     }) => onLike({ talentId, likesArray }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["savedLikes"] });
+      queryClient.invalidateQueries({ queryKey: ["savedLikes", id] });
     },
   });
 

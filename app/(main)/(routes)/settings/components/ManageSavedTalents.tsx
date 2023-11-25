@@ -5,11 +5,10 @@ import { DataTable } from "./DataTable";
 import { columns } from "./Columns";
 import prisma from "@/lib/client";
 import { useAuth } from "@clerk/nextjs";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 
 const ManageSavedTalents = () => {
   const { userId } = useAuth();
-  const queryClient = useQueryClient();
 
   const { data: savedTalents } = useQuery({
     queryFn: async () =>
@@ -21,8 +20,6 @@ const ManageSavedTalents = () => {
           location: true,
         },
       }),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["savedTalents"] }),
   });
 
   const formattedData =
