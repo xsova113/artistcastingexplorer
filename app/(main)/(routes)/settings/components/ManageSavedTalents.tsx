@@ -3,8 +3,6 @@ import { DataTable } from "./DataTable";
 import { columns } from "./Columns";
 import prisma from "@/lib/client";
 import { auth } from "@clerk/nextjs";
-import { useCallback, useEffect, useState } from "react";
-import { TalentProfileType } from "@/types/talentProfileType";
 
 const ManageSavedTalents = async () => {
   const { userId } = auth();
