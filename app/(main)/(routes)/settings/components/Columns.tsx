@@ -14,8 +14,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import { removeSavedTalents } from "@/actions/removeSavedTalents";
-import { removeTalentByUser } from "@/actions/removeTalentByUser";
+import { removeLike } from "@/actions/likesAction";
+import { useAuth } from "@clerk/nextjs";
 
 export type SavedTalent = {
   id: string;
@@ -26,25 +26,6 @@ export type SavedTalent = {
 };
 
 export const columns: ColumnDef<SavedTalent>[] = [
-  // {
-  //   id: "select",
-  //   header: ({ table }) => (
-  //     <Checkbox
-  //       checked={table.getIsAllPageRowsSelected()}
-  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-  //       aria-label="Select all"
-  //     />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <Checkbox
-  //       checked={row.getIsSelected()}
-  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-  //       aria-label="Select row"
-  //     />
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -109,7 +90,7 @@ export const columns: ColumnDef<SavedTalent>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={async () => {
-                await removeTalentByUser({ talentIds: [talent.id] });
+                await removeLike({ talentId: talent.id });
                 window.location.reload();
               }}
             >

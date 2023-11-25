@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
 import {
@@ -219,7 +218,7 @@ const TalentCard = ({
             size={20}
             className={cn(
               userId
-                ? likes.includes(userId) && "fill-red-500 text-red-500"
+                ? likesArray.includes(userId) && "fill-red-500 text-red-500"
                 : "",
             )}
           />
