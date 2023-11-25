@@ -57,6 +57,7 @@ export const createTalent = async (
             },
           },
           videos: {},
+          likes: [],
           // videos:
           //   !values.videos || values.videos.length === 0
           //     ? {}

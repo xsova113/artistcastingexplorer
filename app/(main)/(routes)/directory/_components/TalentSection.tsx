@@ -137,6 +137,7 @@ const TalentSection = ({
               ageMin={item.ageMin}
               ageMax={item.ageMax}
               data={item}
+              likes={item.likes}
               selectedTalentId={selectedTalentId}
               image={
                 item.images.filter(
