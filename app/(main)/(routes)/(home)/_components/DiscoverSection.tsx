@@ -55,7 +55,6 @@ const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
               setSelectedTalentId={setSelectedTalentId}
               userId={userId}
               discoverSection
-              savedByUsers={item.savedByUsers}
               email={item.email}
             />
           ))}

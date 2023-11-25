@@ -46,7 +46,6 @@ interface TalentCardProps {
   setIsSaving?: (loading: boolean) => void;
   setSelectedTalentId: (value: any) => void;
   selectedTalentId?: string[];
-  savedByUsers?: SavedByUser[];
   email: string;
   // likes: string[];
 }
