@@ -2,19 +2,14 @@
 
 import Stack from "@/components/Stack";
 import TalentCard from "./TalentCard";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
-import { Button } from "@/components/ui/button";
 import { useAuth } from "@clerk/nextjs";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import SortForm from "./SortForm";
 import SelectItemsPerPage from "./SelectItemsPerPage";
-import { saveTalentByUser } from "./saveTalentByUser";
-import { removeTalentByUser } from "@/actions/removeTalentByUser";
 
 interface TalentSectionProps {
   talents: TalentProfileType[];
@@ -34,11 +29,9 @@ const TalentSection = ({
   talentCount,
 }: TalentSectionProps) => {
   const { userId } = useAuth();
-  const [isSaving, setIsSaving] = useState(false);
   const [selectedTalentId, setSelectedTalentId] = useState<string[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const pageCount = Math.ceil((talentCount || 0) / itemsPerPage);
-  const router = useRouter();
 
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -47,44 +40,6 @@ const TalentSection = ({
   const handlePageChange = (selectedPage: { selected: number }) => {
     setCurrentPage(selectedPage.selected);
   };
-
-  // const onBulkSave = async () => {
-  //   try {
-  //     setIsSaving(true);
-
-  //     if (!userId) {
-  //       return toast.error("Please login to save a talent.");
-  //     }
-
-  //     const response = await saveTalentByUser({ talentIds: selectedTalentId });
-  //     toast.success(response.message);
-  //     router.refresh();
-  //   } catch (error: any) {
-  //     toast.error(error.message);
-  //   } finally {
-  //     setIsSaving(false);
-  //   }
-  // };
-
-  // const onBulkRemove = async () => {
-  //   try {
-  //     setIsSaving(true);
-
-  //     if (!userId) {
-  //       return toast.error("Please login to save a talent.");
-  //     }
-
-  //     const response = await removeTalentByUser({
-  //       talentIds: selectedTalentId,
-  //     });
-  //     toast.success(response.message);
-  //     router.refresh();
-  //   } catch (error: any) {
-  //     toast.error(error.message);
-  //   } finally {
-  //     setIsSaving(false);
-  //   }
-  // };
 
   useEffect(() => {
     setTotalPages(Math.ceil(talents.length / itemsPerPage));
@@ -96,24 +51,6 @@ const TalentSection = ({
         <Stack className="mb-4 gap-y-1">
           <div className="mt-8 flex w-fit items-center gap-1">
             <SortForm />
-            {/* <Button
-              className="mx-auto min-w-fit text-xs"
-              onClick={onBulkSave}
-              disabled={isSaving || selectedTalentId.length === 0}
-              size={"sm"}
-              variant={"outline"}
-            >
-              Bulk Save
-            </Button>
-            <Button
-              className="mx-auto min-w-fit text-xs"
-              onClick={onBulkRemove}
-              disabled={isSaving || selectedTalentId.length === 0}
-              size={"sm"}
-              variant={"outline"}
-            >
-              Bulk Unsave
-            </Button> */}
             <SelectItemsPerPage
               setItemsPerPage={setItemsPerPage}
               itemsPerPage={itemsPerPage}
@@ -147,8 +84,6 @@ const TalentSection = ({
                     image.url.split(".").pop() === "jpeg",
                 )[0].url
               }
-              isSaving={isSaving}
-              setIsSaving={setIsSaving}
               setSelectedTalentId={setSelectedTalentId}
               userId={userId}
               email={item.email}

@@ -11,12 +11,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
-import {
-  Location,
-  SavedByUser,
-  SavedTalent,
-  UserSavedTalent,
-} from "@prisma/client";
+import { Location, SavedTalent, UserSavedTalent } from "@prisma/client";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,8 +22,7 @@ import { useContactModalStore } from "@/hooks/useContactModalStore";
 import useSignInAlertStore from "@/hooks/useSignInAlertStore";
 import { useAuth } from "@clerk/nextjs";
 import useMediaQuery from "@/hooks/useMediaQuery";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getLikes, onLike } from "@/actions/likesAction";
+import { onLike } from "@/actions/likesAction";
 
 interface TalentCardProps {
   name: string;
@@ -42,8 +36,6 @@ interface TalentCardProps {
   discoverSection?: boolean;
   data: TalentProfileType;
   userId?: string | null;
-  isSaving?: boolean;
-  setIsSaving?: (loading: boolean) => void;
   setSelectedTalentId: (value: any) => void;
   selectedTalentId?: string[];
   email: string;
@@ -61,37 +53,23 @@ const TalentCard = ({
   title,
   stageName,
   id,
-  isSaving,
   userId,
   email,
   likes,
 }: TalentCardProps) => {
   const isLargeScreen = useMediaQuery("(min-width: 640px)");
   const [isMounted, setIsMounted] = useState(false);
+  const [isPending, setIsPending] = useState(false);
   const router = useRouter();
   const { setTalent, setOpen } = useContactModalStore();
   const { onOpen } = useSignInAlertStore();
   const { isSignedIn } = useAuth();
   const [likesArray, setLikesArray] = useState<string[] | undefined>(likes);
-  const queryClient = useQueryClient();
-
-  // const { mutate: likeTalent, isLoading } = useMutation({
-  //   mutationFn: ({
-  //     talentId,
-  //     likesArray,
-  //   }: {
-  //     talentId: string;
-  //     likesArray: string[];
-  //   }) => onLike({ talentId, likesArray }),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["savedLikes", id] });
-  //   },
-  // });
 
   const onSave = async () => {
     if (!userId) return toast.error("You are not logged in.");
-
     try {
+      setIsPending(true);
       let newLikes = [...(likesArray || [])];
       const hasLiked = newLikes.includes(userId);
 
@@ -109,6 +87,8 @@ const TalentCard = ({
       router.refresh();
     } catch (error: any) {
       toast.error(error.message);
+    } finally {
+      setIsPending(false);
     }
   };
 
@@ -163,7 +143,7 @@ const TalentCard = ({
         <button
           className={cn("px-2 max-sm:pb-2", isLargeScreen && "ml-auto")}
           onClick={onSave}
-          // disabled={isLoading || isSaving}
+          disabled={isPending}
         >
           <Heart
             size={20}
@@ -171,6 +151,7 @@ const TalentCard = ({
               userId
                 ? likesArray?.includes(userId) && "fill-red-500 text-red-500"
                 : "",
+              { "scale-75": isPending },
             )}
           />
         </button>
