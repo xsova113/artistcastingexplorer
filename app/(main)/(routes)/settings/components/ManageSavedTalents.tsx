@@ -10,7 +10,7 @@ const ManageSavedTalents = async () => {
   const savedTalents = !userId
     ? []
     : await prisma.talentProfile.findMany({
-        where: { savedByUsers: { some: { userId } } },
+        where: { likes: { has: userId } },
         include: {
           images: true,
           performerType: true,
