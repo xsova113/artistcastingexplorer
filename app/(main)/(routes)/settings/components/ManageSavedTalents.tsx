@@ -5,38 +5,44 @@ import { DataTable } from "./DataTable";
 import { columns } from "./Columns";
 import prisma from "@/lib/client";
 import { useAuth } from "@clerk/nextjs";
-import { useQuery } from "react-query";
+import { useCallback, useEffect, useState } from "react";
+import { TalentProfileType } from "@/types/talentProfileType";
 
 const ManageSavedTalents = () => {
   const { userId } = useAuth();
+  const [savedTalents, setSavedTalents] = useState<any>([]);
 
-  const { data: savedTalents } = useQuery({
-    queryFn: async () =>
-      await prisma.talentProfile.findMany({
-        where: { likes: { has: userId } },
-        include: {
-          images: true,
-          performerType: true,
-          location: true,
-        },
-      }),
-  });
-
-  const formattedData =
-    !userId || !savedTalents
+  const fetchTalents = useCallback(async () => {
+    !userId
       ? []
-      : savedTalents.map((talent) => ({
-          id: talent.id,
-          name: talent.firstName + " " + talent.lastName,
-          image: talent.images.map((img) => img.url)[0],
-          role: talent.performerType.role,
-          location: talent.location.city || talent.location.province,
-        }));
+      : await prisma.talentProfile
+          .findMany({
+            where: { likes: { has: userId } },
+            include: {
+              images: true,
+              performerType: true,
+              location: true,
+            },
+          })
+          .then((talents) => setSavedTalents(talents));
+  }, [userId]);
+
+  useEffect(() => {
+    fetchTalents();
+  }, [fetchTalents]);
+
+  const formattedData = savedTalents?.map((talent: TalentProfileType) => ({
+    id: talent.id,
+    name: talent.firstName + " " + talent.lastName,
+    image: talent.images.map((img) => img.url)[0],
+    role: talent.performerType.role,
+    location: talent.location.city || talent.location.province,
+  }));
 
   return (
     <Stack>
       <h1 className="text-xl font-medium">Saved Talents</h1>
-      <DataTable columns={columns} data={formattedData} />
+      <DataTable columns={columns} data={formattedData || []} />
     </Stack>
   );
 };

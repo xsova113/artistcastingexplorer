@@ -3,7 +3,6 @@ import {
   Image,
   Location,
   PerformerType,
-  SavedByUser,
   Skill,
   TalentProfile,
   Video,
@@ -11,10 +10,9 @@ import {
 
 export type TalentProfileType = TalentProfile & {
   images: Image[];
-  videos: Video[];
+  videos: Video[] | null;
   location: Location;
   performerType: PerformerType;
-  skills: Skill[];
-  credits: Credit[];
-  savedByUsers?: SavedByUser[]
+  skills: Skill[] | null;
+  credits: Credit[] | null;
 };
