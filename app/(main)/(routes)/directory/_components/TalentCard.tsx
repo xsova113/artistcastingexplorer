@@ -97,12 +97,16 @@ const TalentCard = ({
 
       if (hasLiked) {
         newLikes = newLikes.filter((id) => id !== userId);
+        toast.success("Talent saved");
       } else {
         newLikes.push(userId);
+        toast.success("Talent unsaved");
       }
 
       setLikesArray(newLikes);
       likeTalent({ talentId: id, likesArray: newLikes });
+
+      router.refresh()
     } catch (error: any) {
       toast.error(error.message);
     }
