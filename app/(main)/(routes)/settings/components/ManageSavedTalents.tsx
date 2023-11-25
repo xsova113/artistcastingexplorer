@@ -1,37 +1,26 @@
-"use client";
-
 import Stack from "@/components/Stack";
 import { DataTable } from "./DataTable";
 import { columns } from "./Columns";
 import prisma from "@/lib/client";
-import { useAuth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 import { useCallback, useEffect, useState } from "react";
 import { TalentProfileType } from "@/types/talentProfileType";
 
-const ManageSavedTalents = () => {
-  const { userId } = useAuth();
-  const [savedTalents, setSavedTalents] = useState<any>([]);
+const ManageSavedTalents = async () => {
+  const { userId } = auth();
 
-  const fetchTalents = useCallback(async () => {
-    !userId
-      ? []
-      : await prisma.talentProfile
-          .findMany({
-            where: { likes: { has: userId } },
-            include: {
-              images: true,
-              performerType: true,
-              location: true,
-            },
-          })
-          .then((talents) => setSavedTalents(talents));
-  }, [userId]);
+  const savedTalents = !userId
+    ? []
+    : await prisma.talentProfile.findMany({
+        where: { likes: { has: userId } },
+        include: {
+          images: true,
+          performerType: true,
+          location: true,
+        },
+      });
 
-  useEffect(() => {
-    fetchTalents();
-  }, [fetchTalents]);
-
-  const formattedData = savedTalents?.map((talent: TalentProfileType) => ({
+  const formattedData = savedTalents.map((talent) => ({
     id: talent.id,
     name: talent.firstName + " " + talent.lastName,
     image: talent.images.map((img) => img.url)[0],
