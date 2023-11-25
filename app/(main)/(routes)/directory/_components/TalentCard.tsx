@@ -151,7 +151,7 @@ const TalentCard = ({
               userId
                 ? likesArray?.includes(userId) && "fill-red-500 text-red-500"
                 : "",
-              { "scale-75": isPending },
+              { "scale-75 transition": isPending },
             )}
           />
         </button>
