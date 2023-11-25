@@ -47,7 +47,7 @@ interface TalentCardProps {
   setSelectedTalentId: (value: any) => void;
   selectedTalentId?: string[];
   email: string;
-  // likes: string[];
+  likes: string[];
 }
 
 export type UserSavedTalentType = UserSavedTalent & {
@@ -63,7 +63,8 @@ const TalentCard = ({
   id,
   isSaving,
   userId,
-  email, // likes,
+  email,
+  likes,
 }: TalentCardProps) => {
   const isLargeScreen = useMediaQuery("(min-width: 640px)");
   const [isMounted, setIsMounted] = useState(false);
@@ -71,10 +72,6 @@ const TalentCard = ({
   const { setTalent, setOpen } = useContactModalStore();
   const { onOpen } = useSignInAlertStore();
   const { isSignedIn } = useAuth();
-  const { data: likes } = useQuery({
-    queryKey: ["savedLikes", id],
-    queryFn: () => getLikes({ talentId: id }),
-  });
   const [likesArray, setLikesArray] = useState<string[] | undefined>(likes);
   const queryClient = useQueryClient();
 
