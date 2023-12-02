@@ -3,10 +3,7 @@ import ServiceSection from "./_components/FeatureSection";
 import { getTalents } from "@/actions/getTalents";
 import dynamic from "next/dynamic";
 
-const DiscoverSection = dynamic(
-  () => import("./_components/DiscoverSection"),
-  {},
-);
+const DiscoverSection = dynamic(() => import("./_components/DiscoverSection"));
 const NewSection = dynamic(() => import("./_components/NewSection"));
 const InterviewSection = dynamic(
   () => import("./_components/InterviewSection"),

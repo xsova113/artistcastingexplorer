@@ -92,7 +92,7 @@ const TalentReviewSection = ({ filteredTalents }: TalentReviewSectionProps) => {
         pageCount={pageCount}
         pageRangeDisplayed={5}
         onPageChange={handlePageChange}
-        containerClassName={"flex items-center justify-center md:gap-24 gap-8"}
+        containerClassName={"flex items-center justify-center gap-8"}
         activeClassName="bg-secondary py-1 px-2"
       />
     </Stack>

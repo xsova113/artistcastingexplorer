@@ -1,7 +1,6 @@
 "use server";
 
 import prisma from "@/lib/client";
-import { cmToInFt } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
 import { City, GenderType, Province, Role } from "@prisma/client";
 
