@@ -19,11 +19,12 @@ const BlogPage = async ({
     searchParams.category
       ? `*[_type == 'post' && categories[] -> title match "${searchParams.category}" ]`
       : `*[_type == 'post' && categories[] -> title match "interviews" ]`,
-    { cache: "no-store" },
+    { cache: "no-store", revalidate: 0 },
   );
 
   const categories: Category[] = await client.fetch(`*[_type == 'category']`, {
     cache: "no-store",
+    revalidate: 0,
   });
 
   return (

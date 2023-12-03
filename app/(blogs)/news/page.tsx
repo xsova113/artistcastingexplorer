@@ -19,11 +19,11 @@ const BlogPage = async ({
 }) => {
   const posts: BlogPost[] = await client.fetch(
     `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)`,
-    { cache: "no-store" },
+    { cache: "no-store", revalidate: 0 },
   );
   const latestPost: BlogPost = await client.fetch(
     `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)[0]`,
-    { cache: "no-store" },
+    { cache: "no-store", revalidate: 0 },
   );
 
   const filteredPosts = !searchParams.month
