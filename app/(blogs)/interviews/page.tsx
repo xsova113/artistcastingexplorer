@@ -8,8 +8,6 @@ import dynamic from "next/dynamic";
 
 const LatestArticles = dynamic(() => import("../_components/LatestArticles"));
 
-export const revalidate = 0;
-
 const BlogPage = async ({
   searchParams,
 }: {
@@ -19,7 +17,8 @@ const BlogPage = async ({
     searchParams.category
       ? `*[_type == 'post' && categories[] -> title match "${searchParams.category}" ]`
       : `*[_type == 'post' && categories[] -> title match "interviews" ]`,
-    { cache: "no-store", revalidate: 0 },
+    { cache: "no-store" },
+    { next: { revalidate: 0 } },
   );
 
   const categories: Category[] = await client.fetch(`*[_type == 'category']`, {
