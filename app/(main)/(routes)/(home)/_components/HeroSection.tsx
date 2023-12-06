@@ -32,7 +32,7 @@ const HeroSection = () => {
             className="self-center text-3xl tracking-wider text-white md:w-4/5 md:text-5xl"
           >
             Discover and Connect with{" "}
-            <span className="font-semibold">Japanese</span> and Nikkei{" "}
+            <span className="font-semibold">Japanese</span> and Japanese Canadian{" "}
             <span className="textGradient font-semibold">Artists</span> and{" "}
             <span className="textGradient font-semibold">Creators</span>
           </motion.h1>
