@@ -32,6 +32,7 @@ const HeroSection = () => {
             className="self-center text-3xl tracking-wider text-white md:w-4/5 md:text-5xl"
           >
             Discover and Connect with{" "}
+            <span className="font-semibold">Japanese</span> and Nikkei{" "}
             <span className="textGradient font-semibold">Artists</span> and{" "}
             <span className="textGradient font-semibold">Creators</span>
           </motion.h1>
@@ -84,8 +85,9 @@ const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="w-2/3 self-center text-primary-foreground/80"
           >
-            Artist Casting Explorer is a general information website dedicated
-            to artists and creators geographically located in Canada and Japan
+            Artist Casting Explorer is a database dedicated to Japanese and
+            Nikkei actors, stage performers, artists and creators in Vancouver,
+            Canada
           </motion.h2>
         </Stack>
       </ParallaxBannerLayer>

@@ -24,7 +24,8 @@ const font = Raleway({
 
 export const metadata: Metadata = {
   title: "Artist Casting Explorer",
-  description: "Discover and connect with artists and creators",
+  description:
+    "Database of Japanese and Nikkei actors/performer/artists/creators in Canada. Free access to artists' profiles, images and video.",
   icons: {
     icon: [
       {
