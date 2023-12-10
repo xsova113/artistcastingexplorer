@@ -16,6 +16,7 @@ import { Toaster } from "sonner";
 import ContactModalProvider from "@/components/providers/ContactModalProvider";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const font = Raleway({
   subsets: ["latin"],
@@ -87,6 +88,7 @@ export default function RootLayout({
               <Toaster richColors />
               <ContactModalProvider />
               {children}
+              <SpeedInsights />
               <Footer />
               <ShadcnToaster />
             </RParallaxProvider>
