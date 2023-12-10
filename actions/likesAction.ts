@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/client";
 import { currentUser } from "@clerk/nextjs";
+import { revalidatePath } from "next/cache";
 
 export const onLike = async ({
   talentId,
@@ -59,6 +60,7 @@ export const removeLike = async ({ talentId }: { talentId: string }) => {
 
     if (!updatedPost) throw Error;
 
+    revalidatePath("/settings");
     return updatedPost;
   } catch (error) {
     console.log(error);
