@@ -89,7 +89,6 @@ export const columns: ColumnDef<SavedTalent>[] = [
             <DropdownMenuItem
               onClick={async () => {
                 await removeLike({ talentId: talent.id });
-                window.location.reload();
               }}
             >
               Unsave
