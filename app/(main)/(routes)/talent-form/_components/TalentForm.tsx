@@ -32,7 +32,7 @@ import { useCallback, useEffect, useState } from "react";
 import { User } from "@clerk/nextjs/server";
 import { getTalentUser } from "@/actions/getTalentUser";
 import TalentUserIdFormField from "./TalentUserIdFormField";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import JapLanguageFormField from "./JapLanguageFormField";
 import TermsAndConditions from "./TermsAndConditions";
 import AgeCheckFormField from "./AgeCheckFormField";
@@ -55,9 +55,11 @@ import SecondaryRoleFormField from "./SecondaryRoleFormField";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
+  setOpen: (value: boolean) => void;
 }
 
-const TalentForm = ({ talent: initialData }: TalentFormProps) => {
+const TalentForm = ({ talent: initialData, setOpen }: TalentFormProps) => {
+  const router = useRouter();
   const { orgRole } = useAuth();
   const { user } = useUser();
   const [talentUser, setTalentUser] = useState<User>();
@@ -148,11 +150,9 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
         if (orgRole === "admin") {
           await updateTalent(values, talentUser?.id);
           await removeFile(filesToDelete);
-          window.location.reload();
         } else {
           await updateTalent(values, user?.id);
           await removeFile(filesToDelete);
-          window.location.replace(`/profile/${initialData?.id}`);
         }
       } else {
         const newTalent = await createTalent(values, user?.id);
@@ -308,6 +308,7 @@ const TalentForm = ({ talent: initialData }: TalentFormProps) => {
                 !isFormEdited
               }
               type="submit"
+              onClick={() => setOpen(false)}
             >
               Save changes
             </Button>

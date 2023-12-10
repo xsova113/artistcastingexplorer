@@ -4,6 +4,7 @@ import prisma from "@/lib/client";
 import { sendEmail } from "@/lib/sendgrid";
 import { TalentFormValues } from "@/lib/talentFormSchema";
 import { TalentProfile } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export const createTalent = async (
   values: TalentFormValues,
@@ -93,6 +94,7 @@ export const createTalent = async (
         userEmail: values.email,
       });
 
+      revalidatePath(`/profile/${talent.id}`);
       return talent;
     } catch (error: any) {
       console.log("Error submitting: ", error);

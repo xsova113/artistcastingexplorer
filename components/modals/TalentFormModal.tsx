@@ -11,6 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
+import { useState } from "react";
 
 interface TalentFormModalProps {
   talentUser: User;
@@ -19,9 +20,10 @@ interface TalentFormModalProps {
 
 const TalentFormModal = ({ talent, talentUser }: TalentFormModalProps) => {
   const { userId, orgRole } = useAuth();
+  const [open, setOpen] = useState(false);
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger
         className={cn(
           "w-fit",
@@ -38,7 +40,7 @@ const TalentFormModal = ({ talent, talentUser }: TalentFormModalProps) => {
       <AlertDialogContent className="h-5/6 min-w-[70%] overflow-y-scroll">
         <AlertDialogHeader>
           <AlertDialogTitle>Edit Profile</AlertDialogTitle>
-          <TalentForm talent={talent} />
+          <TalentForm talent={talent} setOpen={setOpen} />
         </AlertDialogHeader>
       </AlertDialogContent>
     </AlertDialog>

@@ -3,6 +3,7 @@
 import prisma from "@/lib/client";
 import { TalentFormValues } from "@/lib/talentFormSchema";
 import { TalentProfile } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export const updateTalent = async (
   values: TalentFormValues,
@@ -89,6 +90,7 @@ export const updateTalent = async (
         },
       });
 
+      revalidatePath(`/profile/${talent.id}`);
       return talent;
     } catch (error: any) {
       console.log("Error updating: ", error);
