@@ -55,7 +55,7 @@ import SecondaryRoleFormField from "./SecondaryRoleFormField";
 
 interface TalentFormProps {
   talent?: TalentProfileType;
-  setOpen: (value: boolean) => void;
+  setOpen?: (value: boolean) => void;
 }
 
 const TalentForm = ({ talent: initialData, setOpen }: TalentFormProps) => {
@@ -308,7 +308,9 @@ const TalentForm = ({ talent: initialData, setOpen }: TalentFormProps) => {
                 !isFormEdited
               }
               type="submit"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setOpen ? setOpen(false) : () => {};
+              }}
             >
               Save changes
             </Button>
