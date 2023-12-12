@@ -2,7 +2,7 @@
 
 import Stack from "@/components/Stack";
 import { Separator } from "@/components/ui/separator";
-import { cmToInFt, cn } from "@/lib/utils";
+import { cmToInFt } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
 import dynamic from "next/dynamic";
 import { Raleway } from "next/font/google";
@@ -88,7 +88,15 @@ const TalentBio = ({ talent }: TalentBio) => {
 
       <Stack className="gap-4">
         <h3 className="text-lg font-medium">About me</h3>
-        <ReactQuill theme="bubble" value={talent.bio || "No bio..."} readOnly />
+        {!talent.bio?.includes("<p>") ? (
+          <pre>{talent.bio}</pre>
+        ) : (
+          <ReactQuill
+            theme="bubble"
+            value={talent.bio || "No bio..."}
+            readOnly
+          />
+        )}
       </Stack>
 
       <Separator className="my-5" />
