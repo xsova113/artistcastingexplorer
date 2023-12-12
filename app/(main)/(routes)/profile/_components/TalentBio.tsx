@@ -89,7 +89,7 @@ const TalentBio = ({ talent }: TalentBio) => {
       <Stack className="gap-4">
         <h3 className="text-lg font-medium">About me</h3>
         {!talent.bio?.includes("<p>") ? (
-          <pre className={cn("break-words", font.className)}>{talent.bio}</pre>
+          <pre className={cn("break-words whitespace-pre-wrap text-muted-foreground", font.className)}>{talent.bio}</pre>
         ) : (
           <ReactQuill
             theme="bubble"
