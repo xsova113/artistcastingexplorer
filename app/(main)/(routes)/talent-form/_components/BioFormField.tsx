@@ -5,16 +5,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
 import { talentFormSchema } from "@/lib/talentFormSchema";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
+import "react-quill/dist/quill.snow.css";
 
 interface BioFormFieldProps {
   form: UseFormReturn<z.infer<typeof talentFormSchema>>;
 }
 
 const BioFormField = ({ form }: BioFormFieldProps) => {
+  const ReactQuill = useMemo(() => dynamic(() => import("react-quill")), []);
+
   return (
     <FormField
       control={form.control}
@@ -23,13 +27,10 @@ const BioFormField = ({ form }: BioFormFieldProps) => {
         <FormItem>
           <FormLabel>Bio</FormLabel>
           <FormControl>
-            <Textarea
+            <ReactQuill
+              theme="snow"
               {...field}
-              placeholder="Tell us about yourself, what motivates you, and what you have accomplished..."
-              className="rounded-lg"
-              minLength={150}
-              rows={6}
-              disabled={form.formState.isSubmitting}
+              placeholder="Tell people about yourself, what motivates you, and what you have accomplished..."
             />
           </FormControl>
           <FormMessage />

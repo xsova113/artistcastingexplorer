@@ -37,7 +37,7 @@ const TalentFormModal = ({ talent, talentUser }: TalentFormModalProps) => {
       >
         Edit Profile
       </AlertDialogTrigger>
-      <AlertDialogContent className="h-5/6 min-w-[70%] overflow-y-scroll">
+      <AlertDialogContent className="h-5/6 min-w-[70%] overflow-scroll">
         <AlertDialogHeader>
           <AlertDialogTitle>Edit Profile</AlertDialogTitle>
           <TalentForm talent={talent} setOpen={setOpen} />

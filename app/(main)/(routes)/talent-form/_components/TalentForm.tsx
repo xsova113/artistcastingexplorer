@@ -159,6 +159,7 @@ const TalentForm = ({ talent: initialData, setOpen }: TalentFormProps) => {
         await removeFile(filesToDelete);
         if (!newTalent)
           return console.log("Failed to create a new talent profile.");
+        
         window.location.replace(`/profile/${newTalent.id}`);
       }
 

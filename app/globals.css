@@ -119,3 +119,6 @@ body,
   }
 }
 
+.ql-container {
+  @apply text-muted-foreground;
+}

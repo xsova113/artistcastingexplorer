@@ -1,8 +1,13 @@
+"use client";
+
 import Stack from "@/components/Stack";
 import { Separator } from "@/components/ui/separator";
 import { cmToInFt, cn } from "@/lib/utils";
 import { TalentProfileType } from "@/types/talentProfileType";
+import dynamic from "next/dynamic";
 import { Raleway } from "next/font/google";
+import { useMemo } from "react";
+import "react-quill/dist/quill.bubble.css";
 
 interface TalentBio {
   talent: TalentProfileType;
@@ -14,6 +19,7 @@ const font = Raleway({
 });
 
 const TalentBio = ({ talent }: TalentBio) => {
+  const ReactQuill = useMemo(() => dynamic(() => import("react-quill")), []);
   const height = cmToInFt(Number(talent.height));
 
   return (
@@ -82,14 +88,7 @@ const TalentBio = ({ talent }: TalentBio) => {
 
       <Stack className="gap-4">
         <h3 className="text-lg font-medium">About me</h3>
-        <pre
-          className={cn(
-            "whitespace-pre-wrap break-words text-muted-foreground",
-            font.className,
-          )}
-        >
-          {talent.bio}
-        </pre>
+        <ReactQuill theme="bubble" value={talent.bio || "No bio..."} readOnly />
       </Stack>
 
       <Separator className="my-5" />
