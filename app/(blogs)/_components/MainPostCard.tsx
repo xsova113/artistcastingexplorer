@@ -27,8 +27,11 @@ const MainPostCard = ({ path, post }: MainPostCardProps) => {
 
   useEffect(() => {
     fetchAuthor();
-    setIsMounted(true);
   }, [fetchAuthor]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   if (!isMounted) return null;
 
