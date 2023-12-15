@@ -49,14 +49,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="mb-24 overflow-x-clip">
-      <HeroSection
-        image={
-          "https://castingjapanese.ca/wp-content/uploads/2023/09/about-bg-2.jpg"
-        }
-        title={"Contact Us"}
-      />
-
+    <div className="mb-32 overflow-x-clip">
       <div className="flex flex-col gap-x-32 gap-y-20 pt-20 max-md:px-12 md:flex-row md:px-20">
         {/* Contact Form  */}
         <Stack className="flex-1">
