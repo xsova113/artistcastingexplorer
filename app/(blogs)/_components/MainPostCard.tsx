@@ -21,7 +21,7 @@ const MainPostCard = async ({ path, post }: MainPostCardProps) => {
       href={`/${path}/${post.slug.current}`}
       className="relative flex w-full flex-col items-start overflow-clip rounded-xl border shadow max-md:h-[650px] md:flex-row md:items-center"
     >
-      <div className="relative h-96 flex-1">
+      <div className="relative h-96 basis-1/2">
         <Image
           fill
           src={urlForImage(post.mainImage).fit("max").toString()}
@@ -30,7 +30,7 @@ const MainPostCard = async ({ path, post }: MainPostCardProps) => {
           className="object-cover"
         />
       </div>
-      <div className="flex flex-1 flex-col gap-y-4 p-4 md:px-10">
+      <div className="flex basis-1/2 flex-col gap-y-4 p-4 md:px-10">
         <div className="flex items-center gap-2">
           {author?.image && (
             <ProfileAvatar
