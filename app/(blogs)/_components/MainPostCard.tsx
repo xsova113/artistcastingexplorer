@@ -1,39 +1,20 @@
-"use client";
-
 import ProfileAvatar from "@/components/ProfileAvatar";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/image";
-import { Author } from "@/types/author";
 import { BlogPost } from "@/types/post";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
 
 interface MainPostCardProps {
   path: "news" | "interviews" | "news1" | "interviews1";
   post: BlogPost;
 }
-const MainPostCard = ({ path, post }: MainPostCardProps) => {
-  const [isMounted, setIsMounted] = useState(false);
-  const [author, setAuthor] = useState<Author>();
-
-  const fetchAuthor = useCallback(async () => {
-    await client
-      .fetch(`*[_type == 'author' && _id == "${post.author._ref}"][0]`)
-      .then((res) => setAuthor(res));
-  }, [post.author._ref]);
-
-  useEffect(() => {
-    fetchAuthor();
-  }, [fetchAuthor]);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) return null;
+const MainPostCard = async ({ path, post }: MainPostCardProps) => {
+  const author = await client.fetch(
+    `*[_type == 'author' && _id == "${post.author._ref}"][0]`,
+  );
 
   return (
     <Link
