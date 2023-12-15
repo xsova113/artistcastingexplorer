@@ -17,7 +17,7 @@ const MainPostCard = ({ path, post, author }: MainPostCardProps) => {
       href={`/${path}/${post.slug.current}`}
       className="relative flex w-full flex-col items-start overflow-clip rounded-xl border shadow max-md:h-[650px] md:flex-row md:items-center"
     >
-      <div className="relative h-96 w-full basis-1/2">
+      <div className="relative h-96 md:w-1/2 w-full">
         <Image
           fill
           src={urlForImage(post.mainImage).toString()}
