@@ -1,5 +1,4 @@
 import ProfileAvatar from "@/components/ProfileAvatar";
-import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/image";
 import { BlogPost } from "@/types/post";
 import { format } from "date-fns";
@@ -10,22 +9,19 @@ import Link from "next/link";
 interface MainPostCardProps {
   path: "news" | "interviews" | "news1" | "interviews1";
   post: BlogPost;
+  author: any;
 }
-const MainPostCard = async ({ path, post }: MainPostCardProps) => {
-  const author = await client.fetch(
-    `*[_type == 'author' && _id == "${post.author._ref}"][0]`,
-  );
-
+const MainPostCard = ({ path, post, author }: MainPostCardProps) => {
   return (
     <Link
       href={`/${path}/${post.slug.current}`}
       className="relative flex w-full flex-col items-start overflow-clip rounded-xl border shadow max-md:h-[650px] md:flex-row md:items-center"
     >
-      <div className="relative h-96 basis-1/2">
+      <div className="relative h-96 w-full basis-1/2">
         <Image
           fill
-          src={urlForImage(post.mainImage).fit("max").toString()}
-          alt={`${post.slug}`}
+          src={urlForImage(post.mainImage).toString()}
+          alt={post.slug.toString()}
           loading="eager"
           className="object-cover"
         />

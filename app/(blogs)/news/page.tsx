@@ -22,10 +22,9 @@ const BlogPage = async ({
     { cache: "no-store" },
     { next: { revalidate: 0 } },
   );
-  const latestPost: BlogPost = await client.fetch(
-    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)[0]`,
-    { cache: "no-store" },
-    { next: { revalidate: 0 } },
+
+  const author = await client.fetch(
+    `*[_type == 'author' && _id == "${posts[0].author._ref}"][0]`,
   );
 
   const filteredPosts = !searchParams.month
@@ -54,7 +53,7 @@ const BlogPage = async ({
         </div>
       ) : (
         <div className="flex flex-col gap-y-8">
-          <MainPostCard path="news" post={latestPost} />
+          <MainPostCard path="news" post={posts[0]} author={author} />
 
           <div className="flex justify-center gap-2">
             <LatestArticles posts={filteredPosts} path="news" />

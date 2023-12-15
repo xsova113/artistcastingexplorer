@@ -26,6 +26,10 @@ const BlogPage = async ({
     revalidate: 0,
   });
 
+  const author = await client.fetch(
+    `*[_type == 'author' && _id == "${posts[0].author._ref}"][0]`,
+  );
+
   return (
     <section>
       <div className="mb-12 flex flex-col gap-y-4">
@@ -43,7 +47,7 @@ const BlogPage = async ({
         </div>
       ) : (
         <div className="flex flex-col gap-y-8">
-          <MainPostCard path="interviews" post={posts[0]} />
+          <MainPostCard path="interviews" post={posts[0]} author={author} />
 
           <div className="flex gap-2">
             <LatestArticles
