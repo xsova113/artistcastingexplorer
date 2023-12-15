@@ -15,9 +15,9 @@ const MainPostCard = ({ path, post, author }: MainPostCardProps) => {
   return (
     <Link
       href={`/${path}/${post.slug.current}`}
-      className="relative flex w-full flex-col items-start overflow-clip rounded-xl border shadow max-md:h-[650px] md:flex-row md:items-center"
+      className="relative grid w-full grid-cols-1 gap-2.5 overflow-clip rounded-xl border shadow max-md:h-[680px] md:grid-cols-2 md:items-center"
     >
-      <div className="relative h-96 md:w-1/2 w-full">
+      <div className="relative h-96 w-full">
         <Image
           fill
           src={urlForImage(post.mainImage).toString()}
@@ -26,7 +26,7 @@ const MainPostCard = ({ path, post, author }: MainPostCardProps) => {
           className="object-cover"
         />
       </div>
-      <div className="flex basis-1/2 flex-col gap-y-4 p-4 md:px-10">
+      <div className="flex flex-col gap-y-4 p-4 md:px-10">
         <div className="flex items-center gap-2">
           {author?.image && (
             <ProfileAvatar
