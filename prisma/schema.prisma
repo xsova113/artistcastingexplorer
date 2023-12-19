@@ -25,7 +25,7 @@ model TalentProfile {
   height          Int?
   gender          GenderType?
   genderId        String?
-  bio             String?
+  bio             String? @db.Text
   ageMax          Int?
   ageMin          Int?
   bodyType        BodyType?

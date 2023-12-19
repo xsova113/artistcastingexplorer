@@ -73,4 +73,4 @@ const DiscoverSection = ({ talents }: DiscoverSectionProps) => {
   );
 };
 
-export default DiscoverSection
+export default DiscoverSection;
