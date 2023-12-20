@@ -8,6 +8,7 @@ const NewSection = dynamic(() => import("./_components/NewSection"));
 const InterviewSection = dynamic(
   () => import("./_components/InterviewSection"),
 );
+const TopNewsSection = dynamic(() => import("./_components/TopNewsSection"));
 
 const HomePage = async () => {
   const talents = await getTalents();
@@ -19,6 +20,7 @@ const HomePage = async () => {
       <DiscoverSection talents={talents} />
       <NewSection />
       <InterviewSection />
+      <TopNewsSection />
     </main>
   );
 };
