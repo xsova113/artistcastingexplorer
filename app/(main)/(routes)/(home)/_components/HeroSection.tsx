@@ -32,9 +32,9 @@ const HeroSection = () => {
             className="self-center text-3xl tracking-wider text-white md:w-4/5 md:text-5xl"
           >
             Discover and Connect with{" "}
-            <span className="font-semibold">Japanese</span> and Japanese Canadian{" "}
-            <span className="textGradient font-semibold">Artists</span> and{" "}
-            <span className="textGradient font-semibold">Creators</span>
+            <span className="font-semibold">Japanese</span> and Japanese
+            Canadian <span className="textGradient font-semibold">Artists</span>{" "}
+            and <span className="textGradient font-semibold">Creators</span>
           </motion.h1>
           <motion.div
             initial="hidden"
@@ -44,7 +44,6 @@ const HeroSection = () => {
               visible: { opacity: 1, x: 0 },
             }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="my-12"
           >
             {isSignedIn ? (
               <Link

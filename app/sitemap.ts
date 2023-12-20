@@ -7,6 +7,7 @@ const pathnames = [
   "/",
   "/directory",
   "/news",
+  "/top-news",
   "/interviews",
   "/subscribe",
   "/contact",

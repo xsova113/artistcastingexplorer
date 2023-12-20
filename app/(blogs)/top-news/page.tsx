@@ -3,6 +3,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { TopNews } from "@/types/topnews";
 import axios from "axios";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 
@@ -30,16 +31,6 @@ const TopNewsPage = () => {
     fetchTopNews();
   }, []);
 
-  // if (true) {
-  //   return (
-  //     <div className="container grid grid-cols-3 gap-8">
-  //       {[...Array(5)].map((_, i) => (
-  //         <Skeleton key={i} className="h-20 w-full" />
-  //       ))}
-  //     </div>
-  //   );
-  // }
-
   if (!topNews.length && !topNews) {
     return <p className="container">No news found...</p>;
   }
@@ -52,7 +43,7 @@ const TopNewsPage = () => {
           Explore latest news in the world of hollywood
         </h3>
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {isPending ? (
           <>
             {[...Array(5)].map((_, i) => (
@@ -65,17 +56,24 @@ const TopNewsPage = () => {
               <Link
                 href={item.link}
                 key={item.title + item.link}
-                className="flex flex-col gap-y-8 rounded-md border p-4 shadow-lg"
+                className="flex flex-col gap-y-5 rounded-md border p-3 shadow-lg"
               >
-                <div className="flex flex-col gap-y-4">
-                  <h2 className="text-xl font-medium">{item.title}</h2>
+                <h2 className="rounded bg-sky-900 p-3 text-xl font-medium text-white/90 drop-shadow">
+                  {item.title}
+                </h2>
+                <div className="flex flex-col">
                   <p className="line-clamp-4 text-sm text-muted-foreground text-neutral-700">
                     {item.summary}
                   </p>
                 </div>
-                <span className="mt-auto text-xs text-muted-foreground">
-                  {item.source}
-                </span>
+                <div className="mt-auto flex items-center justify-between">
+                  <span className="text-xs text-muted-foreground">
+                    {item.source}
+                  </span>
+                  <span className="flex items-center text-sm font-bold">
+                    Read more <ArrowRight className="h-4 w-4 ml-1.5" />
+                  </span>
+                </div>
               </Link>
             ))}
           </>
