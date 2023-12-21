@@ -11,9 +11,9 @@ export const TopNewsCard = ({ item }: TopNewsCardProps) => {
     <Link
       href={item.link}
       key={item.title + item.link}
-      className="flex flex-col gap-y-5 rounded-md border p-3 shadow-lg"
+      className="flex flex-col gap-y-5 rounded-2xl border p-3 shadow-lg"
     >
-      <h2 className="rounded bg-sky-900 p-3 text-xl font-medium text-white/90 drop-shadow">
+      <h2 className="rounded-lg bg-sky-900 p-3 text-xl font-medium text-white/90 drop-shadow">
         {item.title}
       </h2>
       <div className="flex flex-col">

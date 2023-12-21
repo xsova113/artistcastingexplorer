@@ -58,7 +58,7 @@ const TopNewsSection = () => {
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 justify-center gap-4 lg:grid-cols-3">
+        <div className="grid grid-cols-1 justify-center gap-4 lg:grid-cols-3 mx-8 md:mx-20">
           {posts.slice(0, 3).map((post) => (
             <TopNewsCard key={post.link} item={post} />
           ))}
