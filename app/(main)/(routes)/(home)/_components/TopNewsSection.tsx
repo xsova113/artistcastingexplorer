@@ -23,13 +23,12 @@ const TopNewsSection = () => {
   const [posts, setPosts] = useState<TopNews[]>([]);
 
   const fetchTopNews = () => {
-    try {
-      startTransition(() => {
-        axios.request(options).then((res) => setPosts(res.data));
-      });
-    } catch (error: any) {
-      console.error(error.message);
-    }
+    startTransition(() => {
+      axios
+        .request(options)
+        .then((res) => setPosts(res.data))
+        .catch((err) => console.error(err));
+    });
   };
 
   useEffect(() => {

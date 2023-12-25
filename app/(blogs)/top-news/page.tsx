@@ -19,12 +19,14 @@ const TopNewsPage = () => {
   const [isPending, startTransition] = useTransition();
   const [topNews, setTopNews] = useState<TopNews[]>([]);
 
-  const fetchTopNews = async () =>
-    await axios.request(options).then((res) => {
-      startTransition(() => {
-        setTopNews(res.data);
-      });
+  const fetchTopNews = () => {
+    startTransition(() => {
+      axios
+        .request(options)
+        .then((res) => setTopNews(res.data))
+        .catch((err) => console.error(err));
     });
+  };
 
   useEffect(() => {
     fetchTopNews();
