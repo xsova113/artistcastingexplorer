@@ -22,12 +22,10 @@ const TopNewsSection = () => {
   const [isPending, startTransition] = useTransition();
   const [posts, setPosts] = useState<TopNews[]>([]);
 
-  const fetchTopNews = async () => {
+  const fetchTopNews = () => {
     try {
-      await axios.request(options).then((res) => {
-        startTransition(() => {
-          setPosts(res.data);
-        });
+      startTransition(() => {
+        axios.request(options).then((res) => setPosts(res.data));
       });
     } catch (error: any) {
       console.error(error.message);
@@ -58,7 +56,7 @@ const TopNewsSection = () => {
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 justify-center gap-4 lg:grid-cols-3 mx-8 md:mx-20">
+        <div className="mx-8 grid grid-cols-1 justify-center gap-4 md:mx-20 lg:grid-cols-3">
           {posts.slice(0, 3).map((post) => (
             <TopNewsCard key={post.link} item={post} />
           ))}
