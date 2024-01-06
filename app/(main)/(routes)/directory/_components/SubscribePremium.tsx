@@ -10,14 +10,14 @@ const SubscribePremium = () => {
   return (
     <section className="relative">
       <div className="relative -z-10 h-[470px] w-full">
-        <Image
+        {/* <Image
           src={
             "https://castingjapanese.ca/wp-content/uploads/2023/09/banner-03.jpg"
           }
           alt={"subscription premium image"}
           fill
           className="object-cover opacity-80"
-        />
+        /> */}
         <div className="h-full w-full bg-slate-800" />
       </div>
       <div className="absolute top-1/3 flex w-full flex-col items-center gap-8 text-center">

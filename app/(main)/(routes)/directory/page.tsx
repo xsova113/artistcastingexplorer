@@ -61,13 +61,22 @@ const DirectoryPage = () => {
 
   return (
     <div className="flex flex-col">
-      <HeroSection
+      {/* <HeroSection
         image={
           "https://castingjapanese.ca/wp-content/uploads/2023/09/home-new-bg-free-img.jpg"
         }
         title={"Discover a wide range of Artists and Creators"}
         description="Your Ultimate Resource for Success!"
-      />
+      /> */}
+
+      <div className="gap-y-10 flex w-full flex-col bg-slate-800 py-36 text-center">
+        <h1 className="mx-auto text-center text-3xl font-medium capitalize text-white sm:text-4xl md:w-3/4 md:text-6xl md:leading-snug">
+          Discover a wide range of Artists and Creators
+        </h1>
+        <p className="w-2/3 self-center text-primary-foreground/80">
+          Your Ultimate Resource for Success!
+        </p>
+      </div>
       <Stack className="mx-auto">
         <h1 className="mt-24 text-3xl font-semibold lg:text-4xl">Talents</h1>
         <div className="mx-auto mb-12 mt-8 w-full border-b-2 border-primary" />
