@@ -23,7 +23,7 @@ const Archive = ({ isMobile, posts }: ArchiveProps) => {
   const router = useRouter();
   const filteredPosts = ({ month }: { month: number }) =>
     posts.filter((post) =>
-      dayjs(post._createdAt).isSame(`${prevYear}-${month}`, "month"),
+      dayjs(post.publishedAt).isSame(`${prevYear}-${month}`, "month"),
     );
 
   const handleClick = ({ month }: { month: number }) => {
