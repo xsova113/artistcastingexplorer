@@ -9,6 +9,7 @@ import dynamic from "next/dynamic";
 const LatestArticles = dynamic(() => import("../_components/LatestArticles"));
 
 const currentYear = new Date().getFullYear();
+const prevYear = new Date().getFullYear() - 1;
 
 export const revalidate = 0;
 
@@ -18,7 +19,7 @@ const BlogPage = async ({
   searchParams: { month: string };
 }) => {
   const posts: BlogPost[] = await client.fetch(
-    `*[_type == 'post' && categories[] -> title match "news"] | order(publishedAt desc)`,
+    `*[_type == 'post' && categories[] -> title match "news"] | order(_createdAt desc)`,
     { cache: "no-store" },
     { next: { revalidate: 0 } },
   );
@@ -28,10 +29,15 @@ const BlogPage = async ({
   );
 
   const filteredPosts = !searchParams.month
-    ? posts
+    ? posts.filter(
+        (post) =>
+          new Date(
+            post.publishedAt ? post.publishedAt : post._createdAt,
+          ).getFullYear() === new Date().getFullYear(),
+      )
     : posts.filter((post) =>
         dayjs(post.publishedAt).isSame(
-          `${currentYear}-${searchParams.month}`,
+          `${prevYear}-${searchParams.month}`,
           "month",
         ),
       );
@@ -46,7 +52,6 @@ const BlogPage = async ({
           Explore here for details on artist appearances and more
         </h3>
       </div>
-
       {!posts || !posts.length ? (
         <div className="flex items-center justify-center py-24 text-lg">
           No posts found.

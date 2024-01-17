@@ -9,7 +9,8 @@ import qs from "query-string";
 import { useRouter } from "next/navigation";
 
 const currentYear = new Date().getFullYear();
-const currentMonth = new Date().getMonth() + 1;
+const prevYear = new Date().getFullYear() - 1;
+const currentMonth = new Date().getMonth();
 
 dayjs.extend(isBetween);
 
@@ -22,7 +23,7 @@ const Archive = ({ isMobile, posts }: ArchiveProps) => {
   const router = useRouter();
   const filteredPosts = ({ month }: { month: number }) =>
     posts.filter((post) =>
-      dayjs(post.publishedAt).isSame(`${currentYear}-${month}`, "month"),
+      dayjs(post._createdAt).isSame(`${prevYear}-${month}`, "month"),
     );
 
   const handleClick = ({ month }: { month: number }) => {
@@ -43,7 +44,7 @@ const Archive = ({ isMobile, posts }: ArchiveProps) => {
   return (
     <div
       className={cn(
-        "w-[130px] flex-col sm:ml-auto mx-auto sm:flex sm:pr-10 sm:pt-16",
+        "mx-auto w-[130px] flex-col sm:ml-auto sm:flex sm:pr-10 sm:pt-16",
         isMobile ? "block" : "hidden",
       )}
     >
@@ -51,39 +52,39 @@ const Archive = ({ isMobile, posts }: ArchiveProps) => {
         Archives
       </h2>
       <div className="mt-6 flex flex-col items-start gap-x-4">
-        <h4 className="mb-2 font-semibold">{currentYear}</h4>
+        <h4 className="mb-2 font-semibold">{prevYear}</h4>
         <div className="flex flex-col items-start gap-x-4">
           <Button
-            onClick={() => handleClick({ month: currentMonth })}
+            onClick={() => handleClick({ month: 12 })}
             variant={"link"}
             className="p-0 text-xs font-semibold text-muted-foreground"
           >
-            {dayjs(currentMonth.toString()).format("MMMM")} (
-            {filteredPosts({ month: currentMonth }).length})
+            {dayjs(new Date("12")).format("MMMM")} (
+            {filteredPosts({ month: 12 }).length})
           </Button>
           <Button
-            onClick={() => handleClick({ month: currentMonth - 1 })}
+            onClick={() => handleClick({ month: 11 })}
             variant={"link"}
             className="p-0 text-xs font-semibold text-muted-foreground"
           >
-            {dayjs((currentMonth - 1).toString()).format("MMMM")} (
-            {filteredPosts({ month: currentMonth - 1 }).length})
+            {dayjs(new Date("11")).format("MMMM")} (
+            {filteredPosts({ month: 11 }).length})
           </Button>
           <Button
-            onClick={() => handleClick({ month: currentMonth - 2 })}
+            onClick={() => handleClick({ month: 10 })}
             variant={"link"}
             className="p-0 text-xs font-semibold text-muted-foreground"
           >
-            {dayjs((currentMonth - 2).toString()).format("MMMM")} (
-            {filteredPosts({ month: currentMonth - 2 }).length})
+            {dayjs(new Date("10")).format("MMMM")} (
+            {filteredPosts({ month: 10 }).length})
           </Button>
           <Button
-            onClick={() => handleClick({ month: currentMonth - 3 })}
+            onClick={() => handleClick({ month: 9 })}
             variant={"link"}
             className="p-0 text-xs font-semibold text-muted-foreground"
           >
-            {dayjs((currentMonth - 3).toString()).format("MMMM")} (
-            {filteredPosts({ month: currentMonth - 3 }).length})
+            {dayjs(new Date("9")).format("MMMM")} (
+            {filteredPosts({ month: 9 }).length})
           </Button>
         </div>
       </div>

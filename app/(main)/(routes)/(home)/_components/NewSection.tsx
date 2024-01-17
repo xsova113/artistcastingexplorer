@@ -27,9 +27,12 @@ const NewSection = async () => {
         <p>Cannot load...</p>
       ) : (
         <div className="grid grid-cols-1 justify-center gap-4 lg:grid-cols-3">
-          {posts.slice(0, 3).map((post: BlogPost) => (
-            <ArticleCard key={post._id} path={"news"} post={post} />
-          ))}
+          {posts
+            .filter((post) => new Date(post._createdAt).getFullYear() === 2024)
+            .slice(0, 3)
+            .map((post: BlogPost) => (
+              <ArticleCard key={post._id} path={"news"} post={post} />
+            ))}
         </div>
       )}
 
