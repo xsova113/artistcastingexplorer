@@ -29,7 +29,7 @@ const PostBody = ({ post }: PostBodyProps) => {
             alt={value.alt || ""}
             loading="lazy"
             src={urlForImage(value).fit("max").auto("format").toString()}
-            className="my-6 h-[450px] w-[750px] object-cover object-left md:object-contain"
+            className="my-6 h-[450px] w-[750px] object-contain object-left"
           />
         );
       },
