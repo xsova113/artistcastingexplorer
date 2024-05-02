@@ -19,7 +19,7 @@ const HeroSection = () => {
         className="opacity-50"
       />
       <ParallaxBannerLayer className="flex w-full items-center bg-cover">
-        <Stack className="mt-20 w-full text-center text-white lg:mt-32">
+        <Stack className="mt-20 w-full space-y-12 text-center text-white lg:mt-32">
           <motion.h1
             data-cy="hero-text"
             initial="hidden"
@@ -54,7 +54,7 @@ const HeroSection = () => {
               </Link>
             ) : (
               <SignUpButton mode="modal">
-                <button className="w-fit self-center rounded-full bg-primary px-8 py-1.5 uppercase transition hover:bg-secondary-foreground lg:my-14">
+                <button className="w-fit self-center rounded-full bg-primary px-8 py-1.5 uppercase transition hover:bg-secondary-foreground">
                   Join Now
                 </button>
               </SignUpButton>
