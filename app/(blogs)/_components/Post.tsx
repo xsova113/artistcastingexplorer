@@ -34,7 +34,7 @@ const Post = ({ author, post }: PostProps) => {
         <Stack className="gap-2">
           <FlexBetween>
             <span className="text-muted-foreground">
-              {dayjs(post.publishedAt).format("MMM DD, YYYY")}
+              {dayjs(post._createdAt).format("MMM DD, YYYY")}
             </span>
             <SocialDropdown />
           </FlexBetween>
